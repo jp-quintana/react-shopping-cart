@@ -1,0 +1,34 @@
+.container {
+  display: grid;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  transition: all .3s ease-in-out;
+}
+
+.container_hidden {
+  display: none;
+  transition: all .3s ease-in-out;
+}
+
+.close_icon {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 3rem;
+  cursor: pointer;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+  text-transform: uppercase;
+  font-size: 1.6rem;
+}
