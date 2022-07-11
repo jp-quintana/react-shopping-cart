@@ -1,11 +1,15 @@
 .nav {
-  z-index: 1;
+  position: fixed;
+  width: 100%;
+  background-color: #fff;
+  z-index: 9;
 }
 
 .container_top {
   display: flex;
   justify-content: space-between;
   padding: 1rem 1.5rem;
+  
 
   @media (min-width: 768px) {
     padding: 1rem 3rem;

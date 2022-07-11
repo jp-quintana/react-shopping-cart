@@ -1,11 +1,11 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from 'react-router-dom';
 
-import Home from "./pages/Home";
-import Products from "./pages/Products";
+import Home from './pages/Home';
+import Products from './pages/Products';
 
-import Layout from "./components/Layout";
+import Layout from './components/Layout';
 
-import "./App.css";
+import './App.css';
 
 const App = () => {
   return (

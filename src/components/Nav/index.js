@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import { FaBars } from "react-icons/fa";
-import { BiUser, BiShoppingBag, BiSearch } from "react-icons/bi";
+import { FaBars } from 'react-icons/fa';
+import { BiUser, BiShoppingBag, BiSearch } from 'react-icons/bi';
 
-import LogoNav from "../../assets/images/logo-nav.png";
+import LogoNav from '../../assets/images/logo-nav.png';
 
-import styles from "./index.module.scss";
+import styles from './index.module.scss';
 
 const Navbar = (props) => {
   const { toggle } = props;

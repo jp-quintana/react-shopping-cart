@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import { BiX } from "react-icons/bi";
+import { BiX } from 'react-icons/bi';
 
-import styles from "./index.module.scss";
+import styles from './index.module.scss';
 
 const SideNav = (props) => {
   const { toggle, isOpen } = props;
