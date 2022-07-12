@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import Nav from "../Nav";
-import SideNav from "../SideNav";
+import Nav from './components/Nav';
+import SideNav from './components/SideNav';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);

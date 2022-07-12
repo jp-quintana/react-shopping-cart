@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 import { BiUser, BiShoppingBag, BiSearch } from 'react-icons/bi';
 
-import LogoNav from '../../assets/images/logo-nav.png';
+import LogoNav from 'assets/images/logo-nav.png';
 
 import styles from './index.module.scss';
 
