@@ -28,5 +28,10 @@
   .content {
     z-index: 1;
     max-width: 80%;
+
+    @media (min-width: 768px) {
+      margin-top: 8rem;
+      max-width: 70%;
+    }
   }
   

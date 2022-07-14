@@ -5,7 +5,7 @@ import Products from './pages/Products';
 
 import Layout from './setup/Layout';
 
-import './App.css';
+import './App.scss';
 
 const App = () => {
   return (

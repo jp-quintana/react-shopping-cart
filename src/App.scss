@@ -1,5 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.cdnfonts.com/css/monument-extended');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
 
 html {
   box-sizing: border-box;
@@ -48,19 +53,24 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-  font-size: 2.7rem;
+  font-size: 2rem;
+  @media (min-width: 768px) {
+    font-size: 2.7rem; 
+  }
 }
 
 h2 {
-  font-size: 2.3rem;
+  font-size: 1.725rem;
+  @media (min-width: 768px) {
+    font-size: 2.3rem;
+  }
 }
 
 h3 {
-  font-size: 1.8rem;
-}
-
-h4 {
   font-size: 1.6rem;
+  @media (min-width: 768px) {
+    font-size: 1.8rem;
+  }
 }
 
 img {
@@ -70,4 +80,10 @@ img {
 
 ul {
   list-style: none;
+}
+
+.main-container {
+  max-width: 125rem;
+  width: 90%;
+  margin: 0 auto;
 }
