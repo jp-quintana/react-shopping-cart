@@ -14,17 +14,17 @@ const SideNav = (props) => {
       </i>
       <ul className={styles.links}>
         <li>
-          <Link to="/categoria/remeras" onClick={toggle}>
+          <Link to="/categorias/remeras" onClick={toggle}>
             Remeras
           </Link>
         </li>
         <li>
-          <Link to="/categoria/buzos" onClick={toggle}>
+          <Link to="/categorias/buzos" onClick={toggle}>
             Buzos
           </Link>
         </li>
         <li>
-          <Link to="/categoria/accesorios" onClick={toggle}>
+          <Link to="/categorias/accesorios" onClick={toggle}>
             Accesorios
           </Link>
         </li>

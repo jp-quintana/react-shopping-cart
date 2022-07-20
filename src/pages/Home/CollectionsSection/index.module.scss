@@ -1,0 +1,23 @@
+.container {
+  padding: 1.5rem 0;
+
+  @media (min-width: 768px) {
+    padding: 2.5rem 0;
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid_container {
+  display: grid;
+  gap: 2rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+
+  }
+ 
+}
