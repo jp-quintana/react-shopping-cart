@@ -1,12 +1,26 @@
 .link {
   position: relative;
-  height: 42rem;
-
-
+  
   @media (min-width: 768px) {
-    height: 55rem;
+    min-height: 42rem;
+
+    &:nth-child(1) {
+      grid-area: remeras;
+    }
+    &:nth-child(2) {
+      grid-area: buzos;
+    }
+    &:nth-child(3) {
+      grid-area: accesorios;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    min-height: 50rem;
   }
 }
+
+
 
 .title {
   position: absolute;
