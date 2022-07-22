@@ -7,22 +7,22 @@ import styles from './index.module.scss';
 const Footer = () => {
   return (
     <footer className={styles.footer}>
-      <div className={styles.container}>
+      <div className={`${styles.container} main-container`}>
         <div className={styles.sitemap}>
           <div className={styles.nav_wrapper}>
             <h4 className={styles.nav_title}>Ayuda</h4>
             <ul>
               <li>
-                <Link to="">Contacto</Link>
+                <Link to="/">Contacto</Link>
               </li>
               <li>
-                <Link to="">Pagos & envíos</Link>
+                <Link to="/">Pagos & envíos</Link>
               </li>
               <li>
-                <Link to="">Órdenes</Link>
+                <Link to="/">Órdenes</Link>
               </li>
               <li>
-                <Link to="">Retornos</Link>
+                <Link to="/">Retornos</Link>
               </li>
             </ul>
           </div>

@@ -34,13 +34,13 @@ const Navbar = (props) => {
       <div className={styles.container_bottom}>
         <ul className={styles.links}>
           <li>
-            <Link to="/categoria/remeras">Remeras</Link>
+            <Link to="/categorias/remeras">Remeras</Link>
           </li>
           <li>
-            <Link to="/categoria/buzos">Buzos</Link>
+            <Link to="/categorias/buzos">Buzos</Link>
           </li>
           <li>
-            <Link to="/categoria/accesorios">Accesorios</Link>
+            <Link to="/categorias/accesorios">Accesorios</Link>
           </li>
         </ul>
       </div>
