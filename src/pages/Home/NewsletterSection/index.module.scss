@@ -1,0 +1,30 @@
+.section {
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  padding: 4rem 0rem;
+
+  @media (min-width: 768px){
+    flex-direction: row;
+  }
+}
+
+.content {
+  color: #fff;
+  font-size: 1.6rem;
+}
+
+.button {
+  background: #fff;
+  font-weight: 700;
+  padding: .5rem 1rem;
+  font-size: 1.6rem;
+  width: 80%;
+
+  @media (min-width: 768px){
+    width: auto;
+  }
+}
