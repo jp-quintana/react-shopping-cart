@@ -1,0 +1,36 @@
+.container {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  padding: 3rem;
+}
+
+.sitemap {
+  display: flex;
+  flex-direction: row;
+
+  @media (min-width: 768px) {
+    gap: 2rem;
+  }
+}
+
+.socials {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 1.5rem;
+
+  @media (min-width: 768px) {
+    gap: 2rem;  
+  }
+
+  & a {
+    font-size: 2.5rem;
+
+    @media (min-width: 768px) {
+      font-size: 3rem;   
+    }
+  }
+}
+
+
+
