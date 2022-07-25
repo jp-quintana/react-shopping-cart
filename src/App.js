@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Home from './pages/Home';
-import Products from './pages/Products';
+import Collections from './pages/Collections';
 
 import Layout from './setup/Layout';
 
@@ -12,7 +12,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="/categorias/:id" element={<Products />} />
+        <Route path="/categorias/:id" element={<Collections />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Route>
     </Routes>
