@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import styles from './index.module.scss';
 
-const CollectionsSectionCard = (props) => {
+const CollectionCard = (props) => {
   const { imageTop, imageBottom, title, url } = props;
 
   return (
@@ -14,4 +14,4 @@ const CollectionsSectionCard = (props) => {
   );
 };
 
-export default CollectionsSectionCard;
+export default CollectionCard;

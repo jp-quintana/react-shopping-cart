@@ -1,0 +1,59 @@
+.link {
+  box-shadow: 0 0 1rem -0.3rem #E1E1E1;
+  transition: all .2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    transform: scale(1.01);
+    color: inherit;
+  }
+}  
+
+.image_wrapper {
+  position: relative;
+  max-width: 100%;
+
+  @media (min-width: 768px) {
+  }
+
+}
+
+.image_top,
+.image_bottom {
+  max-height: 50rem;
+
+  @media (min-width: 768px) {
+    max-height: none;
+  }
+}
+
+.image_top:hover {
+  animation: slideshow 5s infinite;
+}
+
+@keyframes slideshow {
+  0%, 100% {
+    opacity: 100%;
+  }
+  30%, 70% {
+    opacity: 0;
+  }
+}
+
+.image_bottom {
+  z-index: -1;
+  position: absolute;
+  top: 0;
+}
+
+.info_wrapper {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  font-size: 1.6rem;
+}
