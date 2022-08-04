@@ -1,4 +1,4 @@
-import CollectionsSectionCard from './components/CollectionsSectionCard';
+import CollectionCard from './components/CollectionCard';
 
 import { DUMMY_COLLECTIONS as collections } from './data';
 
@@ -12,10 +12,10 @@ const CollectionsSection = () => {
           <h2 className={styles.title}>Categorías</h2>
           <div className={styles.grid_container}>
             {collections.map((collection) => (
-              <CollectionsSectionCard
+              <CollectionCard
                 key={collection.id}
-                imageTop={collection.imageTop}
-                imageBottom={collection.imageBottom}
+                imageTop={collection.image_top}
+                imageBottom={collection.image_bottom}
                 title={collection.title}
                 url={collection.url}
               />

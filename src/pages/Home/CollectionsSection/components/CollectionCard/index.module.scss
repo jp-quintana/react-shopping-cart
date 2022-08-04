@@ -1,6 +1,6 @@
 .link {
   position: relative;
-  min-height: 42rem;
+  max-height: 50rem;
   
   @media (min-width: 768px) {
     &:nth-child(1) {
@@ -8,14 +8,12 @@
     }
     &:nth-child(2) {
       grid-area: buzos;
+      max-height: none;
+
     }
     &:nth-child(3) {
       grid-area: accesorios;
     }
-  }
-
-  @media (min-width: 1024px) {
-    min-height: 50rem;
   }
 }
 
@@ -32,7 +30,6 @@
 }
 
 .image_top {
-  position: absolute;
   -webkit-transition: all ease 1s;
   -moz-transition: all ease 1s;
   -o-transition: all ease 1s;

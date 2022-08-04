@@ -8,22 +8,22 @@ import CollectionAccesoriosBottom from 'assets/images/collection-accesorios-bott
 export const DUMMY_COLLECTIONS = [
   {
     id: 1,
-    imageTop: CollectionRemerasTop,
-    imageBottom: CollectionRemerasBottom,
+    image_top: CollectionRemerasTop,
+    image_bottom: CollectionRemerasBottom,
     title: 'Remeras',
     url: '/categorias/remeras',
   },
   {
     id: 2,
-    imageTop: CollectionBuzosTop,
-    imageBottom: CollectionBuzosBottom,
+    image_top: CollectionBuzosTop,
+    image_bottom: CollectionBuzosBottom,
     title: 'Buzos',
     url: '/categorias/buzos',
   },
   {
     id: 3,
-    imageTop: CollectionAccesoriosTop,
-    imageBottom: CollectionAccesoriosBottom,
+    image_top: CollectionAccesoriosTop,
+    image_bottom: CollectionAccesoriosBottom,
     title: 'Accesorios',
     url: '/categorias/accesorios',
   },

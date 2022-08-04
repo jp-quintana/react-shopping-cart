@@ -6,16 +6,16 @@ export const DUMMY_SLIDES = [
   {
     image: Slide1,
     id: 1,
-    isActive: true,
+    is_active: true,
   },
   {
     image: Slide2,
     id: 2,
-    isActive: false,
+    is_active: false,
   },
   {
     image: Slide3,
     id: 3,
-    isActive: false,
+    is_active: false,
   },
 ];

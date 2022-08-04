@@ -16,7 +16,11 @@ const Slideshow = (props) => {
     >
       <div className="carousel-inner relative w-full overflow-hidden">
         {slides.map((slide) => (
-          <Slide key={slide.id} image={slide.image} isActive={slide.isActive} />
+          <Slide
+            key={slide.id}
+            image={slide.image}
+            isActive={slide.is_active}
+          />
         ))}
       </div>
       <button
