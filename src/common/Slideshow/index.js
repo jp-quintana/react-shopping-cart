@@ -20,6 +20,7 @@ const Slideshow = (props) => {
             key={slide.id}
             image={slide.image}
             isActive={slide.is_active}
+            url={slide.url}
           />
         ))}
       </div>

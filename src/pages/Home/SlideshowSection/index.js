@@ -1,6 +1,6 @@
 import Slideshow from 'common/Slideshow';
 
-import { DUMMY_SLIDES } from './data';
+import { DUMMY_SLIDES as slides } from './data';
 
 import styles from './index.module.scss';
 
@@ -10,7 +10,7 @@ const SlideshowSection = () => {
       <div className={`${styles.container} main-container`}>
         <div className={styles.wrapper}>
           <h1 className={styles.title}>Cápsula #01</h1>
-          <Slideshow slides={DUMMY_SLIDES} />
+          <Slideshow slides={slides} />
         </div>
       </div>
     </section>

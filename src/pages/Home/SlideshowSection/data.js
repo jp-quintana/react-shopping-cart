@@ -7,15 +7,18 @@ export const DUMMY_SLIDES = [
     image: Slide1,
     id: 1,
     is_active: true,
+    url: '/categorias/productos',
   },
   {
     image: Slide2,
     id: 2,
     is_active: false,
+    url: '/categorias/productos',
   },
   {
     image: Slide3,
     id: 3,
     is_active: false,
+    url: '/categorias/productos',
   },
 ];
