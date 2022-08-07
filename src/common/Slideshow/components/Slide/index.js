@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
+
 const Slide = (props) => {
-  const { image, isActive } = props;
+  const { image, isActive, url } = props;
 
   return (
     <div
@@ -9,7 +11,9 @@ const Slide = (props) => {
           : 'carousel-item relative float-left w-full'
       }
     >
-      <img src={image} className="block w-full" alt="Wild Landscape" />
+      <Link to={url}>
+        <img src={image} className="block w-full" alt="Wild Landscape" />
+      </Link>
     </div>
   );
 };
