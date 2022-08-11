@@ -22,7 +22,7 @@ body {
   color: #000000;
   font-weight: 400;
   font-size: 1.2rem;
-  line-height: 2;
+  line-height: 1.5;
 }
 
 input,
@@ -73,6 +73,10 @@ h3 {
   }
 }
 
+p {
+  font-size: 1.6rem
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -87,3 +91,4 @@ ul {
   width: 90%;
   margin: 0 auto;
 }
+

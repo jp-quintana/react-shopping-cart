@@ -1,7 +1,7 @@
-import React from 'react';
+import ProductContainer from './ProductContainer';
 
 const Products = () => {
-  return <div>Products</div>;
+  return <ProductContainer />;
 };
 
 export default Products;

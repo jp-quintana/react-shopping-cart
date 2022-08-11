@@ -1,0 +1,26 @@
+.size {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border: .1rem solid #A9A9A9;
+  color: #000;
+  font-family: 'Montserrat';
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.no_stock {
+  border: none;
+  text-decoration: line-through;
+}
+
+.fill {
+  border: none;
+  background-color: #000;
+  color: #fff;
+}
