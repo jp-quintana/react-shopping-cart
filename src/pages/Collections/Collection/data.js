@@ -39,7 +39,7 @@ export const DUMMY_COLLECTIONS_PRODUCTS = [
     price: { raw: 6400, html: '6.400' },
     type: 'Hoodie',
     collections: 'buzos',
-    url: 'remera-de-gira-negro',
+    url: 'hoodie-de-gira-negro',
     image_top: require('assets/images/productos-hoodie-de-gira-negro-1.jpg'),
     image_bottom: require('assets/images/productos-hoodie-de-gira-negro-2.jpg'),
   },

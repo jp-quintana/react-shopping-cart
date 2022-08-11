@@ -1,9 +1,7 @@
-import Product from './Product';
-
-import { DUMMY_PRODUCTS as products } from './data';
+import ProductContainer from './ProductContainer';
 
 const Products = () => {
-  return <Product products={products} />;
+  return <ProductContainer />;
 };
 
 export default Products;
