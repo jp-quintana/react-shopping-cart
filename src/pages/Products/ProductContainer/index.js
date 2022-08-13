@@ -58,7 +58,7 @@ const ProductContainer = () => {
     });
   }, []);
 
-  const onSelectVariant = (productId) => {
+  const handleSelectVariant = (productId) => {
     if (productId !== productState.variant.productId) {
       dispatchProduct({
         type: 'SET_PRODUCT_VARIANT',
@@ -67,7 +67,7 @@ const ProductContainer = () => {
     }
   };
 
-  const onSelectSize = (selectedSize) => {
+  const handleSelectSize = (selectedSize) => {
     if (selectedSize !== productState.size) {
       dispatchProduct({
         type: 'SET_PRODUCT_SIZE',
@@ -85,9 +85,10 @@ const ProductContainer = () => {
       price={productState.variant.price.html}
       images={productState.variant.images}
       inventoryLevels={productState.variant.inventoryLevels}
+      selectedVariant={productState.variant}
       size={productState.size}
-      onSelectVariant={onSelectVariant}
-      onSelectSize={onSelectSize}
+      onSelectVariant={handleSelectVariant}
+      onSelectSize={handleSelectSize}
     />
   );
 };

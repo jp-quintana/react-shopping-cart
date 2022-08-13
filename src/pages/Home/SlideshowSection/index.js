@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+
+import Button from 'common/Button';
 import Slideshow from 'common/Slideshow';
 
 import { DUMMY_SLIDES as slides } from './data';
@@ -8,8 +11,12 @@ const SlideshowSection = () => {
   return (
     <section className={styles.section}>
       <div className={`${styles.container} main-container`}>
+        <h1 className={styles.title}>Lo último</h1>
         <div className={styles.wrapper}>
-          <h1 className={styles.title}>Cápsula #01</h1>
+          <Link className={styles.link} to="/categorias/productos">
+            <Button className={styles.button}>Cápsula #01</Button>
+          </Link>
+
           <Slideshow slides={slides} />
         </div>
       </div>

@@ -1,31 +1,48 @@
-.section {
-  background: #000;
+@import 'App.scss';
+
+.container {
+  padding: 3rem 0 6rem 0;
+  text-align: center;
+}
+
+.title {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4rem;
-  padding: 4rem 0rem;
-  text-align: center;
+  gap: 1rem;
+
+}
+
+.input {
+  border: solid .2rem #9e9e9e;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  width: 100%;
+  font-size: 1.6rem;
 
   @media (min-width: 768px){
-    flex-direction: row;
+    width: 50%;
   }
 }
 
-.content {
-  color: #fff;
-  font-size: 1.6rem;
-}
-
 .button {
-  background: #fff;
-  font-weight: 700;
-  padding: .5rem 1rem;
+  padding: 1rem 2rem;
   font-size: 1.6rem;
-  width: 80%;
+  border: solid .2rem #000;
+  border-radius: 1rem;
+  width: 100%;
+  background: #000;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: $ls-button;
 
   @media (min-width: 768px){
-    width: auto;
+    width: 50%;
   }
 }

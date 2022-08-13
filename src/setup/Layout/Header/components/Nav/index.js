@@ -11,7 +11,7 @@ const Navbar = (props) => {
   const { toggle } = props;
 
   return (
-    <nav className={styles.nav}>
+    <nav className={`${styles.nav}`}>
       <div className={styles.container_top}>
         <Link to="/">
           <img className={styles.logo} src={LogoNav} alt="Logo Nav" />
@@ -34,13 +34,19 @@ const Navbar = (props) => {
       <div className={styles.container_bottom}>
         <ul className={styles.links}>
           <li>
-            <Link to="/categorias/remeras">Remeras</Link>
+            <Link className={styles.link} to="/categorias/remeras">
+              Remeras
+            </Link>
           </li>
           <li>
-            <Link to="/categorias/buzos">Buzos</Link>
+            <Link className={styles.link} to="/categorias/buzos">
+              Buzos
+            </Link>
           </li>
           <li>
-            <Link to="/categorias/accesorios">Accesorios</Link>
+            <Link className={styles.link} to="/categorias/accesorios">
+              Accesorios
+            </Link>
           </li>
         </ul>
       </div>

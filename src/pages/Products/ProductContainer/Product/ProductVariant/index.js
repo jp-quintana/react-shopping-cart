@@ -1,16 +1,26 @@
 import styles from './index.module.scss';
 
 const ProductVariant = (props) => {
-  const { id, thumbnail, onSelectVariant } = props;
+  const { id, thumbnail, selectedVariant, onSelectVariant } = props;
 
-  const selectVariantHandler = () => {
+  let shouldAddEventHandler = false;
+  if (selectedVariant.productId !== id) {
+    shouldAddEventHandler = true;
+  }
+
+  const handleSelectVariant = () => {
     onSelectVariant(id);
   };
 
+  let variantStyles =
+    selectedVariant.productId === id
+      ? styles.thumbnail_selected
+      : styles.thumbnail;
+
   return (
     <img
-      className={styles.thumbnail}
-      onClick={selectVariantHandler}
+      className={variantStyles}
+      onClick={shouldAddEventHandler ? handleSelectVariant : undefined}
       src={thumbnail}
       alt=""
     />

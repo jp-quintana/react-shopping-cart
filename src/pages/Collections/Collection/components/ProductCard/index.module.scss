@@ -1,11 +1,19 @@
+.card {
+  -moz-transition: all .2s ease-in;
+  -o-transition: all .2s ease-in;
+  -webkit-transition: all .2s ease-in;
+  transition: all .2s ease-in;
+
+  &:hover {
+    transform: scale(1.01);
+  }
+}
+
 .link {
-  box-shadow: 0 0 1rem -0.3rem #E1E1E1;
-  transition: all .2s ease-in-out;
   display: flex;
   flex-direction: column;
 
   &:hover {
-    transform: scale(1.01);
     color: inherit;
   }
 }  
