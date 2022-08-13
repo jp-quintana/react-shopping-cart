@@ -1,28 +1,33 @@
+@import 'App.scss';
+
 .nav {
   position: fixed;
   width: 100%;
   background-color: #fff;
   z-index: 9;
+  border-radius: 0 0 3rem 3rem;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,.1),0 8px 10px -6px rgba(0,0,0,.1);
+  padding: 1.5rem 3rem 1.5rem 3rem;
+  left: 50%;
+  transform:translateX(-50%);
+  
+
+  @media (min-width: 768px) {
+    padding: 1.5rem 3rem .5rem 3rem;
+    max-width: 125rem;
+    width: 90%;
+  }
 }
 
 .container_top {
   display: flex;
   justify-content: space-between;
-  padding: 1rem 1.5rem;
-  
-
-  @media (min-width: 768px) {
-    padding: 1rem 3rem;
-  }
-
-  @media (min-width: 1024px) {
-  
-  }
 
   & a {
     display: flex;
     align-items: center;
   }
+ 
 
 }
 
@@ -71,7 +76,17 @@
   display: flex;
   justify-content: center;
   gap: 5rem;
-  text-transform: uppercase;
   font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: $ls-button;
+  color: #000;
+}
+
+.link {
+  padding: none;
+
+  @media (min-width: 1024px) {
+    padding: 0rem 3rem 0 3rem;
+  }
 }
   

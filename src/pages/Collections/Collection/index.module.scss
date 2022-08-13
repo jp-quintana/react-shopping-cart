@@ -1,12 +1,11 @@
 .container {
-  padding-top: 6rem;
+  padding-top: 10rem;
   display: grid;
   justify-content: center;
   gap: 2rem;
 
-
   @media (min-width: 768px) {
-    padding-top: 9.2rem;
-    grid-template-columns: repeat(2, 1fr);
+    padding-top: 12.2rem;
+    grid-template-columns: repeat(3, 1fr);
   }
 }

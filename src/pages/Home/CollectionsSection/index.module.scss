@@ -6,9 +6,8 @@
   }
 }
 
-.wrapper {
-  display: flex;
-  flex-direction: column;
+.title {
+  margin-bottom: .5rem;
 }
 
 .grid_container {
@@ -19,6 +18,9 @@
     grid-template-areas: 'remeras buzos'
                          'accesorios buzos';
     grid-template-columns: repeat(2, 1fr);
+    gap: 4rem;
   }
 }
+
+
 

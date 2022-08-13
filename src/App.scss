@@ -1,10 +1,12 @@
+@import url('https://fonts.cdnfonts.com/css/monument-extended');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.cdnfonts.com/css/monument-extended');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
+$ls-button: .12rem;
 
 html {
   box-sizing: border-box;
@@ -19,8 +21,8 @@ html {
 
 body {
   font-family: "Monument Extended", sans-serif;
-  color: #000000;
   font-weight: 400;
+  color: #000000;
   font-size: 1.2rem;
   line-height: 1.5;
 }

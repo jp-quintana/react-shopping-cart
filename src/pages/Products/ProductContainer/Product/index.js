@@ -1,5 +1,6 @@
 import ProductVariant from './ProductVariant';
 import ProductSize from './ProductSize';
+import Button from 'common/Button';
 
 import styles from './index.module.scss';
 
@@ -12,14 +13,19 @@ const Product = (props) => {
     price,
     inventoryLevels,
     images,
+    selectedVariant,
     size,
     onSelectVariant,
     onSelectSize,
   } = props;
 
+  let shouldAddEventHandler = false;
+  if (size.length > 0) {
+    shouldAddEventHandler = true;
+  }
+
   const buttonContent =
     size.length === 0 ? 'SELECCIONAR TALLE' : `AGREGAR ${size} AL CARRITO`;
-
   const buttonStyles = `
     ${size.length === 0 ? styles.button_disabled : styles.button}
   `;
@@ -41,6 +47,7 @@ const Product = (props) => {
                 id={variant.productId}
                 thumbnail={variant.productThumbnail}
                 onSelectVariant={onSelectVariant}
+                selectedVariant={selectedVariant}
               />
             ))}
           </div>
@@ -57,15 +64,17 @@ const Product = (props) => {
             ))}
           </div>
 
-          <button
+          <Button
             className={buttonStyles}
-            type="submit"
-            name="button"
             disabled={isButtonDisabled}
-            onClick={() => console.log('Added to cart')}
+            onClick={
+              shouldAddEventHandler
+                ? () => console.log('Added to cart')
+                : undefined
+            }
           >
             {buttonContent}
-          </button>
+          </Button>
         </div>
       </div>
 

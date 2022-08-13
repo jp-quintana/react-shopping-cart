@@ -1,16 +1,20 @@
 import { Link } from 'react-router-dom';
 
+import Card from 'common/Card';
+import Button from 'common/Button';
+
 import styles from './index.module.scss';
 
 const CollectionCard = (props) => {
-  const { imageTop, imageBottom, title, url } = props;
+  const { image, title, url } = props;
 
   return (
-    <Link to={url} className={`${styles.link}`}>
-      <h3 className={styles.title}>{title}</h3>
-      <img className={styles.image_top} src={imageTop} alt="" />
-      <img className={styles.image_bottom} src={imageBottom} alt="" />
-    </Link>
+    <Card className={styles.card}>
+      <Link to={url} className={`${styles.link}`}>
+        <Button className={styles.button}>{title}</Button>
+      </Link>
+      <img className={styles.image} src={image} alt="" />
+    </Card>
   );
 };
 
