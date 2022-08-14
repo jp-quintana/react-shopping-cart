@@ -3,7 +3,7 @@ import {
   IoIosArrowDropleftCircle,
 } from 'react-icons/io';
 
-import Slide from './components/Slide';
+import Slide from './Slide';
 import Card from 'common/Card';
 
 const Slideshow = (props) => {

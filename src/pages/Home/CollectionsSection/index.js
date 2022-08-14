@@ -1,4 +1,4 @@
-import CollectionCard from './components/CollectionCard';
+import CollectionCard from './CollectionCard';
 
 import { DUMMY_COLLECTIONS as collections } from './data';
 

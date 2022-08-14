@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import ProductCard from './components/ProductCard';
+import ProductCard from './ProductCard';
 
 import { DUMMY_COLLECTIONS_PRODUCTS as products } from './data';
 
