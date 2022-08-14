@@ -6,30 +6,34 @@ import Product from './Product';
 import { DUMMY_PRODUCTS as products } from './data';
 
 const defaultProductState = {
-  product: { variants: [] },
-  variant: {
+  selectedProduct: { variants: [] },
+  selectedVariant: {
     price: { raw: '', html: '' },
     images: [],
     inventoryLevels: [],
   },
-  size: '',
+  selectedSize: '',
 };
 
 const productReducer = (state, action) => {
   if (action.type === 'SET_PRODUCT') {
-    return { ...state, product: action.product, variant: action.variant };
+    return {
+      ...state,
+      selectedProduct: action.selectedProduct,
+      selectedVariant: action.selectedVariant,
+    };
   }
   if (action.type === 'SET_PRODUCT_VARIANT') {
     return {
       ...state,
-      variant: state.product.variants.find(
-        (variant) => variant.productId === action.id
+      selectedVariant: state.selectedProduct.variants.find(
+        (variant) => variant.variantId === action.selectedVariantId
       ),
-      size: '',
+      selectedSize: '',
     };
   }
   if (action.type === 'SET_PRODUCT_SIZE') {
-    return { ...state, size: action.size };
+    return { ...state, selectedSize: action.selectedSize };
   }
   return defaultProductState;
 };
@@ -43,50 +47,48 @@ const ProductContainer = () => {
   );
 
   useEffect(() => {
-    const selectedProduct = products.find((product) =>
+    const product = products.find((product) =>
       product.variants.some((variant) => variant.url === urlId)
     );
 
-    const selectedVariant = selectedProduct.variants.find(
-      (variant) => variant.url === urlId
-    );
+    const variant = product.variants.find((variant) => variant.url === urlId);
 
     dispatchProduct({
       type: 'SET_PRODUCT',
-      product: selectedProduct,
-      variant: selectedVariant,
+      selectedProduct: product,
+      selectedVariant: variant,
     });
   }, []);
 
-  const handleSelectVariant = (productId) => {
-    if (productId !== productState.variant.productId) {
+  const handleSelectVariant = (variantId) => {
+    if (variantId !== productState.selectedVariant.variantId) {
       dispatchProduct({
         type: 'SET_PRODUCT_VARIANT',
-        id: productId,
+        selectedVariantId: variantId,
       });
     }
   };
 
   const handleSelectSize = (selectedSize) => {
-    if (selectedSize !== productState.size) {
+    if (selectedSize !== productState.selctedSize) {
       dispatchProduct({
         type: 'SET_PRODUCT_SIZE',
-        size: selectedSize,
+        selectedSize: selectedSize,
       });
     }
   };
 
   return (
     <Product
-      model={productState.product.modelName}
-      variants={productState.product.variants}
-      type={productState.variant.type}
-      color={productState.variant.color}
-      price={productState.variant.price.html}
-      images={productState.variant.images}
-      inventoryLevels={productState.variant.inventoryLevels}
-      selectedVariant={productState.variant}
-      size={productState.size}
+      selectedVariant={productState.selectedVariant}
+      selectedSize={productState.selectedSize}
+      productName={productState.selectedProduct.productName}
+      variants={productState.selectedProduct.variants}
+      type={productState.selectedVariant.type}
+      color={productState.selectedVariant.color}
+      price={productState.selectedVariant.price.html}
+      images={productState.selectedVariant.images}
+      inventoryLevels={productState.selectedVariant.inventoryLevels}
       onSelectVariant={handleSelectVariant}
       onSelectSize={handleSelectSize}
     />
