@@ -1,11 +1,11 @@
 export const DUMMY_PRODUCTS = [
   {
     id: 1,
-    modelId: 1001,
-    modelName: 'De Gira',
+    productId: 1001,
+    productName: 'De Gira',
     variants: [
       {
-        productId: 100101,
+        variantId: 100101,
         color: 'blanca',
         price: { raw: 3600, html: '3.600' },
         type: 'Remera',
@@ -34,11 +34,11 @@ export const DUMMY_PRODUCTS = [
   },
   {
     id: 2,
-    modelId: 1002,
-    modelName: 'Ojos',
+    productId: 1002,
+    productName: 'Ojos',
     variants: [
       {
-        productId: 100201,
+        varianId: 100201,
         color: 'negra',
         price: { raw: 3400, html: '3.400' },
         type: 'Remera',
@@ -67,11 +67,11 @@ export const DUMMY_PRODUCTS = [
   },
   {
     id: 3,
-    modelId: 2001,
-    modelName: 'De Gira',
+    productId: 2001,
+    productName: 'De Gira',
     variants: [
       {
-        productId: 200101,
+        variantId: 200101,
         color: 'blanco',
         price: { raw: 6400, html: '6400' },
         type: 'Hoodie',
@@ -97,7 +97,7 @@ export const DUMMY_PRODUCTS = [
         ],
       },
       {
-        productId: 200102,
+        variantId: 200102,
         color: 'negro',
         price: { raw: 6400, html: '6400' },
         type: 'Hoodie',
@@ -126,11 +126,11 @@ export const DUMMY_PRODUCTS = [
   },
   {
     id: 4,
-    modelId: 2002,
-    modelName: 'Flaakko',
+    productId: 2002,
+    productName: 'Flaakko',
     variants: [
       {
-        productId: 200201,
+        variantId: 200201,
         color: 'negro',
         price: { raw: 5600, html: '5.600' },
         type: 'Buzo',
@@ -159,11 +159,11 @@ export const DUMMY_PRODUCTS = [
   },
   {
     id: 5,
-    modelId: 3001,
-    modelName: 'Baires',
+    productId: 3001,
+    productName: 'Baires',
     variants: [
       {
-        productId: 300101,
+        variantId: 300101,
         color: 'blanco',
         price: { raw: 3300, html: '3.300' },
         type: 'Gorro',

@@ -4,7 +4,7 @@ const ProductVariant = (props) => {
   const { id, thumbnail, selectedVariant, onSelectVariant } = props;
 
   let shouldAddEventHandler = false;
-  if (selectedVariant.productId !== id) {
+  if (selectedVariant.variantId !== id) {
     shouldAddEventHandler = true;
   }
 
@@ -13,7 +13,7 @@ const ProductVariant = (props) => {
   };
 
   let variantStyles =
-    selectedVariant.productId === id
+    selectedVariant.variantId === id
       ? styles.thumbnail_selected
       : styles.thumbnail;
 

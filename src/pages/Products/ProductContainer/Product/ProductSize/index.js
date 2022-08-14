@@ -1,10 +1,10 @@
 import styles from './index.module.scss';
 
 const ProductSize = (props) => {
-  const { value, stock, size, onSelectSize } = props;
+  const { value, stock, selectedSize, onSelectSize } = props;
 
   let shouldAddEventHandler = false;
-  if (stock > 0 && value !== size) {
+  if (stock > 0 && value !== selectedSize) {
     shouldAddEventHandler = true;
   }
 
@@ -14,7 +14,7 @@ const ProductSize = (props) => {
 
   let sizeStyles = `
     ${styles.size} 
-    ${value === size && styles.fill} 
+    ${value === selectedSize && styles.fill} 
     ${stock === 0 && styles.no_stock}
   `;
 
