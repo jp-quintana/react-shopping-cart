@@ -24,7 +24,13 @@ body {
   font-weight: 400;
   color: #000000;
   font-size: 1.2rem;
-  line-height: 1.5;
+  line-height: 1.5;  
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 input,
@@ -86,6 +92,10 @@ img {
 
 ul {
   list-style: none;
+}
+
+footer {
+  margin-top: auto;
 }
 
 .main-container {
