@@ -1,0 +1,58 @@
+.card {
+  border: .1rem solid #cfcfcf;
+  border-radius: 1rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.info_wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 2rem;
+  border-bottom: .2rem solid #cfcfcf;
+}
+
+.title {
+  font-size: 1.6rem;
+}
+
+.type,
+.size {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.size {
+  margin-bottom: 3rem;
+}
+
+.image {
+  max-height: 12rem;
+  border: .1rem solid #cfcfcf;
+  border-radius: 1rem;
+  overflow-x:  hidden;
+  align-self: center;
+}
+
+.controls_wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3rem;
+  padding-inline: 1.5rem;
+}
+
+// .delete {
+//   display: flex;
+//   justify-content: center;
+// }
+
+.quantity_wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.total {
+  text-align: right;
+}
