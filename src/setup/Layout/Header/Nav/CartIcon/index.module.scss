@@ -1,0 +1,21 @@
+.cart_amount {
+  position: absolute;
+  bottom: -1.2rem;
+  right: -.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  text-align: center;
+  font-size: 1.3rem;
+  font-family: 'Montserrat';
+  font-weight: 700;
+  color: #fff;
+  background-color: #8c52ff;
+}
+
+.no_items {
+  display: none;
+}

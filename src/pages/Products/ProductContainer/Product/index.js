@@ -7,6 +7,7 @@ import styles from './index.module.scss';
 const Product = (props) => {
   const {
     selectedVariant,
+    selectedSku,
     selectedSize,
     productName,
     variants,
@@ -17,12 +18,25 @@ const Product = (props) => {
     images,
     onSelectVariant,
     onSelectSize,
+    onAddToCart,
   } = props;
 
   let shouldAddEventHandler = false;
   if (selectedSize.length > 0) {
     shouldAddEventHandler = true;
   }
+
+  const handleAddToCart = () => {
+    onAddToCart({
+      sku: selectedSku,
+      name: productName,
+      size: selectedSize,
+      type,
+      color,
+      price: price.raw,
+      images,
+    });
+  };
 
   const buttonContent =
     selectedSize.length === 0
@@ -40,7 +54,7 @@ const Product = (props) => {
         <div className={styles.info}>
           <h1 className={styles.name}>{productName}</h1>
           <p className={styles.details}>{`${type} ${color}`}</p>
-          <p className={styles.price}>${price}</p>
+          <p className={styles.price}>${price.html}</p>
 
           <div className={styles.variants_wrapper}>
             {variants.map((variant) => (
@@ -57,7 +71,8 @@ const Product = (props) => {
           <div className={styles.sizes_wrapper}>
             {inventoryLevels.map((size) => (
               <ProductSize
-                key={size.id}
+                key={size.sku}
+                sku={size.sku}
                 value={size.value}
                 stock={size.stock}
                 selectedSize={selectedSize}
@@ -69,11 +84,7 @@ const Product = (props) => {
           <Button
             className={buttonStyles}
             disabled={isButtonDisabled}
-            onClick={
-              shouldAddEventHandler
-                ? () => console.log('Added to cart')
-                : undefined
-            }
+            onClick={shouldAddEventHandler ? handleAddToCart : undefined}
           >
             {buttonContent}
           </Button>

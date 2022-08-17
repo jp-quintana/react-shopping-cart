@@ -1,7 +1,7 @@
 import styles from './index.module.scss';
 
 const ProductSize = (props) => {
-  const { value, stock, selectedSize, onSelectSize } = props;
+  const { sku, value, stock, selectedSize, onSelectSize } = props;
 
   let shouldAddEventHandler = false;
   if (stock > 0 && value !== selectedSize) {
@@ -9,7 +9,7 @@ const ProductSize = (props) => {
   }
 
   const handleSelectSize = () => {
-    onSelectSize(value);
+    onSelectSize({ sku, value });
   };
 
   let sizeStyles = `

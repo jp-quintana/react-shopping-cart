@@ -1,7 +1,13 @@
+import { useContext } from 'react';
+
 import { Link } from 'react-router-dom';
 
 import { FaBars } from 'react-icons/fa';
-import { BiUser, BiShoppingBag, BiSearch } from 'react-icons/bi';
+import { BiUser, BiSearch } from 'react-icons/bi';
+
+import CartContext from 'context/cart-context';
+
+import CartIcon from './CartIcon';
 
 import LogoNav from 'assets/images/logo-nav.png';
 
@@ -9,6 +15,8 @@ import styles from './index.module.scss';
 
 const Navbar = (props) => {
   const { toggle } = props;
+
+  const { totalAmount } = useContext(CartContext);
 
   return (
     <nav className={`${styles.nav}`}>
@@ -21,7 +29,9 @@ const Navbar = (props) => {
             <BiSearch />
           </li>
           <li className={styles.cart_icon}>
-            <BiShoppingBag />
+            <Link to="/carrito">
+              <CartIcon totalAmount={totalAmount} />
+            </Link>
           </li>
           <li className={styles.user_icon}>
             <BiUser />

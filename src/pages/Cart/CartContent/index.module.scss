@@ -109,3 +109,39 @@
     transform: scale(.9);
   }
 }
+
+.no_products_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.no_products {
+  text-align: center;
+}
+
+.products_button {
+  padding: 1rem 2rem;
+  font-size: 1.6rem;
+  border: solid .2rem #000;
+  border-radius: 1rem;
+  width: 100%;
+  background: #000;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: $ls-button;
+
+  -moz-transition: all .1s ease-in;
+  -o-transition: all .1s ease-in;
+  -webkit-transition: all .1s ease-in;
+  transition: all .1s ease-in;
+
+  &:active {
+    transform: scale(.9);
+  }
+
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+}
