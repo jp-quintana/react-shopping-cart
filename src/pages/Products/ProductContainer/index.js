@@ -20,22 +20,34 @@ const defaultProductState = {
 
 const productReducer = (state, action) => {
   if (action.type === 'SET_PRODUCT') {
+    const product = action.products.find((product) =>
+      product.variants.some((variant) => variant.url === action.urlId)
+    );
+
+    const variant = product.variants.find(
+      (variant) => variant.url === action.urlId
+    );
+
     return {
       ...state,
-      selectedProduct: action.selectedProduct,
-      selectedVariant: action.selectedVariant,
+      selectedProduct: product,
+      selectedVariant: variant,
     };
   }
+
   if (action.type === 'SET_PRODUCT_VARIANT') {
+    const variant = state.selectedProduct.variants.find(
+      (variant) => variant.variantId === action.selectedVariantId
+    );
+
     return {
       ...state,
-      selectedVariant: state.selectedProduct.variants.find(
-        (variant) => variant.variantId === action.selectedVariantId
-      ),
+      selectedVariant: variant,
       selectedSku: '',
       selectedSize: '',
     };
   }
+
   if (action.type === 'SET_PRODUCT_SIZE') {
     return {
       ...state,
@@ -43,6 +55,7 @@ const productReducer = (state, action) => {
       selectedSize: action.selectedSize,
     };
   }
+
   return defaultProductState;
 };
 
@@ -57,16 +70,10 @@ const ProductContainer = () => {
   );
 
   useEffect(() => {
-    const product = products.find((product) =>
-      product.variants.some((variant) => variant.url === urlId)
-    );
-
-    const variant = product.variants.find((variant) => variant.url === urlId);
-
     dispatchProduct({
       type: 'SET_PRODUCT',
-      selectedProduct: product,
-      selectedVariant: variant,
+      products: products,
+      urlId: urlId,
     });
   }, []);
 
