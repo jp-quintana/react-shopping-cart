@@ -47,16 +47,16 @@ const CartItem = (props) => {
         <img className={styles.image} src={images[0]['src']} alt="" />
       </div>
       <div className={styles.controls_wrapper}>
-        <div className={styles.delete} onClick={handleDeleteItem}>
-          <FaTrash />
+        <div className={styles.delete}>
+          <FaTrash className={styles.delete_icon} onClick={handleDeleteItem} />
         </div>
         <div className={styles.quantity_wrapper}>
           <div className={styles.minus} onClick={handleRemoveItem}>
-            <FaMinus />
+            <FaMinus className={styles.minus_icon} />
           </div>
           <div className={styles.quantity}>{amount}</div>
           <div className={styles.plus} onClick={handleAddItem}>
-            <FaPlus />
+            <FaPlus className={styles.plus_icon} />
           </div>
         </div>
         <div className={styles.total}>${formatNumber(totalItemAmount)}</div>

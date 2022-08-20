@@ -41,12 +41,28 @@
   grid-template-columns: 1fr 1fr 1fr;
   gap: 3rem;
   padding-inline: 1.5rem;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-// .delete {
-//   display: flex;
-//   justify-content: center;
-// }
+.delete_icon,
+.minus_icon,
+.plus_icon {
+  -moz-transition: all .1s ease-in;
+  -o-transition: all .1s ease-in;
+  -webkit-transition: all .1s ease-in;
+  transition: all .1s ease-in;
+
+  &:hover {
+    cursor: pointer
+  }
+  &:active {
+    transform: scale(.8);
+  }
+}
 
 .quantity_wrapper {
   display: flex;
