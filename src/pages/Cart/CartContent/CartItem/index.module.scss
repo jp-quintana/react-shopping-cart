@@ -4,7 +4,15 @@
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.5rem;
+  -moz-transition: all .1s ease-in;
+  -o-transition: all .1s ease-in;
+  -webkit-transition: all .1s ease-in;
+  transition: all .1s ease-in;
+
+  &:active {
+    transform: scale(.98);
+  }
 }
 
 .info_wrapper {
@@ -38,6 +46,7 @@
 
 .controls_wrapper {
   display: grid;
+  align-items: center;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 3rem;
   padding-inline: 1.5rem;
@@ -55,18 +64,34 @@
   -o-transition: all .1s ease-in;
   -webkit-transition: all .1s ease-in;
   transition: all .1s ease-in;
+  padding: 1rem;
+  font-size: 3.2rem;
+  border-radius: 50rem;
+
 
   &:hover {
-    cursor: pointer
+    cursor: pointer;
   }
-  &:active {
-    transform: scale(.8);
+}
+
+.minus_icon,
+.plus_icon {
+  &:hover {
+    background-color: #cfcfcf;
+  }
+}
+
+
+.delete_icon {
+  &:hover {
+    background-color: #ff6666;
   }
 }
 
 .quantity_wrapper {
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
 .total {

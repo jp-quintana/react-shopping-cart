@@ -33,6 +33,7 @@ const CartContent = () => {
                 color={item.color}
                 size={item.size}
                 price={item.price}
+                url={item.url}
                 amount={item.amount}
                 images={item.images}
                 item={item}
