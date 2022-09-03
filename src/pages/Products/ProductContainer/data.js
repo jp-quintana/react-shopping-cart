@@ -38,7 +38,7 @@ export const DUMMY_PRODUCTS = [
     productName: 'Ojos',
     variants: [
       {
-        varianId: 100201,
+        variantId: 100201,
         color: 'negra',
         price: { raw: 3400, html: '3.400' },
         type: 'Remera',

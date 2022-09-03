@@ -107,6 +107,7 @@ const ProductContainer = () => {
       type={productState.selectedVariant.type}
       color={productState.selectedVariant.color}
       price={productState.selectedVariant.price}
+      url={productState.selectedVariant.url}
       images={productState.selectedVariant.images}
       inventoryLevels={productState.selectedVariant.inventoryLevels}
       onSelectVariant={handleSelectVariant}

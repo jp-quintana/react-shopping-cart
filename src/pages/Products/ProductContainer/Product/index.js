@@ -14,8 +14,9 @@ const Product = (props) => {
     type,
     color,
     price,
-    inventoryLevels,
+    url,
     images,
+    inventoryLevels,
     onSelectVariant,
     onSelectSize,
     onAddToCart,
@@ -34,6 +35,7 @@ const Product = (props) => {
       type,
       color,
       price: price.raw,
+      url,
       images,
     });
   };

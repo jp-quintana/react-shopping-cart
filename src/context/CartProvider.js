@@ -113,7 +113,6 @@ const CartProvider = (props) => {
     removeItem: handleRemoveItem,
     deleteItem: handleDeleteItem,
   };
-
   return (
     <CartContext.Provider value={cartContext}>
       {props.children}
