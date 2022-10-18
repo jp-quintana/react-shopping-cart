@@ -36,7 +36,11 @@ const Footer = () => {
           </div>
         </div>
         <div className={styles.socials}>
-          <a href="https://instagram.com" target="_blank" rel="noreferrer">
+          <a
+            href="https://www.instagram.com/hit.hot.ar/"
+            target="_blank"
+            rel="noreferrer"
+          >
             <RiInstagramLine />
           </a>
           <a href="https://twitter.com" target="_blank" rel="noreferrer">

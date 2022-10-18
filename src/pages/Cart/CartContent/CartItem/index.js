@@ -1,28 +1,30 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 
 import Card from 'common/Card';
 
-import { formatNumber } from 'helpers/formatNumber';
+import { formatNumber } from 'helpers/format';
+import { itemTotal } from 'helpers/cart';
 
 import styles from './index.module.scss';
 
-const CartItem = (props) => {
-  const {
-    name,
-    type,
-    color,
-    size,
-    price,
-    url,
-    amount,
-    images,
-    item,
-    onAddItem,
-    onRemoveItem,
-    onDeleteItem,
-  } = props;
+const CartItem = ({
+  name,
+  type,
+  color,
+  size,
+  price,
+  url,
+  amount,
+  images,
+  item,
+  onAddItem,
+  onRemoveItem,
+  onDeleteItem,
+}) => {
+  const { dispatch } = useContext(CartContext);
 
   const handleAddItem = () => {
     onAddItem(item);
@@ -36,11 +38,9 @@ const CartItem = (props) => {
     onDeleteItem(item);
   };
 
-  let totalItemAmount = price * amount;
-
   return (
     <Card className={styles.card}>
-      <Link to={`/productos/${props.url}`}>
+      <Link to={`/productos/${url}`}>
         <div className={styles.info_wrapper}>
           <div className={styles.info}>
             <p className={styles.title}>{name}</p>
@@ -65,7 +65,7 @@ const CartItem = (props) => {
             <FaPlus className={styles.plus_icon} onClick={handleAddItem} />
           </div>
         </div>
-        <div className={styles.total}>${formatNumber(totalItemAmount)}</div>
+        <div className={styles.total}>${itemTotal({ price, amount })}</div>
       </div>
     </Card>
   );

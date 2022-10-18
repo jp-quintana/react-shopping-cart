@@ -1,26 +1,24 @@
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import CartContext from 'context/cart-context';
+import { useCartContext } from 'hooks/useCartContext';
 
 import CartItem from './CartItem';
 
 import Button from 'common/Button';
 import Card from 'common/Card';
 
-import { formatNumber } from 'helpers/formatNumber';
+import { cartTotal } from 'helpers/cart';
 
 import styles from './index.module.scss';
 
 const CartContent = () => {
-  const { items, totalPrice, addItem, removeItem, deleteItem } =
-    useContext(CartContext);
+  const { items, addItem, removeItem, deleteItem } = useCartContext();
 
   let content =
     items.length > 0 ? (
       <>
         <Card className={styles.checkout_wrapper}>
-          <p className={styles.total}>Total: ${formatNumber(totalPrice)}</p>
+          <p className={styles.total}>Total: ${cartTotal(items)}</p>
           <Button className={styles.checkout_button}>Checkout</Button>
         </Card>
         <div className={styles.content_wrapper}>
