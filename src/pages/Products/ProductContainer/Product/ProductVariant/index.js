@@ -1,8 +1,11 @@
 import styles from './index.module.scss';
 
-const ProductVariant = (props) => {
-  const { id, thumbnail, selectedVariant, onSelectVariant } = props;
-
+const ProductVariant = ({
+  id,
+  thumbnail,
+  selectedVariant,
+  onSelectVariant,
+}) => {
   let shouldAddEventHandler = false;
   if (selectedVariant.variantId !== id) {
     shouldAddEventHandler = true;

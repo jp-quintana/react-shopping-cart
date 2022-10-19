@@ -1,5 +1,5 @@
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { useCartContext } from 'hooks/useCartContext';
 
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 
@@ -20,22 +20,19 @@ const CartItem = ({
   amount,
   images,
   item,
-  onAddItem,
-  onRemoveItem,
-  onDeleteItem,
 }) => {
-  const { dispatch } = useContext(CartContext);
+  const { dispatch } = useCartContext();
 
   const handleAddItem = () => {
-    onAddItem(item);
+    dispatch({ type: 'ADD_ITEM', payload: item });
   };
 
   const handleRemoveItem = () => {
-    onRemoveItem(item);
+    dispatch({ type: 'REMOVE_ITEM', payload: item });
   };
 
   const handleDeleteItem = () => {
-    onDeleteItem(item);
+    dispatch({ type: 'DELETE_ITEM', payload: item });
   };
 
   return (

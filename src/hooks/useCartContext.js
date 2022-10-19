@@ -1,14 +1,12 @@
 import { useContext } from 'react';
 import CartContext from '../context/cart-context';
 
-const useCartContext = () => {
+export const useCartContext = () => {
   const context = useContext(CartContext);
 
   if (!context) {
-    throw Error('useAuthContext must be inside an AuthContextProvider');
+    throw Error('useCartContext must be inside CartContextProvider');
   }
 
   return context;
 };
-
-export default useCartContext;

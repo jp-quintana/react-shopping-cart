@@ -1,6 +1,6 @@
 import { formatNumber } from './format';
 
-export const cartTotal = (items) => {
+export const addCartTotal = (items) => {
   let total = 0;
 
   items.forEach((item) => (total += item.price * item.amount));

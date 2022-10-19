@@ -7,18 +7,18 @@ import CartItem from './CartItem';
 import Button from 'common/Button';
 import Card from 'common/Card';
 
-import { cartTotal } from 'helpers/cart';
+import { addCartTotal } from 'helpers/cart';
 
 import styles from './index.module.scss';
 
 const CartContent = () => {
-  const { items, addItem, removeItem, deleteItem } = useCartContext();
+  const { items } = useCartContext();
 
   let content =
     items.length > 0 ? (
       <>
         <Card className={styles.checkout_wrapper}>
-          <p className={styles.total}>Total: ${cartTotal(items)}</p>
+          <p className={styles.total}>Total: ${addCartTotal(items)}</p>
           <Button className={styles.checkout_button}>Checkout</Button>
         </Card>
         <div className={styles.content_wrapper}>
@@ -35,9 +35,6 @@ const CartContent = () => {
                 amount={item.amount}
                 images={item.images}
                 item={item}
-                onAddItem={addItem}
-                onRemoveItem={removeItem}
-                onDeleteItem={deleteItem}
               />
             ))}
           </div>

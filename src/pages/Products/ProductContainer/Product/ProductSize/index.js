@@ -1,8 +1,6 @@
 import styles from './index.module.scss';
 
-const ProductSize = (props) => {
-  const { sku, value, stock, selectedSize, onSelectSize } = props;
-
+const ProductSize = ({ sku, value, stock, selectedSize, onSelectSize }) => {
   let shouldAddEventHandler = false;
   if (stock > 0 && value !== selectedSize) {
     shouldAddEventHandler = true;

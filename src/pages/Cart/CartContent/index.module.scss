@@ -131,6 +131,7 @@
   color: #fff;
   text-transform: uppercase;
   letter-spacing: $ls-button;
+  color: white;
 
   -moz-transition: all .1s ease-in;
   -o-transition: all .1s ease-in;
@@ -140,7 +141,7 @@
   &:active {
     transform: scale(.9);
   }
-
+  
   @media (min-width: 768px) {
     width: 50%;
   }

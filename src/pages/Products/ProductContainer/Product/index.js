@@ -4,24 +4,22 @@ import Button from 'common/Button';
 
 import styles from './index.module.scss';
 
-const Product = (props) => {
-  const {
-    selectedVariant,
-    selectedSku,
-    selectedSize,
-    productName,
-    variants,
-    type,
-    color,
-    price,
-    url,
-    images,
-    inventoryLevels,
-    onSelectVariant,
-    onSelectSize,
-    onAddToCart,
-  } = props;
-
+const Product = ({
+  selectedVariant,
+  selectedSku,
+  selectedSize,
+  productName,
+  variants,
+  type,
+  color,
+  price,
+  url,
+  images,
+  inventoryLevels,
+  onSelectVariant,
+  onSelectSize,
+  onAddToCart,
+}) => {
   let shouldAddEventHandler = false;
   if (selectedSize.length > 0) {
     shouldAddEventHandler = true;

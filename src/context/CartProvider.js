@@ -10,7 +10,8 @@ const cartReducer = (state, action) => {
       const updatedTotalAmount = state.totalAmount + 1;
 
       const itemInCartIndex = state.items.findIndex(
-        (item) => item.sku === action.item.sku && item.size === action.item.size
+        (item) =>
+          item.sku === action.payload.sku && item.size === action.payload.size
       );
       const itemInCart = state.items[itemInCartIndex];
 
@@ -24,7 +25,7 @@ const cartReducer = (state, action) => {
         updatedItems[itemInCartIndex] = updatedItem;
       } else {
         const addedItem = {
-          ...action.item,
+          ...action.payload,
           amount: 1,
         };
         updatedItems.push(addedItem);
@@ -41,7 +42,8 @@ const cartReducer = (state, action) => {
       const updatedTotalAmount = state.totalAmount - 1;
 
       const itemInCartIndex = state.items.findIndex(
-        (item) => item.sku === action.item.sku && item.size === action.item.size
+        (item) =>
+          item.sku === action.payload.sku && item.size === action.payload.size
       );
       const itemInCart = state.items[itemInCartIndex];
 
@@ -49,7 +51,7 @@ const cartReducer = (state, action) => {
 
       if (itemInCart.amount === 1) {
         updatedItems = state.items.filter(
-          (item) => item.sku !== action.item.sku
+          (item) => item.sku !== action.payload.sku
         );
       } else {
         const updatedItem = { ...itemInCart, amount: itemInCart.amount - 1 };
@@ -65,10 +67,10 @@ const cartReducer = (state, action) => {
     }
 
     case 'DELETE_ITEM': {
-      const updatedTotalAmount = state.totalAmount - action.item.amount;
+      const updatedTotalAmount = state.totalAmount - action.payload.amount;
 
       const updatedItems = state.items.filter(
-        (item) => item.sku !== action.item.sku
+        (item) => item.sku !== action.payload.sku
       );
 
       return {
@@ -90,21 +92,21 @@ const CartProvider = (props) => {
   const handleAddItem = (item) => {
     dispatch({
       type: 'ADD_ITEM',
-      item: item,
+      payload: item,
     });
   };
 
   const handleRemoveItem = (item) => {
     dispatch({
       type: 'REMOVE_ITEM',
-      item: item,
+      payload: item,
     });
   };
 
   const handleDeleteItem = (item) => {
     dispatch({
       type: 'DELETE_ITEM',
-      item: item,
+      payload: item,
     });
   };
 

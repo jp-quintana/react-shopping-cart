@@ -11,9 +11,7 @@ import LogoNav from 'assets/images/logo-nav.png';
 
 import styles from './index.module.scss';
 
-const Navbar = (props) => {
-  const { toggle } = props;
-
+const Navbar = ({ toggle }) => {
   return (
     <nav className={`${styles.nav}`}>
       <div className={styles.container_top}>
