@@ -4,9 +4,7 @@ import { BiX } from 'react-icons/bi';
 
 import styles from './index.module.scss';
 
-const SideNav = (props) => {
-  const { toggle, isOpen } = props;
-
+const SideNav = ({ toggle, isOpen }) => {
   return (
     <aside className={!isOpen ? styles.container_hidden : styles.container}>
       <i className={styles.close_icon}>

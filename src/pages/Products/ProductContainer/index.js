@@ -20,12 +20,12 @@ const defaultProductState = {
 
 const productReducer = (state, action) => {
   if (action.type === 'SET_PRODUCT') {
-    const product = action.products.find((product) =>
-      product.variants.some((variant) => variant.url === action.urlId)
+    const product = action.payload.products.find((product) =>
+      product.variants.some((variant) => variant.url === action.payload.urlId)
     );
 
     const variant = product.variants.find(
-      (variant) => variant.url === action.urlId
+      (variant) => variant.url === action.payload.urlId
     );
 
     return {
@@ -72,10 +72,9 @@ const ProductContainer = () => {
   useEffect(() => {
     dispatchProduct({
       type: 'SET_PRODUCT',
-      products: products,
-      urlId: urlId,
+      payload: { products, urlId },
     });
-  }, []);
+  }, [urlId]);
 
   const handleSelectVariant = (variantId) => {
     if (variantId !== productState.selectedVariant.variantId) {
