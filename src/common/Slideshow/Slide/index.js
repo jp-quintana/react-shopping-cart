@@ -1,6 +1,4 @@
-const Slide = (props) => {
-  const { image, isActive } = props;
-
+const Slide = ({ image, isActive }) => {
   return (
     <div
       className={

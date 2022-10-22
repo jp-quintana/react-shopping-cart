@@ -1,11 +1,9 @@
 import styles from './index.module.scss';
 
-const Button = (props) => {
-  const { className, onClick } = props;
-
+const Button = ({ children, className, onClick }) => {
   return (
     <div className={`${styles.button} ${className}`} onClick={onClick}>
-      {props.children}
+      {children}
     </div>
   );
 };

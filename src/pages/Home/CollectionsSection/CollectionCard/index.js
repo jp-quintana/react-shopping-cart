@@ -5,9 +5,7 @@ import Button from 'common/Button';
 
 import styles from './index.module.scss';
 
-const CollectionCard = (props) => {
-  const { image, title, url } = props;
-
+const CollectionCard = ({ image, title, url }) => {
   return (
     <Card className={styles.card}>
       <Link to={url} className={`${styles.link}`}>

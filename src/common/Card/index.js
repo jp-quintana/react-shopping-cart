@@ -1,9 +1,7 @@
 import styles from './index.module.scss';
 
-const Card = (props) => {
-  const { className } = props;
-
-  return <div className={`${styles.card} ${className}`}>{props.children}</div>;
+const Card = ({ children, className }) => {
+  return <div className={`${styles.card} ${className}`}>{children}</div>;
 };
 
 export default Card;

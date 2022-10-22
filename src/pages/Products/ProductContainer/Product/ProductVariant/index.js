@@ -1,21 +1,25 @@
 import styles from './index.module.scss';
 
-const ProductVariant = (props) => {
-  const { id, thumbnail, selectedVariant, onSelectVariant } = props;
-
+const ProductVariant = ({
+  id,
+  thumbnail,
+  selectedVariantId,
+  dispatchProductAction,
+}) => {
   let shouldAddEventHandler = false;
-  if (selectedVariant.variantId !== id) {
+  if (selectedVariantId !== id) {
     shouldAddEventHandler = true;
   }
 
   const handleSelectVariant = () => {
-    onSelectVariant(id);
+    if (id === selectedVariantId) {
+      return;
+    }
+    dispatchProductAction({ type: 'SELECT_PRODUCT_VARIANT', payload: id });
   };
 
   let variantStyles =
-    selectedVariant.variantId === id
-      ? styles.thumbnail_selected
-      : styles.thumbnail;
+    selectedVariantId === id ? styles.thumbnail_selected : styles.thumbnail;
 
   return (
     <img

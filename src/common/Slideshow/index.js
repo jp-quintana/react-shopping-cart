@@ -6,9 +6,7 @@ import {
 import Slide from './Slide';
 import Card from 'common/Card';
 
-const Slideshow = (props) => {
-  const { slides } = props;
-
+const Slideshow = ({ slides }) => {
   return (
     <Card>
       <div
