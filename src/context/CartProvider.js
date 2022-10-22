@@ -10,8 +10,7 @@ const cartReducer = (state, action) => {
       const updatedTotalAmount = state.totalAmount + 1;
 
       const itemInCartIndex = state.items.findIndex(
-        (item) =>
-          item.sku === action.payload.sku && item.size === action.payload.size
+        (item) => item.sku === action.payload.sku
       );
       const itemInCart = state.items[itemInCartIndex];
 
@@ -86,44 +85,16 @@ const cartReducer = (state, action) => {
   }
 };
 
-const CartProvider = (props) => {
+const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, defaultState);
-
-  const handleAddItem = (item) => {
-    dispatch({
-      type: 'ADD_ITEM',
-      payload: item,
-    });
-  };
-
-  const handleRemoveItem = (item) => {
-    dispatch({
-      type: 'REMOVE_ITEM',
-      payload: item,
-    });
-  };
-
-  const handleDeleteItem = (item) => {
-    dispatch({
-      type: 'DELETE_ITEM',
-      payload: item,
-    });
-  };
 
   const cartContext = {
     ...state,
     dispatch,
-    addItem: handleAddItem,
-    removeItem: handleRemoveItem,
-    deleteItem: handleDeleteItem,
   };
 
-  console.log(state.items);
-
   return (
-    <CartContext.Provider value={cartContext}>
-      {props.children}
-    </CartContext.Provider>
+    <CartContext.Provider value={cartContext}>{children}</CartContext.Provider>
   );
 };
 

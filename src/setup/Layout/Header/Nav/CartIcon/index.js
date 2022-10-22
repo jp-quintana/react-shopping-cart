@@ -1,13 +1,13 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { BiShoppingBag } from 'react-icons/bi';
 
-import CartContext from 'context/cart-context';
+import { useCartContext } from 'hooks/useCartContext';
 
 import styles from './index.module.scss';
 
 const CartIcon = () => {
-  const { totalAmount } = useContext(CartContext);
+  const { totalAmount } = useCartContext();
 
   const [bump, setBump] = useState(false);
 
@@ -24,6 +24,7 @@ const CartIcon = () => {
     const timer = setTimeout(() => {
       setBump(false);
     }, 150);
+
     return () => {
       clearTimeout(timer);
     };

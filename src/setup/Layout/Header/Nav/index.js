@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import { FaBars } from 'react-icons/fa';
 import { BiUser, BiSearch } from 'react-icons/bi';
@@ -36,19 +36,19 @@ const Navbar = ({ toggle }) => {
       <div className={styles.container_bottom}>
         <ul className={styles.links}>
           <li>
-            <Link className={styles.link} to="/categorias/remeras">
+            <NavLink className={styles.link} to="/categorias/remeras">
               Remeras
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link className={styles.link} to="/categorias/buzos">
+            <NavLink className={styles.link} to="/categorias/buzos">
               Buzos
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link className={styles.link} to="/categorias/accesorios">
+            <NavLink className={styles.link} to="/categorias/accesorios">
               Accesorios
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </div>
