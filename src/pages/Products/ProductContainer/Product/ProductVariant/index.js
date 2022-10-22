@@ -3,8 +3,8 @@ import styles from './index.module.scss';
 const ProductVariant = ({
   id,
   thumbnail,
-  onSelectVariant,
   selectedVariantId,
+  dispatchProductAction,
 }) => {
   let shouldAddEventHandler = false;
   if (selectedVariantId !== id) {
@@ -12,7 +12,10 @@ const ProductVariant = ({
   }
 
   const handleSelectVariant = () => {
-    onSelectVariant(id);
+    if (id === selectedVariantId) {
+      return;
+    }
+    dispatchProductAction({ type: 'SELECT_PRODUCT_VARIANT', payload: id });
   };
 
   let variantStyles =

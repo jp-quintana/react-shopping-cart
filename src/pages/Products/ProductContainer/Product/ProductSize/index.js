@@ -1,13 +1,27 @@
 import styles from './index.module.scss';
 
-const ProductSize = ({ sku, value, stock, selectedSize, onSelectSize }) => {
-  let shouldAddEventHandler = false;
+const ProductSize = ({
+  sku,
+  value,
+  stock,
+  selectedSize,
+  onSelectSize,
+  dispatchProductAction,
+}) => {
+  let addEventHandler = false;
   if (stock > 0 && value !== selectedSize) {
-    shouldAddEventHandler = true;
+    addEventHandler = true;
   }
 
   const handleSelectSize = () => {
-    onSelectSize({ sku, value });
+    if (value === selectedSize) {
+      console.log('working');
+      return;
+    }
+    dispatchProductAction({
+      type: 'SELECT_PRODUCT_SIZE',
+      payload: { sku, value, stock },
+    });
   };
 
   let sizeStyles = `
@@ -19,7 +33,7 @@ const ProductSize = ({ sku, value, stock, selectedSize, onSelectSize }) => {
   return (
     <div
       className={sizeStyles}
-      onClick={shouldAddEventHandler ? handleSelectSize : undefined}
+      onClick={addEventHandler ? handleSelectSize : undefined}
     >
       {value}
     </div>

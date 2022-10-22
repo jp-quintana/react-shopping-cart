@@ -1,3 +1,5 @@
+import { useCartContext } from 'hooks/useCartContext';
+
 import ProductVariant from './ProductVariant';
 import ProductSize from './ProductSize';
 import Button from 'common/Button';
@@ -13,29 +15,38 @@ const Product = ({
   url,
   images,
   inventoryLevels,
-  onSelectVariant,
   onSelectSize,
-  onAddToCart,
-  dispatch,
+  dispatch: dispatchProductAction,
   selectedVariantId,
   selectedSku,
   selectedSize,
+  selectedStock,
 }) => {
+  const { items, dispatch: dispatchCartAction } = useCartContext();
+
   let addEventHandler = false;
   if (selectedSize.length > 0) {
     addEventHandler = true;
   }
 
   const handleAddToCart = () => {
-    onAddToCart({
-      sku: selectedSku,
-      name: productName,
-      size: selectedSize,
-      type,
-      color,
-      price: price.raw,
-      url,
-      images,
+    const item = items.find((item) => item.sku === selectedSku);
+    if (item && item.amount >= selectedStock) {
+      return;
+    }
+
+    dispatchCartAction({
+      type: 'ADD_ITEM',
+      payload: {
+        sku: selectedSku,
+        name: productName,
+        size: selectedSize,
+        type,
+        color,
+        price: price.raw,
+        url,
+        images,
+      },
     });
   };
 
@@ -63,7 +74,7 @@ const Product = ({
                 key={variant.variantId}
                 id={variant.variantId}
                 thumbnail={variant.productThumbnail}
-                onSelectVariant={onSelectVariant}
+                dispatchProductAction={dispatchProductAction}
                 selectedVariantId={selectedVariantId}
               />
             ))}
@@ -78,6 +89,7 @@ const Product = ({
                 stock={size.stock}
                 selectedSize={selectedSize}
                 onSelectSize={onSelectSize}
+                dispatchProductAction={dispatchProductAction}
               />
             ))}
           </div>

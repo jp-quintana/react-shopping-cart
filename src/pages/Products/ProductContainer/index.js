@@ -1,7 +1,5 @@
-import { useReducer, useEffect, useContext } from 'react';
+import { useReducer, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-
-import CartContext from 'context/cart-context';
 
 import Product from './Product';
 
@@ -16,10 +14,11 @@ const defaultState = {
   },
   selectedSku: '',
   selectedSize: '',
+  selectedStock: 0,
 };
 
 const productReducer = (state, action) => {
-  if (action.type === 'SET_PRODUCT') {
+  if (action.type === 'SELECT_PRODUCT') {
     const product = action.payload.products.find((product) =>
       product.variants.some((variant) => variant.url === action.payload.urlId)
     );
@@ -35,24 +34,24 @@ const productReducer = (state, action) => {
     };
   }
 
-  if (action.type === 'SET_PRODUCT_VARIANT') {
+  if (action.type === 'SELECT_PRODUCT_VARIANT') {
     const variant = state.selectedProduct.variants.find(
-      (variant) => variant.variantId === action.selectedVariantId
+      (variant) => variant.variantId === action.payload
     );
 
     return {
       ...state,
       selectedVariant: variant,
-      selectedSku: '',
-      selectedSize: '',
     };
   }
 
-  if (action.type === 'SET_PRODUCT_SIZE') {
+  if (action.type === 'SELECT_PRODUCT_SIZE') {
+    console.log(action.payload);
     return {
       ...state,
-      selectedSku: action.sku,
-      selectedSize: action.selectedSize,
+      selectedSku: action.payload.sku,
+      selectedSize: action.payload.value,
+      selectedStock: action.payload.stock,
     };
   }
 
@@ -60,38 +59,16 @@ const productReducer = (state, action) => {
 };
 
 const ProductContainer = () => {
-  const { addItem } = useContext(CartContext);
-
   const { id: urlId } = useParams();
 
   const [state, dispatch] = useReducer(productReducer, defaultState);
 
   useEffect(() => {
     dispatch({
-      type: 'SET_PRODUCT',
+      type: 'SELECT_PRODUCT',
       payload: { products, urlId },
     });
   }, [urlId]);
-
-  const handleSelectVariant = (variantId) => {
-    if (variantId !== state.selectedVariant.variantId) {
-      dispatch({
-        type: 'SET_PRODUCT_VARIANT',
-        selectedVariantId: variantId,
-      });
-    }
-  };
-
-  const handleSelectSize = (selectedSize) => {
-    const { sku, value } = selectedSize;
-    if (value !== state.selctedSize) {
-      dispatch({
-        type: 'SET_PRODUCT_SIZE',
-        sku: sku,
-        selectedSize: value,
-      });
-    }
-  };
 
   return (
     <Product
@@ -103,13 +80,11 @@ const ProductContainer = () => {
       url={state.selectedVariant.url}
       images={state.selectedVariant.images}
       inventoryLevels={state.selectedVariant.inventoryLevels}
-      onSelectVariant={handleSelectVariant}
-      onSelectSize={handleSelectSize}
-      onAddToCart={addItem}
       dispatch={dispatch}
       selectedVariantId={state.selectedVariant.variantId}
       selectedSku={state.selectedSku}
       selectedSize={state.selectedSize}
+      selectedStock={state.selectedStock}
     />
   );
 };
