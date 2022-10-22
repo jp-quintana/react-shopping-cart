@@ -3,11 +3,11 @@ import styles from './index.module.scss';
 const ProductVariant = ({
   id,
   thumbnail,
-  selectedVariant,
   onSelectVariant,
+  selectedVariantId,
 }) => {
   let shouldAddEventHandler = false;
-  if (selectedVariant.variantId !== id) {
+  if (selectedVariantId !== id) {
     shouldAddEventHandler = true;
   }
 
@@ -16,9 +16,7 @@ const ProductVariant = ({
   };
 
   let variantStyles =
-    selectedVariant.variantId === id
-      ? styles.thumbnail_selected
-      : styles.thumbnail;
+    selectedVariantId === id ? styles.thumbnail_selected : styles.thumbnail;
 
   return (
     <img

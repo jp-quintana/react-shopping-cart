@@ -5,9 +5,6 @@ import Button from 'common/Button';
 import styles from './index.module.scss';
 
 const Product = ({
-  selectedVariant,
-  selectedSku,
-  selectedSize,
   productName,
   variants,
   type,
@@ -19,10 +16,14 @@ const Product = ({
   onSelectVariant,
   onSelectSize,
   onAddToCart,
+  dispatch,
+  selectedVariantId,
+  selectedSku,
+  selectedSize,
 }) => {
-  let shouldAddEventHandler = false;
+  let addEventHandler = false;
   if (selectedSize.length > 0) {
-    shouldAddEventHandler = true;
+    addEventHandler = true;
   }
 
   const handleAddToCart = () => {
@@ -63,7 +64,7 @@ const Product = ({
                 id={variant.variantId}
                 thumbnail={variant.productThumbnail}
                 onSelectVariant={onSelectVariant}
-                selectedVariant={selectedVariant}
+                selectedVariantId={selectedVariantId}
               />
             ))}
           </div>
@@ -84,7 +85,7 @@ const Product = ({
           <Button
             className={buttonStyles}
             disabled={isButtonDisabled}
-            onClick={shouldAddEventHandler ? handleAddToCart : undefined}
+            onClick={addEventHandler ? handleAddToCart : undefined}
           >
             {buttonContent}
           </Button>

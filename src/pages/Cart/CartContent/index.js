@@ -26,6 +26,7 @@ const CartContent = () => {
             {items.map((item) => (
               <CartItem
                 key={item.sku}
+                item={item}
                 name={item.name}
                 type={item.type}
                 color={item.color}
@@ -34,7 +35,6 @@ const CartContent = () => {
                 url={item.url}
                 amount={item.amount}
                 images={item.images}
-                item={item}
               />
             ))}
           </div>

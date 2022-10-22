@@ -7,7 +7,7 @@ import Product from './Product';
 
 import { DUMMY_PRODUCTS as products } from './data';
 
-const defaultProductState = {
+const defaultState = {
   selectedProduct: { variants: [] },
   selectedVariant: {
     price: { raw: '', html: '' },
@@ -56,7 +56,7 @@ const productReducer = (state, action) => {
     };
   }
 
-  return defaultProductState;
+  return defaultState;
 };
 
 const ProductContainer = () => {
@@ -64,21 +64,18 @@ const ProductContainer = () => {
 
   const { id: urlId } = useParams();
 
-  const [productState, dispatchProduct] = useReducer(
-    productReducer,
-    defaultProductState
-  );
+  const [state, dispatch] = useReducer(productReducer, defaultState);
 
   useEffect(() => {
-    dispatchProduct({
+    dispatch({
       type: 'SET_PRODUCT',
       payload: { products, urlId },
     });
   }, [urlId]);
 
   const handleSelectVariant = (variantId) => {
-    if (variantId !== productState.selectedVariant.variantId) {
-      dispatchProduct({
+    if (variantId !== state.selectedVariant.variantId) {
+      dispatch({
         type: 'SET_PRODUCT_VARIANT',
         selectedVariantId: variantId,
       });
@@ -87,8 +84,8 @@ const ProductContainer = () => {
 
   const handleSelectSize = (selectedSize) => {
     const { sku, value } = selectedSize;
-    if (value !== productState.selctedSize) {
-      dispatchProduct({
+    if (value !== state.selctedSize) {
+      dispatch({
         type: 'SET_PRODUCT_SIZE',
         sku: sku,
         selectedSize: value,
@@ -98,20 +95,21 @@ const ProductContainer = () => {
 
   return (
     <Product
-      selectedVariant={productState.selectedVariant}
-      selectedSku={productState.selectedSku}
-      selectedSize={productState.selectedSize}
-      productName={productState.selectedProduct.productName}
-      variants={productState.selectedProduct.variants}
-      type={productState.selectedVariant.type}
-      color={productState.selectedVariant.color}
-      price={productState.selectedVariant.price}
-      url={productState.selectedVariant.url}
-      images={productState.selectedVariant.images}
-      inventoryLevels={productState.selectedVariant.inventoryLevels}
+      productName={state.selectedProduct.productName}
+      variants={state.selectedProduct.variants}
+      type={state.selectedVariant.type}
+      color={state.selectedVariant.color}
+      price={state.selectedVariant.price}
+      url={state.selectedVariant.url}
+      images={state.selectedVariant.images}
+      inventoryLevels={state.selectedVariant.inventoryLevels}
       onSelectVariant={handleSelectVariant}
       onSelectSize={handleSelectSize}
       onAddToCart={addItem}
+      dispatch={dispatch}
+      selectedVariantId={state.selectedVariant.variantId}
+      selectedSku={state.selectedSku}
+      selectedSize={state.selectedSize}
     />
   );
 };
