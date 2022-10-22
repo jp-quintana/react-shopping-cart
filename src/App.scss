@@ -40,6 +40,11 @@ select {
   font-size: 1.2rem;
 }
 
+input[type="password"] {
+  font-family: Verdana;
+  letter-spacing: .2rem;
+}
+
 span {
   font-family: "Monument Extended", sans-serif;
   font-weight: 800;
@@ -97,6 +102,8 @@ ul {
 footer {
   margin-top: auto;
 }
+
+
 
 .main-container {
   max-width: 125rem;

@@ -25,8 +25,10 @@ const Navbar = ({ toggle }) => {
               <CartIcon />
             </Link>
           </li>
-          <li className={styles.user_icon}>
-            <BiUser />
+          <li>
+            <Link to="/cuenta/login" className={styles.user_icon}>
+              <BiUser />
+            </Link>
           </li>
           <li className={styles.mobile_icon}>
             <FaBars onClick={toggle} />

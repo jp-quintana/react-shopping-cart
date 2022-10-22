@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Collections from './pages/Collections';
 import Products from './pages/Products';
 import Cart from './pages/Cart';
+import Login from 'pages/Login';
 
 import CartProvider from 'context/CartProvider';
 
@@ -17,6 +18,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="/cuenta/login" element={<Login />} />
           <Route path="/categorias/:id" element={<Collections />} />
           <Route path="/productos/:id" element={<Products />} />
           <Route path="/carrito" element={<Cart />} />
