@@ -20,6 +20,7 @@ const CartItem = ({
   amount,
   images,
   item,
+  toggleCartModal,
 }) => {
   const { dispatch } = useCartContext();
 
@@ -37,7 +38,10 @@ const CartItem = ({
 
   return (
     <Card className={styles.card}>
-      <Link to={`/productos/${url}`}>
+      <Link
+        to={`/productos/${url}`}
+        onClick={toggleCartModal ? toggleCartModal : ''}
+      >
         <div className={styles.info_wrapper}>
           <div className={styles.info}>
             <p className={styles.title}>{name}</p>

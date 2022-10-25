@@ -19,7 +19,9 @@ const CartContent = () => {
       <>
         <Card className={styles.checkout_wrapper}>
           <p className={styles.total}>Total: ${addCartTotal(items)}</p>
-          <Button className={styles.checkout_button}>Checkout</Button>
+          <Button className={`${styles.checkout_button} disabled-link`}>
+            Checkout
+          </Button>
         </Card>
         <div className={styles.content_wrapper}>
           <div className={styles.list_wrapper}>
@@ -46,7 +48,9 @@ const CartContent = () => {
                 type="text"
                 placeholder="Ingresá tu código"
               />
-              <button className={styles.support_button}>Agregar</button>
+              <button className={`${styles.support_button} disabled-link`}>
+                Agregar
+              </button>
             </form>
           </div>
         </div>

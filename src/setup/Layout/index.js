@@ -16,8 +16,8 @@ const Layout = () => {
 
   return (
     <>
-      <CartModal />
-      <Header />
+      {isOpen && <CartModal toggleCartModal={toggleCartModal} />}
+      <Header toggleCartModal={toggleCartModal} />
       <main>
         <Outlet />
       </main>

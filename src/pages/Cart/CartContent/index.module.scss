@@ -141,6 +141,11 @@
   &:active {
     transform: scale(.9);
   }
+
+  &:hover {
+    color: #fff;
+  }
+
   
   @media (min-width: 768px) {
     width: 50%;
