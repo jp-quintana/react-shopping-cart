@@ -9,7 +9,7 @@ import LogoNav from 'assets/images/logo-nav.png';
 
 import styles from './index.module.scss';
 
-const Navbar = ({ toggle }) => {
+const Navbar = ({ toggleSideNav, toggleCartModal }) => {
   return (
     <nav className={`${styles.nav}`}>
       <div className={styles.container_top}>
@@ -17,13 +17,11 @@ const Navbar = ({ toggle }) => {
           <img className={styles.logo} src={LogoNav} alt="Logo Nav" />
         </Link>
         <ul className={styles.icons_menu}>
-          <li className={styles.search_icon}>
+          <li className={`${styles.search_icon} disabled-link`}>
             <BiSearch />
           </li>
-          <li className={styles.cart_icon}>
-            <Link to="/carrito">
-              <CartIcon />
-            </Link>
+          <li className={styles.cart_icon} onClick={toggleCartModal}>
+            <CartIcon />
           </li>
           <li>
             <Link to="/cuenta/login" className={styles.user_icon}>
@@ -31,7 +29,7 @@ const Navbar = ({ toggle }) => {
             </Link>
           </li>
           <li className={styles.mobile_icon}>
-            <FaBars onClick={toggle} />
+            <FaBars onClick={toggleSideNav} />
           </li>
         </ul>
       </div>

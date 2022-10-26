@@ -1,7 +1,7 @@
 @import 'App.scss';
 
 .section {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,13 +48,13 @@
   -ms-user-select: none;
   user-select: none;
 
-  -moz-transition: all .2s ease-in;
-  -o-transition: all .2s ease-in;
-  -webkit-transition: all .2s ease-in;
-  transition: all .2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
 
   &:active {
-    transform: scale(.9);
+    transform: scale(0.9);
   }
 }
 

@@ -3,17 +3,17 @@ import { useState } from 'react';
 import Nav from './Nav';
 import SideNav from './SideNav';
 
-const Header = () => {
+const Header = ({ toggleCartModal }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggle = () => {
-    setIsOpen(!isOpen);
+  const toggleSideNav = () => {
+    setIsOpen((prevState) => !prevState);
   };
 
   return (
     <header>
-      <SideNav toggle={toggle} isOpen={isOpen} />
-      <Nav toggle={toggle} />
+      <SideNav toggleSideNav={toggleSideNav} isOpen={isOpen} />
+      <Nav toggleSideNav={toggleSideNav} toggleCartModal={toggleCartModal} />
     </header>
   );
 };

@@ -1,15 +1,15 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 
+import CartProvider from 'context/CartProvider';
+
+import Layout from './setup/Layout';
+
 import Home from './pages/Home';
 import Login from 'pages/Login';
 import SignUp from 'pages/SignUp';
 import Collections from './pages/Collections';
 import Products from './pages/Products';
 import Cart from './pages/Cart';
-
-import CartProvider from 'context/CartProvider';
-
-import Layout from './setup/Layout';
 
 import './App.scss';
 
