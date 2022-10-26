@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import CartProvider from 'context/CartProvider';
+import CartProvider from 'context/cart/CartProvider';
+import AuthProvider from 'context/auth/AuthProvider';
 
 import Layout from './setup/Layout';
 
@@ -15,19 +16,21 @@ import './App.scss';
 
 const App = () => {
   return (
-    <CartProvider>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/cuenta/login" element={<Login />} />
-          <Route path="/cuenta/signup" element={<SignUp />} />
-          <Route path="/categorias/:id" element={<Collections />} />
-          <Route path="/productos/:id" element={<Products />} />
-          <Route path="/carrito" element={<Cart />} />
-          <Route path="*" element={<Navigate to="/" />} />
-        </Route>
-      </Routes>
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="/cuenta/login" element={<Login />} />
+            <Route path="/cuenta/signup" element={<SignUp />} />
+            <Route path="/categorias/:id" element={<Collections />} />
+            <Route path="/productos/:id" element={<Products />} />
+            <Route path="/carrito" element={<Cart />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Route>
+        </Routes>
+      </CartProvider>
+    </AuthProvider>
   );
 };
 
