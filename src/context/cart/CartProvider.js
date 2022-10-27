@@ -1,4 +1,10 @@
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
+
+import { doc, getDoc } from 'firebase/firestore';
+
+import { db } from '../../firebase/config';
+
+import { useAuthContext } from 'hooks/useAuthContext';
 
 import CartContext from './cart-context';
 
@@ -86,12 +92,43 @@ const cartReducer = (state, action) => {
 };
 
 const CartProvider = ({ children }) => {
+  const { cartId } = useAuthContext();
   const [state, dispatch] = useReducer(cartReducer, defaultState);
+
+  useEffect(() => {
+    const cartInStorage = localStorage.getItem('CART_IN_STORAGE');
+
+    if (cartInStorage) {
+      const getCart = async () => {
+        const docRef = doc(db, 'carts', cartInStorage);
+        const docSnap = await getDoc(docRef);
+        return docSnap.data();
+      };
+
+      const cart = getCart();
+
+      dispatch({ type: 'LOAD_CART', payload: { ...cart } });
+    }
+  }, []);
+  // useEffect(() => {
+  //   if (cartId) {
+  //     const getCart = async () => {
+  //       const docRef = doc(db, 'carts', cartId);
+  //       const docSnap = await getDoc(docRef);
+  //       return docSnap.data();
+  //     };
+
+  //     const cart = getCart();
+  //     dispatch({ type: 'LOAD_CART_DB', payload: { ...cart } });
+  //   }
+  // }, [cartId]);
 
   const cartContext = {
     ...state,
     dispatch,
   };
+
+  console.log(state.id);
 
   return (
     <CartContext.Provider value={cartContext}>{children}</CartContext.Provider>
