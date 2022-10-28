@@ -8,10 +8,21 @@ import { useAuthContext } from 'hooks/useAuthContext';
 
 import CartContext from './cart-context';
 
-const defaultState = { id: null, items: [], totalAmount: 0 };
+const defaultState = {
+  id: null,
+  items: [],
+  totalAmount: 0,
+};
 
 const cartReducer = (state, action) => {
   switch (action.type) {
+    case 'LOAD_CART': {
+      return {
+        id: action.payload.id,
+        items: action.payload.items,
+        totalAmount: action.payload.totalAmount,
+      };
+    }
     case 'ADD_ITEM': {
       // const updatedTotalAmount = state.totalAmount + 1;
       // const itemInCartIndex = state.items.findIndex(
@@ -98,18 +109,26 @@ const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, defaultState);
 
   useEffect(() => {
-    const cartInStorage = localStorage.getItem('CART_IN_STORAGE');
+    const cartInStorageId = localStorage.getItem('CART_IN_STORAGE');
 
-    if (cartInStorage) {
+    if (cartInStorageId) {
       const getCart = async () => {
-        const docRef = doc(db, 'carts', cartInStorage);
-        const docSnap = await getDoc(docRef);
-        return docSnap.data();
+        try {
+          const docRef = doc(db, 'carts', cartInStorageId);
+          const docSnap = await getDoc(docRef);
+
+          const cart = docSnap.data();
+
+          dispatch({
+            type: 'LOAD_CART',
+            payload: { ...cart, id: cartInStorageId },
+          });
+        } catch (err) {
+          console.log(err);
+        }
       };
 
-      const cart = getCart();
-
-      dispatch({ type: 'LOAD_CART', payload: { ...cart } });
+      getCart();
     }
   }, []);
   // useEffect(() => {
@@ -130,7 +149,7 @@ const CartProvider = ({ children }) => {
     dispatch,
   };
 
-  console.log(state.id);
+  console.log(state);
 
   return (
     <CartContext.Provider value={cartContext}>{children}</CartContext.Provider>

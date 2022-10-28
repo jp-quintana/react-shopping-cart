@@ -40,17 +40,21 @@ export const useCart = () => {
 
       let cartId = localStorage.getItem('CART_IN_STORAGE');
 
-      console.log(updatedItems);
-
       if (cartId) {
         const docRef = doc(db, 'carts', cartId);
-        await setDoc(docRef, { items: updatedItems });
+        await setDoc(docRef, {
+          items: updatedItems,
+          totalAmount: updatedTotalAmount,
+        });
       } else {
         cartId = Math.floor(Math.random() * 1000000) + 1;
         localStorage.setItem('CART_IN_STORAGE', cartId);
 
         const docRef = doc(db, 'carts', cartId);
-        await setDoc(docRef, { items: updatedItems });
+        await setDoc(docRef, {
+          items: updatedItems,
+          totalAmount: updatedTotalAmount,
+        });
       }
 
       dispatch({
