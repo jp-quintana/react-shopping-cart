@@ -13,33 +13,35 @@ const defaultState = { id: null, items: [], totalAmount: 0 };
 const cartReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_ITEM': {
-      const updatedTotalAmount = state.totalAmount + 1;
-
-      const itemInCartIndex = state.items.findIndex(
-        (item) => item.sku === action.payload.sku
-      );
-      const itemInCart = state.items[itemInCartIndex];
-
-      let updatedItems = [...state.items];
-
-      if (itemInCart) {
-        const updatedItem = {
-          ...itemInCart,
-          amount: itemInCart.amount + 1,
-        };
-        updatedItems[itemInCartIndex] = updatedItem;
-      } else {
-        const addedItem = {
-          ...action.payload,
-          amount: 1,
-        };
-        updatedItems.push(addedItem);
-      }
+      // const updatedTotalAmount = state.totalAmount + 1;
+      // const itemInCartIndex = state.items.findIndex(
+      //   (item) => item.sku === action.payload.sku
+      // );
+      // const itemInCart = state.items[itemInCartIndex];
+      // let updatedItems = [...state.items];
+      // if (itemInCart) {
+      //   const updatedItem = {
+      //     ...itemInCart,
+      //     amount: itemInCart.amount + 1,
+      //   };
+      //   updatedItems[itemInCartIndex] = updatedItem;
+      // } else {
+      //   const addedItem = {
+      //     ...action.payload,
+      //     amount: 1,
+      //   };
+      //   updatedItems.push(addedItem);
+      // }
+      // return {
+      //   ...state,
+      //   items: updatedItems,
+      //   totalAmount: updatedTotalAmount,
+      // };
 
       return {
-        ...state,
-        items: updatedItems,
-        totalAmount: updatedTotalAmount,
+        id: action.payload.id,
+        items: action.payload.items,
+        totalAmount: action.payload.totalAmount,
       };
     }
 

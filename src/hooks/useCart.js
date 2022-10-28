@@ -2,31 +2,73 @@ import { useState } from 'react';
 
 import { doc, setDoc } from 'firebase/firestore';
 
-import { db } from '../../firebase/config';
+import { db } from '../firebase/config';
 
 import { useCartContext } from './useCartContext';
 
-const useCart = () => {
-  const { dispatch } = useCartContext();
+export const useCart = () => {
+  const { items, totalAmount, dispatch } = useCartContext();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const addItem = async (item) => {
+  const addItem = async (itemToAdd) => {
     setError(null);
     setIsLoading(true);
     try {
-      const cartInStorageId = localStorage.getItem('CART_IN_STORAGE');
-      if (cartInStorageId) {
+      const updatedTotalAmount = totalAmount + 1;
+
+      const itemInCartIndex = items.findIndex(
+        (item) => item.sku === itemToAdd.sku
+      );
+      const itemInCart = items[itemInCartIndex];
+
+      let updatedItems = [...items];
+
+      if (itemInCart) {
+        const updatedItem = {
+          ...itemInCart,
+          amount: itemInCart.amount + 1,
+        };
+        updatedItems[itemInCartIndex] = updatedItem;
       } else {
-        const id = Math.floor(Math.random() * 1000000) + 1;
-        localStorage.setItem('CART_IN_STORAGE', id);
+        const addedItem = {
+          ...itemToAdd,
+          amount: 1,
+        };
+        updatedItems.push(addedItem);
       }
+
+      let cartId = localStorage.getItem('CART_IN_STORAGE');
+
+      console.log(updatedItems);
+
+      if (cartId) {
+        const docRef = doc(db, 'carts', cartId);
+        await setDoc(docRef, { items: updatedItems });
+      } else {
+        cartId = Math.floor(Math.random() * 1000000) + 1;
+        localStorage.setItem('CART_IN_STORAGE', cartId);
+
+        const docRef = doc(db, 'carts', cartId);
+        await setDoc(docRef, { items: updatedItems });
+      }
+
+      dispatch({
+        type: 'ADD_ITEM',
+        payload: {
+          id: cartId,
+          items: updatedItems,
+          totalAmount: updatedTotalAmount,
+        },
+      });
+
+      setIsLoading(false);
     } catch (err) {
+      console.log(err);
       setIsLoading(false);
       setError(err);
     }
   };
-  return <div>useCart</div>;
-};
 
-export default useCart;
+  return { addItem, isLoading, error };
+};
