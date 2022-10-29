@@ -74,6 +74,7 @@ const Product = ({
     selectedSize.length === 0
       ? 'SELECCIONAR TALLE'
       : `AGREGAR ${selectedSize} AL CARRITO`;
+
   const buttonStyles = `
     ${selectedSize.length === 0 ? styles.button_disabled : styles.button}
   `;
@@ -114,13 +115,18 @@ const Product = ({
             ))}
           </div>
 
-          <Button
-            className={buttonStyles}
-            disabled={isButtonDisabled}
-            onClick={addEventHandler ? handleAddToCart : undefined}
-          >
-            {buttonContent}
-          </Button>
+          {!isLoading && (
+            <Button
+              className={buttonStyles}
+              disabled={isButtonDisabled}
+              onClick={addEventHandler ? handleAddToCart : undefined}
+            >
+              {buttonContent}
+            </Button>
+          )}
+          {isLoading && (
+            <Button className={buttonStyles}>{buttonContent}</Button>
+          )}
         </div>
       </div>
 

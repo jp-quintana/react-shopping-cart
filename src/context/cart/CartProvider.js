@@ -16,85 +16,23 @@ const defaultState = {
 
 const cartReducer = (state, action) => {
   switch (action.type) {
-    case 'LOAD_CART': {
+    case 'NEW_CART': {
       return {
         id: action.payload.id,
         items: action.payload.items,
         totalAmount: action.payload.totalAmount,
       };
     }
-    case 'ADD_ITEM': {
-      // const updatedTotalAmount = state.totalAmount + 1;
-      // const itemInCartIndex = state.items.findIndex(
-      //   (item) => item.sku === action.payload.sku
-      // );
-      // const itemInCart = state.items[itemInCartIndex];
-      // let updatedItems = [...state.items];
-      // if (itemInCart) {
-      //   const updatedItem = {
-      //     ...itemInCart,
-      //     amount: itemInCart.amount + 1,
-      //   };
-      //   updatedItems[itemInCartIndex] = updatedItem;
-      // } else {
-      //   const addedItem = {
-      //     ...action.payload,
-      //     amount: 1,
-      //   };
-      //   updatedItems.push(addedItem);
-      // }
-      // return {
-      //   ...state,
-      //   items: updatedItems,
-      //   totalAmount: updatedTotalAmount,
-      // };
-
+    case 'UPDATE_CART': {
       return {
-        id: action.payload.id,
+        ...state,
         items: action.payload.items,
         totalAmount: action.payload.totalAmount,
       };
     }
-
-    case 'REMOVE_ITEM': {
-      const updatedTotalAmount = state.totalAmount - 1;
-
-      const itemInCartIndex = state.items.findIndex(
-        (item) =>
-          item.sku === action.payload.sku && item.size === action.payload.size
-      );
-      const itemInCart = state.items[itemInCartIndex];
-
-      let updatedItems;
-
-      if (itemInCart.amount === 1) {
-        updatedItems = state.items.filter(
-          (item) => item.sku !== action.payload.sku
-        );
-      } else {
-        const updatedItem = { ...itemInCart, amount: itemInCart.amount - 1 };
-        updatedItems = [...state.items];
-        updatedItems[itemInCartIndex] = updatedItem;
-      }
-
+    case 'DELETE_CART': {
       return {
-        ...state,
-        items: updatedItems,
-        totalAmount: updatedTotalAmount,
-      };
-    }
-
-    case 'DELETE_ITEM': {
-      const updatedTotalAmount = state.totalAmount - action.payload.amount;
-
-      const updatedItems = state.items.filter(
-        (item) => item.sku !== action.payload.sku
-      );
-
-      return {
-        ...state,
-        items: updatedItems,
-        totalAmount: updatedTotalAmount,
+        ...defaultState,
       };
     }
 
@@ -105,7 +43,7 @@ const cartReducer = (state, action) => {
 };
 
 const CartProvider = ({ children }) => {
-  const { cartId } = useAuthContext();
+  // const { cartId } = useAuthContext();
   const [state, dispatch] = useReducer(cartReducer, defaultState);
 
   useEffect(() => {
@@ -120,7 +58,7 @@ const CartProvider = ({ children }) => {
           const cart = docSnap.data();
 
           dispatch({
-            type: 'LOAD_CART',
+            type: 'NEW_CART',
             payload: { ...cart, id: cartInStorageId },
           });
         } catch (err) {
@@ -131,6 +69,7 @@ const CartProvider = ({ children }) => {
       getCart();
     }
   }, []);
+
   // useEffect(() => {
   //   if (cartId) {
   //     const getCart = async () => {
