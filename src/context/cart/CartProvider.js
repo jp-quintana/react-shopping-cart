@@ -17,7 +17,6 @@ const initialState = {
 const cartReducer = (state, action) => {
   switch (action.type) {
     case 'CREATE_CART': {
-      console.log('running');
       return {
         id: action.payload.id,
         items: action.payload.items,

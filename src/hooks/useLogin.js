@@ -80,8 +80,8 @@ export const useLogin = () => {
       setIsLoading(false);
     } catch (err) {
       console.log(err);
-      setIsLoading(false);
       setError(err);
+      setIsLoading(false);
     }
   };
   return { login, isLoading, error };

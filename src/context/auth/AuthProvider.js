@@ -34,7 +34,14 @@ const authReducer = (state, action) => {
       return { ...state, user, name, lastName, cartId, ordersId };
     }
     case 'LOGOUT': {
-      return { ...state, user: null, cartId: null };
+      return {
+        ...state,
+        user: null,
+        name: null,
+        lastName: null,
+        cartId: null,
+        ordersId: null,
+      };
     }
     default:
       return state;

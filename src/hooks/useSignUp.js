@@ -55,8 +55,8 @@ export const useSignUp = () => {
       dispatch({ type: 'LOGIN', payload: { user, ...userData } });
     } catch (err) {
       console.log(err);
-      setIsLoading(false);
       setError(err);
+      setIsLoading(false);
     }
   };
 

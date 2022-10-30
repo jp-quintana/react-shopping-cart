@@ -1,11 +1,13 @@
 import { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useSignUp } from 'hooks/useSignUp';
 
 import styles from './index.module.scss';
 
 const SignUp = () => {
+  let navigate = useNavigate();
+
   const { signUp, error, isLoading } = useSignUp();
 
   const nameInput = useRef();
@@ -15,12 +17,17 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    signUp({
+
+    await signUp({
       name: nameInput.current.value,
       lastName: lastNameInput.current.value,
       email: emailInput.current.value,
       password: passwordInput.current.value,
     });
+
+    if (!error) {
+      navigate('/');
+    }
   };
 
   return (

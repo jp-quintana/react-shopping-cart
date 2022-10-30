@@ -23,7 +23,6 @@ const Product = ({
   selectedSize,
   selectedStock,
 }) => {
-  // const { items, dispatch: dispatchCartAction } = useCartContext();
   const { items } = useCartContext();
   const { addItem, isLoading, error } = useCart();
 
@@ -31,27 +30,6 @@ const Product = ({
   if (selectedSize.length > 0) {
     addEventHandler = true;
   }
-
-  // const handleAddToCart = () => {
-  //   const item = items.find((item) => item.sku === selectedSku);
-  //   if (item && item.amount >= selectedStock) {
-  //     return;
-  //   }
-
-  //   dispatchCartAction({
-  //     type: 'ADD_ITEM',
-  //     payload: {
-  //       sku: selectedSku,
-  //       name: productName,
-  //       size: selectedSize,
-  //       type,
-  //       color,
-  //       price: price.raw,
-  //       url,
-  //       images,
-  //     },
-  //   });
-  // };
 
   const handleAddToCart = async () => {
     const item = items.find((item) => item.sku === selectedSku);
