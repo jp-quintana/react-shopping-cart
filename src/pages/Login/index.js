@@ -1,18 +1,29 @@
 import { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { useLogin } from 'hooks/useLogin';
 
 import styles from './index.module.scss';
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const { login, isLoading, error } = useLogin();
+
   const emailInput = useRef();
   const passwordInput = useRef();
 
-  const handleSubmit = (e) => {
-    console.log({
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await login({
       email: emailInput.current.value,
       password: passwordInput.current.value,
     });
-    e.preventDefault();
+
+    if (!error) {
+      navigate('/');
+    }
   };
 
   return (

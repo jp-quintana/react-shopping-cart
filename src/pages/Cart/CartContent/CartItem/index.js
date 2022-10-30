@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useCartContext } from 'hooks/useCartContext';
+import { useCart } from 'hooks/useCart';
 
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 
@@ -22,18 +22,24 @@ const CartItem = ({
   item,
   toggleCartModal,
 }) => {
-  const { dispatch } = useCartContext();
+  const { addItem, removeItem, deleteItem, isLoading, error } = useCart();
 
   const handleAddItem = () => {
-    dispatch({ type: 'ADD_ITEM', payload: item });
+    if (!isLoading) {
+      addItem(item);
+    }
   };
 
   const handleRemoveItem = () => {
-    dispatch({ type: 'REMOVE_ITEM', payload: item });
+    if (!isLoading) {
+      removeItem(item);
+    }
   };
 
   const handleDeleteItem = () => {
-    dispatch({ type: 'DELETE_ITEM', payload: item });
+    if (!isLoading) {
+      deleteItem(item);
+    }
   };
 
   return (

@@ -1,4 +1,5 @@
 import { useCartContext } from 'hooks/useCartContext';
+import { useCart } from 'hooks/useCart';
 
 import ProductVariant from './ProductVariant';
 import ProductSize from './ProductSize';
@@ -22,31 +23,28 @@ const Product = ({
   selectedSize,
   selectedStock,
 }) => {
-  const { items, dispatch: dispatchCartAction } = useCartContext();
+  const { items } = useCartContext();
+  const { addItem, isLoading, error } = useCart();
 
   let addEventHandler = false;
   if (selectedSize.length > 0) {
     addEventHandler = true;
   }
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     const item = items.find((item) => item.sku === selectedSku);
     if (item && item.amount >= selectedStock) {
       return;
     }
-
-    dispatchCartAction({
-      type: 'ADD_ITEM',
-      payload: {
-        sku: selectedSku,
-        name: productName,
-        size: selectedSize,
-        type,
-        color,
-        price: price.raw,
-        url,
-        images,
-      },
+    addItem({
+      sku: selectedSku,
+      name: productName,
+      size: selectedSize,
+      type,
+      color,
+      price: price.raw,
+      url,
+      images,
     });
   };
 
@@ -54,6 +52,7 @@ const Product = ({
     selectedSize.length === 0
       ? 'SELECCIONAR TALLE'
       : `AGREGAR ${selectedSize} AL CARRITO`;
+
   const buttonStyles = `
     ${selectedSize.length === 0 ? styles.button_disabled : styles.button}
   `;
@@ -94,13 +93,18 @@ const Product = ({
             ))}
           </div>
 
-          <Button
-            className={buttonStyles}
-            disabled={isButtonDisabled}
-            onClick={addEventHandler ? handleAddToCart : undefined}
-          >
-            {buttonContent}
-          </Button>
+          {!isLoading && (
+            <Button
+              className={buttonStyles}
+              disabled={isButtonDisabled}
+              onClick={addEventHandler ? handleAddToCart : undefined}
+            >
+              {buttonContent}
+            </Button>
+          )}
+          {isLoading && (
+            <Button className={buttonStyles}>{buttonContent}</Button>
+          )}
         </div>
       </div>
 
