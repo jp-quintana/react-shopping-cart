@@ -1,18 +1,21 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useLogin } from 'hooks/useLogin';
+
 import styles from './index.module.scss';
 
 const Login = () => {
+  const { login } = useLogin();
   const emailInput = useRef();
   const passwordInput = useRef();
 
-  const handleSubmit = (e) => {
-    console.log({
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    login({
       email: emailInput.current.value,
       password: passwordInput.current.value,
     });
-    e.preventDefault();
   };
 
   return (

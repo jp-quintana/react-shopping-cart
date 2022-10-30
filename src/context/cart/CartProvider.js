@@ -8,7 +8,7 @@ import { useAuthContext } from 'hooks/useAuthContext';
 
 import CartContext from './cart-context';
 
-const defaultState = {
+const initialState = {
   id: null,
   items: [],
   totalAmount: 0,
@@ -16,7 +16,8 @@ const defaultState = {
 
 const cartReducer = (state, action) => {
   switch (action.type) {
-    case 'NEW_CART': {
+    case 'CREATE_CART': {
+      console.log('running');
       return {
         id: action.payload.id,
         items: action.payload.items,
@@ -32,7 +33,7 @@ const cartReducer = (state, action) => {
     }
     case 'DELETE_CART': {
       return {
-        ...defaultState,
+        ...initialState,
       };
     }
 
@@ -43,52 +44,47 @@ const cartReducer = (state, action) => {
 };
 
 const CartProvider = ({ children }) => {
-  // const { cartId } = useAuthContext();
-  const [state, dispatch] = useReducer(cartReducer, defaultState);
+  const { cartId: userCartId } = useAuthContext();
+  const [state, dispatch] = useReducer(cartReducer, initialState);
 
   useEffect(() => {
-    const cartInStorageId = localStorage.getItem('CART_IN_STORAGE');
+    const getCart = async (fetchedCartId) => {
+      try {
+        const cartRef = doc(db, 'carts', fetchedCartId);
+        const cartDoc = await getDoc(cartRef);
+        //APLICAR EMPTY METHOD ACA PARA EMPROLIJAR
 
-    if (cartInStorageId) {
-      const getCart = async () => {
-        try {
-          const docRef = doc(db, 'carts', cartInStorageId);
-          const docSnap = await getDoc(docRef);
+        const cartData = { ...cartDoc.data() };
 
-          const cart = docSnap.data();
-
+        if (!cartData.items && !cartData.totalAmount) {
+          return;
+        } else {
           dispatch({
-            type: 'NEW_CART',
-            payload: { ...cart, id: cartInStorageId },
+            type: 'CREATE_CART',
+            payload: { id: fetchedCartId, ...cartData },
           });
-        } catch (err) {
-          console.log(err);
         }
-      };
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-      getCart();
+    if (userCartId) {
+      getCart(userCartId);
+    } else {
+      const cartInStorageId = localStorage.getItem('CART_IN_STORAGE');
+      if (cartInStorageId) {
+        getCart(cartInStorageId);
+      }
     }
   }, []);
-
-  // useEffect(() => {
-  //   if (cartId) {
-  //     const getCart = async () => {
-  //       const docRef = doc(db, 'carts', cartId);
-  //       const docSnap = await getDoc(docRef);
-  //       return docSnap.data();
-  //     };
-
-  //     const cart = getCart();
-  //     dispatch({ type: 'LOAD_CART_DB', payload: { ...cart } });
-  //   }
-  // }, [cartId]);
 
   const cartContext = {
     ...state,
     dispatch,
   };
 
-  console.log(state);
+  console.log('cart', state);
 
   return (
     <CartContext.Provider value={cartContext}>{children}</CartContext.Provider>

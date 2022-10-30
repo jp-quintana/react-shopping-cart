@@ -7,9 +7,11 @@ import { auth } from '../firebase/config';
 import { db } from '../firebase/config';
 
 import { useAuthContext } from './useAuthContext';
+import { useCartContext } from './useCartContext';
 
 export const useSignUp = () => {
   const { dispatch } = useAuthContext();
+  const { id: cartId } = useCartContext();
 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,17 +33,26 @@ export const useSignUp = () => {
 
       const user = userCredential.user;
 
-      const userDB = {
+      let userCartId;
+
+      if (cartId) {
+        userCartId = cartId;
+        localStorage.removeItem('CART_IN_STORAGE');
+      } else {
+        userCartId = (Math.floor(Math.random() * 1000000) + 1).toString();
+      }
+
+      const userData = {
         name,
         lastName,
         email,
-        cartId: Math.floor(Math.random() * 1000000) + 1,
-        ordersId: Math.floor(Math.random() * 1000000) + 1,
+        cartId: userCartId,
+        ordersId: (Math.floor(Math.random() * 1000000) + 1).toString(),
       };
 
-      await setDoc(doc(db, 'users', user.uid), userDB);
+      await setDoc(doc(db, 'users', user.uid), userData);
 
-      // dispatch({ type: 'LOGIN' });
+      dispatch({ type: 'LOGIN', payload: { user, ...userData } });
     } catch (err) {
       console.log(err);
       setIsLoading(false);

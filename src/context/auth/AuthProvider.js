@@ -10,6 +10,8 @@ import AuthContext from './auth-provider';
 
 const initialState = {
   user: null,
+  name: null,
+  lastName: null,
   cartId: null,
   ordersId: null,
   authIsReady: false,
@@ -20,18 +22,16 @@ const authReducer = (state, action) => {
     case 'AUTH_IS_READY': {
       return {
         user: action.payload.user,
+        name: action.payload.name,
+        lastName: action.payload.lastName,
         cartId: action.payload.cartId,
         ordersId: action.payload.ordersId,
         authIsReady: true,
       };
     }
-    case 'GET_CART': {
-      const { cartId } = action.payload;
-      return { ...state, cartId };
-    }
     case 'LOGIN': {
-      const { user } = action.payload;
-      return { ...state, user };
+      const { user, name, lastName, cartId, ordersId } = action.payload;
+      return { ...state, user, name, lastName, cartId, ordersId };
     }
     case 'LOGOUT': {
       return { ...state, user: null, cartId: null };
@@ -47,19 +47,25 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const docRef = doc(db, 'users', user.uid);
-        const docSnap = await getDoc(docRef);
+        const userRef = doc(db, 'users', user.uid);
+        const userDoc = await getDoc(userRef);
 
-        const { cartId, ordersId } = docSnap.data();
+        const userData = userDoc.data();
 
         dispatch({
           type: 'AUTH_IS_READY',
-          payload: { user, cartId, ordersId },
+          payload: { user, ...userData },
         });
       } else {
         dispatch({
           type: 'AUTH_IS_READY',
-          payload: { user, cartId: null, ordersId: null },
+          payload: {
+            user: null,
+            name: null,
+            lastName: null,
+            cartId: null,
+            ordersId: null,
+          },
         });
       }
     });
@@ -71,7 +77,7 @@ const AuthProvider = ({ children }) => {
   //   // Check for cartId
   // }, []);
 
-  console.log(state);
+  console.log('auth', state);
 
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>

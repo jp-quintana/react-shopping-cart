@@ -1,5 +1,7 @@
 import { NavLink, Link } from 'react-router-dom';
 
+import { useLogout } from 'hooks/useLogout';
+
 import { FaBars } from 'react-icons/fa';
 import { BiUser, BiSearch } from 'react-icons/bi';
 
@@ -10,6 +12,7 @@ import LogoNav from 'assets/images/logo-nav.png';
 import styles from './index.module.scss';
 
 const Navbar = ({ toggleSideNav, toggleCartModal }) => {
+  const { logout } = useLogout();
   return (
     <nav className={`${styles.nav}`}>
       <div className={styles.container_top}>
@@ -30,6 +33,9 @@ const Navbar = ({ toggleSideNav, toggleCartModal }) => {
           </li>
           <li className={styles.mobile_icon}>
             <FaBars onClick={toggleSideNav} />
+          </li>
+          <li>
+            <p onClick={logout}>Logout</p>
           </li>
         </ul>
       </div>
