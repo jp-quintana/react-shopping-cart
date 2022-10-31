@@ -21,6 +21,8 @@ const Login = () => {
       password: passwordInput.current.value,
     });
 
+    console.log(error);
+
     if (!error) {
       navigate('/');
     }

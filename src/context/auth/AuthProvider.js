@@ -12,6 +12,8 @@ const initialState = {
   user: null,
   name: null,
   lastName: null,
+  email: null,
+  phone: null,
   cartId: null,
   ordersId: null,
   authIsReady: false,
@@ -24,23 +26,29 @@ const authReducer = (state, action) => {
         user: action.payload.user,
         name: action.payload.name,
         lastName: action.payload.lastName,
+        email: action.payload.email,
+        phone: action.payload.phone,
         cartId: action.payload.cartId,
         ordersId: action.payload.ordersId,
         authIsReady: true,
       };
     }
     case 'LOGIN': {
-      const { user, name, lastName, cartId, ordersId } = action.payload;
-      return { ...state, user, name, lastName, cartId, ordersId };
+      return {
+        ...state,
+        user: action.payload.user,
+        name: action.payload.name,
+        lastName: action.payload.lastName,
+        email: action.payload.email,
+        phone: action.payload.phone,
+        cartId: action.payload.cartId,
+        ordersId: action.payload.ordersId,
+      };
     }
     case 'LOGOUT': {
       return {
-        ...state,
-        user: null,
-        name: null,
-        lastName: null,
-        cartId: null,
-        ordersId: null,
+        ...initialState,
+        authIsReady: true,
       };
     }
     default:

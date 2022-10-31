@@ -40,7 +40,7 @@ const CartContent = () => {
               />
             ))}
           </div>
-          <div className={styles.support_wrapper}>
+          <aside className={styles.sidebar}>
             <form className={styles.support}>
               <p className={styles.support_title}>Código de descuento</p>
               <input
@@ -52,7 +52,7 @@ const CartContent = () => {
                 Agregar
               </button>
             </form>
-          </div>
+          </aside>
         </div>
       </>
     ) : (
