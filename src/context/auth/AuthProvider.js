@@ -88,10 +88,6 @@ const AuthProvider = ({ children }) => {
     return () => unsub();
   }, []);
 
-  // useEffect(() => {
-  //   // Check for cartId
-  // }, []);
-
   console.log('auth', state);
 
   return (

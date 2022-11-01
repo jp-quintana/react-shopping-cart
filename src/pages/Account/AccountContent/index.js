@@ -6,6 +6,8 @@ import { BiUser, BiEnvelope, BiPhone } from 'react-icons/bi';
 import { useAuthContext } from 'hooks/useAuthContext';
 import { useLogout } from 'hooks/useLogout';
 
+import EditProfileModal from './EditProfileModal';
+
 import Button from 'common/Button';
 
 import styles from './index.module.scss';
@@ -17,6 +19,7 @@ const AccountContent = () => {
   const { logout, isLoading, error } = useLogout();
 
   const [orders, setOrders] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleLogout = async () => {
     await logout();
@@ -26,60 +29,77 @@ const AccountContent = () => {
     }
   };
 
+  const toggleEditProfile = () => {
+    setIsOpen((prevState) => !prevState);
+  };
+
   return (
-    <section>
-      <div className={`${styles.container} main-container`}>
-        <div className={styles.welcome_wrapper}>
-          <p className={styles.greeting}>Hola, {name}!</p>
-          <Button className={styles.logout_button} onClick={handleLogout}>
-            Logout
-          </Button>
-        </div>
-        <div className={styles.orders_container}>
-          <div className={styles.orders_list_wrapper}>
-            {orders ? <p>Ordenes</p> : <p>No creaste una orden todavía!</p>}
-            {/* Crear order items */}
+    <>
+      {isOpen && (
+        <EditProfileModal
+          toggleEditProfile={toggleEditProfile}
+          name={name}
+          lastName={lastName}
+          phoneNumber={phoneNumber}
+        />
+      )}
+      <section>
+        <div className={`${styles.container} main-container`}>
+          <div className={styles.welcome_wrapper}>
+            <p className={styles.greeting}>Hola, {name}!</p>
+            <Button className={styles.logout_button} onClick={handleLogout}>
+              Logout
+            </Button>
           </div>
-          <aside className={styles.sidebar}>
-            <div className={styles.profile_container}>
-              <div className={styles.profile_wrapper}>
-                <h3 className={styles.profile_title}>Tus datos</h3>
-                <ul className={styles.profile_data}>
-                  <li>
-                    <BiUser className={styles.profile_icon} />
-                    {name} {lastName}
-                  </li>
-                  <li>
-                    <BiEnvelope className={styles.profile_icon} />
-                    {email}
-                  </li>
-                  <li>
-                    <BiPhone className={styles.profile_icon} />
-                    {phoneNumber
-                      ? phoneNumber
-                      : 'No se agregó un teléfono todavía'}
-                  </li>
-                </ul>
-                <button className={`${styles.edit_button} disabled-link`}>
-                  Editar Datos
-                </button>
-              </div>
+          <div className={styles.orders_container}>
+            <div className={styles.orders_list_wrapper}>
+              {orders ? <p>Ordenes</p> : <p>No creaste una orden todavía!</p>}
+              {/* Crear order items */}
             </div>
-            <div className={styles.addresses_container}>
-              <div className={styles.addresses_wrapper}>
-                <h3 className={styles.addresses_titles}>Tus Direcciones</h3>
-                <div className={styles.adresses_list}>
-                  <p>Todavía no agregaste una dirección!</p>
+            <aside className={styles.sidebar}>
+              <div className={styles.profile_container}>
+                <div className={styles.profile_wrapper}>
+                  <h3 className={styles.profile_title}>Tus datos</h3>
+                  <ul className={styles.profile_data}>
+                    <li>
+                      <BiUser className={styles.profile_icon} />
+                      {name} {lastName}
+                    </li>
+                    <li>
+                      <BiEnvelope className={styles.profile_icon} />
+                      {email}
+                    </li>
+                    <li>
+                      <BiPhone className={styles.profile_icon} />
+                      {phoneNumber
+                        ? phoneNumber
+                        : 'No se agregó un teléfono todavía'}
+                    </li>
+                  </ul>
+                  <button
+                    className={styles.edit_button}
+                    onClick={toggleEditProfile}
+                  >
+                    Editar Datos
+                  </button>
                 </div>
-                <button className={`${styles.edit_button} disabled-link`}>
-                  Agregar Direcciones
-                </button>
               </div>
-            </div>
-          </aside>
+              <div className={styles.addresses_container}>
+                <div className={styles.addresses_wrapper}>
+                  <h3 className={styles.addresses_titles}>Tus Direcciones</h3>
+                  <div className={styles.adresses_list}>
+                    <p>Todavía no agregaste una dirección!</p>
+                  </div>
+                  <button className={`${styles.edit_button} disabled-link`}>
+                    Agregar Direcciones
+                  </button>
+                </div>
+              </div>
+            </aside>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
