@@ -47,7 +47,7 @@ const EditProfileModal = ({
             placeholder="Nombre"
             required
             ref={nameInput}
-            value={name}
+            defaultValue={name}
           />
         </label>
         <label>
@@ -58,7 +58,7 @@ const EditProfileModal = ({
             placeholder="Apellido"
             required
             ref={lastNameInput}
-            value={lastName}
+            defaultValue={lastName}
           />
         </label>
         <label>
@@ -68,7 +68,7 @@ const EditProfileModal = ({
             type="tel"
             required
             ref={phoneNumberInput}
-            value={phoneNumber ? phoneNumber : ''}
+            defaultValue={phoneNumber ? phoneNumber : ''}
           />
         </label>
         <button className={styles.button} type="submit">

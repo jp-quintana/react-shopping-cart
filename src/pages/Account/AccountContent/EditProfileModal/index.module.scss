@@ -1,17 +1,9 @@
 @import 'App.scss';
 
-.section {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .form {
-  margin: 0 auto;
-
+  display: inline-block;;
   @media (min-width: 768px) {
-    width: 40%;
+    width: 300px;
   }
 }
 
