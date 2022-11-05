@@ -1,10 +1,25 @@
 @import 'App.scss';
 
+.modal_content {
+  height: 100%;
+ 
+}
+
+.form_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  height: 100%;
+}
+
 .form {
-  display: inline-block;;
-  @media (min-width: 768px) {
-    width: 300px;
-  }
+  height: 100%;
+}
+
+.form_inputs_wrapper {
+  overflow-y: auto;
+  height: 80%;
+
 }
 
 .title {
@@ -21,8 +36,12 @@
   margin-bottom: 3rem;
 }
 
+.prueba {
+  max-height: 100%;
+}
+
 .button {
-  margin-top: 3rem;
+  margin-top: auto;
   padding: 1rem 2rem;
   font-size: 1.6rem;
   border: solid 0.2rem #000;
