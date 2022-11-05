@@ -37,134 +37,47 @@ const EditProfileModal = ({
 
   return (
     <CenterModal toggleModal={toggleEditProfile}>
-      <div className={styles.modal_content}>
+      <form id="form" className={styles.form} onSubmit={handleSubmit}>
         <h2 className={styles.title}>Editar datos:</h2>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <div className={styles.form_wrapper}>
-            <div className={styles.form_inputs_wrapper}>
-              <label>
-                <span>Nombre:</span>
-                <input
-                  className={styles.input}
-                  type="text"
-                  placeholder="Nombre"
-                  required
-                  ref={nameInput}
-                  defaultValue={name}
-                />
-              </label>
-              <label>
-                <span>Apellido:</span>
-                <input
-                  className={styles.input}
-                  type="text"
-                  placeholder="Apellido"
-                  required
-                  ref={lastNameInput}
-                  defaultValue={lastName}
-                />
-              </label>
-              <label>
-                <span>Teléfono:</span>
-                <input
-                  className={styles.input}
-                  type="tel"
-                  ref={phoneNumberInput}
-                  defaultValue={phoneNumber ? phoneNumber : ''}
-                />
-              </label>
-              <label>
-                <span>Nombre:</span>
-                <input
-                  className={styles.input}
-                  type="text"
-                  placeholder="Nombre"
-                  required
-                  ref={nameInput}
-                  defaultValue={name}
-                />
-              </label>
-              <label>
-                <span>Apellido:</span>
-                <input
-                  className={styles.input}
-                  type="text"
-                  placeholder="Apellido"
-                  required
-                  ref={lastNameInput}
-                  defaultValue={lastName}
-                />
-              </label>
-              <label>
-                <span>Teléfono:</span>
-                <input
-                  className={styles.input}
-                  type="tel"
-                  ref={phoneNumberInput}
-                  defaultValue={phoneNumber ? phoneNumber : ''}
-                />
-              </label>
-              <label>
-                <span>Teléfono:</span>
-                <input
-                  className={styles.input}
-                  type="tel"
-                  ref={phoneNumberInput}
-                  defaultValue={phoneNumber ? phoneNumber : ''}
-                />
-              </label>
-              <label>
-                <span>Teléfono:</span>
-                <input
-                  className={styles.input}
-                  type="tel"
-                  ref={phoneNumberInput}
-                  defaultValue={phoneNumber ? phoneNumber : ''}
-                />
-              </label>
-              <label>
-                <span>Teléfono:</span>
-                <input
-                  className={styles.input}
-                  type="tel"
-                  ref={phoneNumberInput}
-                  defaultValue={phoneNumber ? phoneNumber : ''}
-                />
-              </label>
-              <label>
-                <span>Teléfono:</span>
-                <input
-                  className={styles.input}
-                  type="tel"
-                  ref={phoneNumberInput}
-                  defaultValue={phoneNumber ? phoneNumber : ''}
-                />
-              </label>
-              <label>
-                <span>Teléfono:</span>
-                <input
-                  className={styles.input}
-                  type="tel"
-                  ref={phoneNumberInput}
-                  defaultValue={phoneNumber ? phoneNumber : ''}
-                />
-              </label>
-              <label>
-                <span>Teléfono:</span>
-                <input
-                  className={styles.input}
-                  type="tel"
-                  ref={phoneNumberInput}
-                  defaultValue={phoneNumber ? phoneNumber : ''}
-                />
-              </label>
-            </div>
-            <button className={styles.button} type="submit">
-              Editar
-            </button>
-          </div>
-        </form>
-      </div>
+        <div className={styles.form_inputs_wrapper}>
+          <label>
+            <span>Nombre:</span>
+            <input
+              className={styles.input}
+              type="text"
+              placeholder="Nombre"
+              required
+              ref={nameInput}
+              defaultValue={name}
+            />
+          </label>
+          <label>
+            <span>Apellido:</span>
+            <input
+              className={styles.input}
+              type="text"
+              placeholder="Apellido"
+              required
+              ref={lastNameInput}
+              defaultValue={lastName}
+            />
+          </label>
+          <label>
+            <span>Teléfono:</span>
+            <input
+              className={styles.input}
+              type="tel"
+              ref={phoneNumberInput}
+              defaultValue={phoneNumber ? phoneNumber : ''}
+            />
+          </label>
+        </div>
+        <div className={styles.button_wrapper}>
+          <button form="form" className={styles.button} type="submit">
+            Editar
+          </button>
+        </div>
+      </form>
     </CenterModal>
   );
 };

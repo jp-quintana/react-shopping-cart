@@ -1,30 +1,24 @@
 @import 'App.scss';
 
-.modal_content {
-  height: 100%;
- 
-}
-
-.form_wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  height: 100%;
+.title {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 .form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form_content_wrapper {
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }
 
 .form_inputs_wrapper {
   overflow-y: auto;
-  height: 80%;
-
-}
-
-.title {
-  text-align: center;
-  margin-bottom: 2rem;
 }
 
 .input {
@@ -40,8 +34,12 @@
   max-height: 100%;
 }
 
-.button {
+.button_wrapper {
+  padding-top: 2rem;
   margin-top: auto;
+}
+
+.button {
   padding: 1rem 2rem;
   font-size: 1.6rem;
   border: solid 0.2rem #000;

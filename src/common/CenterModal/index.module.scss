@@ -21,7 +21,7 @@
     transform: translate(50%, -50%);
     height: 90%;
 
-    width: 20%;
+    width: 50%;
     border-radius: 3rem;
   }
 
@@ -35,5 +35,9 @@
 
   @media (min-width: 1200px) {
     width: 30%;
+  }
+
+  @media (min-width: 1920px) {
+    width: 25%;
   }
 }
