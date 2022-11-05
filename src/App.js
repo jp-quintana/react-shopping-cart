@@ -8,6 +8,7 @@ import Layout from './setup/Layout';
 
 import Home from './pages/Home';
 import Account from './pages/Account';
+import Addresses from './pages/Addresses';
 import Login from 'pages/Login';
 import SignUp from 'pages/SignUp';
 import Collections from './pages/Collections';
@@ -26,7 +27,7 @@ const App = () => {
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="/cuenta" element={<Account />} />
-              {/* <Route path="/cuenta/direcciones" element={<Login />} /> */}
+              <Route path="/cuenta/direcciones" element={<Addresses />} />
               <Route path="/cuenta/login" element={<Login />} />
               <Route path="/cuenta/signup" element={<SignUp />} />
               <Route path="/categorias/:id" element={<Collections />} />

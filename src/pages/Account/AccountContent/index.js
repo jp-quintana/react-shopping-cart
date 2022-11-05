@@ -51,7 +51,7 @@ const AccountContent = () => {
               Logout
             </Button>
           </div>
-          <div className={styles.orders_container}>
+          <div className={styles.content_container}>
             <div className={styles.orders_list_wrapper}>
               {orders ? <p>Ordenes</p> : <p>No creaste una orden todavía!</p>}
               {/* Crear order items */}

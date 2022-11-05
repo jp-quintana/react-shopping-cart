@@ -1,0 +1,124 @@
+@import 'App.scss';
+
+.container {
+  padding: 10rem 0 4rem 0;
+}
+
+
+
+.back_button {
+  display: flex;
+  align-items: center;
+  line-height: normal;
+  width: auto !important;
+  margin-bottom: 5rem;
+  border: 0.2rem solid #000;
+  border-radius: 1rem;
+  text-transform: uppercase;
+  background: #fff;
+  color: #000;
+  padding: .5rem 1rem;
+  font-size: 1.4rem;
+  letter-spacing: $ls-button;
+
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  span {
+    font-size: 3rem;
+  }
+}
+
+.welcome_wrapper {
+  border-bottom: 0.2rem solid #cfcfcf;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  line-height: normal;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 2rem;
+  align-self: flex-end;
+  line-height: 1;
+}
+
+.add_button {
+  display: flex;
+  gap: .75rem;
+  align-items: center;
+  border: 0.2rem solid #000;
+  border-radius: 1rem;
+  text-transform: uppercase;
+  background: #000;
+  color: #fff;
+  padding: 1rem 4rem;
+  font-size: 1.6rem;
+  letter-spacing: $ls-button;
+
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  span {
+    font-size: 3rem;
+  }
+}
+
+.add_button {
+  border: 0.2rem solid #000;
+  border-radius: 1rem;
+  text-transform: uppercase;
+  background: #000;
+  color: #fff;
+  padding: 1rem 4rem;
+  font-size: 1.6rem;
+  letter-spacing: $ls-button;
+
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.content_container {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 4rem;
+  }
+}
+
