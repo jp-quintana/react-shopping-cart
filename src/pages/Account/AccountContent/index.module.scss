@@ -34,6 +34,12 @@
   font-size: 1.6rem;
   letter-spacing: $ls-button;
 
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
   -moz-transition: all 0.1s ease-in;
   -o-transition: all 0.1s ease-in;
   -webkit-transition: all 0.1s ease-in;
@@ -41,6 +47,8 @@
 
   &:hover {
     cursor: pointer;
+    background-color: $hover-button;
+    color: #fff;
   }
 
   &:active {
@@ -115,8 +123,26 @@
   }
 }
 
-.adresses_list {
-  p {
+.addresses_list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  div {
+    padding: 3rem;
+    border: 0.2rem solid #000;
+    border-radius: 1rem;
+    background: #fff;
+    color: #000;
+    font-size: 1.4rem;
+    -moz-transition: all 0.1s ease-in;
+    -o-transition: all 0.1s ease-in;
+    -webkit-transition: all 0.1s ease-in;
+    transition: all 0.1s ease-in;
+  }
+
+  li,
+  h4 {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.6rem;
     color: #3d3d3d;
@@ -127,10 +153,10 @@
   padding: 1rem 2rem;
   margin-top: 1rem;
   font-size: 1.6rem;
-  border: solid 0.2rem #000;
+  border: solid 0.2rem $primary-button;
   border-radius: 1rem;
   width: 100%;
-  background: #000;
+  background: $primary-button;
   color: #fff;
   text-transform: uppercase;
   letter-spacing: $ls-button;
@@ -143,4 +169,15 @@
   &:active {
     transform: scale(0.9);
   }
+
+  &:hover {
+    background: $hover-button;
+    color: #fff;
+    border-color: $hover-button;
+  }
+}
+
+a.edit_button {
+  display: flex;
+  justify-content: center;
 }

@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { BiChevronLeft, BiPlus } from 'react-icons/bi';
 
 import AddAddressModal from './AddAddressModal';
@@ -11,6 +13,7 @@ import styles from './index.module.scss';
 
 const DUMMY_ADDRESSES = [
   {
+    id: 1,
     name: 'Juan',
     lastName: 'Quintana',
     phoneNumber: '1132074782',
@@ -18,10 +21,10 @@ const DUMMY_ADDRESSES = [
     zipCode: '1636',
     city: 'Olivos',
     province: 'Buenos Aires',
-    addressNumber: 1,
     isDefault: true,
   },
   {
+    id: 2,
     name: 'Juan',
     lastName: 'Quintana',
     phoneNumber: '1132074782',
@@ -29,10 +32,10 @@ const DUMMY_ADDRESSES = [
     zipCode: '1636',
     city: 'Olivos',
     province: 'Buenos Aires',
-    addressNumber: 2,
     isDefault: false,
   },
   {
+    id: 3,
     name: 'Juan',
     lastName: 'Quintana',
     phoneNumber: '1132074782',
@@ -40,10 +43,10 @@ const DUMMY_ADDRESSES = [
     zipCode: '1636',
     city: 'Olivos',
     province: 'Buenos Aires',
-    addressNumber: 3,
     isDefault: false,
   },
   {
+    id: 4,
     name: 'Juan',
     lastName: 'Quintana',
     phoneNumber: '1132074782',
@@ -51,7 +54,6 @@ const DUMMY_ADDRESSES = [
     zipCode: '1636',
     city: 'Olivos',
     province: 'Buenos Aires',
-    addressNumber: 4,
     isDefault: false,
   },
 ];
@@ -65,22 +67,20 @@ const Addresses = () => {
   const notDefaultAddresses = DUMMY_ADDRESSES.filter(
     (address) => !address.isDefault
   );
-  const defaultAddress = DUMMY_ADDRESSES.find((address) => !address.isDefault);
-
-  console.log(notDefaultAddresses);
+  const defaultAddress = DUMMY_ADDRESSES.find((address) => address.isDefault);
 
   return (
     <>
       {isOpen && <AddAddressModal />}
       <section>
         <div className={`${styles.container} main-container`}>
-          <button className={styles.back_button}>
+          <Link className={styles.back_button} to="/cuenta">
             <span>
               <BiChevronLeft />
             </span>
             Volver a mi cuenta
-          </button>
-          <div className={styles.welcome_wrapper}>
+          </Link>
+          <div className={styles.header_wrapper}>
             <p className={styles.title}>Mis direcciones</p>
             <Button className={styles.add_button}>
               <span>
@@ -101,23 +101,25 @@ const Addresses = () => {
                     name={defaultAddress.name}
                     lastName={defaultAddress.lastName}
                     phoneNumber={defaultAddress.phoneNumber}
+                    address={defaultAddress.address}
                     zipCode={defaultAddress.zipCode}
                     city={defaultAddress.city}
                     province={defaultAddress.province}
-                    addressNumber={defaultAddress.addressNumber}
+                    id={defaultAddress.id}
                     isDefault={defaultAddress.isDefault}
                   />
                 )}
                 {notDefaultAddresses.map((address) => (
                   <Address
-                    key={address.addressNumber}
+                    key={address.id}
                     name={address.name}
                     lastName={address.lastName}
                     phoneNumber={address.phoneNumber}
+                    address={address.address}
                     zipCode={address.zipCode}
                     city={address.city}
                     province={address.province}
-                    addressNumber={address.addressNumber}
+                    id={address.id}
                     isDefault={address.isDefault}
                   />
                 ))}

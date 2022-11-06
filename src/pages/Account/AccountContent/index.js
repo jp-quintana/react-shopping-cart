@@ -12,6 +12,53 @@ import Button from 'common/Button';
 
 import styles from './index.module.scss';
 
+const DUMMY_ADDRESSES = [
+  {
+    id: 1,
+    name: 'Juan',
+    lastName: 'Quintana',
+    phoneNumber: '1132074782',
+    address: 'Amador 1679',
+    zipCode: '1636',
+    city: 'Olivos',
+    province: 'Buenos Aires',
+    isDefault: true,
+  },
+  {
+    id: 2,
+    name: 'Juan',
+    lastName: 'Quintana',
+    phoneNumber: '1132074782',
+    address: 'Amador 1679',
+    zipCode: '1636',
+    city: 'Olivos',
+    province: 'Buenos Aires',
+    isDefault: false,
+  },
+  {
+    id: 3,
+    name: 'Juan',
+    lastName: 'Quintana',
+    phoneNumber: '1132074782',
+    address: 'Amador 1679',
+    zipCode: '1636',
+    city: 'Olivos',
+    province: 'Buenos Aires',
+    isDefault: false,
+  },
+  {
+    id: 4,
+    name: 'Juan',
+    lastName: 'Quintana',
+    phoneNumber: '1132074782',
+    address: 'Amador 1679',
+    zipCode: '1636',
+    city: 'Olivos',
+    province: 'Buenos Aires',
+    isDefault: false,
+  },
+];
+
 const AccountContent = () => {
   const navigate = useNavigate();
 
@@ -20,6 +67,15 @@ const AccountContent = () => {
 
   const [orders, setOrders] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+
+  const [addresses, setAddresses] = useState(DUMMY_ADDRESSES);
+  // const [defaultAddress, setDefaultAddress] = useState(_defaultAddress);
+
+  // TODO: Fix
+  const notDefaultAddresses = DUMMY_ADDRESSES.filter(
+    (address) => !address.isDefault
+  );
+  const defaultAddress = DUMMY_ADDRESSES.find((address) => address.isDefault);
 
   const handleLogout = async () => {
     await logout();
@@ -87,12 +143,53 @@ const AccountContent = () => {
               <div className={styles.addresses_container}>
                 <div className={styles.addresses_wrapper}>
                   <h3 className={styles.addresses_titles}>Tus Direcciones</h3>
-                  <div className={styles.adresses_list}>
-                    <p>Todavía no agregaste una dirección!</p>
+                  <div className={styles.addresses_list}>
+                    {addresses.length === 0 && (
+                      <p>Todavía no agregaste una dirección!</p>
+                    )}
+
+                    {addresses.length > 0 && (
+                      <>
+                        <div>
+                          <h3 className={styles.title}>
+                            Direccion predeterminada
+                          </h3>
+
+                          <h4 className={styles.name}>
+                            {defaultAddress.name} {defaultAddress.lastName}
+                          </h4>
+                          <ul className={styles.info}>
+                            <li>{defaultAddress.address}</li>
+                            <li>
+                              {defaultAddress.city}, {defaultAddress.zipCode}
+                            </li>
+                            <li>{defaultAddress.province}</li>
+                          </ul>
+                        </div>
+                        {notDefaultAddresses.map((address) => (
+                          <div>
+                            <h3 className={styles.title}>
+                              Direccion {address.id}
+                            </h3>
+
+                            <h4 className={styles.name}>
+                              {address.name} {address.lastName}
+                            </h4>
+                            <ul className={styles.info}>
+                              <li>{address.address}</li>
+                              <li>
+                                {address.city}, {address.zipCode}
+                              </li>
+                              <li>{address.province}</li>
+                            </ul>
+                          </div>
+                        ))}
+                      </>
+                    )}
                   </div>
-                  <button className={`${styles.edit_button} disabled-link`}>
-                    Agregar Direcciones
-                  </button>
+                  <Link className={styles.edit_button} to="/cuenta/direcciones">
+                    Editar Direcciones
+                  </Link>
                 </div>
               </div>
             </aside>
