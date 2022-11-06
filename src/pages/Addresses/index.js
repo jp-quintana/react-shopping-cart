@@ -9,11 +9,65 @@ import Button from 'common/Button';
 
 import styles from './index.module.scss';
 
+const DUMMY_ADDRESSES = [
+  {
+    name: 'Juan',
+    lastName: 'Quintana',
+    phoneNumber: '1132074782',
+    address: 'Amador 1679',
+    zipCode: '1636',
+    city: 'Olivos',
+    province: 'Buenos Aires',
+    addressNumber: 1,
+    isDefault: true,
+  },
+  {
+    name: 'Juan',
+    lastName: 'Quintana',
+    phoneNumber: '1132074782',
+    address: 'Amador 1679',
+    zipCode: '1636',
+    city: 'Olivos',
+    province: 'Buenos Aires',
+    addressNumber: 2,
+    isDefault: false,
+  },
+  {
+    name: 'Juan',
+    lastName: 'Quintana',
+    phoneNumber: '1132074782',
+    address: 'Amador 1679',
+    zipCode: '1636',
+    city: 'Olivos',
+    province: 'Buenos Aires',
+    addressNumber: 3,
+    isDefault: false,
+  },
+  {
+    name: 'Juan',
+    lastName: 'Quintana',
+    phoneNumber: '1132074782',
+    address: 'Amador 1679',
+    zipCode: '1636',
+    city: 'Olivos',
+    province: 'Buenos Aires',
+    addressNumber: 4,
+    isDefault: false,
+  },
+];
+
 const Addresses = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [addresses, setAddresses] = useState([]);
+  const [addresses, setAddresses] = useState(DUMMY_ADDRESSES);
+  // const [defaultAddress, setDefaultAddress] = useState(_defaultAddress);
 
-  // const addressesContent =
+  // TODO: Fix
+  const notDefaultAddresses = DUMMY_ADDRESSES.filter(
+    (address) => !address.isDefault
+  );
+  const defaultAddress = DUMMY_ADDRESSES.find((address) => !address.isDefault);
+
+  console.log(notDefaultAddresses);
 
   return (
     <>
@@ -39,10 +93,33 @@ const Addresses = () => {
             {addresses.length === 0 && (
               <h2>Todavia no agregaste una direccion!</h2>
             )}
+
             {addresses.length > 0 && (
               <div className={styles.addresses_list}>
-                {addresses.map((address) => (
-                  <Address />
+                {defaultAddress && (
+                  <Address
+                    name={defaultAddress.name}
+                    lastName={defaultAddress.lastName}
+                    phoneNumber={defaultAddress.phoneNumber}
+                    zipCode={defaultAddress.zipCode}
+                    city={defaultAddress.city}
+                    province={defaultAddress.province}
+                    addressNumber={defaultAddress.addressNumber}
+                    isDefault={defaultAddress.isDefault}
+                  />
+                )}
+                {notDefaultAddresses.map((address) => (
+                  <Address
+                    key={address.addressNumber}
+                    name={address.name}
+                    lastName={address.lastName}
+                    phoneNumber={address.phoneNumber}
+                    zipCode={address.zipCode}
+                    city={address.city}
+                    province={address.province}
+                    addressNumber={address.addressNumber}
+                    isDefault={address.isDefault}
+                  />
                 ))}
               </div>
             )}

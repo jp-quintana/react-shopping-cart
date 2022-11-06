@@ -53,7 +53,7 @@ const AccountContent = () => {
           </div>
           <div className={styles.content_container}>
             <div className={styles.orders_list_wrapper}>
-              {orders ? <p>Ordenes</p> : <p>No creaste una orden todavía!</p>}
+              {orders ? <p>Ordenes</p> : <h2>Todavía no creaste una orden!</h2>}
               {/* Crear order items */}
             </div>
             <aside className={styles.sidebar}>

@@ -110,14 +110,14 @@
   }
 }
 
-.content_container {
+.addresses_list {
   display: flex;
   flex-direction: column;
   gap: 3.5rem;
 
   @media (min-width: 768px) {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 4rem;
   }
 }
