@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useState, useRef } from 'react';
 
 import CenterModal from 'common/CenterModal';
 
@@ -15,6 +15,8 @@ const EditAddressModal = ({
   province,
   isDefault,
 }) => {
+  const [isChecked, setIsChecked] = useState(isDefault);
+
   const nameInput = useRef();
   const lastNameInput = useRef();
   const phoneNumberInput = useRef();
@@ -22,7 +24,6 @@ const EditAddressModal = ({
   const zipCodeInput = useRef();
   const cityInput = useRef();
   const provinceInput = useRef();
-  const isDefaultInput = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,10 +35,14 @@ const EditAddressModal = ({
       zipCode: zipCodeInput.current.value,
       city: cityInput.current.value,
       province: provinceInput.current.value,
-      isDefault: isDefaultInput.current.value,
+      isDefault: isChecked,
     });
   };
-  console.log(isDefault);
+
+  const handleCheckboxInput = () => {
+    setIsChecked((prevState) => !prevState);
+  };
+
   return (
     <CenterModal toggleModal={toggleEditAddressModal}>
       <form id="form" className={styles.form} onSubmit={handleSubmit}>
@@ -120,8 +125,8 @@ const EditAddressModal = ({
             <input
               className={styles.input}
               type="checkbox"
-              ref={isDefaultInput}
-              checked
+              checked={isChecked}
+              onChange={handleCheckboxInput}
             />
             <div>Direccion predeterminada</div>
           </label>

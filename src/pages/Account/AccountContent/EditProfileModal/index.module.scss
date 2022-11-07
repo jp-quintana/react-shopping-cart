@@ -19,6 +19,24 @@
 
 .form_inputs_wrapper {
   overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 1rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: hsl(0, 0%, 95%);
+    border-radius: 100vw
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: hsl(0, 0%, 76%);
+    border-radius: 100vw
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: hsl(0, 0%, 66%);
+  }
 }
 
 .input {
@@ -28,10 +46,6 @@
   width: 100%;
   font-size: 1.6rem;
   margin-bottom: 3rem;
-}
-
-.prueba {
-  max-height: 100%;
 }
 
 .button_wrapper {
