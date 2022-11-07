@@ -46,7 +46,7 @@ const EditAddressModal = ({
   return (
     <CenterModal toggleModal={toggleEditAddressModal}>
       <form id="form" className={styles.form} onSubmit={handleSubmit}>
-        <h2 className={styles.title}>Editar datos:</h2>
+        <h2 className={styles.title}>Editar Dirección:</h2>
         <div className={styles.form_inputs_wrapper}>
           <label>
             <span>Nombre:</span>
@@ -91,6 +91,16 @@ const EditAddressModal = ({
             />
           </label>
           <label>
+            <span>Ciudad/Localidad:</span>
+            <input
+              className={styles.input}
+              type="text"
+              required
+              ref={cityInput}
+              defaultValue={city}
+            />
+          </label>
+          <label>
             <span>Código Postal:</span>
             <input
               className={styles.input}
@@ -101,16 +111,7 @@ const EditAddressModal = ({
               defaultValue={zipCode}
             />
           </label>
-          <label>
-            <span>Ciudad/Localidad:</span>
-            <input
-              className={styles.input}
-              type="text"
-              required
-              ref={cityInput}
-              defaultValue={city}
-            />
-          </label>
+
           <label>
             <span>Provincia</span>
             <input

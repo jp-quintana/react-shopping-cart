@@ -69,9 +69,15 @@ const Addresses = () => {
   );
   const defaultAddress = DUMMY_ADDRESSES.find((address) => address.isDefault);
 
+  const toggleAddAddressModal = () => {
+    setIsOpen((prevState) => !prevState);
+  };
+
   return (
     <>
-      {isOpen && <AddAddressModal />}
+      {isOpen && (
+        <AddAddressModal toggleAddAddressModal={toggleAddAddressModal} />
+      )}
       <section>
         <div className={`${styles.container} main-container`}>
           <Link className={styles.back_button} to="/cuenta">
@@ -82,7 +88,10 @@ const Addresses = () => {
           </Link>
           <div className={styles.header_wrapper}>
             <p className={styles.title}>Mis direcciones</p>
-            <Button className={styles.add_button}>
+            <Button
+              className={styles.add_button}
+              onClick={toggleAddAddressModal}
+            >
               <span>
                 <BiPlus />
               </span>
