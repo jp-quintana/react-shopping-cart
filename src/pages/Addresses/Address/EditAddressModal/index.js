@@ -4,8 +4,8 @@ import CenterModal from 'common/CenterModal';
 
 import styles from './index.module.scss';
 
-const AddAddressModal = ({
-  toggleAddAddressModal,
+const EditAddressModal = ({
+  toggleEditAddressModal,
   name,
   lastName,
   phoneNumber,
@@ -13,6 +13,7 @@ const AddAddressModal = ({
   zipCode,
   city,
   province,
+  isDefault,
 }) => {
   const nameInput = useRef();
   const lastNameInput = useRef();
@@ -21,22 +22,24 @@ const AddAddressModal = ({
   const zipCodeInput = useRef();
   const cityInput = useRef();
   const provinceInput = useRef();
+  const isDefaultInput = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log({
-      nameInput,
-      lastNameInput,
-      phoneNumberInput,
-      addressInput,
-      zipCodeInput,
-      cityInput,
-      provinceInput,
+      name: nameInput.current.value,
+      lastName: lastNameInput.current.value,
+      phoneNumber: phoneNumberInput.current.value,
+      address: addressInput.current.value,
+      zipCode: zipCodeInput.current.value,
+      city: cityInput.current.value,
+      province: provinceInput.current.value,
+      isDefault: isDefaultInput.current.value,
     });
   };
-
+  console.log(isDefault);
   return (
-    <CenterModal toggleModal={toggleAddAddressModal}>
+    <CenterModal toggleModal={toggleEditAddressModal}>
       <form id="form" className={styles.form} onSubmit={handleSubmit}>
         <h2 className={styles.title}>Editar datos:</h2>
         <div className={styles.form_inputs_wrapper}>
@@ -67,18 +70,60 @@ const AddAddressModal = ({
             <input
               className={styles.input}
               type="tel"
+              required
               ref={phoneNumberInput}
-              defaultValue={phoneNumber ? phoneNumber : ''}
+              defaultValue={phoneNumber}
             />
           </label>
           <label>
             <span>Dirección:</span>
             <input
               className={styles.input}
-              type="tel"
-              ref={phoneNumberInput}
-              defaultValue={phoneNumber ? phoneNumber : ''}
+              type="text"
+              required
+              ref={addressInput}
+              defaultValue={address}
             />
+          </label>
+          <label>
+            <span>Código Postal:</span>
+            <input
+              className={styles.input}
+              type="text"
+              inputMode="numeric"
+              required
+              ref={zipCodeInput}
+              defaultValue={zipCode}
+            />
+          </label>
+          <label>
+            <span>Ciudad/Localidad:</span>
+            <input
+              className={styles.input}
+              type="text"
+              required
+              ref={cityInput}
+              defaultValue={city}
+            />
+          </label>
+          <label>
+            <span>Provincia</span>
+            <input
+              className={styles.input}
+              type="text"
+              required
+              ref={provinceInput}
+              defaultValue={province}
+            />
+          </label>
+          <label className={styles.checkbox}>
+            <input
+              className={styles.input}
+              type="checkbox"
+              ref={isDefaultInput}
+              checked
+            />
+            <div>Direccion predeterminada</div>
           </label>
         </div>
         <div className={styles.button_wrapper}>
@@ -91,4 +136,4 @@ const AddAddressModal = ({
   );
 };
 
-export default AddAddressModal;
+export default EditAddressModal;
