@@ -1,0 +1,88 @@
+@import 'App.scss';
+
+.profile_wrapper,
+.addresses_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.profile_title,
+.addresses_titles {
+  text-transform: uppercase;
+}
+
+.profile_data {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.6rem;
+  color: #3d3d3d;
+
+  li {
+    border: 0.2rem solid #3d3d3d;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+.addresses_list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  div {
+    padding: 3rem;
+    border: 0.2rem solid #000;
+    border-radius: 1rem;
+    background: #fff;
+    color: #000;
+    font-size: 1.4rem;
+    -moz-transition: all 0.1s ease-in;
+    -o-transition: all 0.1s ease-in;
+    -webkit-transition: all 0.1s ease-in;
+    transition: all 0.1s ease-in;
+  }
+
+  li,
+  h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.6rem;
+    color: #3d3d3d;
+  }
+}
+
+.edit_button {
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+  font-size: 1.6rem;
+  border: solid 0.2rem $primary-button;
+  border-radius: 1rem;
+  width: 100%;
+  background: $primary-button;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: $ls-button;
+
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  &:hover {
+    background: $hover-button;
+    color: #fff;
+    border-color: $hover-button;
+  }
+}
+
+a.edit_button {
+  display: flex;
+  justify-content: center;
+}
