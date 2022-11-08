@@ -59,6 +59,8 @@ const Product = ({
 
   const isButtonDisabled = selectedSize.length === 0 ? true : false;
 
+  console.log(selectedSku);
+
   return (
     <div className={`${styles.container} main-container`}>
       <div className={styles.info_wrapper}>

@@ -31,7 +31,7 @@ const AccountAddresses = ({
                 </ul>
               </div>
               {notDefaultAddresses.map((address) => (
-                <div>
+                <div key={address.id}>
                   <h3 className={styles.title}>Direccion {address.id}</h3>
 
                   <h4 className={styles.name}>
