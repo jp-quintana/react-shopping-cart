@@ -6,7 +6,7 @@ import CartItem from 'pages/Cart/CartContent/CartItem';
 
 import Button from 'common/Button';
 
-import { addCartTotal } from 'helpers/cart';
+import { addAllItemsPrice } from 'helpers/item';
 
 import styles from './index.module.scss';
 
@@ -45,7 +45,7 @@ const CartModalContent = ({ toggleCartModal }) => {
       </div>
       <div className={styles.modal_footer}>
         <p>
-          <span>Total: {addCartTotal(items)} </span> | {totalAmount} Items
+          <span>Total: {addAllItemsPrice(items)} </span> | {totalAmount} Items
         </p>
         <Link className={styles.button} to="/carrito">
           <Button onClick={toggleCartModal}>Carrito</Button>

@@ -1,10 +1,14 @@
 @import 'App.scss';
 
-.orders_list_wrapper {
+.title {
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.orders_wrapper {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
-  padding-bottom: 4rem;
+  padding-bottom: 2.5rem;
   border-bottom: 0.2rem solid #cfcfcf;
 
   @media (min-width: 768px) {
@@ -13,10 +17,10 @@
     padding-bottom: 0;
     border-bottom: none;
   }
+}
 
-  p {
-    font-weight: 700;
-    font-size: 2.2rem;
-    letter-spacing: $ls-button;
-  }
+.orders_list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }

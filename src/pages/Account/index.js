@@ -121,7 +121,7 @@ const DUMMY_ORDERS = [
             src: '/static/media/productos-remera-de-gira-blanca-2.aa04fbd9726d39b1d84d.jpg',
           },
         ],
-        amount: 1,
+        amount: 3,
       },
     ],
   },
@@ -198,7 +198,7 @@ const Account = () => {
   const { name, lastName, email, phoneNumber } = useAuthContext();
   const { logout, isLoading, error } = useLogout();
 
-  const [orders, setOrders] = useState(null);
+  const [orders, setOrders] = useState(DUMMY_ORDERS);
 
   const [addresses, setAddresses] = useState(DUMMY_ADDRESSES);
   // const [defaultAddress, setDefaultAddress] = useState(_defaultAddress);

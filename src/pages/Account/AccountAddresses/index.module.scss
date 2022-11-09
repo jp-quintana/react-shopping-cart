@@ -1,31 +1,13 @@
 @import 'App.scss';
 
-.profile_wrapper,
 .addresses_wrapper {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.profile_title,
 .addresses_titles {
   text-transform: uppercase;
-}
-
-.profile_data {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.6rem;
-  color: #3d3d3d;
-
-  li {
-    border: 0.2rem solid #3d3d3d;
-    border-radius: 1rem;
-    padding: 1rem;
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
 }
 
 .addresses_list {
