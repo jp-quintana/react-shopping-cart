@@ -25,7 +25,7 @@ const AccountProfile = ({ name, email, lastName, phoneNumber }) => {
       )}
       <div className={styles.profile_container}>
         <div className={styles.profile_wrapper}>
-          <h3 className={styles.profile_title}>Tus datos</h3>
+          <h3 className={styles.profile_title}>Mis datos</h3>
           <ul className={styles.profile_data}>
             <li>
               <BiUser className={styles.profile_icon} />

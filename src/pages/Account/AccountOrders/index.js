@@ -8,7 +8,7 @@ const AccountOrders = ({ orders }) => {
       {orders.length === 0 && <h2>Todavía no creaste una orden!</h2>}
       {orders.length > 0 && (
         <>
-          <h3 className={styles.title}>Tus Ordenes</h3>
+          <h3 className={styles.title}>Mis Ordenes</h3>
           <div className={styles.orders_list}>
             {orders.map((order) => (
               <Order key={order.id} id={order.id} items={order.items} />

@@ -10,7 +10,7 @@ const AccountAddresses = ({
   return (
     <div className={styles.addresses_container}>
       <div className={styles.addresses_wrapper}>
-        <h3 className={styles.addresses_titles}>Tus Direcciones</h3>
+        <h3 className={styles.addresses_titles}>Mis Direcciones</h3>
         <div className={styles.addresses_list}>
           {addresses.length === 0 && <p>Todavía no agregaste una dirección!</p>}
 
