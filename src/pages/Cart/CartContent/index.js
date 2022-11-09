@@ -7,7 +7,7 @@ import CartItem from './CartItem';
 import Button from 'common/Button';
 import Card from 'common/Card';
 
-import { addCartTotal } from 'helpers/cart';
+import { addAllItemsPrice } from 'helpers/item';
 
 import styles from './index.module.scss';
 
@@ -18,7 +18,7 @@ const CartContent = () => {
     items.length > 0 ? (
       <>
         <Card className={styles.checkout_wrapper}>
-          <p className={styles.total}>Total: ${addCartTotal(items)}</p>
+          <p className={styles.total}>Total: ${addAllItemsPrice(items)}</p>
           <Button className={`${styles.checkout_button} disabled-link`}>
             Checkout
           </Button>
@@ -40,7 +40,7 @@ const CartContent = () => {
               />
             ))}
           </div>
-          <div className={styles.support_wrapper}>
+          <aside className={styles.sidebar}>
             <form className={styles.support}>
               <p className={styles.support_title}>Código de descuento</p>
               <input
@@ -52,7 +52,7 @@ const CartContent = () => {
                 Agregar
               </button>
             </form>
-          </div>
+          </aside>
         </div>
       </>
     ) : (

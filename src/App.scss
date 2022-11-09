@@ -6,6 +6,9 @@
 @tailwind utilities;
 
 
+$primary-button: #3d3d3d;
+$secondary-button: #fff;
+$hover-button: #000;
 $ls-button: .12rem;
 
 html {
@@ -22,7 +25,7 @@ html {
 body {
   font-family: "Monument Extended", sans-serif;
   font-weight: 400;
-  color: #000000;
+  color: #000;
   font-size: 1.2rem;
   line-height: 1.5;  
 }
@@ -52,7 +55,7 @@ span {
 
 a {
   text-decoration: none;
-  color: #000000;
+  color: #000;
 }
 
 a:hover {
@@ -62,7 +65,7 @@ a:hover {
 h1, h2, h3, h4 {
   font-family: "Monument Extended", sans-serif;
   font-weight: 800;
-  color: #000000;
+  color: #000;
 }
 
 h1 {
@@ -102,8 +105,6 @@ ul {
 footer {
   margin-top: auto;
 }
-
-
 
 .main-container {
   max-width: 125rem;

@@ -1,0 +1,84 @@
+@import 'App.scss';
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  border: 0.2rem solid #000;
+  border-radius: 1rem;
+  background: #fff;
+  color: #000;
+  font-size: 1.4rem;
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+}
+
+.title {
+  padding-bottom: 2rem;
+  font-size: 1.6rem;
+}
+
+.content {
+  margin-top: auto;
+}
+
+.name,
+.info {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.controls {
+  margin-top: 4rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.edit {
+  width: 100%;
+  text-align: center;
+  border: 0.2rem solid #000;
+  border-radius: 1rem;
+  text-transform: uppercase;
+  background: $secondary-button;
+  color: #000;
+  padding: 0.5rem 1rem;
+  font-size: 1.4rem;
+  letter-spacing: $ls-button;
+
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+
+  &:hover {
+    cursor: pointer;
+    background: $hover-button;
+    color: #fff;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.delete {
+  margin-left: auto;
+}
+
+.delete_icon {
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+  padding: 1rem;
+  font-size: 3.2rem;
+  border-radius: 50rem;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #ff6666;
+  }
+}

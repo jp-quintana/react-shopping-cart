@@ -41,6 +41,8 @@ const productReducer = (state, action) => {
 
     return {
       ...state,
+      selectedSku: '',
+      selectedSize: '',
       selectedVariant: variant,
     };
   }

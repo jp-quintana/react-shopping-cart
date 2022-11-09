@@ -9,7 +9,7 @@
 }
 
 .checkout_wrapper {
-  border: .1rem solid #cfcfcf;
+  border: 0.1rem solid #cfcfcf;
   border-radius: 1rem;
   display: flex;
   justify-content: space-between;
@@ -18,8 +18,14 @@
   margin-bottom: 5rem;
 }
 
+.total {
+  @media (min-width: 768px) {
+    font-size: 2rem;
+  }
+}
+
 .checkout_button {
-  border: .1rem solid #000;
+  border: 0.1rem solid #000;
   border-radius: 1rem;
   text-transform: uppercase;
   background: #000;
@@ -28,17 +34,17 @@
   font-size: 1.6rem;
   letter-spacing: $ls-button;
 
-  -moz-transition: all .1s ease-in;
-  -o-transition: all .1s ease-in;
-  -webkit-transition: all .1s ease-in;
-  transition: all .1s ease-in;
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
 
   &:hover {
     cursor: pointer;
   }
 
   &:active {
-    transform: scale(.9);
+    transform: scale(0.9);
   }
 }
 
@@ -51,9 +57,7 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 4rem;
-
   }
-  
 }
 
 .list_wrapper {
@@ -61,13 +65,13 @@
   flex-direction: column;
   gap: 3rem;
   padding-bottom: 4rem;
-  border-bottom: .2rem solid #cfcfcf;
+  border-bottom: 0.2rem solid #cfcfcf;
 
   @media (min-width: 768px) {
     padding-right: 4rem;
-    border-right: .2rem solid #cfcfcf;
+    border-right: 0.2rem solid #cfcfcf;
     padding-bottom: 0;
-    border-bottom: none
+    border-bottom: none;
   }
 }
 
@@ -82,7 +86,7 @@
 }
 
 .support_input {
-  border: solid .2rem #9e9e9e;
+  border: solid 0.2rem #9e9e9e;
   border-radius: 1rem;
   padding: 1rem 2rem;
   width: 100%;
@@ -92,7 +96,7 @@
 .support_button {
   padding: 1rem 2rem;
   font-size: 1.6rem;
-  border: solid .2rem #000;
+  border: solid 0.2rem #000;
   border-radius: 1rem;
   width: 100%;
   background: #000;
@@ -100,13 +104,13 @@
   text-transform: uppercase;
   letter-spacing: $ls-button;
 
-  -moz-transition: all .1s ease-in;
-  -o-transition: all .1s ease-in;
-  -webkit-transition: all .1s ease-in;
-  transition: all .1s ease-in;
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
 
   &:active {
-    transform: scale(.9);
+    transform: scale(0.9);
   }
 }
 
@@ -124,7 +128,7 @@
 .products_button {
   padding: 1rem 2rem;
   font-size: 1.6rem;
-  border: solid .2rem #000;
+  border: solid 0.2rem #000;
   border-radius: 1rem;
   width: 100%;
   background: #000;
@@ -133,20 +137,19 @@
   letter-spacing: $ls-button;
   color: white;
 
-  -moz-transition: all .1s ease-in;
-  -o-transition: all .1s ease-in;
-  -webkit-transition: all .1s ease-in;
-  transition: all .1s ease-in;
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
 
   &:active {
-    transform: scale(.9);
+    transform: scale(0.9);
   }
 
   &:hover {
     color: #fff;
   }
 
-  
   @media (min-width: 768px) {
     width: 50%;
   }

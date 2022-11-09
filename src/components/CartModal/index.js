@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 
 import CartModalContent from './CartModalContent';
 
@@ -7,19 +7,20 @@ import Backdrop from 'common/Backdrop';
 import styles from './index.module.scss';
 
 const CartModal = ({ toggleCartModal }) => {
-  const portalElement = document.getElementById('overlays');
+  const backdropElement = document.getElementById('backdrop');
+  const overlaysElement = document.getElementById('overlays');
 
   return (
     <>
-      {ReactDOM.createPortal(
-        <Backdrop toggleCartModal={toggleCartModal} />,
-        portalElement
+      {createPortal(
+        <Backdrop toggleModal={toggleCartModal} />,
+        backdropElement
       )}
-      {ReactDOM.createPortal(
+      {createPortal(
         <aside className={styles.modal}>
           <CartModalContent toggleCartModal={toggleCartModal} />
         </aside>,
-        portalElement
+        overlaysElement
       )}
     </>
   );

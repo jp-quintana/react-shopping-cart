@@ -1,0 +1,26 @@
+@import 'App.scss';
+
+.title {
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.orders_wrapper {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 2.5rem;
+  border-bottom: 0.2rem solid #cfcfcf;
+
+  @media (min-width: 768px) {
+    padding-right: 4rem;
+    border-right: 0.2rem solid #cfcfcf;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+}
+
+.orders_list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

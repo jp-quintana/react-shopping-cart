@@ -1,0 +1,55 @@
+@import 'App.scss';
+
+.profile_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 0.2rem solid #cfcfcf;
+}
+
+.profile_title {
+  text-transform: uppercase;
+}
+
+.profile_data {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.6rem;
+  color: #3d3d3d;
+  display: flex;
+  flex-direction: column;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+.edit_button {
+  padding: 1rem 2rem;
+  margin-top: 1rem;
+  font-size: 1.6rem;
+  border: solid 0.2rem $primary-button;
+  border-radius: 1rem;
+  width: 100%;
+  background: $primary-button;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: $ls-button;
+
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  &:hover {
+    background: $hover-button;
+    color: #fff;
+    border-color: $hover-button;
+  }
+}
