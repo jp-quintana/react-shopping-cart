@@ -5,52 +5,73 @@
   width: 100%;
   background-color: #fff;
   z-index: 9;
-  border: 1px solid;
-  border-color: hsla(0,0%,5%, .2);
+  border: 1px solid hsla(0, 0%, 5%, 0.2);
   border-radius: 0 0 3rem 3rem;
-  box-shadow: 0 20px 25px -5px rgba(0,0,0,.1),0 8px 10px -6px rgba(0,0,0,.1);
-  padding: 1.5rem 3rem 1.5rem 3rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
   left: 50%;
-  transform:translateX(-50%);
+  padding: 0.5rem 3rem 0.5rem 3rem;
+  transform: translateX(-50%);
+  width: 98%;
   
-
-  @media (min-width: 768px) {
-    padding: 1.5rem 3rem .5rem 3rem;
+  @media (min-width: 900px) {
     max-width: 125rem;
     width: 90%;
   }
 }
 
 .container_top {
+  display: none;
+
+  @media (min-width: 900px) {
+    border-bottom: 1px solid hsla(0, 0%, 5%, 0.2);
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 0.2rem;
+
+    a {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: bold;
+      font-size: 1.3rem;
+      color: #3d3d3d;
+      line-height: normal;
+
+      &:hover {
+        color: #000;
+      }
+    }
+  }
+}
+
+.container_bottom {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 
   & a {
     display: flex;
     align-items: center;
   }
- 
-
 }
 
 .logo {
-  width: 14rem;
-}
-
-.container_bottom {
-  display: none;
-
-  @media (min-width: 768px) {
-    display: block;
-  }
+  width: 11rem;
 }
 
 .icons_menu {
   display: flex;
-  gap: 3rem;
+  gap: 2rem;
+  align-items: center;
+  padding-right: 0.5rem;
+
+  @media (max-width: 768px) {
+    gap: 3rem;
+  }
 
   & li {
-    font-size: 3rem;
+    font-size: 2.6rem;
   }
 
   & li:hover {
@@ -72,27 +93,30 @@
 .mobile_icon {
   display: flex;
   align-items: center;
-  
-  @media (min-width: 768px) {
+
+  @media (min-width: 900px) {
     display: none;
   }
 }
 
 .links {
-  display: flex;
-  justify-content: center;
-  gap: 5rem;
-  font-size: 1.6rem;
-  text-transform: uppercase;
-  letter-spacing: $ls-button;
-  color: #000;
-}
+  display: none;
 
-.link {
-  padding: none;
+  @media (min-width: 900px) {
+    justify-content: center;
+    gap: 3rem;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: $ls-button;
+    display: flex;
+    align-self: flex-end;
+  }
 
-  @media (min-width: 1024px) {
-    padding: 0rem 3rem 0 3rem;
+  .link {
+    line-height: normal;
+    color: #3d3d3d;
+    &:hover {
+      color: #000;
+    }
   }
 }
-  

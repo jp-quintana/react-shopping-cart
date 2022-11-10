@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { BiShoppingBag } from 'react-icons/bi';
+import { CgShoppingBag } from 'react-icons/cg';
 
 import { useCartContext } from 'hooks/useCartContext';
 
@@ -32,7 +32,7 @@ const CartIcon = () => {
 
   return (
     <span className={iconStyles}>
-      <BiShoppingBag />
+      <CgShoppingBag />
       <div className={amountStyles}>
         <div>{totalAmount}</div>
       </div>
