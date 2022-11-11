@@ -12,7 +12,7 @@ const Header = ({ toggleCartModal }) => {
 
   return (
     <header>
-      <SideNav toggleSideNav={toggleSideNav} isOpen={isOpen} />
+      {isOpen && <SideNav toggleSideNav={toggleSideNav} />}
       <Nav toggleSideNav={toggleSideNav} toggleCartModal={toggleCartModal} />
     </header>
   );

@@ -1,33 +1,47 @@
 import { Link } from 'react-router-dom';
 
-import { BiX } from 'react-icons/bi';
+import { useAuthContext } from 'hooks/useAuthContext';
+
+import SideModal from 'common/SideModal';
 
 import styles from './index.module.scss';
 
-const SideNav = ({ toggleSideNav, isOpen }) => {
+const SideNav = ({ toggleSideNav }) => {
+  const { user } = useAuthContext();
   return (
-    <aside className={!isOpen ? styles.container_hidden : styles.container}>
-      <i className={styles.close_icon}>
-        <BiX onClick={toggleSideNav} />
-      </i>
-      <ul className={styles.links}>
-        <li>
-          <Link to="/categorias/remeras" onClick={toggleSideNav}>
-            Remeras
-          </Link>
-        </li>
-        <li>
-          <Link to="/categorias/buzos" onClick={toggleSideNav}>
-            Buzos
-          </Link>
-        </li>
-        <li>
-          <Link to="/categorias/accesorios" onClick={toggleSideNav}>
-            Accesorios
-          </Link>
-        </li>
-      </ul>
-    </aside>
+    <SideModal toggleModal={toggleSideNav}>
+      <div className={styles.container}>
+        <ul className={styles.links}>
+          <li>
+            {user && (
+              <Link to="/cuenta" onClick={toggleSideNav}>
+                Mi Cuenta
+              </Link>
+            )}
+            {!user && (
+              <Link to="/cuenta/login" onClick={toggleSideNav}>
+                Login
+              </Link>
+            )}
+          </li>
+          <li>
+            <Link to="/categorias/remeras" onClick={toggleSideNav}>
+              Remeras
+            </Link>
+          </li>
+          <li>
+            <Link to="/categorias/buzos" onClick={toggleSideNav}>
+              Buzos
+            </Link>
+          </li>
+          <li>
+            <Link to="/categorias/accesorios" onClick={toggleSideNav}>
+              Accesorios
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </SideModal>
   );
 };
 
