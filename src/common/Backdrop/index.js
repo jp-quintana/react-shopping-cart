@@ -1,7 +1,13 @@
 import styles from './index.module.scss';
 
 const Backdrop = ({ toggleModal }) => {
-  return <div className={styles.backdrop} onClick={toggleModal}></div>;
+  const handleClick = () => {
+    if (toggleModal) {
+      toggleModal();
+    }
+  };
+
+  return <div className={styles.backdrop} onClick={handleClick}></div>;
 };
 
 export default Backdrop;

@@ -16,12 +16,15 @@ import Collections from './pages/Collections';
 import Products from './pages/Products';
 import Cart from './pages/Cart';
 
+import Loader from './common/Loader';
+
 import './App.scss';
 
 const App = () => {
   const { authIsReady } = useAuthContext();
   return (
     <>
+      {!authIsReady && <Loader />}
       {authIsReady && (
         <CartProvider>
           <Routes>
