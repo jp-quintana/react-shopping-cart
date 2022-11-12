@@ -18,15 +18,25 @@
 .content_wrapper {
   margin: 0 auto;
   display: grid;
+  min-height: 100vh;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10rem;
 }
 
 .info_container {
   padding-top: 10rem;
   width: 100%;
+  border-right: 1px solid #414246;
+  padding-right: 3rem;
+}
+
+.info_header {
+  display: flex;
 }
 
 .logo {
   width: 20rem;
 }
+
+.steps_container {
+}
+

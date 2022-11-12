@@ -1,6 +1,10 @@
-import logo from 'assets/images/checkout-logo-nav.png';
+import { Link } from 'react-router-dom';
+
+import CheckoutProgression from './CheckoutProgression';
 
 import styles from './index.module.scss';
+
+import logo from 'assets/images/checkout-logo-nav.png';
 
 const DUMMY_CHECKOUT_SESSION = {
   id: 1,
@@ -31,7 +35,12 @@ const Checkout = () => {
         <div className={`${styles.content_wrapper} main-container`}>
           <div className={styles.info_container}>
             <div className={styles.info_header}>
-              <img className={styles.logo} src={logo} alt="" />
+              <Link to="/">
+                <img className={styles.logo} src={logo} alt="" />
+              </Link>
+            </div>
+            <div className={styles.steps_container}>
+              <CheckoutProgression />
             </div>
           </div>
           <div className={styles.order_summary_container}></div>
