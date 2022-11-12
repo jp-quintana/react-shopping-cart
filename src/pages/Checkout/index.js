@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import CheckoutProgression from './CheckoutProgression';
+import OrderSummary from './OrderSummary';
 
 import styles from './index.module.scss';
 
@@ -28,10 +29,14 @@ const DUMMY_CHECKOUT_SESSION = {
 const Checkout = () => {
   return (
     <>
-      <div className={styles.background}>
-        {/* <img src={checkoutBackground} alt="" /> */}
-      </div>
+      <div className={styles.background}></div>
       <section className={styles.layout}>
+        {/* TODO: ver si hay una mejor forma de hacer esto */}
+        <div className={`${styles.header} main-container`}>
+          <Link to="/">
+            <img className={styles.logo} src={logo} alt="" />
+          </Link>
+        </div>
         <div className={`${styles.content_wrapper} main-container`}>
           <div className={styles.info_container}>
             <div className={styles.info_header}>
@@ -39,11 +44,11 @@ const Checkout = () => {
                 <img className={styles.logo} src={logo} alt="" />
               </Link>
             </div>
-            <div className={styles.steps_container}>
-              <CheckoutProgression />
-            </div>
+            <CheckoutProgression />
           </div>
-          <div className={styles.order_summary_container}></div>
+          <div className={styles.order_summary_container}>
+            <OrderSummary />
+          </div>
         </div>
       </section>
     </>

@@ -1,0 +1,33 @@
+.step_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.label {
+  color: #48e471;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.item {
+  color: white;
+  padding: 1rem;
+  border: 1px solid white;
+  border-radius: 1rem;
+}
+
+.item_completed {
+  color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+
+  box-shadow: 0 0 2rem #48e471;
+  background-color: #48e471;
+  border-color: #48e471;
+}
+
+.arrow {
+  color: white;
+  margin: 0 auto;
+}
