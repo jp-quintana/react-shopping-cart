@@ -1,0 +1,32 @@
+.background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../assets/images/checkout-background.jpg');
+  background-size: cover;
+  background-position: center top;
+}
+
+.layout {
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.content_wrapper {
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10rem;
+}
+
+.info_container {
+  padding-top: 10rem;
+  width: 100%;
+}
+
+.logo {
+  width: 20rem;
+}

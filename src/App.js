@@ -15,6 +15,7 @@ import SignUp from 'pages/SignUp';
 import Collections from './pages/Collections';
 import Products from './pages/Products';
 import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 
 import Loader from './common/Loader';
 
@@ -33,6 +34,8 @@ const App = () => {
               <Route path="/categorias/:id" element={<Collections />} />
               <Route path="/productos/:id" element={<Products />} />
               <Route path="/carrito" element={<Cart />} />
+
+              <Route path="/checkout" element={<Checkout />} />
 
               <Route element={<ProtectedRoutes needAuth={true} />}>
                 <Route path="/cuenta" element={<Account />} />
