@@ -12,7 +12,6 @@ const Step = ({ label, url, index }) => {
         <Link to={url}>
           <div className={styles.step_wrapper}>
             <span className={styles.label}>{label}</span>
-            {/* <div className={styles.item}>{index + 1}</div> */}
             <div className={styles.item_completed}>
               <FaCheck />
             </div>
@@ -31,10 +30,10 @@ const Step = ({ label, url, index }) => {
     <>
       <div className={styles.step_wrapper}>
         <span className={styles.label}>{label}</span>
-        {/* <div className={styles.item}>{index + 1}</div> */}
-        <div className={styles.item_completed}>
+        <div className={styles.item}>{index + 1}</div>
+        {/* <div className={styles.item_completed}>
           <FaCheck />
-        </div>
+        </div> */}
       </div>
       {!isLast && (
         <i className={styles.arrow}>

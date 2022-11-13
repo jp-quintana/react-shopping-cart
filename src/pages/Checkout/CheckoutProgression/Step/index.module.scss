@@ -12,16 +12,24 @@
 
 .item {
   color: white;
-  padding: 1rem;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 1px solid white;
   border-radius: 1rem;
+  line-height: normal;
 }
 
 .item_completed {
   color: white;
-  padding: 1rem;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 1rem;
-
   box-shadow: 0 0 2rem #48e471;
   background-color: #48e471;
   border-color: #48e471;
