@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import CheckoutProgression from './CheckoutProgression';
+import Info from './Info';
 import OrderSummary from './OrderSummary';
 
 import styles from './index.module.scss';
@@ -45,6 +46,7 @@ const Checkout = () => {
               </Link>
             </div>
             <CheckoutProgression />
+            <Info />
           </div>
           <div className={styles.order_summary_container}>
             <OrderSummary />

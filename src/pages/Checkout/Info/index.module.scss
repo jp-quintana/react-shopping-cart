@@ -1,0 +1,58 @@
+.info_container {
+  p,
+  span,
+  input {
+    color: #fff;
+    font-size: 1.6rem;
+  }
+  
+  p,
+  span,
+  label {
+    font-family: 'Montsettings', sans-serif;
+  }
+  
+  label {
+    color: #b1b1b3;
+    line-height: normal;
+    -moz-transition: all 0.1s ease-in;
+    -o-transition: all 0.1s ease-in;
+    -webkit-transition: all 0.1s ease-in;
+    transition: all 0.1s ease-in;
+  }
+  
+  input {
+    line-height: normal;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid #515255;
+    border-radius: 1rem;
+  }
+}
+
+.float_container {
+  position: relative;
+
+  .label_no_focus {
+    position: absolute;
+    left: 1.1rem;
+    top: 1.7rem;
+    bottom: 0;
+    margin: auto 0;
+    font-size: 1.6rem;
+  }
+
+  .label_focus {
+    position: absolute;
+    left: 1.1rem;
+    top: .9rem;
+  }
+
+  .input_no_focus {
+    padding: 1.5rem 1rem 1.5rem;
+  }
+
+  .input_focus {
+    padding: 2rem 1rem 1rem;
+  }
+}
