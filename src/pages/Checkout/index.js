@@ -1,7 +1,11 @@
+import { useState } from 'react';
+
 import { Link } from 'react-router-dom';
 
 import CheckoutProgression from './CheckoutProgression';
 import Info from './Info';
+import Shipping from './Shipping';
+import Payment from './Payment';
 import OrderSummary from './OrderSummary';
 
 import styles from './index.module.scss';
@@ -27,7 +31,52 @@ const DUMMY_CHECKOUT_SESSION = {
   },
 };
 
+const progressionSteps = [
+  { label: 'Carrito', url: '/carrito' },
+  { label: 'Info' },
+  { label: 'Envío' },
+  { label: 'Pago' },
+];
+
 const Checkout = () => {
+  const [currentStep, setCurrentStep] = useState(1);
+
+  const handlePreviousStep = () => {
+    setCurrentStep((prevState) => prevState + 1);
+  };
+
+  const handleNextStep = () => {
+    setCurrentStep((prevState) => prevState + 1);
+  };
+
+  const handleSelectStep = (index) => {
+    setCurrentStep(index);
+  };
+
+  let infoContent;
+
+  if (progressionSteps[currentStep].label === 'Info') {
+    infoContent = <Info handleNextStep={handleNextStep} />;
+  }
+
+  if (progressionSteps[currentStep].label === 'Envío') {
+    infoContent = (
+      <Shipping
+        handlePreviousStep={handlePreviousStep}
+        handleNextStep={handleNextStep}
+      />
+    );
+  }
+
+  if (progressionSteps[currentStep].label === 'Pago') {
+    infoContent = (
+      <Payment
+        handlePreviousStep={handlePreviousStep}
+        handleNextStep={handleNextStep}
+      />
+    );
+  }
+
   return (
     <>
       <div className={styles.background}></div>
@@ -45,8 +94,11 @@ const Checkout = () => {
                 <img className={styles.logo} src={logo} alt="" />
               </Link>
             </div>
-            <CheckoutProgression />
-            <Info />
+            <CheckoutProgression
+              handleSelectStep={handleSelectStep}
+              steps={progressionSteps}
+            />
+            {infoContent}
           </div>
           <div className={styles.order_summary_container}>
             <OrderSummary />
