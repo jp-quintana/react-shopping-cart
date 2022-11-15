@@ -50,10 +50,10 @@ const CartModalContent = ({ toggleCartModal }) => {
         <Link className={styles.button} to="/carrito">
           <Button onClick={toggleCartModal}>Carrito</Button>
         </Link>
-        <Link
-          className={`${styles.button} disabled-link`}
-          to="/categorias/productos"
-        >
+        {items.length === 0 && (
+          <Button onClick={toggleCartModal}>Checkout</Button>
+        )}
+        <Link className={styles.button} to="/checkout">
           <Button onClick={toggleCartModal}>Checkout</Button>
         </Link>
       </div>

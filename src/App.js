@@ -35,9 +35,8 @@ const App = () => {
               <Route path="/productos/:id" element={<Products />} />
               <Route path="/carrito" element={<Cart />} />
 
-              <Route path="/checkout" element={<Checkout />} />
-
               <Route element={<ProtectedRoutes needAuth={true} />}>
+                <Route path="/checkout" element={<Checkout />} />
                 <Route path="/cuenta" element={<Account />} />
                 <Route path="/cuenta/direcciones" element={<Addresses />} />
               </Route>

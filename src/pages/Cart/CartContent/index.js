@@ -19,9 +19,9 @@ const CartContent = () => {
       <>
         <Card className={styles.checkout_wrapper}>
           <p className={styles.total}>Total: ${addAllItemsPrice(items)}</p>
-          <Button className={`${styles.checkout_button} disabled-link`}>
-            Checkout
-          </Button>
+          <Link to="/checkout">
+            <Button className={styles.checkout_button}>Checkout</Button>
+          </Link>
         </Card>
         <div className={styles.content_wrapper}>
           <div className={styles.list_wrapper}>
