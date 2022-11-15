@@ -3,39 +3,21 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import CheckoutProgression from './CheckoutProgression';
+import Summary from './Summary';
 import Info from './Info';
 import Shipping from './Shipping';
 import Payment from './Payment';
 import OrderSummary from './OrderSummary';
 
-import styles from './index.module.scss';
-
 import logo from 'assets/images/checkout-logo-nav.png';
 
-const DUMMY_CHECKOUT_SESSION = {
-  id: 1,
-  email: 'juanquintana1996@gmail.com',
-  shippingAddress: {
-    id: 1,
-    name: 'Juan',
-    lastName: 'Quintana',
-    address: 'Felix de Amador 1679',
-    city: 'Olivos',
-    province: 'Buenos Aires',
-    zipCode: '1636',
-    phoneNumber: '1132074782',
-  },
-  shippingMethod: {
-    standard: true,
-    expedited: false,
-  },
-};
+import styles from './index.module.scss';
 
 const progressionSteps = [
-  { label: 'Carrito', url: '/carrito' },
-  { label: 'Info' },
-  { label: 'Envío' },
-  { label: 'Pago' },
+  { id: 'cart', label: 'Carrito', url: '/carrito' },
+  { id: 'info', label: 'Info' },
+  { id: 'shipping', label: 'Envío' },
+  { id: 'payment', label: 'Pago' },
 ];
 
 const Checkout = () => {
@@ -55,25 +37,31 @@ const Checkout = () => {
 
   let infoContent;
 
-  if (progressionSteps[currentStep].label === 'Info') {
+  if (progressionSteps[currentStep].id === 'info') {
     infoContent = <Info handleNextStep={handleNextStep} />;
   }
 
-  if (progressionSteps[currentStep].label === 'Envío') {
+  if (progressionSteps[currentStep].id === 'shipping') {
     infoContent = (
-      <Shipping
-        handlePreviousStep={handlePreviousStep}
-        handleNextStep={handleNextStep}
-      />
+      <>
+        <Summary currentStep={'shipping'} />
+        <Shipping
+          handlePreviousStep={handlePreviousStep}
+          handleNextStep={handleNextStep}
+        />
+      </>
     );
   }
 
-  if (progressionSteps[currentStep].label === 'Pago') {
+  if (progressionSteps[currentStep].id === 'payment') {
     infoContent = (
-      <Payment
-        handlePreviousStep={handlePreviousStep}
-        handleNextStep={handleNextStep}
-      />
+      <>
+        <Summary currentStep={'payment'} />
+        <Payment
+          handlePreviousStep={handlePreviousStep}
+          handleNextStep={handleNextStep}
+        />
+      </>
     );
   }
 

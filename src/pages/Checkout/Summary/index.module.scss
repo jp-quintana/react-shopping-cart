@@ -1,0 +1,29 @@
+.summary_container {
+  margin-top: 4rem;
+  padding: 1rem 2rem;
+  border: 1px solid #515255;
+  border-radius: 1rem;
+  font-family: 'Monteserrat', sans-serif;
+
+  li {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    gap: 1rem;
+  }
+}
+
+.label {
+  color: #9e9fa0;
+}
+
+.content {
+  color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.update {
+  color: #d4d4d4;
+  margin-left: auto;
+}

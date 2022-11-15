@@ -6,16 +6,27 @@ import { BiChevronLeft } from 'react-icons/bi';
 
 import styles from './index.module.scss';
 
+const DUMMY_INFO = {
+  email: 'juanquintana1996@gmail.com',
+  name: 'Juan',
+  lastName: 'Quintana',
+  address: 'Felix de Amador 1679',
+  city: 'Olivos',
+  province: 'Buenos Aires',
+  zipCode: '1636',
+  phoneNumber: '1132074782',
+};
+
 const Info = ({ handleNextStep }) => {
   const [userInput, setUserInput] = useState({
-    email: '',
-    name: '',
-    lastName: '',
-    address: '',
-    city: '',
-    province: '',
-    zipCode: '',
-    phoneNumber: '',
+    email: DUMMY_INFO.email,
+    name: DUMMY_INFO.name,
+    lastName: DUMMY_INFO.lastName,
+    address: DUMMY_INFO.address,
+    city: DUMMY_INFO.city,
+    province: DUMMY_INFO.province,
+    zipCode: DUMMY_INFO.zipCode,
+    phoneNumber: DUMMY_INFO.phoneNumber,
   });
 
   const handleSubmit = (e) => {
