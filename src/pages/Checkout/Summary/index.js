@@ -1,5 +1,3 @@
-import React from 'react';
-
 import styles from './index.module.scss';
 
 const DUMMY_INFO = {
@@ -13,14 +11,19 @@ const DUMMY_INFO = {
   phoneNumber: '1132074782',
 };
 
-const Summary = ({ currentStep }) => {
-  if (currentStep === 'shipping')
+const Summary = ({ id, handleSelectStep, currentStep }) => {
+  if (id === 'shipping')
     return (
       <ul className={styles.summary_container}>
         <li className={styles.contact_wrapper}>
           <p className={styles.label}>Contacto</p>
           <p className={styles.content}>{DUMMY_INFO.email}</p>
-          <p className={styles.update}>Modificar</p>
+          <p
+            className={styles.update}
+            onClick={() => handleSelectStep(currentStep - 1)}
+          >
+            Modificar
+          </p>
         </li>
         <li className={styles.address_wrapper}>
           <p className={styles.label}>Dirección</p>
@@ -28,18 +31,28 @@ const Summary = ({ currentStep }) => {
             {DUMMY_INFO.address} - {DUMMY_INFO.city}, {DUMMY_INFO.zipCode} -{' '}
             {DUMMY_INFO.province}
           </p>
-          <p className={styles.update}>Modificar</p>
+          <p
+            className={styles.update}
+            onClick={() => handleSelectStep(currentStep - 1)}
+          >
+            Modificar
+          </p>
         </li>
       </ul>
     );
 
-  if (currentStep === 'payment')
+  if (id === 'payment')
     return (
       <ul className={styles.summary_container}>
         <li className={styles.contact_wrapper}>
           <p className={styles.label}>Contacto</p>
           <p className={styles.content}>{DUMMY_INFO.email}</p>
-          <p className={styles.update}>Modificar</p>
+          <p
+            className={styles.update}
+            onClick={() => handleSelectStep(currentStep - 2)}
+          >
+            Modificar
+          </p>
         </li>
         <li className={styles.address_wrapper}>
           <p className={styles.label}>Dirección</p>
@@ -47,10 +60,24 @@ const Summary = ({ currentStep }) => {
             {DUMMY_INFO.address} - {DUMMY_INFO.city}, {DUMMY_INFO.zipCode} -{' '}
             {DUMMY_INFO.province}
           </p>
-          <p className={styles.update}>Modificar</p>
+          <p
+            className={styles.update}
+            onClick={() => handleSelectStep(currentStep - 2)}
+          >
+            Modificar
+          </p>
         </li>
         {/* TODO: Agregar contenido */}
-        <li className={styles.address_wrapper}>Envío Rápido</li>
+        <li className={styles.method}>
+          <p className={styles.label}>Envío</p>
+          <p className={styles.content}>Rápido - 1500</p>
+          <p
+            className={styles.update}
+            onClick={() => handleSelectStep(currentStep - 1)}
+          >
+            Modificar
+          </p>
+        </li>
       </ul>
     );
 };

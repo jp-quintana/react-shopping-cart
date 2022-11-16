@@ -1,5 +1,6 @@
 .summary_container {
   margin-top: 4rem;
+  margin-bottom: 4rem;
   padding: 1rem 2rem;
   border: 1px solid #515255;
   border-radius: 1rem;
@@ -7,8 +8,18 @@
 
   li {
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-columns: 1fr 6fr 1fr;
     gap: 1rem;
+    
+    &:not(:first-child) {
+      padding-top: .5rem;
+
+      border-top: 1px solid #515255;
+    }
+
+    &:not(:last-child) {
+      padding-bottom: .5rem;
+    }
   }
 }
 
@@ -21,9 +32,20 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  font-size: 1.5rem;
 }
 
 .update {
   color: #d4d4d4;
   margin-left: auto;
+
+  &:hover {
+    color: #a5a5a5;
+    cursor: pointer;
+  }
+}
+
+.label,
+.update {
+  font-size: 1.4rem;
 }

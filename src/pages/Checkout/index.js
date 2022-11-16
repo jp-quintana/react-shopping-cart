@@ -23,11 +23,11 @@ const progressionSteps = [
 const Checkout = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
-  const handlePreviousStep = () => {
-    setCurrentStep((prevState) => prevState + 1);
+  const handlePreviousStep = (currentStep) => {
+    setCurrentStep((prevState) => prevState - 1);
   };
 
-  const handleNextStep = () => {
+  const handleNextStep = (currentStep) => {
     setCurrentStep((prevState) => prevState + 1);
   };
 
@@ -44,7 +44,11 @@ const Checkout = () => {
   if (progressionSteps[currentStep].id === 'shipping') {
     infoContent = (
       <>
-        <Summary currentStep={'shipping'} />
+        <Summary
+          id={'shipping'}
+          currentStep={currentStep}
+          handleSelectStep={handleSelectStep}
+        />
         <Shipping
           handlePreviousStep={handlePreviousStep}
           handleNextStep={handleNextStep}
@@ -56,7 +60,11 @@ const Checkout = () => {
   if (progressionSteps[currentStep].id === 'payment') {
     infoContent = (
       <>
-        <Summary currentStep={'payment'} />
+        <Summary
+          id={'payment'}
+          currentStep={currentStep}
+          handleSelectStep={handleSelectStep}
+        />
         <Payment
           handlePreviousStep={handlePreviousStep}
           handleNextStep={handleNextStep}
@@ -64,6 +72,8 @@ const Checkout = () => {
       </>
     );
   }
+
+  console.log(currentStep);
 
   return (
     <>
