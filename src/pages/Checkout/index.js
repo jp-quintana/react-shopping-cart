@@ -73,8 +73,6 @@ const Checkout = () => {
     );
   }
 
-  console.log(currentStep);
-
   return (
     <>
       <div className={styles.background}></div>
@@ -95,6 +93,7 @@ const Checkout = () => {
             <CheckoutProgression
               handleSelectStep={handleSelectStep}
               steps={progressionSteps}
+              currentStep={currentStep}
             />
             {infoContent}
           </div>

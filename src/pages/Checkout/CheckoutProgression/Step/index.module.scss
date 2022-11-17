@@ -41,6 +41,31 @@
   background-color: #48e471;
 }
 
+.item_selected {
+  color: #3d3d3d;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  box-shadow: 0 0 2rem #fff;
+  background-color: #fff;
+
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  line-height: normal;
+}
+
+.item,
+.item_selected,
+.item_completed {
+  -moz-transition: all 0.3s ease-in;
+  -o-transition: all 0.3s ease-in;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
+}
+
 .arrow {
   color: white;
   margin: 0 auto;

@@ -4,12 +4,23 @@ import { FaChevronRight, FaCheck } from 'react-icons/fa';
 
 import styles from './index.module.scss';
 
-const Step = ({ label, url, index, handleSelectStep }) => {
+const Step = ({ label, url, index, handleSelectStep, currentStep }) => {
   const handleClick = () => {
     handleSelectStep(index);
   };
 
   const lastStep = index === 3;
+
+  let stepContent;
+  let stepStyles;
+
+  if (currentStep === index) {
+    stepStyles = styles.item_selected;
+    stepContent = <div className={stepStyles}>{index + 1}</div>;
+  } else {
+    stepStyles = styles.item;
+    stepContent = <div className={stepStyles}>{index + 1}</div>;
+  }
 
   if (url) {
     return (
@@ -35,7 +46,8 @@ const Step = ({ label, url, index, handleSelectStep }) => {
     <>
       <div className={styles.step_wrapper} onClick={handleClick}>
         <span className={styles.label}>{label}</span>
-        <div className={styles.item}>{index + 1}</div>
+        {stepContent}
+        {/* <div className={styles.item}>{index + 1}</div> */}
         {/* <div className={styles.item_completed}>
           <FaCheck />
         </div> */}

@@ -2,7 +2,7 @@ import Step from './Step';
 
 import styles from './index.module.scss';
 
-const CheckoutProgression = ({ handleSelectStep, steps }) => {
+const CheckoutProgression = ({ handleSelectStep, steps, currentStep }) => {
   return (
     <div className={styles.steps_container}>
       {steps.map((step, index) => (
@@ -12,6 +12,7 @@ const CheckoutProgression = ({ handleSelectStep, steps }) => {
           url={step.url}
           index={index}
           handleSelectStep={handleSelectStep}
+          currentStep={currentStep}
         />
       ))}
     </div>
