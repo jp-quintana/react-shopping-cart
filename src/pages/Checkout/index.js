@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import CheckoutProgression from './CheckoutProgression';
-import Summary from './Summary';
+import CheckoutSummary from './CheckoutSummary';
 import Info from './Info';
 import Shipping from './Shipping';
 import Payment from './Payment';
@@ -44,7 +44,7 @@ const Checkout = () => {
   if (progressionSteps[currentStep].id === 'shipping') {
     infoContent = (
       <>
-        <Summary
+        <CheckoutSummary
           id={'shipping'}
           currentStep={currentStep}
           handleSelectStep={handleSelectStep}
@@ -60,7 +60,7 @@ const Checkout = () => {
   if (progressionSteps[currentStep].id === 'payment') {
     infoContent = (
       <>
-        <Summary
+        <CheckoutSummary
           id={'payment'}
           currentStep={currentStep}
           handleSelectStep={handleSelectStep}

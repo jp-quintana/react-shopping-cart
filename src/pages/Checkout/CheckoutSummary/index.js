@@ -11,7 +11,7 @@ const DUMMY_INFO = {
   phoneNumber: '1132074782',
 };
 
-const Summary = ({ id, handleSelectStep, currentStep }) => {
+const CheckoutSummary = ({ id, handleSelectStep, currentStep }) => {
   if (id === 'shipping')
     return (
       <ul className={styles.summary_container}>
@@ -82,4 +82,4 @@ const Summary = ({ id, handleSelectStep, currentStep }) => {
     );
 };
 
-export default Summary;
+export default CheckoutSummary;
