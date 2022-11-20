@@ -4,6 +4,12 @@
     margin-bottom: 1.5rem;
     font-weight: 400;
     font-size: 1.8rem;
+  }
+
+  h2,
+  p,
+  span,
+  button {
     font-family: 'Montserrat', sans-serif;
   }
 }
@@ -38,13 +44,11 @@
   }
 
   span {
-    font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     font-size: 1.5rem;
   }
 
   p {
-    font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     font-size: 1.5rem;
     margin-left: auto;
@@ -83,4 +87,60 @@
   border-radius: 50%;
   width: 1.6rem;
   height: 1.6rem;
+
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+}
+
+.form_controls {
+  display: flex;
+  margin-top: 6rem;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  line-height: normal;
+  color: #fff;
+  font-size: 1.6rem;
+
+  span {
+    font-size: 1.8rem;
+  }
+
+  &:hover {
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+.button {
+  margin-left: auto;
+  padding: 2rem;
+  //override tailwind
+  background-color: #48e471 !important;
+  font-size: 1.6rem;
+  font-weight: bold;
+  border-radius: 1rem;
+
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  &:hover {
+    background-color: #74eb93 !important;
+  }
 }
