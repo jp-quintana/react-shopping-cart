@@ -3,6 +3,7 @@ import styles from './index.module.scss';
 const Shipping = () => {
   return (
     <div className={styles.shipping_wrapper}>
+      <h2>Tipo de Envio</h2>
       <form className={styles.shipping_form}>
         <div>
           <label>
@@ -13,7 +14,7 @@ const Shipping = () => {
         </div>
         <div>
           <label>
-            <input type="radio" className={styles.radio_unselected} />
+            <input type="radio" className={styles.radio_selected} />
             <span>Envio rápido (2 - 3 días)</span>
           </label>
           <p>$1500</p>

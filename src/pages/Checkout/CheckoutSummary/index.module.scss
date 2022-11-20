@@ -4,23 +4,25 @@
   padding: 1rem 2rem;
   border: 1px solid #515255;
   border-radius: 1rem;
-  font-family: 'Monteserrat', sans-serif;
-
-  
+  font-family: 'Montserrat', sans-serif;
 
   li {
     display: grid;
-    grid-template-columns: 1fr 6fr 1fr;
+    grid-template-columns: 1fr 8fr 1fr;
     gap: 1rem;
-    
+
     &:not(:first-child) {
-      padding-top: .5rem;
+      padding-top: 0.5rem;
 
       border-top: 1px solid #515255;
     }
 
     &:not(:last-child) {
-      padding-bottom: .5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    @media (min-width: 1200px) {
+      grid-template-columns: 1fr 5.5fr 1fr;
     }
   }
 }

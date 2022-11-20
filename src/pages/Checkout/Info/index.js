@@ -163,7 +163,7 @@ const Info = ({ handleNextStep }) => {
     <div className={styles.info_container}>
       <form className={styles.info_form} onSubmit={handleSubmit}>
         <div className={styles.contact_info_wrapper}>
-          <p className={styles.title}>Información de contacto</p>
+          <p className={styles.title}>Información de Contacto</p>
           <div className={styles.float_container}>
             <label htmlFor="email" className={emailStyles.label}>
               Email
