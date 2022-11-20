@@ -7,7 +7,8 @@ import styles from './index.module.scss';
 const Shipping = ({ handlePreviousStep, handleNextStep }) => {
   const [shippingOption, setShippgingOption] = useState('standard');
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     handleNextStep();
   };
   return (
@@ -56,7 +57,7 @@ const Shipping = ({ handlePreviousStep, handleNextStep }) => {
           </span>
           Volver a info
         </p>
-        <button form="form" className={styles.button} type="submit">
+        <button form="form" type="submit" className={styles.button}>
           Continuar a pago
         </button>
       </div>

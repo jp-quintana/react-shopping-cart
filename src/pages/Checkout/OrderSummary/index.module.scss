@@ -1,12 +1,15 @@
 .list_wrapper {
   // TODO: chequear este padding
-  padding-top: 4rem;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 4rem;
   padding-bottom: 3rem;
   border-bottom: 1px solid #414246;
+
+  @media (min-width: 1200px) {
+    padding-top: 4rem;
+  }
 }
 
 .item_container {
