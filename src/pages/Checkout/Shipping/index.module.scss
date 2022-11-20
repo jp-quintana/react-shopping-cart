@@ -1,0 +1,46 @@
+.shipping_form {
+  color: #fff;
+  font-size: 1.5rem;
+  border: 1px solid #515255;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+
+  div {
+    display: grid;
+    grid-template-columns: 6fr 1fr;
+    align-items: center;
+    gap: 1rem;
+
+    &:not(:first-child) {
+      padding-top: 0.5rem;
+
+      border-top: 1px solid #515255;
+    }
+
+    &:not(:last-child) {
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  span {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+  }
+
+  p {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+  }
+}
+
+.radio_unselected {
+  width: 1.6rem;
+  height: 1.6rem;
+  border: .5px solid #515255;
+}
