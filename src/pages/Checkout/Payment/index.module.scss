@@ -16,9 +16,7 @@
   h2,
   p,
   span,
-  label,
-  a,
-  button {
+  label {
     font-family: 'Montserrat', sans-serif;
   }
 
@@ -144,5 +142,61 @@
 
   .input_focus {
     padding: 2.2rem 1rem 0.8rem;
+  }
+}
+
+.form_controls {
+  display: flex;
+  margin-top: 6rem;
+
+  p,
+  button {
+    font-family: 'Montserrat', sans-serif;
+  }
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  line-height: normal;
+  color: #fff;
+  font-size: 1.6rem;
+
+  span {
+    font-size: 1.8rem;
+  }
+
+  &:hover {
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+.button {
+  margin-left: auto;
+  padding: 2rem;
+  //override tailwind
+  background-color: #48e471 !important;
+  font-size: 1.6rem;
+  font-weight: bold;
+  border-radius: 1rem;
+
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  &:hover {
+    background-color: #74eb93 !important;
   }
 }

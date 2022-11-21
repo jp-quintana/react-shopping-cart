@@ -65,10 +65,7 @@ const Checkout = () => {
           currentStep={currentStep}
           handleSelectStep={handleSelectStep}
         />
-        <Payment
-          handlePreviousStep={handlePreviousStep}
-          handleNextStep={handleNextStep}
-        />
+        <Payment handlePreviousStep={handlePreviousStep} />
       </>
     );
   }

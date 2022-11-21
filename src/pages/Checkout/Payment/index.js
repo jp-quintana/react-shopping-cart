@@ -1,50 +1,89 @@
 import { useState } from 'react';
 
+import { BiChevronLeft } from 'react-icons/bi';
+
+import { formatCardNumber } from 'helpers/format';
+import { formatExpiryDate } from 'helpers/format';
+import { formatCvv } from 'helpers/format';
+
 import styles from './index.module.scss';
 
-const Payment = () => {
+const Payment = ({ handlePreviousStep }) => {
   const [paymentOption, setPaymentOption] = useState('creditCard');
 
-  const [cardNumberInput, setCardNumberInput] = useState('');
-  const [nameInput, setNameInput] = useState('');
-  const [expireDateInput, setExpireDateInput] = useState('');
+  const [userInput, setUserInput] = useState({
+    cardNumber: '',
+    name: '',
+    expiryDate: '',
+    securityCode: '',
+  });
 
-  const handleCardNumberInputChange = (e) => {
-    if (e.target.value.length < 20) {
-      const input = e.target.value
-        .replace(/[^\d]/g, '')
-        // .replace(/[^0-9\\.]+/g, '')
-        // .replace(/[^0-9\.]+/g, '')
-        .replace(/(.{4})/g, '$1 ')
-        .trim();
-      setCardNumberInput(input);
-    }
+  const handleCardNumberInput = (e) => {
+    setUserInput((prevState) => ({ ...prevState, cardNumber: e.target.value }));
   };
 
-  const handleExpireDateInput = (e) => {};
+  const handleNameInput = (e) => {
+    setUserInput((prevState) => ({ ...prevState, name: e.target.value }));
+  };
+
+  const handleExpiryDateInput = (e) => {
+    setUserInput((prevState) => ({ ...prevState, expiryDate: e.target.value }));
+  };
+
+  const handleSecurityCodeInput = (e) => {
+    setUserInput((prevState) => ({
+      ...prevState,
+      securityCode: e.target.value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
   const cardNumberStyles = {
     label:
-      cardNumberInput.length > 0 ? styles.label_focus : styles.label_no_focus,
+      userInput.cardNumber.length > 0
+        ? styles.label_focus
+        : styles.label_no_focus,
     input:
-      cardNumberInput.length > 0 ? styles.input_focus : styles.input_no_focus,
+      userInput.cardNumber.length > 0
+        ? styles.input_focus
+        : styles.input_no_focus,
   };
 
   const nameStyles = {
-    label: nameInput.length > 0 ? styles.label_focus : styles.label_no_focus,
-    input: nameInput.length > 0 ? styles.input_focus : styles.input_no_focus,
+    label:
+      userInput.name.length > 0 ? styles.label_focus : styles.label_no_focus,
+    input:
+      userInput.name.length > 0 ? styles.input_focus : styles.input_no_focus,
   };
 
-  const expireDateStyles = {
+  const expiryDateStyles = {
     label:
-      expireDateInput.length > 0 ? styles.label_focus : styles.label_no_focus,
+      userInput.expiryDate.length > 0
+        ? styles.label_focus
+        : styles.label_no_focus,
     input:
-      expireDateInput.length > 0 ? styles.input_focus : styles.input_no_focus,
+      userInput.expiryDate.length > 0
+        ? styles.input_focus
+        : styles.input_no_focus,
+  };
+
+  const securityCodeStyles = {
+    label:
+      userInput.securityCode.length > 0
+        ? styles.label_focus
+        : styles.label_no_focus,
+    input:
+      userInput.securityCode.length > 0
+        ? styles.input_focus
+        : styles.input_no_focus,
   };
 
   return (
     <div>
-      <form className={styles.form}>
+      <form id="form" onSubmit={handleSubmit} className={styles.form}>
         <h2 className={styles.title}>Forma de Pago</h2>
         <div className={styles.payment_options_wrapper}>
           <div>
@@ -71,8 +110,8 @@ const Payment = () => {
                 </label>
                 <input
                   id="cardNumber"
-                  onChange={handleCardNumberInputChange}
-                  value={cardNumberInput}
+                  onChange={handleCardNumberInput}
+                  value={formatCardNumber(userInput.cardNumber)}
                   type="text"
                   inputMode="numeric"
                   placeholder="Número de la tarjeta"
@@ -86,43 +125,50 @@ const Payment = () => {
                 </label>
                 <input
                   id="name"
-                  onChange={(e) => setNameInput(e.target.value)}
-                  value={nameInput}
+                  onChange={handleNameInput}
+                  value={userInput.name}
                   type="text"
                   placeholder="Nombre en la tarjeta"
                   className={nameStyles.input}
+                  autoComplete="off"
                   required
                 />
               </div>
               <div className={styles.card_security}>
                 <div className={styles.float_container}>
                   <label
-                    htmlFor="expireDate"
-                    className={expireDateStyles.label}
+                    htmlFor="expiryDate"
+                    className={expiryDateStyles.label}
+                    autoComplete="off"
                   >
-                    Expiración (MM / AA)
+                    Expiración (MM/AA)
                   </label>
                   <input
-                    id="expireDate"
-                    onChange={handleExpireDateInput}
-                    value={expireDateInput}
+                    id="expiryDate"
+                    onChange={handleExpiryDateInput}
+                    value={formatExpiryDate(userInput.expiryDate)}
                     type="text"
-                    placeholder="Expiración (MM / AA)"
-                    className={expireDateStyles.input}
+                    placeholder="Expiración (MM/AA)"
+                    className={expiryDateStyles.input}
+                    autoComplete="off"
                     required
                   />
                 </div>
                 <div className={styles.float_container}>
-                  <label htmlFor="name" className={nameStyles.label}>
-                    Nombre en la tarjeta
+                  <label
+                    htmlFor="securityCode"
+                    className={securityCodeStyles.label}
+                  >
+                    Código de Seguridad
                   </label>
                   <input
-                    id="name"
-                    onChange={(e) => setNameInput(e.target.value)}
-                    value={nameInput}
-                    type="text"
-                    placeholder="Nombre en la tarjeta"
-                    className={nameStyles.input}
+                    id="securityCode"
+                    onChange={handleSecurityCodeInput}
+                    value={formatCvv(userInput.securityCode)}
+                    type="password"
+                    placeholder="Código de Seguridad"
+                    className={securityCodeStyles.input}
+                    autoComplete="off"
                     required
                   />
                 </div>
@@ -130,7 +176,19 @@ const Payment = () => {
             </div>
           )}
         </div>
+        {/* TODO: BILLING ADDRESS */}
       </form>
+      <div className={styles.form_controls}>
+        <p onClick={handlePreviousStep} className={styles.back}>
+          <span>
+            <BiChevronLeft />
+          </span>
+          Volver a envío
+        </p>
+        <button form="form" type="submit" className={styles.button}>
+          Pagar ahora
+        </button>
+      </div>
     </div>
   );
 };
