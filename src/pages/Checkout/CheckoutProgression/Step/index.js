@@ -17,6 +17,13 @@ const Step = ({ label, url, index, handleSelectStep, currentStep }) => {
   if (currentStep === index) {
     stepStyles = styles.item_selected;
     stepContent = <div className={stepStyles}>{index + 1}</div>;
+  } else if (currentStep > index) {
+    stepStyles = styles.item_completed;
+    stepContent = (
+      <div onClick={handleClick} className={stepStyles}>
+        <FaCheck />
+      </div>
+    );
   } else {
     stepStyles = styles.item;
     stepContent = <div className={stepStyles}>{index + 1}</div>;
@@ -44,7 +51,7 @@ const Step = ({ label, url, index, handleSelectStep, currentStep }) => {
 
   return (
     <>
-      <div className={styles.step_wrapper} onClick={handleClick}>
+      <div className={styles.step_wrapper}>
         <span className={styles.label}>{label}</span>
         {stepContent}
         {/* <div className={styles.item}>{index + 1}</div> */}
