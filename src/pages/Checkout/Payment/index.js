@@ -17,16 +17,9 @@ const Payment = ({ handlePreviousStep }) => {
   });
 
   const handleCardNumberInput = (e) => {
-    const matches = e.target.value.match(/(\d+)/);
-    let cardNumber = '';
-
-    if (matches) {
-      cardNumber = matches;
-    }
-
     setUserInput((prevState) => ({
       ...prevState,
-      cardNumber,
+      cardNumber: e.target.value,
     }));
   };
 
@@ -119,6 +112,11 @@ const Payment = ({ handlePreviousStep }) => {
                 <input
                   id="cardNumber"
                   onChange={handleCardNumberInput}
+                  onKeyPress={(e) => {
+                    if (!/[0-9]/.test(e.key)) {
+                      e.preventDefault();
+                    }
+                  }}
                   value={formatCardNumber(userInput.cardNumber)}
                   type="text"
                   inputMode="numeric"
@@ -154,6 +152,11 @@ const Payment = ({ handlePreviousStep }) => {
                   <input
                     id="expiryDate"
                     onChange={handleExpiryDateInput}
+                    onKeyPress={(e) => {
+                      if (!/[0-9]/.test(e.key)) {
+                        e.preventDefault();
+                      }
+                    }}
                     value={formatExpiryDate(userInput.expiryDate)}
                     type="text"
                     placeholder="Expiración (MM/AA)"
@@ -172,6 +175,11 @@ const Payment = ({ handlePreviousStep }) => {
                   <input
                     id="securityCode"
                     onChange={handleSecurityCodeInput}
+                    onKeyPress={(e) => {
+                      if (!/[0-9]/.test(e.key)) {
+                        e.preventDefault();
+                      }
+                    }}
                     value={formatCvv(userInput.securityCode)}
                     type="password"
                     placeholder="Código de Seguridad"
