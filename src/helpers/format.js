@@ -13,7 +13,9 @@ export const formatCardNumber = (value) => {
   //   setCardNumberInput(input);
   // }
   const v = value.replace(/[^0-9]/gi, '').substr(0, 16);
+  // const v = value.replace(/[^\d]/g, '').substr(0, 16);
 
+  console.log('format');
   const parts = [];
   for (let i = 0; i < v.length; i += 4) {
     parts.push(v.substr(i, 4));

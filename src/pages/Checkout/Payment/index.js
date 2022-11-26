@@ -2,9 +2,7 @@ import { useState } from 'react';
 
 import { BiChevronLeft } from 'react-icons/bi';
 
-import { formatCardNumber } from 'helpers/format';
-import { formatExpiryDate } from 'helpers/format';
-import { formatCvv } from 'helpers/format';
+import { formatCardNumber, formatExpiryDate, formatCvv } from 'helpers/format';
 
 import styles from './index.module.scss';
 
@@ -19,7 +17,17 @@ const Payment = ({ handlePreviousStep }) => {
   });
 
   const handleCardNumberInput = (e) => {
-    setUserInput((prevState) => ({ ...prevState, cardNumber: e.target.value }));
+    const matches = e.target.value.match(/(\d+)/);
+    let cardNumber = '';
+
+    if (matches) {
+      cardNumber = matches;
+    }
+
+    setUserInput((prevState) => ({
+      ...prevState,
+      cardNumber,
+    }));
   };
 
   const handleNameInput = (e) => {

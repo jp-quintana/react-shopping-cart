@@ -4,6 +4,12 @@
   align-items: center;
   gap: 1rem;
 
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
   &:has(.item_completed) {
     cursor: pointer;
   }
@@ -39,8 +45,7 @@
   border-radius: 1rem;
   box-shadow: 0 0 2rem #48e471;
   background-color: #48e471;
-  & :hover {
-  }
+
 }
 
 .item_selected {
