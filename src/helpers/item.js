@@ -12,6 +12,14 @@ export const addAllItemsPrice = (items) => {
   return formatNumber(total);
 };
 
+export const addAllItemsPriceNumber = (items) => {
+  let total = 0;
+
+  items.forEach((item) => (total += item.price * item.amount));
+
+  return total;
+};
+
 export const addAllItemsAmount = (items) => {
   let total = 0;
 
