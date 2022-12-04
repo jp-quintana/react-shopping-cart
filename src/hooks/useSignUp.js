@@ -39,7 +39,7 @@ export const useSignUp = () => {
         userCartId = cartId;
         localStorage.removeItem('CART_IN_STORAGE');
       } else {
-        userCartId = (Math.floor(Math.random() * 1000000) + 1).toString();
+        userCartId = (Math.floor(Math.random() * 100000000) + 1).toString();
       }
 
       const userData = {
@@ -47,7 +47,8 @@ export const useSignUp = () => {
         lastName,
         email,
         cartId: userCartId,
-        ordersId: (Math.floor(Math.random() * 1000000) + 1).toString(),
+        ordersId: (Math.floor(Math.random() * 10000000) + 1).toString(),
+        checkoutSessionId: null,
       };
 
       await setDoc(doc(db, 'users', user.uid), userData);

@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
+import { useCheckoutContext } from 'hooks/useCheckoutContext';
+
 import CheckoutProgression from './CheckoutProgression';
 import CheckoutSummary from './CheckoutSummary';
 import Info from './Info';
@@ -21,6 +23,8 @@ const progressionSteps = [
 ];
 
 const Checkout = () => {
+  const { checkoutIsReady } = useCheckoutContext();
+
   const [currentStep, setCurrentStep] = useState(1);
 
   const handlePreviousStep = (currentStep) => {

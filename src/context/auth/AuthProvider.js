@@ -16,6 +16,7 @@ const initialState = {
   phone: null,
   cartId: null,
   ordersId: null,
+  checkoutSessionId: null,
   authIsReady: false,
 };
 
@@ -30,6 +31,7 @@ const authReducer = (state, action) => {
         phone: action.payload.phone,
         cartId: action.payload.cartId,
         ordersId: action.payload.ordersId,
+        checkoutSessionId: action.payload.checkoutSessionId,
         authIsReady: true,
       };
     }
@@ -43,6 +45,7 @@ const authReducer = (state, action) => {
         phone: action.payload.phone,
         cartId: action.payload.cartId,
         ordersId: action.payload.ordersId,
+        checkoutSessionId: action.payload.checkoutSessionId,
       };
     }
     case 'LOGOUT': {
@@ -74,13 +77,7 @@ const AuthProvider = ({ children }) => {
       } else {
         dispatch({
           type: 'AUTH_IS_READY',
-          payload: {
-            user: null,
-            name: null,
-            lastName: null,
-            cartId: null,
-            ordersId: null,
-          },
+          payload: {},
         });
       }
     });

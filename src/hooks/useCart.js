@@ -71,7 +71,7 @@ export const useCart = () => {
           },
         });
       } else {
-        const newCartId = (Math.floor(Math.random() * 1000000) + 1).toString();
+        const newCartId = (Math.floor(Math.random() * 10000000) + 1).toString();
         localStorage.setItem('CART_IN_STORAGE', newCartId);
 
         const cartRef = doc(db, 'carts', newCartId);
