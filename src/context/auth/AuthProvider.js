@@ -54,6 +54,12 @@ const authReducer = (state, action) => {
         authIsReady: true,
       };
     }
+    case 'NEW_CHECKOUT_SESSION_ID': {
+      return {
+        ...state,
+        checkoutSessionId: action.payload,
+      };
+    }
     default:
       return state;
   }

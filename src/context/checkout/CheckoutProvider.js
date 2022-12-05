@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from 'react';
 
-import { doc, updateDoc, setDoc } from 'firebase/firestore';
+import { doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 
 import { db } from '../../firebase/config';
 
@@ -9,16 +9,31 @@ import { useAuthContext } from 'hooks/useAuthContext';
 import CheckoutContext from './checkout-context';
 
 const initialState = {
+  currentStep: 1,
   checkoutIsReady: false,
   id: null,
-  currentStep: 1,
   shippingAddress: {},
   shippingOption: {},
-  paymentInfo: {},
 };
 
 const checkoutReducer = (state, action) => {
   switch (action.type) {
+    case 'CREATE_CHECKOUT_SESSION': {
+      return {
+        ...state,
+        checkoutIsReady: true,
+        id: action.payload,
+      };
+    }
+    case 'UPDATE_CHECKOUT_SESSION': {
+      return {
+        ...state,
+        checkoutIsReady: true,
+        id: action.payload.id,
+        shippingAddress: action.payload.shippingAddress,
+        shippingOption: action.payload.shippingOption,
+      };
+    }
     default:
       return state;
   }
@@ -35,17 +50,13 @@ const CheckoutProvider = ({ children }) => {
 
   useEffect(() => {
     if (!checkoutSessionId) {
-      console.log('working');
       const createCheckoutSession = async (newId) => {
-        console.log('user', user.uid);
-        console.log('newId', newId);
         const userRef = doc(db, 'users', user.uid);
         const checkoutSessionRef = doc(db, 'checkoutSessions', newId);
 
         await updateDoc(userRef, {
           checkoutSessionId: newId,
         });
-        console.log('prueba');
         await setDoc(checkoutSessionRef, {
           shippingAddress: {},
           shippingOption: {},
@@ -53,22 +64,39 @@ const CheckoutProvider = ({ children }) => {
         });
 
         dispatchAuthAction({ type: 'NEW_CHECKOUT_SESSION_ID', payload: newId });
-        // dispatch({type: 'CREATE_CHECKOUT_SESSION', payload: newId})
+        dispatch({ type: 'CREATE_CHECKOUT_SESSION', payload: newId });
       };
 
       const newCheckoutSessionId = (
         Math.floor(Math.random() * 10000000) + 1
       ).toString();
 
-      console.log(newCheckoutSessionId);
-
       createCheckoutSession(newCheckoutSessionId);
-    } else {
-      const fetchCheckoutSession = async () => {};
+    } else if (!state.checkoutIsReady) {
+      const getCheckoutSession = async () => {
+        const checkoutSessionRef = doc(
+          db,
+          'checkoutSessions',
+          checkoutSessionId
+        );
+        const checkoutSessionDoc = await getDoc(checkoutSessionRef);
 
-      fetchCheckoutSession();
+        const checkoutSessionData = { ...checkoutSessionDoc.data() };
+
+        dispatch({
+          type: 'UPDATE_CHECKOUT_SESSION',
+          payload: { ...checkoutSessionData, id: checkoutSessionId },
+        });
+        console.log(checkoutSessionData);
+      };
+
+      getCheckoutSession();
+
+      console.log('EN CHECKOUT');
     }
   }, []);
+
+  console.log(state);
 
   return (
     <CheckoutContext.Provider value={{ ...state, dispatch }}>
