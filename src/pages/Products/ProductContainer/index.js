@@ -48,7 +48,6 @@ const productReducer = (state, action) => {
   }
 
   if (action.type === 'SELECT_PRODUCT_SIZE') {
-    console.log(action.payload);
     return {
       ...state,
       selectedSku: action.payload.sku,

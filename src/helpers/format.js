@@ -29,8 +29,6 @@ export const formatExpiryDate = (value) => {
     (expiryDate.length > 2 ? '/' : '') +
     expiryDate.replace(/[^\d]/g, '').substring(2, 4);
 
-  console.log();
-
   return expiryDateFormatted;
 };
 

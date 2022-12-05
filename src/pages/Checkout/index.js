@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -10,6 +10,8 @@ import Info from './Info';
 import Shipping from './Shipping';
 import Payment from './Payment';
 import OrderSummary from './OrderSummary';
+
+import Loader from 'common/Loader';
 
 import logo from 'assets/images/checkout-logo-nav.png';
 
@@ -23,53 +25,59 @@ const progressionSteps = [
 ];
 
 const Checkout = () => {
-  const { checkoutIsReady } = useCheckoutContext();
+  const { checkoutIsReady, currentStep } = useCheckoutContext();
 
-  const [currentStep, setCurrentStep] = useState(1);
+  // const [currentStep, setCurrentStep] = useState(1);
 
-  const handlePreviousStep = (currentStep) => {
-    setCurrentStep((prevState) => prevState - 1);
-  };
+  // const handlePreviousStep = (currentStep) => {
+  //   setCurrentStep((prevState) => prevState - 1);
+  // };
 
-  const handleNextStep = (currentStep) => {
-    setCurrentStep((prevState) => prevState + 1);
-  };
+  // const handleNextStep = (currentStep) => {
+  //   setCurrentStep((prevState) => prevState + 1);
+  // };
 
-  const handleSelectStep = (index) => {
-    setCurrentStep(index);
-  };
+  // const handleSelectStep = (index) => {
+  //   setCurrentStep(index);
+  // };
 
-  let infoContent;
+  let formContent;
 
   if (progressionSteps[currentStep].id === 'info') {
-    infoContent = <Info handleNextStep={handleNextStep} />;
+    formContent = (
+      <Info
+      // handleNextStep={handleNextStep}
+      />
+    );
   }
 
   if (progressionSteps[currentStep].id === 'shipping') {
-    infoContent = (
+    formContent = (
       <>
         <CheckoutSummary
           id={'shipping'}
-          currentStep={currentStep}
-          handleSelectStep={handleSelectStep}
+          // currentStep={currentStep}
+          // handleSelectStep={handleSelectStep}
         />
         <Shipping
-          handlePreviousStep={handlePreviousStep}
-          handleNextStep={handleNextStep}
+        // handlePreviousStep={handlePreviousStep}
+        // handleNextStep={handleNextStep}
         />
       </>
     );
   }
 
   if (progressionSteps[currentStep].id === 'payment') {
-    infoContent = (
+    formContent = (
       <>
         <CheckoutSummary
           id={'payment'}
-          currentStep={currentStep}
-          handleSelectStep={handleSelectStep}
+          // currentStep={currentStep}
+          // handleSelectStep={handleSelectStep}
         />
-        <Payment handlePreviousStep={handlePreviousStep} />
+        <Payment
+        // handlePreviousStep={handlePreviousStep}
+        />
       </>
     );
   }
@@ -78,30 +86,36 @@ const Checkout = () => {
     <>
       <div className={styles.background}></div>
       <section className={styles.layout}>
-        {/* TODO: ver si hay una mejor forma de hacer esto */}
-        <div className={`${styles.header} main-container`}>
-          <Link to="/">
-            <img className={styles.logo} src={logo} alt="" />
-          </Link>
-        </div>
-        <div className={`${styles.content_wrapper} main-container`}>
-          <div className={styles.info_container}>
-            <div className={styles.info_header}>
-              <Link to="/">
-                <img className={styles.logo} src={logo} alt="" />
-              </Link>
-            </div>
-            <CheckoutProgression
-              handleSelectStep={handleSelectStep}
-              steps={progressionSteps}
-              currentStep={currentStep}
-            />
-            {infoContent}
-          </div>
-          <div className={styles.order_summary_container}>
-            <OrderSummary />
-          </div>
-        </div>
+        <>
+          {!checkoutIsReady && <Loader noPortal={true} />}
+          {checkoutIsReady && (
+            <>
+              <div className={`${styles.header} main-container`}>
+                <Link to="/">
+                  <img className={styles.logo} src={logo} alt="" />
+                </Link>
+              </div>
+              <div className={`${styles.content_wrapper} main-container`}>
+                <div className={styles.info_container}>
+                  <div className={styles.info_header}>
+                    <Link to="/">
+                      <img className={styles.logo} src={logo} alt="" />
+                    </Link>
+                  </div>
+                  <CheckoutProgression
+                    // handleSelectStep={handleSelectStep}
+                    steps={progressionSteps}
+                    // currentStep={currentStep}
+                  />
+                  {formContent}
+                </div>
+                <div className={styles.order_summary_container}>
+                  <OrderSummary />
+                </div>
+              </div>
+            </>
+          )}
+        </>
       </section>
     </>
   );

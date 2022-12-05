@@ -87,16 +87,13 @@ const CheckoutProvider = ({ children }) => {
           type: 'UPDATE_CHECKOUT_SESSION',
           payload: { ...checkoutSessionData, id: checkoutSessionId },
         });
-        console.log(checkoutSessionData);
       };
 
       getCheckoutSession();
-
-      console.log('EN CHECKOUT');
     }
   }, []);
 
-  console.log(state);
+  console.log('checkout-context', state);
 
   return (
     <CheckoutContext.Provider value={{ ...state, dispatch }}>

@@ -41,7 +41,6 @@ export const useCart = () => {
       }
 
       if (!cartId && userCartId) {
-        console.log('hola');
         const cartRef = doc(db, 'carts', userCartId);
         await setDoc(cartRef, {
           items: updatedItems,
