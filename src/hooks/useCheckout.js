@@ -41,7 +41,26 @@ export const useCheckout = () => {
     });
   };
 
-  const submitShippingOption = () => {};
+  const selectShippingOption = (option) => {
+    let selectedOption;
+    if (option === 'standard') {
+      selectedOption = {
+        standard: true,
+        express: false,
+      };
+    } else {
+      selectedOption = {
+        standard: false,
+        express: true,
+      };
+    }
+
+    dispatch({ type: 'SELECT_SHIPPING_OPTION', payload: selectedOption });
+  };
+
+  const submitShippingOption = (option) => {
+    dispatch({ type: 'SUBMIT_SHIPPING_OPTION', payload: option });
+  };
 
   const submitOrder = () => {};
 
@@ -49,6 +68,7 @@ export const useCheckout = () => {
     selectPreviousStep,
     selectStep,
     submitShippingInfo,
+    selectShippingOption,
     submitShippingOption,
     submitOrder,
     isLoading,

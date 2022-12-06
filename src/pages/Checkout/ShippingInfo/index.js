@@ -38,7 +38,7 @@ const ShippingInfo = () => {
     phoneNumber: shippingAddress.phoneNumber || '',
   });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     submitShippingInfo(userInput);
