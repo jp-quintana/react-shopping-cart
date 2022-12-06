@@ -6,8 +6,8 @@ import { useCheckoutContext } from 'hooks/useCheckoutContext';
 
 import CheckoutProgression from './CheckoutProgression';
 import CheckoutSummary from './CheckoutSummary';
-import Info from './Info';
-import Shipping from './Shipping';
+import Info from './ShippingInfo';
+import Shipping from './ShippingOption';
 import Payment from './Payment';
 import OrderSummary from './OrderSummary';
 
@@ -30,11 +30,7 @@ const Checkout = () => {
   let formContent;
 
   if (progressionSteps[currentStep].id === 'info') {
-    formContent = (
-      <Info
-      // handleNextStep={handleNextStep}
-      />
-    );
+    formContent = <Info />;
   }
 
   if (progressionSteps[currentStep].id === 'shipping') {
@@ -88,11 +84,7 @@ const Checkout = () => {
                       <img className={styles.logo} src={logo} alt="" />
                     </Link>
                   </div>
-                  <CheckoutProgression
-                    // handleSelectStep={handleSelectStep}
-                    steps={progressionSteps}
-                    // currentStep={currentStep}
-                  />
+                  <CheckoutProgression steps={progressionSteps} />
                   {formContent}
                 </div>
                 <div className={styles.order_summary_container}>

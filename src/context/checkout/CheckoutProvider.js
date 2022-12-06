@@ -9,15 +9,45 @@ import { useAuthContext } from 'hooks/useAuthContext';
 import CheckoutContext from './checkout-context';
 
 const initialState = {
-  currentStep: 1,
   checkoutIsReady: false,
+  currentStep: 1,
+  email: null,
   id: null,
   shippingAddress: {},
-  shippingOption: {},
+  shippingOption: { standard: true, express: false },
 };
 
 const checkoutReducer = (state, action) => {
   switch (action.type) {
+    case 'SELECT_STEP': {
+      return {
+        ...state,
+        currentStep: action.payload,
+      };
+    }
+    case 'SELECT_PREVIOUS_STEP': {
+      return {
+        ...state,
+        //TODO: CHEQUEAR SI HACE FALTA PREVSTATE EN USEREDUCER
+        currentStep: state.currentStep - 1,
+      };
+    }
+    case 'SUBMIT_SHIPPING_INFO': {
+      return {
+        ...state,
+        //TODO: CHEQUEAR SI HACE FALTA PREVSTATE EN USEREDUCER
+        currentStep: state.currentStep + 1,
+        email: action.payload.email,
+        shippingAddress: action.payload.shippingAddress,
+      };
+    }
+    case 'SUBMIT_SHIPPING_OPTION': {
+      return {
+        ...state,
+        currentStep: state.currentStep + 1,
+        shippingOption: action.payload,
+      };
+    }
     case 'CREATE_CHECKOUT_SESSION': {
       return {
         ...state,
@@ -29,6 +59,7 @@ const checkoutReducer = (state, action) => {
       return {
         ...state,
         checkoutIsReady: true,
+        email: action.payload.email,
         id: action.payload.id,
         shippingAddress: action.payload.shippingAddress,
         shippingOption: action.payload.shippingOption,

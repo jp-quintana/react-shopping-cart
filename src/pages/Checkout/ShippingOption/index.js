@@ -1,20 +1,28 @@
 import { useState } from 'react';
 
+import { useCheckout } from 'hooks/useCheckout';
+
 import { BiChevronLeft } from 'react-icons/bi';
 
 import styles from './index.module.scss';
 
-const Shipping = ({ handlePreviousStep, handleNextStep }) => {
+const ShippingOption = () => {
+  const { selectPreviousStep, submitShippingOption } = useCheckout();
   const [shippingOption, setShippgingOption] = useState('standard');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleNextStep();
+    submitShippingOption();
   };
+
   return (
-    <div className={styles.shipping_wrapper}>
+    <div className={styles.shipping_option_wrapper}>
       <h2>Tipo de Envio</h2>
-      <form id="form" onSubmit={handleSubmit} className={styles.shipping_form}>
+      <form
+        id="form"
+        onSubmit={handleSubmit}
+        className={styles.shipping_option_form}
+      >
         <div>
           <label>
             <input
@@ -51,7 +59,7 @@ const Shipping = ({ handlePreviousStep, handleNextStep }) => {
         </div>
       </form>
       <div className={styles.form_controls}>
-        <p onClick={handlePreviousStep} className={styles.back}>
+        <p onClick={selectPreviousStep} className={styles.back}>
           <span>
             <BiChevronLeft />
           </span>
@@ -65,4 +73,4 @@ const Shipping = ({ handlePreviousStep, handleNextStep }) => {
   );
 };
 
-export default Shipping;
+export default ShippingOption;

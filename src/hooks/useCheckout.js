@@ -1,37 +1,57 @@
 import { useState } from 'react';
 
-import { useCheckoutContext } from './useCheckoutContext';
+import { doc, updateDoc } from 'firebase/firestore';
 
-const useCheckout = () => {
+import { db } from '../firebase/config';
+
+import { useCheckoutContext } from './useCheckoutContext';
+import { useAuthContext } from './useAuthContext';
+
+export const useCheckout = () => {
   const { dispatch } = useCheckoutContext();
+  const { checkoutSessionId } = useAuthContext();
+
+  const checkoutSessionRef = doc(db, 'checkoutSessions', checkoutSessionId);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  // const [error, setError] = useState(false);
 
-  const handlePreviousStep = (currentStep) => {
-    dispatch({ type: 'PREVIOUS_STEP', payload: currentStep - 1 });
+  const selectPreviousStep = () => {
+    dispatch({ type: 'SELECT_PREVIOUS_STEP' });
   };
 
-  const handleNextStep = (currentStep) => {
-    dispatch({ type: 'NEXT_STEP', payload: currentStep + 1 });
+  const selectStep = (index) => {
+    dispatch({ type: 'SELECT_STEP', payload: index });
   };
 
-  const handleSelectStep = (index) => {
-    dispatch({ type: 'CURRENT_STEP', payload: index });
+  const submitShippingInfo = async (userInput) => {
+    setIsLoading(true);
+    const { email, ...shippingAddress } = userInput;
+
+    await updateDoc(checkoutSessionRef, {
+      email,
+      shippingAddress,
+    });
+
+    setIsLoading(false);
+
+    dispatch({
+      type: 'SUBMIT_SHIPPING_INFO',
+      payload: { email, shippingAddress },
+    });
   };
 
-  const submitShippingAddress = () => {};
   const submitShippingOption = () => {};
+
   const submitOrder = () => {};
 
   return {
-    handlePreviousStep,
-    handleNextStep,
-    handleSelectStep,
-    submitShippingAddress,
+    selectPreviousStep,
+    selectStep,
+    submitShippingInfo,
     submitShippingOption,
     submitOrder,
+    isLoading,
+    // error,
   };
 };
-
-export default useCheckout;

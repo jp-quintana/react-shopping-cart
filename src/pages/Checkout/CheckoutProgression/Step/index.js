@@ -2,11 +2,17 @@ import { Link } from 'react-router-dom';
 
 import { FaChevronRight, FaCheck } from 'react-icons/fa';
 
+import { useCheckoutContext } from 'hooks/useCheckoutContext';
+import { useCheckout } from 'hooks/useCheckout';
+
 import styles from './index.module.scss';
 
-const Step = ({ label, url, index, handleSelectStep, currentStep }) => {
+const Step = ({ label, url, index }) => {
+  const { currentStep } = useCheckoutContext();
+  const { selectStep } = useCheckout();
+
   const handleClick = () => {
-    handleSelectStep(index);
+    selectStep(index);
   };
 
   const lastStep = index === 3;
