@@ -27,20 +27,6 @@ const progressionSteps = [
 const Checkout = () => {
   const { checkoutIsReady, currentStep } = useCheckoutContext();
 
-  // const [currentStep, setCurrentStep] = useState(1);
-
-  // const handlePreviousStep = (currentStep) => {
-  //   setCurrentStep((prevState) => prevState - 1);
-  // };
-
-  // const handleNextStep = (currentStep) => {
-  //   setCurrentStep((prevState) => prevState + 1);
-  // };
-
-  // const handleSelectStep = (index) => {
-  //   setCurrentStep(index);
-  // };
-
   let formContent;
 
   if (progressionSteps[currentStep].id === 'info') {
