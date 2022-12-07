@@ -1,13 +1,11 @@
-// import { useState } from 'react';
-
 import { Link } from 'react-router-dom';
 
 import { useCheckoutContext } from 'hooks/useCheckoutContext';
 
 import CheckoutProgression from './CheckoutProgression';
 import CheckoutSummary from './CheckoutSummary';
-import Info from './ShippingInfo';
-import Shipping from './ShippingOption';
+import ShippingInfo from './ShippingInfo';
+import ShippingOption from './ShippingOption';
 import Payment from './Payment';
 import OrderSummary from './OrderSummary';
 
@@ -30,7 +28,7 @@ const Checkout = () => {
   let formContent;
 
   if (progressionSteps[currentStep].id === 'info') {
-    formContent = <Info />;
+    formContent = <ShippingInfo />;
   }
 
   if (progressionSteps[currentStep].id === 'shipping') {
@@ -41,7 +39,7 @@ const Checkout = () => {
           // currentStep={currentStep}
           // handleSelectStep={handleSelectStep}
         />
-        <Shipping
+        <ShippingOption
         // handlePreviousStep={handlePreviousStep}
         // handleNextStep={handleNextStep}
         />

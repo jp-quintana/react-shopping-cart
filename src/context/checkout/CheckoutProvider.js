@@ -52,7 +52,6 @@ const checkoutReducer = (state, action) => {
       return {
         ...state,
         currentStep: state.currentStep + 1,
-        shippingOption: action.payload,
       };
     }
     case 'CREATE_CHECKOUT_SESSION': {
@@ -95,10 +94,12 @@ const CheckoutProvider = ({ children }) => {
         await updateDoc(userRef, {
           checkoutSessionId: newId,
         });
+
         await setDoc(checkoutSessionRef, {
+          email: user.email,
           shippingAddress: {},
           shippingOption: {},
-          paymentInfo: {},
+          paymentInfo: { standard: true, express: false },
         });
 
         dispatchAuthAction({ type: 'NEW_CHECKOUT_SESSION_ID', payload: newId });

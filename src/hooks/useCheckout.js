@@ -58,8 +58,16 @@ export const useCheckout = () => {
     dispatch({ type: 'SELECT_SHIPPING_OPTION', payload: selectedOption });
   };
 
-  const submitShippingOption = (option) => {
-    dispatch({ type: 'SUBMIT_SHIPPING_OPTION', payload: option });
+  const submitShippingOption = async (option) => {
+    setIsLoading(true);
+
+    await updateDoc(checkoutSessionRef, {
+      shippingOption: option,
+    });
+
+    setIsLoading(false);
+
+    dispatch({ type: 'SUBMIT_SHIPPING_OPTION' });
   };
 
   const submitOrder = () => {};

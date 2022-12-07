@@ -1,39 +1,32 @@
-import { useState } from 'react';
-
 import { useCheckoutContext } from 'hooks/useCheckoutContext';
 import { useCheckout } from 'hooks/useCheckout';
+
+import Loader from 'common/Loader';
 
 import { BiChevronLeft } from 'react-icons/bi';
 
 import styles from './index.module.scss';
-import { useEffect } from 'react';
 
 const ShippingOption = () => {
   const { shippingOption } = useCheckoutContext();
-  const { selectPreviousStep, selectShippingOption, submitShippingOption } =
-    useCheckout();
-
-  const [option, setOption] = useState({
-    standard: true,
-    express: false,
-  });
-
-  useEffect(() => {
-    if (shippingOption.length > 0) {
-      setOption(shippingOption);
-    }
-  }, [shippingOption]);
+  const {
+    selectPreviousStep,
+    selectShippingOption,
+    submitShippingOption,
+    isLoading,
+  } = useCheckout();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    submitShippingOption(option);
+    submitShippingOption(shippingOption);
   };
-
-  console.log('shippingOption', shippingOption);
-  console.log('option', option);
 
   return (
     <div className={styles.shipping_option_wrapper}>
+      {/* TODO: CORREGIR ESTE LOADER */}
+      {isLoading && (
+        <Loader className={styles.loader_wrapper} noPortal={true} />
+      )}
       <h2>Tipo de Envio</h2>
       <form
         id="form"
@@ -45,10 +38,10 @@ const ShippingOption = () => {
             <input
               type="radio"
               value="standard"
-              checked={option.standard}
+              checked={shippingOption.standard}
               onChange={(e) => selectShippingOption(e.target.value)}
               className={
-                option.standard
+                shippingOption.standard
                   ? styles.radio_selected
                   : styles.radio_unselected
               }
@@ -62,10 +55,12 @@ const ShippingOption = () => {
             <input
               type="radio"
               value="express"
-              checked={option.express}
+              checked={shippingOption.express}
               onChange={(e) => selectShippingOption(e.target.value)}
               className={
-                option.express ? styles.radio_selected : styles.radio_unselected
+                shippingOption.express
+                  ? styles.radio_selected
+                  : styles.radio_unselected
               }
             />
             <span>Envio rápido (2 - 3 días)</span>
