@@ -15,10 +15,10 @@ const OrderSummary = () => {
 
   if (shippingOption.standard) {
     shipping_price = 750;
-    shipping_option = '(Estandard)';
+    shipping_option = '(estandard)';
   } else {
     shipping_price = 1500;
-    shipping_option = '(Rápido)';
+    shipping_option = '(rápido)';
   }
   const subtotal = addAllItemsPriceNumber(items);
   const total = +subtotal + shipping_price;

@@ -20,6 +20,14 @@ const CheckoutSummary = ({ id }) => {
     useCheckoutContext();
   const { selectStep } = useCheckout();
 
+  let shipping_option;
+
+  if (shippingOption.standard) {
+    shipping_option = 'Estandard - $750';
+  } else {
+    shipping_option = 'Rápido - $1.500';
+  }
+
   if (id === 'shipping')
     return (
       <ul className={styles.summary_container}>
@@ -54,7 +62,7 @@ const CheckoutSummary = ({ id }) => {
       <ul className={styles.summary_container}>
         <li className={styles.contact_wrapper}>
           <p className={styles.label}>Contacto</p>
-          <p className={styles.content}>{shippingAddress.email}</p>
+          <p className={styles.content}>{email}</p>
           <p
             className={styles.update}
             onClick={() => selectStep(currentStep - 2)}
@@ -78,7 +86,7 @@ const CheckoutSummary = ({ id }) => {
         {/* TODO: Agregar contenido */}
         <li className={styles.method}>
           <p className={styles.label}>Envío</p>
-          <p className={styles.content}>Rápido - 1500</p>
+          <p className={styles.content}>{shipping_option}</p>
           <p
             className={styles.update}
             onClick={() => selectStep(currentStep - 1)}

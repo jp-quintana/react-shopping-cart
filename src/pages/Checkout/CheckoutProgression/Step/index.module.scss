@@ -15,13 +15,24 @@
   }
 }
 
+.label_completed,
+.label_selected,
+.label {
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+.label_completed,
 .label {
   color: #48e471;
-  font-family: 'Montserrat', sans-serif;
+}
+
+.label_selected {
+  color: #fff;
 }
 
 .item {
-  color: white;
+  color: #fff;
   width: 3rem;
   height: 3rem;
   display: flex;
@@ -45,7 +56,6 @@
   border-radius: 1rem;
   box-shadow: 0 0 2rem #48e471;
   background-color: #48e471;
-
 }
 
 .item_selected {
@@ -66,7 +76,10 @@
 
 .item,
 .item_selected,
-.item_completed {
+.item_completed,
+.label_completed,
+.label_selected,
+.label {
   -moz-transition: all 0.3s ease-in;
   -o-transition: all 0.3s ease-in;
   -webkit-transition: all 0.3s ease-in;

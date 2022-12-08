@@ -18,14 +18,12 @@ const Step = ({ label, url, index }) => {
   const lastStep = index === 3;
 
   let stepContent;
-  let stepStyles;
 
   if (url) {
-    stepStyles = styles.item_completed;
     stepContent = (
       <Link to={url}>
         <div className={styles.step_wrapper}>
-          <span className={styles.label}>{label}</span>
+          <span className={styles.label_completed}>{label}</span>
           <div className={styles.item_completed}>
             <FaCheck />
           </div>
@@ -33,29 +31,26 @@ const Step = ({ label, url, index }) => {
       </Link>
     );
   } else if (currentStep === index) {
-    stepStyles = styles.item_selected;
     stepContent = (
       <div className={styles.step_wrapper}>
-        <span className={styles.label}>{label}</span>
-        <div className={stepStyles}>{index + 1}</div>
+        <span className={styles.label_selected}>{label}</span>
+        <div className={styles.item_selected}>{index + 1}</div>
       </div>
     );
   } else if (currentStep > index) {
-    stepStyles = styles.item_completed;
     stepContent = (
       <div onClick={handleClick} className={styles.step_wrapper}>
-        <span className={styles.label}>{label}</span>
-        <div className={stepStyles}>
+        <span className={styles.label_completed}>{label}</span>
+        <div className={styles.item_completed}>
           <FaCheck className={styles.checkmark} />
         </div>
       </div>
     );
   } else {
-    stepStyles = styles.item;
     stepContent = (
       <div className={styles.step_wrapper}>
         <span className={styles.label}>{label}</span>
-        <div className={stepStyles}>{index + 1}</div>
+        <div className={styles.item}>{index + 1}</div>
       </div>
     );
   }

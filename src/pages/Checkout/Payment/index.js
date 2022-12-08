@@ -2,11 +2,15 @@ import { useState } from 'react';
 
 import { BiChevronLeft } from 'react-icons/bi';
 
+import { useCheckout } from 'hooks/useCheckout';
+
 import { formatCardNumber, formatExpiryDate, formatCvv } from 'helpers/format';
 
 import styles from './index.module.scss';
 
 const Payment = ({ handlePreviousStep }) => {
+  const { selectPreviousStep } = useCheckout();
+
   const [paymentOption, setPaymentOption] = useState('creditCard');
 
   const [userInput, setUserInput] = useState({
@@ -195,7 +199,7 @@ const Payment = ({ handlePreviousStep }) => {
         {/* TODO: BILLING ADDRESS */}
       </form>
       <div className={styles.form_controls}>
-        <p onClick={handlePreviousStep} className={styles.back}>
+        <p onClick={selectPreviousStep} className={styles.back}>
           <span>
             <BiChevronLeft />
           </span>
