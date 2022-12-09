@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useCheckoutContext } from 'hooks/useCheckoutContext';
 
 import CheckoutProgression from './CheckoutProgression';
-import CheckoutSummary from './CheckoutSummary';
 import ShippingInfo from './ShippingInfo';
 import ShippingOption from './ShippingOption';
 import Payment from './Payment';
@@ -32,34 +31,11 @@ const Checkout = () => {
   }
 
   if (progressionSteps[currentStep].id === 'shipping') {
-    formContent = (
-      <>
-        <CheckoutSummary
-          id={'shipping'}
-          // currentStep={currentStep}
-          // handleSelectStep={handleSelectStep}
-        />
-        <ShippingOption
-        // handlePreviousStep={handlePreviousStep}
-        // handleNextStep={handleNextStep}
-        />
-      </>
-    );
+    formContent = <ShippingOption />;
   }
 
   if (progressionSteps[currentStep].id === 'payment') {
-    formContent = (
-      <>
-        <CheckoutSummary
-          id={'payment'}
-          // currentStep={currentStep}
-          // handleSelectStep={handleSelectStep}
-        />
-        <Payment
-        // handlePreviousStep={handlePreviousStep}
-        />
-      </>
-    );
+    formContent = <Payment />;
   }
 
   return (

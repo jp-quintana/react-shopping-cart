@@ -4,6 +4,10 @@ import { BiChevronLeft } from 'react-icons/bi';
 
 import { useCheckout } from 'hooks/useCheckout';
 
+import CheckoutSummary from '../CheckoutSummary';
+
+import Loader from 'common/Loader';
+
 import { formatCardNumber, formatExpiryDate, formatCvv } from 'helpers/format';
 
 import styles from './index.module.scss';
@@ -88,6 +92,10 @@ const Payment = ({ handlePreviousStep }) => {
 
   return (
     <div>
+      {/* {isLoading && (
+        <Loader className={styles.loader_wrapper} noPortal={true} />
+      )} */}
+      <CheckoutSummary />
       <form id="form" onSubmit={handleSubmit} className={styles.form}>
         <h2 className={styles.title}>Forma de Pago</h2>
         <div className={styles.payment_options_wrapper}>

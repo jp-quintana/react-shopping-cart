@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from 'react';
 
-import { doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
+import { doc, collection, updateDoc, addDoc, getDoc } from 'firebase/firestore';
 
 import { db } from '../../firebase/config';
 
@@ -58,7 +58,8 @@ const checkoutReducer = (state, action) => {
       return {
         ...state,
         checkoutIsReady: true,
-        id: action.payload,
+        id: action.payload.id,
+        email: action.payload.email,
       };
     }
     case 'UPDATE_CHECKOUT_SESSION': {
@@ -79,6 +80,7 @@ const checkoutReducer = (state, action) => {
 const CheckoutProvider = ({ children }) => {
   const {
     user,
+    email,
     checkoutSessionId,
     dispatch: dispatchAuthAction,
   } = useAuthContext();
@@ -87,30 +89,34 @@ const CheckoutProvider = ({ children }) => {
 
   useEffect(() => {
     if (!checkoutSessionId) {
-      const createCheckoutSession = async (newId) => {
+      const createCheckoutSession = async () => {
         const userRef = doc(db, 'users', user.uid);
-        const checkoutSessionRef = doc(db, 'checkoutSessions', newId);
+
+        const checkoutSessionRef = await addDoc(
+          collection(db, 'checkoutSessions'),
+          {
+            email,
+            shippingAddress: {},
+            shippingOption: { standard: true, express: false },
+            paymentInfo: {},
+          }
+        );
 
         await updateDoc(userRef, {
-          checkoutSessionId: newId,
+          checkoutSessionId: checkoutSessionRef.id,
         });
 
-        await setDoc(checkoutSessionRef, {
-          email: user.email,
-          shippingAddress: {},
-          shippingOption: {},
-          paymentInfo: { standard: true, express: false },
+        dispatchAuthAction({
+          type: 'NEW_CHECKOUT_SESSION_ID',
+          payload: checkoutSessionRef.id,
         });
-
-        dispatchAuthAction({ type: 'NEW_CHECKOUT_SESSION_ID', payload: newId });
-        dispatch({ type: 'CREATE_CHECKOUT_SESSION', payload: newId });
+        dispatch({
+          type: 'CREATE_CHECKOUT_SESSION',
+          payload: { id: checkoutSessionRef.id, email },
+        });
       };
 
-      const newCheckoutSessionId = (
-        Math.floor(Math.random() * 10000000) + 1
-      ).toString();
-
-      createCheckoutSession(newCheckoutSessionId);
+      createCheckoutSession();
     } else if (!state.checkoutIsReady) {
       const getCheckoutSession = async () => {
         const checkoutSessionRef = doc(

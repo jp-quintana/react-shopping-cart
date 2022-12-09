@@ -15,7 +15,7 @@ import styles from './index.module.scss';
 //   phoneNumber: '1132074782',
 // };
 
-const CheckoutSummary = ({ id }) => {
+const CheckoutSummary = () => {
   const { currentStep, email, shippingAddress, shippingOption } =
     useCheckoutContext();
   const { selectStep } = useCheckout();
@@ -28,7 +28,7 @@ const CheckoutSummary = ({ id }) => {
     shipping_option = 'Rápido - $1.500';
   }
 
-  if (id === 'shipping')
+  if (currentStep === 2)
     return (
       <ul className={styles.summary_container}>
         <li className={styles.contact_wrapper}>
@@ -57,7 +57,7 @@ const CheckoutSummary = ({ id }) => {
       </ul>
     );
 
-  if (id === 'payment')
+  if (currentStep === 3)
     return (
       <ul className={styles.summary_container}>
         <li className={styles.contact_wrapper}>
