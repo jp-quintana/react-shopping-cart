@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { BiChevronLeft } from 'react-icons/bi';
 
 import { useCheckout } from 'hooks/useCheckout';
+import { useOrder } from 'hooks/useOrder';
 
 import CheckoutSummary from '../CheckoutSummary';
 
@@ -14,6 +15,7 @@ import styles from './index.module.scss';
 
 const Payment = ({ handlePreviousStep }) => {
   const { selectPreviousStep } = useCheckout();
+  const { createOrder } = useOrder();
 
   const [paymentOption, setPaymentOption] = useState('creditCard');
 
@@ -48,6 +50,7 @@ const Payment = ({ handlePreviousStep }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    createOrder();
   };
 
   const cardNumberStyles = {

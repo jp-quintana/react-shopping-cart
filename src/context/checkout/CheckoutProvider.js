@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from 'react';
 
-import { doc, collection, updateDoc, addDoc, getDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 
 import { db } from '../../firebase/config';
 
@@ -78,64 +78,39 @@ const checkoutReducer = (state, action) => {
 };
 
 const CheckoutProvider = ({ children }) => {
-  const {
-    user,
-    email,
-    checkoutSessionId,
-    dispatch: dispatchAuthAction,
-  } = useAuthContext();
+  const { email, checkoutSessionId } = useAuthContext();
 
   const [state, dispatch] = useReducer(checkoutReducer, initialState);
 
   useEffect(() => {
-    if (!checkoutSessionId) {
-      const createCheckoutSession = async () => {
-        const userRef = doc(db, 'users', user.uid);
+    const getCheckoutSession = async () => {
+      const checkoutSessionRef = doc(db, 'checkoutSessions', checkoutSessionId);
 
-        const checkoutSessionRef = await addDoc(
-          collection(db, 'checkoutSessions'),
-          {
-            email,
-            shippingAddress: {},
-            shippingOption: { standard: true, express: false },
-            paymentInfo: {},
-          }
-        );
+      const checkoutSessionSnap = await getDoc(checkoutSessionRef);
 
-        await updateDoc(userRef, {
-          checkoutSessionId: checkoutSessionRef.id,
-        });
-
-        dispatchAuthAction({
-          type: 'NEW_CHECKOUT_SESSION_ID',
-          payload: checkoutSessionRef.id,
-        });
-        dispatch({
-          type: 'CREATE_CHECKOUT_SESSION',
-          payload: { id: checkoutSessionRef.id, email },
-        });
-      };
-
-      createCheckoutSession();
-    } else if (!state.checkoutIsReady) {
-      const getCheckoutSession = async () => {
-        const checkoutSessionRef = doc(
-          db,
-          'checkoutSessions',
-          checkoutSessionId
-        );
-        const checkoutSessionDoc = await getDoc(checkoutSessionRef);
-
-        const checkoutSessionData = { ...checkoutSessionDoc.data() };
+      if (checkoutSessionSnap.exists()) {
+        const checkoutSessionData = { ...checkoutSessionSnap.data() };
 
         dispatch({
           type: 'UPDATE_CHECKOUT_SESSION',
           payload: { ...checkoutSessionData, id: checkoutSessionId },
         });
-      };
+      } else {
+        await setDoc(checkoutSessionRef, {
+          email,
+          shippingAddress: {},
+          shippingOption: { standard: true, express: false },
+          paymentInfo: {},
+        });
 
-      getCheckoutSession();
-    }
+        dispatch({
+          type: 'CREATE_CHECKOUT_SESSION',
+          payload: { id: checkoutSessionId, email },
+        });
+      }
+    };
+
+    getCheckoutSession();
   }, []);
 
   console.log('checkout-context', state);
