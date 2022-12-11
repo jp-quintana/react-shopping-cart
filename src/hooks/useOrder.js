@@ -20,9 +20,9 @@ export const useOrder = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const createOrder = async (order) => {
+  const createOrder = async (paymentInfo) => {
     try {
-      // const createdAt = Timestamp.fromDate(new Date());
+      const createdAt = Timestamp.fromDate(new Date());
       // await updateDoc(ordersRef, {
       //   list: arrayUnion({
       //     createdAt,
@@ -32,6 +32,27 @@ export const useOrder = () => {
       // const orderDoc = await getDoc(ordersRef);
       // const ordersData = orderDoc.data();
       // console.log(ordersData);
+      //   setDoc(
+      //     ordersRef,
+      //     {
+      //       list: [
+      //         {
+      //           name: 'Juan',
+      //         },
+      //       ],
+      //     },
+      //     { merge: true }
+      //   );
+      setDoc(
+        ordersRef,
+        {
+          list: arrayUnion({
+            createdAt,
+            name: 'Juan',
+          }),
+        },
+        { merge: true }
+      );
     } catch (err) {
       console.log(err);
     }
