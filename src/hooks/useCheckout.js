@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 import { db } from '../firebase/config';
 
@@ -9,12 +9,12 @@ import { useAuthContext } from './useAuthContext';
 
 export const useCheckout = () => {
   const { dispatch } = useCheckoutContext();
-  const { checkoutSessionId } = useAuthContext();
+  const { user } = useAuthContext();
 
-  const checkoutSessionRef = doc(db, 'checkoutSessions', checkoutSessionId);
+  const checkoutSessionRef = doc(db, 'checkoutSessions', user.uid);
 
   const [isLoading, setIsLoading] = useState(false);
-  // const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
 
   const selectPreviousStep = () => {
     dispatch({ type: 'SELECT_PREVIOUS_STEP' });
@@ -70,7 +70,9 @@ export const useCheckout = () => {
     dispatch({ type: 'SUBMIT_SHIPPING_OPTION' });
   };
 
-  const submitOrder = () => {};
+  const deleteCheckoutSession = async () => {
+    await deleteDoc(checkoutSessionRef);
+  };
 
   return {
     selectPreviousStep,
@@ -78,8 +80,8 @@ export const useCheckout = () => {
     submitShippingInfo,
     selectShippingOption,
     submitShippingOption,
-    submitOrder,
+    deleteCheckoutSession,
     isLoading,
-    // error,
+    error,
   };
 };

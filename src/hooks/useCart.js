@@ -189,5 +189,13 @@ export const useCart = () => {
     }
   };
 
-  return { addItem, removeItem, deleteItem, isLoading, error };
+  const deleteCart = async () => {
+    const cartRef = doc(db, 'carts', cartId);
+    await deleteDoc(cartRef);
+    dispatch({
+      type: 'DELETE_CART',
+    });
+  };
+
+  return { addItem, removeItem, deleteItem, deleteCart, isLoading, error };
 };

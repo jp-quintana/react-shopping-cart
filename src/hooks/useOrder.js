@@ -2,7 +2,9 @@ import { useState } from 'react';
 
 import {
   doc,
+  collection,
   getDoc,
+  addDoc,
   setDoc,
   updateDoc,
   arrayUnion,
@@ -12,51 +14,45 @@ import {
 import { db } from '../firebase/config';
 
 import { useAuthContext } from './useAuthContext';
+import { useCartContext } from './useCartContext';
+import { useCheckoutContext } from './useCheckoutContext';
+import { useCart } from './useCart';
 
 export const useOrder = () => {
-  const { ordersId } = useAuthContext();
-
-  const ordersRef = doc(db, 'orders', ordersId);
+  const { user } = useAuthContext();
+  const { items } = useCartContext();
+  const { email, shippingAddress, shippingOption } = useCheckoutContext();
+  const { deleteCart } = useCart();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const createOrder = async (paymentInfo) => {
+    const collectionRef = collection(db, 'orders');
+
     try {
+      setError(null);
+      setIsLoading(true);
       const createdAt = Timestamp.fromDate(new Date());
-      // await updateDoc(ordersRef, {
-      //   list: arrayUnion({
-      //     createdAt,
-      //     name: 'Juan',
-      //   }),
-      // });
-      // const orderDoc = await getDoc(ordersRef);
-      // const ordersData = orderDoc.data();
-      // console.log(ordersData);
-      //   setDoc(
-      //     ordersRef,
-      //     {
-      //       list: [
-      //         {
-      //           name: 'Juan',
-      //         },
-      //       ],
-      //     },
-      //     { merge: true }
-      //   );
-      setDoc(
-        ordersRef,
-        {
-          list: arrayUnion({
-            createdAt,
-            name: 'Juan',
-          }),
-        },
-        { merge: true }
-      );
+      await addDoc(collectionRef, {
+        createdAt,
+        items,
+        email,
+        shippingAddress,
+        shippingOption,
+        paymentInfo,
+        createdBy: user.uid,
+      });
+
+      await deleteCart();
+
+      setIsLoading(false);
     } catch (err) {
       console.log(err);
+      setError(err);
+      setIsLoading(false);
     }
   };
 
-  return { createOrder };
+  return { createOrder, isLoading, error };
 };

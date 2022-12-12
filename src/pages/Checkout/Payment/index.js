@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import { useNavigate } from 'react-router-dom';
 
 import { BiChevronLeft } from 'react-icons/bi';
 
@@ -14,10 +16,13 @@ import { formatCardNumber, formatExpiryDate, formatCvv } from 'helpers/format';
 import styles from './index.module.scss';
 
 const Payment = ({ handlePreviousStep }) => {
+  const navigate = useNavigate();
+
   const { selectPreviousStep } = useCheckout();
-  const { createOrder } = useOrder();
+  const { createOrder, isLoading, error } = useOrder();
 
   const [paymentOption, setPaymentOption] = useState('creditCard');
+  const [navigation, setNavigation] = useState(false);
 
   const [userInput, setUserInput] = useState({
     cardNumber: '',
@@ -48,10 +53,19 @@ const Payment = ({ handlePreviousStep }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    createOrder();
+    await createOrder(userInput);
+
+    setNavigation(true);
   };
+
+  useEffect(() => {
+    if (navigation && !error) {
+      navigate('/cuenta');
+      // navigate('/cuenta', { state: { message: error } });
+    }
+  }, [navigation]);
 
   const cardNumberStyles = {
     label:

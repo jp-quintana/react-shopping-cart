@@ -78,13 +78,13 @@ const checkoutReducer = (state, action) => {
 };
 
 const CheckoutProvider = ({ children }) => {
-  const { email, checkoutSessionId } = useAuthContext();
+  const { email, user } = useAuthContext();
 
   const [state, dispatch] = useReducer(checkoutReducer, initialState);
 
   useEffect(() => {
     const getCheckoutSession = async () => {
-      const checkoutSessionRef = doc(db, 'checkoutSessions', checkoutSessionId);
+      const checkoutSessionRef = doc(db, 'checkoutSessions', user.uid);
 
       const checkoutSessionSnap = await getDoc(checkoutSessionRef);
 
@@ -93,7 +93,7 @@ const CheckoutProvider = ({ children }) => {
 
         dispatch({
           type: 'UPDATE_CHECKOUT_SESSION',
-          payload: { ...checkoutSessionData, id: checkoutSessionId },
+          payload: { ...checkoutSessionData, id: user.uid },
         });
       } else {
         await setDoc(checkoutSessionRef, {
@@ -105,7 +105,7 @@ const CheckoutProvider = ({ children }) => {
 
         dispatch({
           type: 'CREATE_CHECKOUT_SESSION',
-          payload: { id: checkoutSessionId, email },
+          payload: { id: user.uid, email },
         });
       }
     };
