@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { doc, setDoc, deleteDoc } from 'firebase/firestore';
+import { doc, collection, addDoc, setDoc, deleteDoc } from 'firebase/firestore';
 
 import { db } from '../firebase/config';
 
@@ -41,7 +41,6 @@ export const useCart = () => {
       }
 
       if (!cartId && userCartId) {
-        console.log('hola');
         const cartRef = doc(db, 'carts', userCartId);
         await setDoc(cartRef, {
           items: updatedItems,
@@ -71,19 +70,17 @@ export const useCart = () => {
           },
         });
       } else {
-        const newCartId = (Math.floor(Math.random() * 1000000) + 1).toString();
-        localStorage.setItem('CART_IN_STORAGE', newCartId);
-
-        const cartRef = doc(db, 'carts', newCartId);
-        await setDoc(cartRef, {
+        const cartRef = await addDoc(collection(db, 'carts'), {
           items: updatedItems,
           totalAmount: updatedTotalAmount,
         });
 
+        localStorage.setItem('CART_IN_STORAGE', cartRef.id);
+
         dispatch({
           type: 'CREATE_CART',
           payload: {
-            id: newCartId,
+            id: cartRef.id,
             items: updatedItems,
             totalAmount: updatedTotalAmount,
           },
@@ -192,5 +189,13 @@ export const useCart = () => {
     }
   };
 
-  return { addItem, removeItem, deleteItem, isLoading, error };
+  const deleteCart = async () => {
+    const cartRef = doc(db, 'carts', cartId);
+    await deleteDoc(cartRef);
+    dispatch({
+      type: 'DELETE_CART',
+    });
+  };
+
+  return { addItem, removeItem, deleteItem, deleteCart, isLoading, error };
 };

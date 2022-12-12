@@ -1,13 +1,14 @@
-import { useState } from 'react';
-
 import { Link } from 'react-router-dom';
 
+import { useCheckoutContext } from 'hooks/useCheckoutContext';
+
 import CheckoutProgression from './CheckoutProgression';
-import CheckoutSummary from './CheckoutSummary';
-import Info from './Info';
-import Shipping from './Shipping';
+import ShippingInfo from './ShippingInfo';
+import ShippingOption from './ShippingOption';
 import Payment from './Payment';
 import OrderSummary from './OrderSummary';
+
+import Loader from 'common/Loader';
 
 import logo from 'assets/images/checkout-logo-nav.png';
 
@@ -21,83 +22,52 @@ const progressionSteps = [
 ];
 
 const Checkout = () => {
-  const [currentStep, setCurrentStep] = useState(1);
+  const { checkoutIsReady, currentStep } = useCheckoutContext();
 
-  const handlePreviousStep = (currentStep) => {
-    setCurrentStep((prevState) => prevState - 1);
-  };
-
-  const handleNextStep = (currentStep) => {
-    setCurrentStep((prevState) => prevState + 1);
-  };
-
-  const handleSelectStep = (index) => {
-    setCurrentStep(index);
-  };
-
-  let infoContent;
+  let formContent;
 
   if (progressionSteps[currentStep].id === 'info') {
-    infoContent = <Info handleNextStep={handleNextStep} />;
+    formContent = <ShippingInfo />;
   }
 
   if (progressionSteps[currentStep].id === 'shipping') {
-    infoContent = (
-      <>
-        <CheckoutSummary
-          id={'shipping'}
-          currentStep={currentStep}
-          handleSelectStep={handleSelectStep}
-        />
-        <Shipping
-          handlePreviousStep={handlePreviousStep}
-          handleNextStep={handleNextStep}
-        />
-      </>
-    );
+    formContent = <ShippingOption />;
   }
 
   if (progressionSteps[currentStep].id === 'payment') {
-    infoContent = (
-      <>
-        <CheckoutSummary
-          id={'payment'}
-          currentStep={currentStep}
-          handleSelectStep={handleSelectStep}
-        />
-        <Payment handlePreviousStep={handlePreviousStep} />
-      </>
-    );
+    formContent = <Payment />;
   }
 
   return (
     <>
       <div className={styles.background}></div>
       <section className={styles.layout}>
-        {/* TODO: ver si hay una mejor forma de hacer esto */}
-        <div className={`${styles.header} main-container`}>
-          <Link to="/">
-            <img className={styles.logo} src={logo} alt="" />
-          </Link>
-        </div>
-        <div className={`${styles.content_wrapper} main-container`}>
-          <div className={styles.info_container}>
-            <div className={styles.info_header}>
-              <Link to="/">
-                <img className={styles.logo} src={logo} alt="" />
-              </Link>
-            </div>
-            <CheckoutProgression
-              handleSelectStep={handleSelectStep}
-              steps={progressionSteps}
-              currentStep={currentStep}
-            />
-            {infoContent}
-          </div>
-          <div className={styles.order_summary_container}>
-            <OrderSummary />
-          </div>
-        </div>
+        <>
+          {!checkoutIsReady && <Loader noPortal={true} />}
+          {checkoutIsReady && (
+            <>
+              <div className={`${styles.header} main-container`}>
+                <Link to="/">
+                  <img className={styles.logo} src={logo} alt="" />
+                </Link>
+              </div>
+              <div className={`${styles.content_wrapper} main-container`}>
+                <div className={styles.info_container}>
+                  <div className={styles.info_header}>
+                    <Link to="/">
+                      <img className={styles.logo} src={logo} alt="" />
+                    </Link>
+                  </div>
+                  <CheckoutProgression steps={progressionSteps} />
+                  {formContent}
+                </div>
+                <div className={styles.order_summary_container}>
+                  <OrderSummary />
+                </div>
+              </div>
+            </>
+          )}
+        </>
       </section>
     </>
   );

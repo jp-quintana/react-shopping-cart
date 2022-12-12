@@ -15,7 +15,6 @@ const ProductSize = ({
 
   const handleSelectSize = () => {
     if (value === selectedSize) {
-      console.log('working');
       return;
     }
     dispatchProductAction({

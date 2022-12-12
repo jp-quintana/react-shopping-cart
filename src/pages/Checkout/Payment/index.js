@@ -1,13 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import { useNavigate } from 'react-router-dom';
 
 import { BiChevronLeft } from 'react-icons/bi';
+
+import { useCheckout } from 'hooks/useCheckout';
+import { useOrder } from 'hooks/useOrder';
+
+import CheckoutSummary from '../CheckoutSummary';
+
+import Loader from 'common/Loader';
 
 import { formatCardNumber, formatExpiryDate, formatCvv } from 'helpers/format';
 
 import styles from './index.module.scss';
 
 const Payment = ({ handlePreviousStep }) => {
+  const navigate = useNavigate();
+
+  const { selectPreviousStep } = useCheckout();
+  const { createOrder, isLoading, error } = useOrder();
+
   const [paymentOption, setPaymentOption] = useState('creditCard');
+  const [navigation, setNavigation] = useState(false);
 
   const [userInput, setUserInput] = useState({
     cardNumber: '',
@@ -38,9 +53,19 @@ const Payment = ({ handlePreviousStep }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    await createOrder(userInput);
+
+    setNavigation(true);
   };
+
+  useEffect(() => {
+    if (navigation && !error) {
+      navigate('/cuenta');
+      // navigate('/cuenta', { state: { message: error } });
+    }
+  }, [navigation]);
 
   const cardNumberStyles = {
     label:
@@ -84,6 +109,10 @@ const Payment = ({ handlePreviousStep }) => {
 
   return (
     <div>
+      {/* {isLoading && (
+        <Loader className={styles.loader_wrapper} noPortal={true} />
+      )} */}
+      <CheckoutSummary />
       <form id="form" onSubmit={handleSubmit} className={styles.form}>
         <h2 className={styles.title}>Forma de Pago</h2>
         <div className={styles.payment_options_wrapper}>
@@ -195,7 +224,7 @@ const Payment = ({ handlePreviousStep }) => {
         {/* TODO: BILLING ADDRESS */}
       </form>
       <div className={styles.form_controls}>
-        <p onClick={handlePreviousStep} className={styles.back}>
+        <p onClick={selectPreviousStep} className={styles.back}>
           <span>
             <BiChevronLeft />
           </span>

@@ -1,4 +1,4 @@
-.shipping_wrapper {
+.shipping_option_wrapper {
   h2 {
     color: #fff;
     margin-bottom: 1.5rem;
@@ -14,7 +14,7 @@
   }
 }
 
-.shipping_form {
+.shipping_option_form {
   color: #fff;
   border: 1px solid #515255;
   padding: 1rem 2rem;
@@ -53,6 +53,11 @@
     font-size: 1.5rem;
     margin-left: auto;
   }
+}
+
+.loader_wrapper {
+  height: auto!important;
+  padding-top: 4rem;
 }
 
 .radio_unselected {

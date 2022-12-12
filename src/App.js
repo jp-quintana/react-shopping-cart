@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthContext } from 'hooks/useAuthContext';
 
 import CartProvider from 'context/cart/CartProvider';
+import CheckoutProvider from 'context/checkout/CheckoutProvider';
 
 import Layout from './setup/Layout';
 import ProtectedRoutes from './setup/ProtectedRoutes';
@@ -36,7 +37,14 @@ const App = () => {
               <Route path="/carrito" element={<Cart />} />
 
               <Route element={<ProtectedRoutes needAuth={true} />}>
-                <Route path="/checkout" element={<Checkout />} />
+                <Route
+                  path="/checkout"
+                  element={
+                    <CheckoutProvider>
+                      <Checkout />
+                    </CheckoutProvider>
+                  }
+                />
                 <Route path="/cuenta" element={<Account />} />
                 <Route path="/cuenta/direcciones" element={<Addresses />} />
               </Route>

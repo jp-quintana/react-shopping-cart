@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { v4 as uuid } from 'uuid';
+
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
@@ -39,7 +41,7 @@ export const useSignUp = () => {
         userCartId = cartId;
         localStorage.removeItem('CART_IN_STORAGE');
       } else {
-        userCartId = (Math.floor(Math.random() * 1000000) + 1).toString();
+        userCartId = uuid();
       }
 
       const userData = {
@@ -47,7 +49,8 @@ export const useSignUp = () => {
         lastName,
         email,
         cartId: userCartId,
-        ordersId: (Math.floor(Math.random() * 1000000) + 1).toString(),
+        ordersId: uuid(),
+        checkoutSessionId: uuid(),
       };
 
       await setDoc(doc(db, 'users', user.uid), userData);

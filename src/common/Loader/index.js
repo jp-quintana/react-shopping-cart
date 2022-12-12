@@ -6,9 +6,19 @@ import styles from './index.module.scss';
 
 import LoaderImage from 'assets/images/loader.png';
 
-const Loader = () => {
+const Loader = ({ className, noPortal }) => {
   const backdropElement = document.getElementById('backdrop');
   const overlaysElement = document.getElementById('overlays');
+
+  if (noPortal) {
+    return (
+      <>
+        <div className={`${className} ${styles.loader_wrapper}`}>
+          <img className={styles.loader} src={LoaderImage} alt="" />
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

@@ -78,15 +78,10 @@ const CartProvider = ({ children }) => {
     }
   }, []);
 
-  const cartContext = {
-    ...state,
-    dispatch,
-  };
-
-  console.log('cart', state);
-
   return (
-    <CartContext.Provider value={cartContext}>{children}</CartContext.Provider>
+    <CartContext.Provider value={{ ...state, dispatch }}>
+      {children}
+    </CartContext.Provider>
   );
 };
 

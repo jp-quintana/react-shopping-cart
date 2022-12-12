@@ -16,6 +16,7 @@ const initialState = {
   phone: null,
   cartId: null,
   ordersId: null,
+  checkoutSessionId: null,
   authIsReady: false,
 };
 
@@ -30,6 +31,7 @@ const authReducer = (state, action) => {
         phone: action.payload.phone,
         cartId: action.payload.cartId,
         ordersId: action.payload.ordersId,
+        checkoutSessionId: action.payload.checkoutSessionId,
         authIsReady: true,
       };
     }
@@ -43,12 +45,19 @@ const authReducer = (state, action) => {
         phone: action.payload.phone,
         cartId: action.payload.cartId,
         ordersId: action.payload.ordersId,
+        checkoutSessionId: action.payload.checkoutSessionId,
       };
     }
     case 'LOGOUT': {
       return {
         ...initialState,
         authIsReady: true,
+      };
+    }
+    case 'NEW_CHECKOUT_SESSION_ID': {
+      return {
+        ...state,
+        checkoutSessionId: action.payload,
       };
     }
     default:
@@ -74,13 +83,7 @@ const AuthProvider = ({ children }) => {
       } else {
         dispatch({
           type: 'AUTH_IS_READY',
-          payload: {
-            user: null,
-            name: null,
-            lastName: null,
-            cartId: null,
-            ordersId: null,
-          },
+          payload: {},
         });
       }
     });
@@ -88,7 +91,7 @@ const AuthProvider = ({ children }) => {
     return () => unsub();
   }, []);
 
-  console.log('auth', state);
+  console.log('auth-context', state);
 
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>

@@ -1,4 +1,5 @@
 import { useCartContext } from 'hooks/useCartContext';
+import { useCheckoutContext } from 'hooks/useCheckoutContext';
 
 import { formatNumber } from 'helpers/format';
 import { addAllItemsPriceNumber } from 'helpers/item';
@@ -7,8 +8,18 @@ import styles from './index.module.scss';
 
 const OrderSummary = () => {
   const { items } = useCartContext();
+  const { shippingOption } = useCheckoutContext();
 
-  const shipping_price = 700;
+  let shipping_price;
+  let shipping_option;
+
+  if (shippingOption.standard) {
+    shipping_price = 750;
+    shipping_option = '(estandard)';
+  } else {
+    shipping_price = 1500;
+    shipping_option = '(rápido)';
+  }
   const subtotal = addAllItemsPriceNumber(items);
   const total = +subtotal + shipping_price;
 
@@ -43,7 +54,9 @@ const OrderSummary = () => {
           <p className={styles.subtotal_price}>$ {formatNumber(subtotal)}</p>
         </div>
         <div>
-          <p>Envío</p>
+          <p>
+            Envío <i>{shipping_option}</i>
+          </p>
           <p className={styles.subtotal_price}>
             $ {formatNumber(shipping_price)}
           </p>
