@@ -4,7 +4,7 @@ import { useAuthContext } from 'hooks/useAuthContext';
 
 const ProtectedRoutes = ({ needAuth }) => {
   const { isVerified } = useAuthContext();
-  const { pathname } = useLocation();
+  const { pathname, state } = useLocation();
 
   switch (needAuth) {
     case true:
@@ -13,7 +13,7 @@ const ProtectedRoutes = ({ needAuth }) => {
       }
 
       if (!isVerified) {
-        return <Navigate to="/cuenta/login" state={{ state: pathname }} />;
+        return <Navigate to="/cuenta/login" state={pathname} />;
       }
 
       break;
@@ -23,6 +23,11 @@ const ProtectedRoutes = ({ needAuth }) => {
       }
 
       if (isVerified) {
+        if (state === '/checkout') {
+          return <Navigate to={state} />;
+        } else if (state === '/cuenta') {
+          return <Navigate to={state} />;
+        }
         return <Navigate to="/" />;
       }
 

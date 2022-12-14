@@ -48,6 +48,7 @@ const authReducer = (state, action) => {
         lastName: action.payload.lastName,
         email: action.payload.email,
         phone: action.payload.phone || null,
+        addresses: action.payload.addresses,
         isVerified: action.payload.isVerified,
       };
     }
@@ -64,8 +65,6 @@ const authReducer = (state, action) => {
     }
   }
 };
-
-console.log('render');
 
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
