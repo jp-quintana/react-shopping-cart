@@ -12,12 +12,12 @@ import LogoNav from 'assets/images/logo-nav.png';
 import styles from './index.module.scss';
 
 const Navbar = ({ toggleSideNav, toggleCartModal }) => {
-  const { user } = useAuthContext();
+  const { isVerified } = useAuthContext();
   return (
     <nav className={`${styles.nav}`}>
       <div className={styles.container_top}>
-        {!user && <Link to="/cuenta/login">Login</Link>}
-        {user && <Link to="/cuenta">Mi Cuenta</Link>}
+        {!isVerified && <Link to="/cuenta/login">Login</Link>}
+        {isVerified && <Link to="/cuenta">Mi Cuenta</Link>}
       </div>
       <div className={styles.container_bottom}>
         <Link to="/">

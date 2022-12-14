@@ -72,8 +72,10 @@ const checkoutReducer = (state, action) => {
         shippingOption: action.payload.shippingOption,
       };
     }
-    default:
+
+    default: {
       return state;
+    }
   }
 };
 

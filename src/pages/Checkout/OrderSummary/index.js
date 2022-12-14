@@ -40,7 +40,7 @@ const OrderSummary = () => {
             </div>
             <div className={styles.info}>
               <p className={styles.name}>
-                {item.type} {item.color} {item.name}
+                {item.type} {item.name} {item.color}
               </p>
               <p className={styles.size}>{item.size}</p>
             </div>

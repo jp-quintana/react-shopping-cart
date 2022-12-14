@@ -1,27 +1,28 @@
-import { Outlet, Navigate } from 'react-router-dom';
+import { Outlet, Navigate, useLocation } from 'react-router-dom';
 
 import { useAuthContext } from 'hooks/useAuthContext';
 
 const ProtectedRoutes = ({ needAuth }) => {
-  const { user } = useAuthContext();
+  const { isVerified } = useAuthContext();
+  const { pathname } = useLocation();
 
   switch (needAuth) {
     case true:
-      if (user) {
+      if (isVerified) {
         return <Outlet />;
       }
 
-      if (!user) {
-        return <Navigate to="/" />;
+      if (!isVerified) {
+        return <Navigate to="/cuenta/login" state={{ state: pathname }} />;
       }
 
       break;
     case false:
-      if (!user) {
+      if (!isVerified) {
         return <Outlet />;
       }
 
-      if (user) {
+      if (isVerified) {
         return <Navigate to="/" />;
       }
 

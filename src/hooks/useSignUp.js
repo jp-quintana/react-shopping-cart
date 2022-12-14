@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import { v4 as uuid } from 'uuid';
 
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
+import { EmailAuthProvider, linkWithCredential } from 'firebase/auth';
+import { doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
 
 import { auth } from '../firebase/config';
 import { db } from '../firebase/config';
@@ -13,7 +13,7 @@ import { useCartContext } from './useCartContext';
 
 export const useSignUp = () => {
   const { dispatch } = useAuthContext();
-  const { id: cartId } = useCartContext();
+  const { id: cartId, items, totalAmount } = useCartContext();
 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -23,10 +23,11 @@ export const useSignUp = () => {
     setIsLoading(true);
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
+      const credential = EmailAuthProvider.credential(email, password);
+
+      const userCredential = await linkWithCredential(
+        auth.currentUser,
+        credential
       );
 
       if (!userCredential) {
@@ -35,22 +36,19 @@ export const useSignUp = () => {
 
       const user = userCredential.user;
 
-      let userCartId;
+      // const anonymouseCartRef = doc(db, 'carts', anonymousUser.uid);
+      // const anonymousCartDoc = await getDoc(anonymouseCartRef);
 
-      if (cartId) {
-        userCartId = cartId;
-        localStorage.removeItem('CART_IN_STORAGE');
-      } else {
-        userCartId = uuid();
-      }
+      // if (anonymousCartDoc.exists()) {
+      //   await deleteDoc(doc(db, 'carts', anonymousUser.uid));
+      //   await setDoc(doc(db, 'carts', user.uid), { items, totalAmount });
+      // }
 
       const userData = {
         name,
         lastName,
         email,
-        cartId: userCartId,
-        ordersId: uuid(),
-        checkoutSessionId: uuid(),
+        isVerified: true,
       };
 
       await setDoc(doc(db, 'users', user.uid), userData);

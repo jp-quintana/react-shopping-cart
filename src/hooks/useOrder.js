@@ -1,15 +1,6 @@
 import { useState } from 'react';
 
-import {
-  doc,
-  collection,
-  getDoc,
-  addDoc,
-  setDoc,
-  updateDoc,
-  arrayUnion,
-  Timestamp,
-} from 'firebase/firestore';
+import { collection, addDoc, Timestamp } from 'firebase/firestore';
 
 import { db } from '../firebase/config';
 
@@ -17,12 +8,14 @@ import { useAuthContext } from './useAuthContext';
 import { useCartContext } from './useCartContext';
 import { useCheckoutContext } from './useCheckoutContext';
 import { useCart } from './useCart';
+import { useCheckout } from './useCheckout';
 
 export const useOrder = () => {
   const { user } = useAuthContext();
   const { items } = useCartContext();
   const { email, shippingAddress, shippingOption } = useCheckoutContext();
   const { deleteCart } = useCart();
+  const { deleteCheckoutSession } = useCheckout();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -45,6 +38,7 @@ export const useOrder = () => {
       });
 
       await deleteCart();
+      await deleteCheckoutSession();
 
       setIsLoading(false);
     } catch (err) {
