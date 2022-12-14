@@ -38,8 +38,8 @@ export const useLogin = () => {
       const cartRef = doc(db, 'carts', user.uid);
       const cartDoc = await getDoc(cartRef);
 
-      const anonymouseCartRef = doc(db, 'carts', anonymousUser.uid);
-      const anonymousCartDoc = await getDoc(anonymouseCartRef);
+      const anonymousCartRef = doc(db, 'carts', anonymousUser.uid);
+      const anonymousCartDoc = await getDoc(anonymousCartRef);
 
       if (cartDoc.exists()) {
         const cartData = cartDoc.data();
@@ -53,12 +53,12 @@ export const useLogin = () => {
           await setDoc(cartRef, updatedCart);
 
           dispatchCartAction({
-            type: 'CREATE_CART',
+            type: 'UPDATE_CART',
             payload: { ...updatedCart },
           });
         } else {
           dispatchCartAction({
-            type: 'CREATE_CART',
+            type: 'UPDATE_CART',
             payload: { ...cartData },
           });
         }

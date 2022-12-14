@@ -12,7 +12,7 @@ import { useAuthContext } from './useAuthContext';
 import { useCartContext } from './useCartContext';
 
 export const useSignUp = () => {
-  const { user: anonymousUser, dispatch } = useAuthContext();
+  const { dispatch } = useAuthContext();
   const { id: cartId, items, totalAmount } = useCartContext();
 
   const [error, setError] = useState(null);
@@ -36,15 +36,13 @@ export const useSignUp = () => {
 
       const user = userCredential.user;
 
-      let userCartId;
+      // const anonymouseCartRef = doc(db, 'carts', anonymousUser.uid);
+      // const anonymousCartDoc = await getDoc(anonymouseCartRef);
 
-      const anonymouseCartRef = doc(db, 'carts', anonymousUser.uid);
-      const anonymousCartDoc = await getDoc(anonymouseCartRef);
-
-      if (anonymousCartDoc.exists()) {
-        await deleteDoc(doc(db, 'carts', anonymousUser.uid));
-        await setDoc(doc(db, 'carts', user.uid), { items, totalAmount });
-      }
+      // if (anonymousCartDoc.exists()) {
+      //   await deleteDoc(doc(db, 'carts', anonymousUser.uid));
+      //   await setDoc(doc(db, 'carts', user.uid), { items, totalAmount });
+      // }
 
       const userData = {
         name,

@@ -15,12 +15,6 @@ const initialState = {
 
 const cartReducer = (state, action) => {
   switch (action.type) {
-    case 'CREATE_CART': {
-      return {
-        items: action.payload.items,
-        totalAmount: action.payload.totalAmount,
-      };
-    }
     case 'UPDATE_CART': {
       return {
         items: action.payload.items,

@@ -14,9 +14,6 @@ const initialState = {
   lastName: null,
   email: null,
   phone: null,
-  cartId: null,
-  ordersId: null,
-  checkoutSessionId: null,
   isVerified: false,
   authIsReady: false,
 };
@@ -34,13 +31,15 @@ const authReducer = (state, action) => {
         authIsReady: true,
       };
     }
+
     case 'ANONYMOUS_AUTH_IS_READY': {
       return {
-        ...state,
+        ...initialState,
         user: action.payload.user,
         authIsReady: true,
       };
     }
+
     case 'LOGIN': {
       return {
         ...state,
@@ -48,26 +47,21 @@ const authReducer = (state, action) => {
         name: action.payload.name,
         lastName: action.payload.lastName,
         email: action.payload.email,
-        phone: action.payload.phone,
-        cartId: action.payload.cartId,
-        ordersId: action.payload.ordersId,
-        checkoutSessionId: action.payload.checkoutSessionId,
+        phone: action.payload.phone || null,
+        isVerified: action.payload.isVerified,
       };
     }
+
     case 'LOGOUT': {
       return {
         ...initialState,
         authIsReady: true,
       };
     }
-    case 'NEW_CHECKOUT_SESSION_ID': {
-      return {
-        ...state,
-        checkoutSessionId: action.payload,
-      };
-    }
-    default:
+
+    default: {
       return state;
+    }
   }
 };
 
@@ -78,7 +72,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
-      console.log('running');
+      // console.log('running');
       if (user) {
         const userRef = doc(db, 'users', user.uid);
         const userDoc = await getDoc(userRef);
@@ -90,12 +84,16 @@ const AuthProvider = ({ children }) => {
             payload: { user, ...userData },
           });
         } else {
+          console.log('running', user.uid);
+
+          console.log('Dispatching anonymously');
           dispatch({
             type: 'ANONYMOUS_AUTH_IS_READY',
             payload: { user },
           });
         }
       } else {
+        console.log('Sigining in anonymously');
         await signInAnonymously(auth);
       }
     });

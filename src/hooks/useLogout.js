@@ -27,5 +27,6 @@ export const useLogout = () => {
       setIsLoading(false);
     }
   };
+
   return { logout, isLoading, error };
 };

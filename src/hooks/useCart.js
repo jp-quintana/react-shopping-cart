@@ -1,6 +1,13 @@
 import { useState } from 'react';
 
-import { doc, collection, addDoc, setDoc, deleteDoc } from 'firebase/firestore';
+import {
+  doc,
+  collection,
+  getDoc,
+  addDoc,
+  setDoc,
+  deleteDoc,
+} from 'firebase/firestore';
 
 import { db } from '../firebase/config';
 
@@ -9,7 +16,7 @@ import { useCartContext } from './useCartContext';
 
 export const useCart = () => {
   const { user } = useAuthContext();
-  const { items, totalAmount, id: cartId, dispatch } = useCartContext();
+  const { items, totalAmount, dispatch } = useCartContext();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -40,52 +47,20 @@ export const useCart = () => {
         updatedItems.push(addedItem);
       }
 
-      if (!cartId && user.uid) {
-        const cartRef = doc(db, 'carts', user.uid);
-        await setDoc(cartRef, {
+      const cartRef = doc(db, 'carts', user.uid);
+
+      await setDoc(cartRef, {
+        items: updatedItems,
+        totalAmount: updatedTotalAmount,
+      });
+
+      dispatch({
+        type: 'UPDATE_CART',
+        payload: {
           items: updatedItems,
           totalAmount: updatedTotalAmount,
-        });
-
-        dispatch({
-          type: 'CREATE_CART',
-          payload: {
-            id: user.uid,
-            items: updatedItems,
-            totalAmount: updatedTotalAmount,
-          },
-        });
-      } else if (cartId) {
-        const cartRef = doc(db, 'carts', cartId);
-        await setDoc(cartRef, {
-          items: updatedItems,
-          totalAmount: updatedTotalAmount,
-        });
-
-        dispatch({
-          type: 'UPDATE_CART',
-          payload: {
-            items: updatedItems,
-            totalAmount: updatedTotalAmount,
-          },
-        });
-      } else {
-        const cartRef = await addDoc(collection(db, 'carts'), {
-          items: updatedItems,
-          totalAmount: updatedTotalAmount,
-        });
-
-        localStorage.setItem('CART_IN_STORAGE', cartRef.id);
-
-        dispatch({
-          type: 'CREATE_CART',
-          payload: {
-            id: cartRef.id,
-            items: updatedItems,
-            totalAmount: updatedTotalAmount,
-          },
-        });
-      }
+        },
+      });
 
       setIsLoading(false);
     } catch (err) {
@@ -116,10 +91,9 @@ export const useCart = () => {
         updatedItems[itemInCartIndex] = updatedItem;
       }
 
-      const cartRef = doc(db, 'carts', cartId);
+      const cartRef = doc(db, 'carts', user.uid);
 
       if (updatedTotalAmount === 0) {
-        localStorage.removeItem('CART_IN_STORAGE');
         await deleteDoc(cartRef);
 
         dispatch({
@@ -158,10 +132,9 @@ export const useCart = () => {
         (item) => item.sku !== itemToDelete.sku
       );
 
-      const cartRef = doc(db, 'carts', cartId);
+      const cartRef = doc(db, 'carts', user.uid);
 
       if (updatedTotalAmount === 0) {
-        localStorage.removeItem('CART_IN_STORAGE');
         await deleteDoc(cartRef);
 
         dispatch({
@@ -190,7 +163,7 @@ export const useCart = () => {
   };
 
   const deleteCart = async () => {
-    const cartRef = doc(db, 'carts', cartId);
+    const cartRef = doc(db, 'carts', user.uid);
     await deleteDoc(cartRef);
     dispatch({
       type: 'DELETE_CART',
