@@ -11,7 +11,12 @@ const AccountOrders = ({ orders }) => {
           <h3 className={styles.title}>Mis Ordenes</h3>
           <div className={styles.orders_list}>
             {orders.map((order) => (
-              <Order key={order.id} id={order.id} items={order.items} />
+              <Order
+                key={order.id}
+                id={order.id}
+                items={order.items}
+                date={order.createdAt}
+              />
             ))}
           </div>
         </>

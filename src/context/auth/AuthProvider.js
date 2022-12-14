@@ -14,6 +14,7 @@ const initialState = {
   lastName: null,
   email: null,
   phone: null,
+  addresses: [],
   isVerified: false,
   authIsReady: false,
 };
@@ -27,6 +28,7 @@ const authReducer = (state, action) => {
         lastName: action.payload.lastName,
         email: action.payload.email,
         phone: action.payload.phone || null,
+        addresses: action.payload.addresses || [],
         isVerified: true,
         authIsReady: true,
       };
@@ -48,7 +50,7 @@ const authReducer = (state, action) => {
         lastName: action.payload.lastName,
         email: action.payload.email,
         phone: action.payload.phone || null,
-        addresses: action.payload.addresses,
+        addresses: action.payload.addresses || [],
         isVerified: action.payload.isVerified,
       };
     }
@@ -56,7 +58,6 @@ const authReducer = (state, action) => {
     case 'LOGOUT': {
       return {
         ...initialState,
-        authIsReady: true,
       };
     }
 
@@ -71,7 +72,6 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
-      // console.log('running');
       if (user) {
         const userRef = doc(db, 'users', user.uid);
         const userDoc = await getDoc(userRef);
@@ -83,16 +83,12 @@ const AuthProvider = ({ children }) => {
             payload: { user, ...userData },
           });
         } else {
-          console.log('running', user.uid);
-
-          console.log('Dispatching anonymously');
           dispatch({
             type: 'ANONYMOUS_AUTH_IS_READY',
             payload: { user },
           });
         }
       } else {
-        console.log('Sigining in anonymously');
         await signInAnonymously(auth);
       }
     });

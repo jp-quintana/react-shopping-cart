@@ -1,6 +1,13 @@
 import { useState } from 'react';
 
-import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  addDoc,
+  Timestamp,
+} from 'firebase/firestore';
 
 import { db } from '../firebase/config';
 
@@ -20,12 +27,12 @@ export const useOrder = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const createOrder = async (paymentInfo) => {
-    const collectionRef = collection(db, 'orders');
+  const collectionRef = collection(db, 'orders');
 
+  const createOrder = async (paymentInfo) => {
+    setError(null);
+    setIsLoading(true);
     try {
-      setError(null);
-      setIsLoading(true);
       const createdAt = Timestamp.fromDate(new Date());
       await addDoc(collectionRef, {
         createdAt,
@@ -48,5 +55,28 @@ export const useOrder = () => {
     }
   };
 
-  return { createOrder, isLoading, error };
+  const getOrders = async () => {
+    setError(null);
+    setIsLoading(true);
+
+    try {
+      const orders = [];
+
+      const q = query(collectionRef, where('createdBy', '==', user.uid));
+      console.log('running');
+
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        orders.push({ id: doc.id, ...doc.data() });
+      });
+
+      return orders;
+    } catch (err) {
+      console.log(err);
+      setError(err);
+      setIsLoading(false);
+    }
+  };
+
+  return { createOrder, getOrders, isLoading, error };
 };
