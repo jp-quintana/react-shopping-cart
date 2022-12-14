@@ -12,13 +12,9 @@ import { useCartContext } from './useCartContext';
 import { updateCartAtLogin } from 'helpers/cart';
 
 export const useLogin = () => {
-  const { dispatch: dispatchAuthAction } = useAuthContext();
-  const {
-    dispatch: dispatchCartAction,
-    id: cartId,
-    items,
-    totalAmount,
-  } = useCartContext();
+  const { user: anonymousUser, dispatch: dispatchAuthAction } =
+    useAuthContext();
+  const { dispatch: dispatchCartAction, items, totalAmount } = useCartContext();
 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,19 +35,17 @@ export const useLogin = () => {
 
       const user = userCredential.user;
 
-      const userRef = doc(db, 'users', user.uid);
-      const userDoc = await getDoc(userRef);
-      const userData = userDoc.data();
-
-      const cartRef = doc(db, 'carts', userData.cartId);
+      const cartRef = doc(db, 'carts', user.uid);
       const cartDoc = await getDoc(cartRef);
+
+      const anonymouseCartRef = doc(db, 'carts', anonymousUser.uid);
+      const anonymousCartDoc = await getDoc(anonymouseCartRef);
 
       if (cartDoc.exists()) {
         const cartData = cartDoc.data();
 
-        if (cartId) {
-          localStorage.removeItem('CART_IN_STORAGE');
-          await deleteDoc(doc(db, 'carts', cartId));
+        if (anonymousCartDoc.exists()) {
+          await deleteDoc(doc(db, 'carts', anonymousUser.uid));
 
           const itemsForCartUpdate = [...cartData.items, ...items];
           const updatedCart = updateCartAtLogin(itemsForCartUpdate);
@@ -60,23 +54,22 @@ export const useLogin = () => {
 
           dispatchCartAction({
             type: 'CREATE_CART',
-            payload: { id: userData.cartId, ...updatedCart },
+            payload: { ...updatedCart },
           });
         } else {
           dispatchCartAction({
             type: 'CREATE_CART',
-            payload: { id: userData.cartId, ...cartData },
+            payload: { ...cartData },
           });
         }
       } else {
-        if (cartId) {
-          localStorage.removeItem('CART_IN_STORAGE');
+        if (anonymousCartDoc.exists()) {
+          await deleteDoc(doc(db, 'carts', anonymousUser.uid));
 
           await setDoc(cartRef, { items, totalAmount });
         }
       }
 
-      dispatchAuthAction({ type: 'LOGIN', payload: { user, ...userData } });
       setIsLoading(false);
     } catch (err) {
       console.log(err);
@@ -84,5 +77,6 @@ export const useLogin = () => {
       setIsLoading(false);
     }
   };
+
   return { login, isLoading, error };
 };

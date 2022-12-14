@@ -7,18 +7,18 @@ import SideModal from 'common/SideModal';
 import styles from './index.module.scss';
 
 const SideNav = ({ toggleSideNav }) => {
-  const { user } = useAuthContext();
+  const { isVerified } = useAuthContext();
   return (
     <SideModal toggleModal={toggleSideNav}>
       <div className={styles.container}>
         <ul className={styles.links}>
           <li>
-            {user && (
+            {isVerified && (
               <Link to="/cuenta" onClick={toggleSideNav}>
                 Mi Cuenta
               </Link>
             )}
-            {!user && (
+            {!isVerified && (
               <Link to="/cuenta/login" onClick={toggleSideNav}>
                 Login
               </Link>

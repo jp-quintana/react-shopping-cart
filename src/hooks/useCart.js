@@ -8,7 +8,7 @@ import { useAuthContext } from './useAuthContext';
 import { useCartContext } from './useCartContext';
 
 export const useCart = () => {
-  const { cartId: userCartId } = useAuthContext();
+  const { user } = useAuthContext();
   const { items, totalAmount, id: cartId, dispatch } = useCartContext();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -40,8 +40,8 @@ export const useCart = () => {
         updatedItems.push(addedItem);
       }
 
-      if (!cartId && userCartId) {
-        const cartRef = doc(db, 'carts', userCartId);
+      if (!cartId && user.uid) {
+        const cartRef = doc(db, 'carts', user.uid);
         await setDoc(cartRef, {
           items: updatedItems,
           totalAmount: updatedTotalAmount,
@@ -50,7 +50,7 @@ export const useCart = () => {
         dispatch({
           type: 'CREATE_CART',
           payload: {
-            id: userCartId,
+            id: user.uid,
             items: updatedItems,
             totalAmount: updatedTotalAmount,
           },

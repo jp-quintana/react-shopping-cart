@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from 'react';
 
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signInAnonymously } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 
 import { auth } from '../../firebase/config';
@@ -17,6 +17,7 @@ const initialState = {
   cartId: null,
   ordersId: null,
   checkoutSessionId: null,
+  isVerified: false,
   authIsReady: false,
 };
 
@@ -28,10 +29,15 @@ const authReducer = (state, action) => {
         name: action.payload.name,
         lastName: action.payload.lastName,
         email: action.payload.email,
-        phone: action.payload.phone,
-        cartId: action.payload.cartId,
-        ordersId: action.payload.ordersId,
-        checkoutSessionId: action.payload.checkoutSessionId,
+        phone: action.payload.phone || null,
+        isVerified: true,
+        authIsReady: true,
+      };
+    }
+    case 'ANONYMOUS_AUTH_IS_READY': {
+      return {
+        ...state,
+        user: action.payload.user,
         authIsReady: true,
       };
     }
@@ -65,26 +71,32 @@ const authReducer = (state, action) => {
   }
 };
 
+console.log('render');
+
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
+      console.log('running');
       if (user) {
         const userRef = doc(db, 'users', user.uid);
         const userDoc = await getDoc(userRef);
 
-        const userData = userDoc.data();
-
-        dispatch({
-          type: 'AUTH_IS_READY',
-          payload: { user, ...userData },
-        });
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          dispatch({
+            type: 'AUTH_IS_READY',
+            payload: { user, ...userData },
+          });
+        } else {
+          dispatch({
+            type: 'ANONYMOUS_AUTH_IS_READY',
+            payload: { user },
+          });
+        }
       } else {
-        dispatch({
-          type: 'AUTH_IS_READY',
-          payload: {},
-        });
+        await signInAnonymously(auth);
       }
     });
 

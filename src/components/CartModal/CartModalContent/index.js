@@ -17,7 +17,12 @@ const CartModalContent = ({ toggleCartModal }) => {
     return (
       <div className={styles.empty}>
         <p className={styles.no_products}>No hay productos en el carrito</p>
-        <Link className={styles.button} to="/categorias/productos">
+        {/* TODO: CHEQUEAR ESTO */}
+        <Link
+          className={styles.button}
+          to="/categorias/productos"
+          state={{ test: 'test' }}
+        >
           <Button onClick={toggleCartModal}>Agregá productos</Button>
         </Link>
       </div>

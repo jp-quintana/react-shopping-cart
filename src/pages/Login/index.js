@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import { useLogin } from 'hooks/useLogin';
 
@@ -7,7 +7,7 @@ import styles from './index.module.scss';
 
 const Login = () => {
   const navigate = useNavigate();
-
+  const { state } = useLocation();
   const { login, isLoading, error } = useLogin();
 
   const emailInput = useRef();
@@ -22,7 +22,7 @@ const Login = () => {
     });
 
     console.log(error);
-
+    // TODO: PONER ESTO EN UN USE EFFECT APARTE
     if (!error) {
       navigate('/');
     }
