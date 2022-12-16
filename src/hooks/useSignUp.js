@@ -48,7 +48,7 @@ export const useSignUp = () => {
         name,
         lastName,
         email,
-        phone: null,
+        phoneNumber: null,
         addresses: [],
         isVerified: true,
       };

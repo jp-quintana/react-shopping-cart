@@ -1,8 +1,6 @@
 .card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  
+  display: grid;
+  grid-template-columns: 8fr 2fr;
   padding: 2rem;
   border: 0.2rem solid #000;
   border-radius: 1rem;
@@ -20,6 +18,15 @@
 
   &:active {
     transform: scale(0.9);
+  }
+  
+  h3 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  p {
+    margin-left: auto;
   }
 }
 

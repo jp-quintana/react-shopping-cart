@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import { useAuthContext } from 'hooks/useAuthContext';
 import { useOrder } from 'hooks/useOrder';
@@ -15,8 +14,6 @@ import Loader from 'common/Loader';
 import styles from './index.module.scss';
 
 const Account = () => {
-  const navigate = useNavigate();
-
   const {
     name,
     lastName,
@@ -28,19 +25,7 @@ const Account = () => {
   const { getOrders, isLoading, Error } = useOrder();
   const { logout, error } = useLogout();
 
-  // TODO: CAMBIAR ESTO A NULL
   const [orders, setOrders] = useState(null);
-
-  const [addresses, setAddresses] = useState(userAddresses);
-  // const [defaultAddress, setDefaultAddress] = useState(_defaultAddress);
-
-  // if (addresses.length > 0) {
-
-  // }
-  const notDefaultAddresses = userAddresses.filter(
-    (address) => !address.isDefault
-  );
-  const defaultAddress = userAddresses.find((address) => address.isDefault);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -76,11 +61,7 @@ const Account = () => {
                   email={email}
                   phoneNumber={phoneNumber}
                 />
-                <AccountAddresses
-                  addresses={addresses}
-                  defaultAddress={defaultAddress}
-                  notDefaultAddresses={notDefaultAddresses}
-                />
+                <AccountAddresses />
               </aside>
             </div>
           </div>
