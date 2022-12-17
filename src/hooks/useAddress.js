@@ -27,24 +27,22 @@ export const useAddress = () => {
     city,
     province,
     isMain = null,
+    existingId = null,
   }) => {
     setError(null);
     setIsLoading(true);
     try {
-      const newAddressId = (userAddresses.length + 1).toString();
+      // TODO: PARA EL SELECT EN EL CHECKOUT EN UN FUTURO!!!
+      if (existingId) {
+        setIsLoading(false);
+        return;
+      }
 
       if (!isMain) {
         userAddresses.length === 0 ? (isMain = true) : (isMain = null);
-      } else if (isMain && addresses.length > 0) {
-        const currentMainAddressIndex = userAddresses.findIndex(
-          (address) => address.isMain
-        );
-
-        userAddresses[currentMainAddressIndex].isMain = false;
       }
 
       const addressToAdd = {
-        id: newAddressId,
         name,
         lastName,
         phoneNumber,
@@ -55,7 +53,21 @@ export const useAddress = () => {
         isMain,
       };
 
-      userAddresses.push(addressToAdd);
+      if (isMain && addresses.length > 0) {
+        const currentMainAddressIndex = userAddresses.findIndex(
+          (address) => address.isMain
+        );
+
+        userAddresses[currentMainAddressIndex].isMain = false;
+
+        userAddresses.unshift(addressToAdd);
+      } else {
+        userAddresses.push(addressToAdd);
+      }
+
+      for (let i = 1; i <= userAddresses.length; i++) {
+        userAddresses[i - 1].id = i;
+      }
 
       await updateDoc(userRef, {
         addresses: userAddresses,
@@ -80,8 +92,10 @@ export const useAddress = () => {
         (address) => address.id !== id
       );
 
+      console.log(updatedAddresses);
+
       for (let i = 1; i <= updatedAddresses.length; i++) {
-        updatedAddresses.id[i - 1] = i;
+        updatedAddresses[i - 1].id = i;
       }
 
       const checkForMain = updatedAddresses.find((address) => address.isMain);

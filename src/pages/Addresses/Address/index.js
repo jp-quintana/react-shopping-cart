@@ -2,8 +2,6 @@ import { useState } from 'react';
 
 import { FaTrash } from 'react-icons/fa';
 
-import { useAddress } from 'hooks/useAddress';
-
 import EditAddressModal from './EditAddressModal';
 
 import styles from './index.module.scss';
@@ -18,9 +16,8 @@ const Address = ({
   city,
   province,
   isMain,
+  onDelete,
 }) => {
-  const { deleteAddress, isLoading, error } = useAddress();
-
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleEditAddressModal = () => {
@@ -28,7 +25,7 @@ const Address = ({
   };
 
   const handleDelete = async () => {
-    await deleteAddress(id);
+    await onDelete(id);
   };
 
   return (
@@ -73,5 +70,4 @@ const Address = ({
     </>
   );
 };
-
 export default Address;
