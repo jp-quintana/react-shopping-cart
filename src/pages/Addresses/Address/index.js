@@ -15,12 +15,17 @@ const Address = ({
   zipCode,
   city,
   province,
-  isDefault,
+  isMain,
+  onDelete,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleEditAddressModal = () => {
     setIsOpen((prevState) => !prevState);
+  };
+
+  const handleDelete = async () => {
+    await onDelete(id);
   };
 
   return (
@@ -35,14 +40,13 @@ const Address = ({
           zipCode={zipCode}
           city={city}
           province={province}
-          isDefault={isDefault}
+          isMain={isMain}
+          id={id}
         />
       )}
       <div className={styles.card}>
-        {isDefault && (
-          <h3 className={styles.title}>Direccion predeterminada</h3>
-        )}
-        {!isDefault && <h3 className={styles.title}>Direccion {id}</h3>}
+        {isMain && <h3 className={styles.title}>Direccion predeterminada</h3>}
+        {!isMain && <h3 className={styles.title}>Direccion {id}</h3>}
         <div className={styles.content}>
           <h4 className={styles.name}>
             {name} {lastName}
@@ -59,7 +63,7 @@ const Address = ({
               Editar
             </div>
             <div className={styles.delete}>
-              <FaTrash className={styles.delete_icon} />
+              <FaTrash className={styles.delete_icon} onClick={handleDelete} />
             </div>
           </div>
         </div>
@@ -67,5 +71,4 @@ const Address = ({
     </>
   );
 };
-
 export default Address;

@@ -1,12 +1,16 @@
 import { Link } from 'react-router-dom';
 
+import { useAuthContext } from 'hooks/useAuthContext';
+
 import styles from './index.module.scss';
 
-const AccountAddresses = ({
-  addresses,
-  defaultAddress,
-  notDefaultAddresses,
-}) => {
+const AccountAddresses = ({}) => {
+  const { addresses } = useAuthContext();
+
+  const defaultAddress = addresses.find((address) => address.isMain);
+
+  const otherAddresses = addresses.filter((address) => !address.isMain);
+
   return (
     <div className={styles.addresses_container}>
       <div className={styles.addresses_wrapper}>
@@ -30,7 +34,7 @@ const AccountAddresses = ({
                   <li>{defaultAddress.province}</li>
                 </ul>
               </div>
-              {notDefaultAddresses.map((address) => (
+              {otherAddresses.map((address) => (
                 <div key={address.id}>
                   <h3 className={styles.title}>Direccion {address.id}</h3>
 

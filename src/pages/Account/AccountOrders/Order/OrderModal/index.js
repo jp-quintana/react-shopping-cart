@@ -3,20 +3,18 @@ import { Link } from 'react-router-dom';
 import CenterModal from 'common/CenterModal';
 import Button from 'common/Button';
 
-import { addAllItemsPrice } from 'helpers/item';
-import { addAllItemsAmount } from 'helpers/item';
-import { formatNumber } from 'helpers/format';
+import { addAllItemsPrice, addAllItemsAmount } from 'helpers/item';
+import { formatNumber, formatDate } from 'helpers/format';
 
 import styles from './index.module.scss';
 
-const OrderModal = ({ toggleOrderModal, id, items }) => {
+const OrderModal = ({ toggleOrderModal, id, items, date }) => {
   return (
     <CenterModal toggleModal={toggleOrderModal}>
       <div className={styles.content_container}>
         <div className={styles.modal_header}>
-          <h3>Órden {id}</h3>
-          {/* TODO: Cambiar fecha */}
-          <p className={styles.date}>xx/xx/xx</p>
+          <h3>Orden #{id}</h3>
+          <p className={styles.date}>{formatDate(date)}</p>
         </div>
         <div className={styles.list_wrapper}>
           {items.map((item) => (
@@ -33,7 +31,7 @@ const OrderModal = ({ toggleOrderModal, id, items }) => {
               </div>
               <div className={styles.info}>
                 <p className={styles.name}>
-                  {item.type} {item.color} {item.name}
+                  {item.type} {item.name} {item.color}
                 </p>
                 <p className={styles.size}>{item.size}</p>
               </div>

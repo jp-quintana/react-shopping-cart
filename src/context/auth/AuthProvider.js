@@ -13,7 +13,8 @@ const initialState = {
   name: null,
   lastName: null,
   email: null,
-  phone: null,
+  phoneNumber: null,
+  addresses: [],
   isVerified: false,
   authIsReady: false,
 };
@@ -26,7 +27,8 @@ const authReducer = (state, action) => {
         name: action.payload.name,
         lastName: action.payload.lastName,
         email: action.payload.email,
-        phone: action.payload.phone || null,
+        phoneNumber: action.payload.phoneNumber || null,
+        addresses: action.payload.addresses || [],
         isVerified: true,
         authIsReady: true,
       };
@@ -47,7 +49,8 @@ const authReducer = (state, action) => {
         name: action.payload.name,
         lastName: action.payload.lastName,
         email: action.payload.email,
-        phone: action.payload.phone || null,
+        phoneNumber: action.payload.phoneNumber || null,
+        addresses: action.payload.addresses || [],
         isVerified: action.payload.isVerified,
       };
     }
@@ -55,7 +58,20 @@ const authReducer = (state, action) => {
     case 'LOGOUT': {
       return {
         ...initialState,
-        authIsReady: true,
+      };
+    }
+
+    case 'UPDATE_USER': {
+      return {
+        ...state,
+        ...action.payload,
+      };
+    }
+
+    case 'UPDATE_ADDRESSES': {
+      return {
+        ...state,
+        addresses: action.payload,
       };
     }
 
@@ -65,14 +81,11 @@ const authReducer = (state, action) => {
   }
 };
 
-console.log('render');
-
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
-      // console.log('running');
       if (user) {
         const userRef = doc(db, 'users', user.uid);
         const userDoc = await getDoc(userRef);
@@ -84,16 +97,12 @@ const AuthProvider = ({ children }) => {
             payload: { user, ...userData },
           });
         } else {
-          console.log('running', user.uid);
-
-          console.log('Dispatching anonymously');
           dispatch({
             type: 'ANONYMOUS_AUTH_IS_READY',
             payload: { user },
           });
         }
       } else {
-        console.log('Sigining in anonymously');
         await signInAnonymously(auth);
       }
     });

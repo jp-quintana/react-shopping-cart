@@ -60,6 +60,8 @@ const CartProvider = ({ children }) => {
     getCart();
   }, []);
 
+  console.log('cart-context', state);
+
   return (
     <CartContext.Provider value={{ ...state, dispatch }}>
       {children}

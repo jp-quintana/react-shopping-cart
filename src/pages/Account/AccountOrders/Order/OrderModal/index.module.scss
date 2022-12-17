@@ -9,12 +9,19 @@
 
 .modal_header {
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 8fr 2fr;
+
+  h3 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 }
 
 .date {
   font-family: 'Montserrat', sans-serif;
+  margin-left: auto;
 }
 
 .list_wrapper {

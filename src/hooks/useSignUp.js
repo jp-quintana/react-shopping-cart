@@ -13,7 +13,7 @@ import { useCartContext } from './useCartContext';
 
 export const useSignUp = () => {
   const { dispatch } = useAuthContext();
-  const { id: cartId, items, totalAmount } = useCartContext();
+  // const { id: cartId, items, totalAmount } = useCartContext();
 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -48,6 +48,8 @@ export const useSignUp = () => {
         name,
         lastName,
         email,
+        phoneNumber: null,
+        addresses: [],
         isVerified: true,
       };
 

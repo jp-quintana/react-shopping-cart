@@ -52,14 +52,18 @@ const CartModalContent = ({ toggleCartModal }) => {
         <p>
           <span>Total: {addAllItemsPrice(items)} </span> | {totalAmount} Items
         </p>
-        <Link className={styles.button} to="/carrito">
-          <Button onClick={toggleCartModal}>Carrito</Button>
+        <Link className={styles.button} to="/carrito" onClick={toggleCartModal}>
+          <Button>Carrito</Button>
         </Link>
-        {items.length === 0 && (
+        {/* {items.length === 0 && (
           <Button onClick={toggleCartModal}>Checkout</Button>
-        )}
-        <Link className={styles.button} to="/checkout">
-          <Button onClick={toggleCartModal}>Checkout</Button>
+        )} */}
+        <Link
+          className={styles.button}
+          to="/checkout"
+          onClick={toggleCartModal}
+        >
+          <Button>Checkout</Button>
         </Link>
       </div>
     </div>
