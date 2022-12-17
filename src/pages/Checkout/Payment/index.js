@@ -63,7 +63,8 @@ const Payment = ({ handlePreviousStep }) => {
   useEffect(() => {
     if (navigation && !error) {
       navigate('/cuenta');
-      // navigate('/cuenta', { state: { message: error } });
+    } else {
+      setNavigation(false);
     }
   }, [navigation]);
 

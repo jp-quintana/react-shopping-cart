@@ -61,6 +61,20 @@ const authReducer = (state, action) => {
       };
     }
 
+    case 'UPDATE_USER': {
+      return {
+        ...state,
+        ...action.payload,
+      };
+    }
+
+    case 'UPDATE_ADDRESSES': {
+      return {
+        ...state,
+        addresses: action.payload,
+      };
+    }
+
     default: {
       return state;
     }

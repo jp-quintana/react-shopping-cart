@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 import { FaTrash } from 'react-icons/fa';
 
+import { useAddress } from 'hooks/useAddress';
+
 import EditAddressModal from './EditAddressModal';
 
 import styles from './index.module.scss';
@@ -15,12 +17,18 @@ const Address = ({
   zipCode,
   city,
   province,
-  isDefault,
+  isMain,
 }) => {
+  const { deleteAddress, isLoading, error } = useAddress();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleEditAddressModal = () => {
     setIsOpen((prevState) => !prevState);
+  };
+
+  const handleDelete = async () => {
+    await deleteAddress(id);
   };
 
   return (
@@ -35,14 +43,12 @@ const Address = ({
           zipCode={zipCode}
           city={city}
           province={province}
-          isDefault={isDefault}
+          isMain={isMain}
         />
       )}
       <div className={styles.card}>
-        {isDefault && (
-          <h3 className={styles.title}>Direccion predeterminada</h3>
-        )}
-        {!isDefault && <h3 className={styles.title}>Direccion {id}</h3>}
+        {isMain && <h3 className={styles.title}>Direccion predeterminada</h3>}
+        {!isMain && <h3 className={styles.title}>Direccion {id}</h3>}
         <div className={styles.content}>
           <h4 className={styles.name}>
             {name} {lastName}
@@ -59,7 +65,7 @@ const Address = ({
               Editar
             </div>
             <div className={styles.delete}>
-              <FaTrash className={styles.delete_icon} />
+              <FaTrash className={styles.delete_icon} onClick={handleDelete} />
             </div>
           </div>
         </div>

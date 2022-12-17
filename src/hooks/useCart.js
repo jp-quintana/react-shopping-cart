@@ -1,13 +1,6 @@
 import { useState } from 'react';
 
-import {
-  doc,
-  collection,
-  getDoc,
-  addDoc,
-  setDoc,
-  deleteDoc,
-} from 'firebase/firestore';
+import { doc, setDoc, deleteDoc } from 'firebase/firestore';
 
 import { db } from '../firebase/config';
 

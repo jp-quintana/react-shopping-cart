@@ -13,9 +13,9 @@ const EditAddressModal = ({
   zipCode,
   city,
   province,
-  isDefault,
+  isMain,
 }) => {
-  const [isChecked, setIsChecked] = useState(isDefault);
+  const [isChecked, setIsChecked] = useState(isMain);
 
   const nameInput = useRef();
   const lastNameInput = useRef();
@@ -35,7 +35,7 @@ const EditAddressModal = ({
       zipCode: zipCodeInput.current.value,
       city: cityInput.current.value,
       province: provinceInput.current.value,
-      isDefault: isChecked,
+      isMain: isChecked,
     });
   };
 

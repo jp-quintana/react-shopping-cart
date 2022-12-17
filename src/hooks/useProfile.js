@@ -15,7 +15,7 @@ export const useProfile = () => {
   const [error, setError] = useState(false);
 
   const editProfile = async ({ name, lastName, phoneNumber = null }) => {
-    console.log(name, lastName, phoneNumber);
+    console.log(phoneNumber);
     setError(null);
     setIsLoading(true);
     try {
@@ -23,6 +23,11 @@ export const useProfile = () => {
         name,
         lastName,
         phoneNumber,
+      });
+
+      dispatch({
+        type: 'UPDATE_USER',
+        payload: { name, lastName, phoneNumber },
       });
 
       setIsLoading(false);
@@ -33,5 +38,5 @@ export const useProfile = () => {
     }
   };
 
-  return { editProfile };
+  return { editProfile, isLoading, error };
 };

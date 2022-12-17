@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 
 import { BiChevronLeft, BiPlus } from 'react-icons/bi';
 
+import { useAuthContext } from 'hooks/useAuthContext';
+
 import AddAddressModal from './AddAddressModal';
 import Address from './Address';
 
@@ -21,7 +23,7 @@ const DUMMY_ADDRESSES = [
     zipCode: '1636',
     city: 'Olivos',
     province: 'Buenos Aires',
-    isDefault: true,
+    isMain: true,
   },
   {
     id: 2,
@@ -32,7 +34,7 @@ const DUMMY_ADDRESSES = [
     zipCode: '1636',
     city: 'Olivos',
     province: 'Buenos Aires',
-    isDefault: false,
+    isMain: false,
   },
   {
     id: 3,
@@ -43,7 +45,7 @@ const DUMMY_ADDRESSES = [
     zipCode: '1636',
     city: 'Olivos',
     province: 'Buenos Aires',
-    isDefault: false,
+    isMain: false,
   },
   {
     id: 4,
@@ -54,20 +56,18 @@ const DUMMY_ADDRESSES = [
     zipCode: '1636',
     city: 'Olivos',
     province: 'Buenos Aires',
-    isDefault: false,
+    isMain: false,
   },
 ];
 
 const Addresses = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [addresses, setAddresses] = useState(DUMMY_ADDRESSES);
-  // const [defaultAddress, setDefaultAddress] = useState(_defaultAddress);
+  const { addresses } = useAuthContext();
 
-  // TODO: Fix
-  const notDefaultAddresses = DUMMY_ADDRESSES.filter(
-    (address) => !address.isDefault
-  );
-  const defaultAddress = DUMMY_ADDRESSES.find((address) => address.isDefault);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const defaultAddress = addresses.find((address) => address.isMain);
+
+  const otherAddresses = addresses.filter((address) => !address.isMain);
 
   const toggleAddAddressModal = () => {
     setIsOpen((prevState) => !prevState);
@@ -115,10 +115,10 @@ const Addresses = () => {
                     city={defaultAddress.city}
                     province={defaultAddress.province}
                     id={defaultAddress.id}
-                    isDefault={defaultAddress.isDefault}
+                    isMain={defaultAddress.isMain}
                   />
                 )}
-                {notDefaultAddresses.map((address) => (
+                {otherAddresses.map((address) => (
                   <Address
                     key={address.id}
                     name={address.name}
@@ -129,7 +129,7 @@ const Addresses = () => {
                     city={address.city}
                     province={address.province}
                     id={address.id}
-                    isDefault={address.isDefault}
+                    isMain={address.isMain}
                   />
                 ))}
               </div>
