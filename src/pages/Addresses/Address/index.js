@@ -41,6 +41,7 @@ const Address = ({
           city={city}
           province={province}
           isMain={isMain}
+          id={id}
         />
       )}
       <div className={styles.card}>

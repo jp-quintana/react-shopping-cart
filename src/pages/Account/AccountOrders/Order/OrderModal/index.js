@@ -13,8 +13,7 @@ const OrderModal = ({ toggleOrderModal, id, items, date }) => {
     <CenterModal toggleModal={toggleOrderModal}>
       <div className={styles.content_container}>
         <div className={styles.modal_header}>
-          <h3>Órden {id}</h3>
-          {/* TODO: Cambiar fecha */}
+          <h3>Orden #{id}</h3>
           <p className={styles.date}>{formatDate(date)}</p>
         </div>
         <div className={styles.list_wrapper}>
@@ -32,7 +31,7 @@ const OrderModal = ({ toggleOrderModal, id, items, date }) => {
               </div>
               <div className={styles.info}>
                 <p className={styles.name}>
-                  {item.type} {item.color} {item.name}
+                  {item.type} {item.name} {item.color}
                 </p>
                 <p className={styles.size}>{item.size}</p>
               </div>
