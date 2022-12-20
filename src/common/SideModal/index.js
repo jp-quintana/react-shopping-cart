@@ -1,5 +1,7 @@
 import { createPortal } from 'react-dom';
 
+import { useKeyDown } from 'hooks/useKeyDown';
+
 import Backdrop from 'common/Backdrop';
 
 import styles from './index.module.scss';
@@ -7,6 +9,10 @@ import styles from './index.module.scss';
 const SideModal = ({ children, toggleModal }) => {
   const backdropElement = document.getElementById('backdrop');
   const overlaysElement = document.getElementById('overlays');
+
+  useKeyDown(() => {
+    toggleModal();
+  }, ['Escape']);
 
   return (
     <>

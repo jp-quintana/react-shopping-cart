@@ -1,7 +1,3 @@
-import { useEffect } from 'react';
-
-import { Link } from 'react-router-dom';
-
 import CenterModal from 'common/CenterModal';
 import Button from 'common/Button';
 
@@ -11,22 +7,6 @@ import { formatNumber, formatDate } from 'helpers/format';
 import styles from './index.module.scss';
 
 const OrderModal = ({ toggleOrderModal, id, items, date }) => {
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-
-        toggleOrderModal();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
-
   return (
     <CenterModal toggleModal={toggleOrderModal}>
       <div className={styles.content_container}>

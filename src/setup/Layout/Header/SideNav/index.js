@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import { Link } from 'react-router-dom';
 
 import { useAuthContext } from 'hooks/useAuthContext';
@@ -10,22 +8,6 @@ import styles from './index.module.scss';
 
 const SideNav = ({ toggleSideNav }) => {
   const { isVerified } = useAuthContext();
-
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-
-        toggleSideNav();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
 
   return (
     <SideModal toggleModal={toggleSideNav}>

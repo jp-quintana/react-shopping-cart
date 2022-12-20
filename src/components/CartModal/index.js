@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
+
+import { useKeyDown } from 'hooks/useKeyDown';
 
 import CartModalContent from './CartModalContent';
 
@@ -11,21 +12,9 @@ const CartModal = ({ toggleCartModal }) => {
   const backdropElement = document.getElementById('backdrop');
   const overlaysElement = document.getElementById('overlays');
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-
-        toggleCartModal();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
+  useKeyDown(() => {
+    toggleCartModal();
+  }, ['Escape']);
 
   return (
     <>
