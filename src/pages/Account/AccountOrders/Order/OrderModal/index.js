@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 import CenterModal from 'common/CenterModal';
 import Button from 'common/Button';
 

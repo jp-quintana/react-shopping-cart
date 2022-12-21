@@ -8,6 +8,7 @@ import styles from './index.module.scss';
 
 const SideNav = ({ toggleSideNav }) => {
   const { isVerified } = useAuthContext();
+
   return (
     <SideModal toggleModal={toggleSideNav}>
       <div className={styles.container}>

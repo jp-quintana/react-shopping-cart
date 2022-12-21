@@ -1,7 +1,5 @@
 import { useRef } from 'react';
 
-// import { useNavigate } from 'react-router-dom';
-
 import { useProfile } from 'hooks/useProfile';
 
 import CenterModal from 'common/CenterModal';
@@ -15,8 +13,6 @@ const EditProfileModal = ({
   lastName,
   phoneNumber,
 }) => {
-  // const navigate = useNavigate();
-
   const { editProfile, isLoading, error } = useProfile();
 
   const nameInput = useRef();
