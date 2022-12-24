@@ -17,15 +17,27 @@ export const useProduct = () => {
       const products = [];
       const variants = [];
 
-      // const q = query(collectionRef, where('createdBy', '==', user.uid));
-
       const querySnapshot = await getDocs(collectionRef);
       querySnapshot.forEach((doc) => {
         products.push({ id: doc.id, ...doc.data() });
       });
 
       for (const product of products) {
+        for (const variant of product.variants) {
+          variants.push({
+            id: variant.variantId,
+            model: product.model,
+            color: variant.color,
+            price: variant.price,
+            type: variant.type,
+            collection: variant.collection,
+            url: variant.url,
+            images: variant.images,
+          });
+        }
       }
+
+      return variants;
     } catch (err) {
       console.log(err);
       setError(err);

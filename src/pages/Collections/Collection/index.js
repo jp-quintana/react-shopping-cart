@@ -5,28 +5,41 @@ import { useProduct } from 'hooks/useProduct';
 
 import ProductCard from './ProductCard';
 
-import { DUMMY_COLLECTIONS_PRODUCTS as products } from './data';
+// import { DUMMY_COLLECTIONS_PRODUCTS as products } from './data';
 
 import styles from './index.module.scss';
 
 const Collection = () => {
   const { getProducts } = useProduct();
 
+  const [products, setProducts] = useState(null);
   const [collection, setCollection] = useState(null);
   const { id: urlId } = useParams();
 
   useEffect(() => {
-    let selectedProducts;
-    if (urlId !== 'productos') {
-      selectedProducts = products.filter(
-        (product) => product.collections === urlId
-      );
-    } else {
-      selectedProducts = products;
+    const fetchProducts = async () => {
+      const fetchedProducts = await getProducts();
+      setProducts(fetchedProducts);
+    };
+
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    if (products) {
+      let selectedProducts;
+      if (urlId !== 'productos') {
+        selectedProducts = products.filter(
+          (product) => product.collection === urlId
+        );
+      } else {
+        selectedProducts = products;
+      }
+      setCollection(selectedProducts);
     }
-    getProducts();
-    setCollection(selectedProducts);
-  }, [urlId]);
+  }, [products, urlId]);
+
+  console.log(products);
 
   return (
     <section>
@@ -37,11 +50,11 @@ const Collection = () => {
               key={product.id}
               model={product.model}
               color={product.color}
-              price={product.price.html}
+              price={product.price}
               type={product.type}
               url={product.url}
-              imageTop={product.image_top}
-              imageBottom={product.image_bottom}
+              _imageTop={product.images[0].src}
+              _imageBottom={product.images[1].src}
             />
           ))}
         </div>

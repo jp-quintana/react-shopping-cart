@@ -22,8 +22,9 @@ const CartModalContent = ({ toggleCartModal }) => {
           className={styles.button}
           to="/categorias/productos"
           state={{ test: 'test' }}
+          onClick={toggleCartModal}
         >
-          <Button onClick={toggleCartModal}>Agregá productos</Button>
+          <Button>Agregá productos</Button>
         </Link>
       </div>
     );
