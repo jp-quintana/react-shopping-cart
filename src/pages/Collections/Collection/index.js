@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { useProduct } from 'hooks/useProduct';
+
 import ProductCard from './ProductCard';
 
 import { DUMMY_COLLECTIONS_PRODUCTS as products } from './data';
@@ -8,6 +10,8 @@ import { DUMMY_COLLECTIONS_PRODUCTS as products } from './data';
 import styles from './index.module.scss';
 
 const Collection = () => {
+  const { getProducts } = useProduct();
+
   const [collection, setCollection] = useState(null);
   const { id: urlId } = useParams();
 
@@ -20,6 +24,7 @@ const Collection = () => {
     } else {
       selectedProducts = products;
     }
+    getProducts();
     setCollection(selectedProducts);
   }, [urlId]);
 
