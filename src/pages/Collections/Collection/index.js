@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 
 import { useProduct } from 'hooks/useProduct';
 
+import Loader from 'common/Loader';
+
 import ProductCard from './ProductCard';
 
 // import { DUMMY_COLLECTIONS_PRODUCTS as products } from './data';
@@ -39,27 +41,28 @@ const Collection = () => {
     }
   }, [products, urlId]);
 
-  console.log(products);
-
   return (
-    <section>
+    <>
+      {!collection && <Loader />}
       {collection && (
-        <div className={`${styles.container} main-container`}>
-          {collection.map((product) => (
-            <ProductCard
-              key={product.id}
-              model={product.model}
-              color={product.color}
-              price={product.price}
-              type={product.type}
-              url={product.url}
-              _imageTop={product.images[0].src}
-              _imageBottom={product.images[1].src}
-            />
-          ))}
-        </div>
+        <section>
+          <div className={`${styles.container} main-container`}>
+            {collection.map((product) => (
+              <ProductCard
+                key={product.id}
+                model={product.model}
+                color={product.color}
+                price={product.price}
+                type={product.type}
+                url={product.url}
+                _imageTop={product.images[0].src}
+                _imageBottom={product.images[1].src}
+              />
+            ))}
+          </div>
+        </section>
       )}
-    </section>
+    </>
   );
 };
 
