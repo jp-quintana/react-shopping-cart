@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthContext } from 'hooks/useAuthContext';
 
 import CartProvider from 'context/cart/CartProvider';
+import ProductProvider from 'context/product/ProductProvider';
 import CheckoutProvider from 'context/checkout/CheckoutProvider';
 
 import Layout from './setup/Layout';
@@ -33,7 +34,14 @@ const App = () => {
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="/categorias/:id" element={<Collections />} />
-              <Route path="/productos/:id" element={<Products />} />
+              <Route
+                path="/productos/:id"
+                element={
+                  <ProductProvider>
+                    <Products />
+                  </ProductProvider>
+                }
+              />
               <Route path="/carrito" element={<Cart />} />
 
               <Route element={<ProtectedRoutes needAuth={true} />}>

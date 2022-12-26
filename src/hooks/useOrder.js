@@ -27,14 +27,14 @@ export const useOrder = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const collectionRef = collection(db, 'orders');
+  const ordersRef = collection(db, 'orders');
 
   const createOrder = async (paymentInfo) => {
     setError(null);
     setIsLoading(true);
     try {
       const createdAt = Timestamp.fromDate(new Date());
-      await addDoc(collectionRef, {
+      await addDoc(ordersRef, {
         createdAt,
         items,
         email,
@@ -62,8 +62,7 @@ export const useOrder = () => {
     try {
       const orders = [];
 
-      const q = query(collectionRef, where('createdBy', '==', user.uid));
-      console.log('running');
+      const q = query(ordersRef, where('createdBy', '==', user.uid));
 
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {

@@ -21,7 +21,7 @@ const Product = ({
   selectedVariantId,
   selectedSku,
   selectedSize,
-  selectedStock,
+  // selectedStock,
 }) => {
   const { items } = useCartContext();
   const { addItem, isLoading, error } = useCart();
@@ -32,10 +32,10 @@ const Product = ({
   }
 
   const handleAddToCart = async () => {
-    const item = items.find((item) => item.sku === selectedSku);
-    if (item && item.amount >= selectedStock) {
-      return;
-    }
+    // const item = items.find((item) => item.sku === selectedSku);
+    // if (item && item.amount >= selectedStock) {
+    //   return;
+    // }
     addItem({
       sku: selectedSku,
       name: productName,

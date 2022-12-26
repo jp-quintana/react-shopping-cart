@@ -1,7 +1,6 @@
 import { useReducer, useEffect } from 'react';
 
 import { doc, getDoc } from 'firebase/firestore';
-
 import { db } from '../../firebase/config';
 
 import { useAuthContext } from 'hooks/useAuthContext';

@@ -8,7 +8,7 @@ export const useProduct = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const collectionRef = collection(db, 'products');
+  const productsRef = collection(db, 'products');
 
   const getProducts = async () => {
     setError(null);
@@ -17,7 +17,7 @@ export const useProduct = () => {
       const products = [];
       const variants = [];
 
-      const querySnapshot = await getDocs(collectionRef);
+      const querySnapshot = await getDocs(productsRef);
       querySnapshot.forEach((doc) => {
         products.push({ id: doc.id, ...doc.data() });
       });
