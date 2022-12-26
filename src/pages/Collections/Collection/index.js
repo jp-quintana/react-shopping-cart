@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { useProduct } from 'hooks/useProduct';
 
@@ -12,6 +12,8 @@ import ProductCard from './ProductCard';
 import styles from './index.module.scss';
 
 const Collection = () => {
+  const navigate = useNavigate();
+
   const { getProducts } = useProduct();
 
   const [products, setProducts] = useState(null);
@@ -30,14 +32,25 @@ const Collection = () => {
   useEffect(() => {
     if (products) {
       let selectedProducts;
-      if (urlId !== 'productos') {
+      if (urlId === 'productos') {
+        selectedProducts = products;
+      } else if (
+        urlId === 'remeras' ||
+        urlId === 'buzos' ||
+        urlId === 'accesorios'
+      ) {
         selectedProducts = products.filter(
           (product) => product.collection === urlId
         );
       } else {
-        selectedProducts = products;
+        selectedProducts = null;
       }
-      setCollection(selectedProducts);
+
+      if (selectedProducts) {
+        setCollection(selectedProducts);
+      } else {
+        navigate('/');
+      }
     }
   }, [products, urlId]);
 

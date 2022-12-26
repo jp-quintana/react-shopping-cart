@@ -25,12 +25,12 @@ export const useProduct = () => {
       for (const product of products) {
         for (const variant of product.variants) {
           variants.push({
-            id: variant.variantId,
             model: product.model,
+            collection: product.collection,
+            type: product.type,
+            id: variant.variantId,
             color: variant.color,
             price: variant.price,
-            type: variant.type,
-            collection: variant.collection,
             url: variant.url,
             images: variant.images,
           });
