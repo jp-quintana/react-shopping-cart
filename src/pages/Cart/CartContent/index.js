@@ -27,7 +27,7 @@ const CartContent = () => {
           <div className={styles.list_wrapper}>
             {items.map((item) => (
               <CartItem
-                key={item.sku}
+                key={item.id}
                 item={item}
                 name={item.name}
                 type={item.type}
@@ -36,7 +36,7 @@ const CartContent = () => {
                 price={item.price}
                 url={item.url}
                 amount={item.amount}
-                images={item.images}
+                _thumbnail={item.thumbnail}
               />
             ))}
           </div>

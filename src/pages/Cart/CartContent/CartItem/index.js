@@ -18,7 +18,7 @@ const CartItem = ({
   price,
   url,
   amount,
-  images,
+  _thumbnail,
   item,
   toggleCartModal,
 }) => {
@@ -42,6 +42,8 @@ const CartItem = ({
     }
   };
 
+  const thumbnail = require(`assets/${_thumbnail}`);
+
   return (
     <Card className={styles.card}>
       <Link
@@ -55,7 +57,7 @@ const CartItem = ({
             <p className={styles.size}>Talle {size}</p>
             <p className={styles.price}>${formatNumber(price)}</p>
           </div>
-          <img className={styles.image} src={images[0]['src']} alt="" />
+          <img className={styles.image} src={thumbnail} alt="" />
         </div>
       </Link>
 

@@ -16,11 +16,11 @@ const OrderModal = ({ toggleOrderModal, id, items, date }) => {
         </div>
         <div className={styles.list_wrapper}>
           {items.map((item) => (
-            <div key={item.sku} className={styles.item_container}>
+            <div key={item.id} className={styles.item_container}>
               <div className={styles.image_wrapper}>
                 <img
                   className={styles.image}
-                  src={item.images[0]['src']}
+                  src={require(`assets/${item.thumbnail}`)}
                   alt=""
                 />
                 <div className={styles.amount}>

@@ -4,8 +4,10 @@ const AuthContext = createContext({
   user: null,
   name: null,
   lastName: null,
-  cartId: null,
-  ordersId: null,
+  email: null,
+  phoneNumber: null,
+  addresses: [],
+  isVerified: false,
   authIsReady: false,
 });
 

@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 
 import Card from 'common/Card';
 
+import { formatNumber } from 'helpers/format';
+
 import styles from './index.module.scss';
 
 const ProductCard = ({
@@ -10,9 +12,12 @@ const ProductCard = ({
   price,
   type,
   url,
-  imageTop,
-  imageBottom,
+  _imageTop,
+  _imageBottom,
 }) => {
+  const imageTop = require(`assets/${_imageTop}`);
+  const imageBottom = require(`assets/${_imageBottom}`);
+
   return (
     <Card className={styles.card}>
       <Link to={`/productos/${url}`} className={styles.link}>
@@ -24,7 +29,7 @@ const ProductCard = ({
           <li className={styles.title}>
             {type} <span>{model}</span> {color}
           </li>
-          <li className={styles.price}>${price}</li>
+          <li className={styles.price}>${formatNumber(price)}</li>
         </ul>
       </Link>
     </Card>
