@@ -4,7 +4,11 @@ import { collection, getDocs } from 'firebase/firestore';
 
 import { db } from '../firebase/config';
 
+import { useProductContext } from './useProductContext';
+
 export const useProduct = () => {
+  const { selectedProduct, dispatch } = useProductContext();
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -44,5 +48,18 @@ export const useProduct = () => {
       setIsLoading(false);
     }
   };
-  return { getProducts, isLoading, error };
+
+  const selectVariant = (variantId) => {
+    const variant = selectedProduct.variants.find(
+      (variant) => variant.variantId === variantId
+    );
+
+    dispatch({ type: 'SELECT_VARIANT', payload: variant });
+  };
+
+  const selectSize = ({ sku, value, stock }) => {
+    dispatch({ type: 'SELECT_SIZE', payload: { sku, value, stock } });
+  };
+
+  return { getProducts, selectVariant, selectSize, isLoading, error };
 };

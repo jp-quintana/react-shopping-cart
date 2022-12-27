@@ -1,13 +1,10 @@
+import { useProduct } from 'hooks/useProduct';
+
 import styles from './index.module.scss';
 
-const ProductSize = ({
-  sku,
-  value,
-  stock,
-  selectedSize,
-  onSelectSize,
-  dispatchProductAction,
-}) => {
+const ProductSize = ({ sku, value, stock, selectedSize }) => {
+  const { selectSize } = useProduct();
+
   let addEventHandler = false;
   if (stock > 0 && value !== selectedSize) {
     addEventHandler = true;
@@ -17,10 +14,7 @@ const ProductSize = ({
     if (value === selectedSize) {
       return;
     }
-    dispatchProductAction({
-      type: 'SELECT_PRODUCT_SIZE',
-      payload: { sku, value, stock },
-    });
+    selectSize({ sku, value, stock });
   };
 
   let sizeStyles = `

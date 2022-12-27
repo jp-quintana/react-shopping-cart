@@ -1,11 +1,12 @@
+import { useProduct } from 'hooks/useProduct';
+
 import styles from './index.module.scss';
 
-const ProductVariant = ({
-  id,
-  thumbnail,
-  selectedVariantId,
-  dispatchProductAction,
-}) => {
+const ProductVariant = ({ id, _thumbnail, selectedVariantId }) => {
+  const { selectVariant } = useProduct();
+
+  const thumbnail = require(`assets/${_thumbnail}`);
+
   let shouldAddEventHandler = false;
   if (selectedVariantId !== id) {
     shouldAddEventHandler = true;
@@ -15,7 +16,7 @@ const ProductVariant = ({
     if (id === selectedVariantId) {
       return;
     }
-    dispatchProductAction({ type: 'SELECT_PRODUCT_VARIANT', payload: id });
+    selectVariant(id);
   };
 
   let variantStyles =

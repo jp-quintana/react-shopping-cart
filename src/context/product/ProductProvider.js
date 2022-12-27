@@ -24,6 +24,23 @@ const productReducer = (state, action) => {
         selectedVariant: action.payload.variant,
       };
     }
+    case 'SELECT_VARIANT': {
+      return {
+        ...state,
+        selectedVariant: action.payload,
+        selectedSku: '',
+        selectedSize: '',
+        selectedStock: 0,
+      };
+    }
+    case 'SELECT_SIZE': {
+      return {
+        ...state,
+        selectedSku: action.payload.sku,
+        selectedSize: action.payload.value,
+        selectedStock: action.payload.stock,
+      };
+    }
     default: {
       return state;
     }

@@ -6,7 +6,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { auth } from '../../firebase/config';
 import { db } from '../../firebase/config';
 
-import AuthContext from './auth-provider';
+import AuthContext from './auth-context';
 
 const initialState = {
   user: null,
