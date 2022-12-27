@@ -12,7 +12,7 @@ import { formatNumber } from 'helpers/format';
 
 import styles from './index.module.scss';
 
-const Products = ({}) => {
+const Products = () => {
   const {
     selectedProduct,
     selectedVariant,
@@ -34,14 +34,16 @@ const Products = ({}) => {
     //   return;
     // }
     addItem({
-      sku: selectedSku,
+      // TODO: INVENTORY
+      productId: selectedProduct.id,
+      id: selectedSku,
       size: selectedSize,
       name: selectedProduct.model,
       type: selectedProduct.type,
       color: selectedVariant.color,
       price: selectedVariant.price,
       url: selectedVariant.url,
-      images: selectedVariant.images,
+      thumbnail: selectedVariant.images[0].src,
     });
   };
 
@@ -86,7 +88,7 @@ const Products = ({}) => {
                 {selectedVariant.inventoryLevels.map((size) => (
                   <ProductSize
                     key={size.sku}
-                    sku={size.sku}
+                    id={size.sku}
                     value={size.value}
                     stock={size.stock}
                     selectedSize={selectedSize}

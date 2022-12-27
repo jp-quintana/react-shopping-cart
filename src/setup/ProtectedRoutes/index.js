@@ -6,6 +6,8 @@ const ProtectedRoutes = ({ needAuth }) => {
   const { isVerified } = useAuthContext();
   const { pathname, state } = useLocation();
 
+  // TODO: SI EL USUARIO HACE LOGOUT TIENE QUE TERMINAR EN HOME Y NO EN LOGIN
+
   switch (needAuth) {
     case true:
       if (isVerified) {

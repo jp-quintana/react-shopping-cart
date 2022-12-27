@@ -2,7 +2,7 @@ import { useProduct } from 'hooks/useProduct';
 
 import styles from './index.module.scss';
 
-const ProductSize = ({ sku, value, stock, selectedSize }) => {
+const ProductSize = ({ id, value, stock, selectedSize }) => {
   const { selectSize } = useProduct();
 
   let addEventHandler = false;
@@ -14,7 +14,7 @@ const ProductSize = ({ sku, value, stock, selectedSize }) => {
     if (value === selectedSize) {
       return;
     }
-    selectSize({ sku, value, stock });
+    selectSize({ id, value, stock });
   };
 
   let sizeStyles = `

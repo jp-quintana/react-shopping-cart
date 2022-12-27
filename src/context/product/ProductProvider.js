@@ -36,7 +36,7 @@ const productReducer = (state, action) => {
     case 'SELECT_SIZE': {
       return {
         ...state,
-        selectedSku: action.payload.sku,
+        selectedSku: action.payload.id,
         selectedSize: action.payload.value,
         selectedStock: action.payload.stock,
       };
@@ -69,7 +69,7 @@ const ProductProvider = ({ children }) => {
 
       const variant = product.variants.find((variant) => variant.url === urlId);
 
-      //TODO: FETCH INVENTORY LEVELS BASE (GETDOCS CON PATH)
+      // TODO: INVENTORY FETCH LEVELS BASE (path:products/productId/variants)
 
       dispatch({ type: 'SET_PRODUCT', payload: { product, variant } });
     };

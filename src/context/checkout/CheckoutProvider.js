@@ -27,14 +27,14 @@ const checkoutReducer = (state, action) => {
     case 'SELECT_PREVIOUS_STEP': {
       return {
         ...state,
-        //TODO: CHEQUEAR SI HACE FALTA PREVSTATE EN USEREDUCER
+        // TODO: CHEQUEAR SI HACE FALTA PREVSTATE EN USEREDUCER
         currentStep: state.currentStep - 1,
       };
     }
     case 'SUBMIT_SHIPPING_INFO': {
       return {
         ...state,
-        //TODO: CHEQUEAR SI HACE FALTA PREVSTATE EN USEREDUCER
+        // TODO: CHEQUEAR SI HACE FALTA PREVSTATE EN USEREDUCER
         currentStep: state.currentStep + 1,
         email: action.payload.email,
         shippingAddress: action.payload.shippingAddress,

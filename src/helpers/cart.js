@@ -5,7 +5,7 @@ export const updateCartAtLogin = (items) => {
   items.forEach((item) => {
     updatedTotalAmount += item.amount;
 
-    const itemInCartIndex = updatedItems.findIndex((i) => i.sku === item.sku);
+    const itemInCartIndex = updatedItems.findIndex((i) => i.id === item.id);
 
     if (itemInCartIndex >= 0) {
       updatedItems[itemInCartIndex].amount += item.amount;

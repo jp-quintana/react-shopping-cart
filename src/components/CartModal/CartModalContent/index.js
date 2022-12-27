@@ -36,7 +36,7 @@ const CartModalContent = ({ toggleCartModal }) => {
         {items.map((item) => (
           <CartItem
             toggleCartModal={toggleCartModal}
-            key={item.sku}
+            key={item.id}
             item={item}
             name={item.name}
             type={item.type}
@@ -45,7 +45,7 @@ const CartModalContent = ({ toggleCartModal }) => {
             price={item.price}
             url={item.url}
             amount={item.amount}
-            images={item.images}
+            _thumbnail={item.thumbnail}
           />
         ))}
       </div>

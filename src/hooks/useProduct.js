@@ -57,8 +57,8 @@ export const useProduct = () => {
     dispatch({ type: 'SELECT_VARIANT', payload: variant });
   };
 
-  const selectSize = ({ sku, value, stock }) => {
-    dispatch({ type: 'SELECT_SIZE', payload: { sku, value, stock } });
+  const selectSize = ({ id, value, stock }) => {
+    dispatch({ type: 'SELECT_SIZE', payload: { id, value, stock } });
   };
 
   return { getProducts, selectVariant, selectSize, isLoading, error };

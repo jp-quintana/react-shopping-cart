@@ -20,7 +20,7 @@ export const useCart = () => {
       const updatedTotalAmount = totalAmount + 1;
 
       const itemInCartIndex = items.findIndex(
-        (item) => item.sku === itemToAdd.sku
+        (item) => item.id === itemToAdd.id
       );
       const itemInCart = items[itemInCartIndex];
 
@@ -70,14 +70,14 @@ export const useCart = () => {
       const updatedTotalAmount = totalAmount - 1;
 
       const itemInCartIndex = items.findIndex(
-        (item) => item.sku === itemToRemove.sku
+        (item) => item.id === itemToRemove.id
       );
       const itemInCart = items[itemInCartIndex];
 
       let updatedItems;
 
       if (itemInCart.amount === 1) {
-        updatedItems = items.filter((item) => item.sku !== itemToRemove.sku);
+        updatedItems = items.filter((item) => item.id !== itemToRemove.id);
       } else {
         const updatedItem = { ...itemInCart, amount: itemInCart.amount - 1 };
         updatedItems = [...items];
@@ -121,9 +121,7 @@ export const useCart = () => {
     try {
       const updatedTotalAmount = totalAmount - itemToDelete.amount;
 
-      const updatedItems = items.filter(
-        (item) => item.sku !== itemToDelete.sku
-      );
+      const updatedItems = items.filter((item) => item.id !== itemToDelete.id);
 
       const cartRef = doc(db, 'carts', user.uid);
 

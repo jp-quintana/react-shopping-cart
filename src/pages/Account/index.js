@@ -14,16 +14,10 @@ import Loader from 'common/Loader';
 import styles from './index.module.scss';
 
 const Account = () => {
-  const {
-    name,
-    lastName,
-    email,
-    phoneNumber,
-    addresses: userAddresses,
-  } = useAuthContext();
+  const { name, lastName, email, phoneNumber } = useAuthContext();
 
-  const { getOrders, isLoading, Error } = useOrder();
-  const { logout, error } = useLogout();
+  const { getOrders, isLoading, error: ordersError } = useOrder();
+  const { logout, error: logoutError } = useLogout();
 
   const [orders, setOrders] = useState(null);
 
