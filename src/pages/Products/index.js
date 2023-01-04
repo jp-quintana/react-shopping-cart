@@ -7,6 +7,7 @@ import ProductSize from './ProductSize';
 
 import Button from 'common/Button';
 import Loader from 'common/Loader';
+import NotificationModal from 'common/NotificationModal';
 
 import { formatNumber } from 'helpers/format';
 
@@ -60,6 +61,7 @@ const Products = () => {
 
   return (
     <>
+      <NotificationModal />
       {!selectedVariant && <Loader />}
       {selectedVariant && (
         <section className={`${styles.container} main-container`}>

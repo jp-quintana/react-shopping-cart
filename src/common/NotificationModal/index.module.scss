@@ -1,0 +1,27 @@
+.modal {
+  width: 45rem;
+  height: 8rem;
+  position: fixed;
+  right: 50%;
+  transform: translate(50%, 0);
+  bottom: 5%;
+  z-index: 100;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.addToCart {
+  display: grid;
+  grid-template-columns: 2fr 7fr 1fr;
+  align-items: center;
+
+  i {
+    margin: 0 auto;
+    font-size: 3rem;
+  }
+}
+
+.success {
+  background-color: rgba(85, 209, 119, 0.95);
+  border: 1px solid #49e472;
+}
