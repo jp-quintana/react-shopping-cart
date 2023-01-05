@@ -1,16 +1,19 @@
-import { useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { useSignUp } from 'hooks/useSignUp';
 
 import Loader from 'common/Loader';
+import NotificationModal from 'common/NotificationModal';
 
 import styles from './index.module.scss';
 
 const SignUp = () => {
   const { state: routerState } = useLocation();
 
-  const { signUp, isLoading, error } = useSignUp();
+  const { signUp, isLoading, error, defaultValue } = useSignUp();
+
+  const [notificationModal, setNotificationModal] = useState(null);
 
   const nameInput = useRef();
   const lastNameInput = useRef();
@@ -28,8 +31,24 @@ const SignUp = () => {
     });
   };
 
+  useEffect(() => {
+    if (error) {
+      setNotificationModal({ error, details: error.message });
+    }
+  }, [error]);
+
+  const toggleNotificationModal = () => {
+    setNotificationModal(null);
+  };
+
   return (
     <>
+      {notificationModal && (
+        <NotificationModal
+          toggleNotificationModal={toggleNotificationModal}
+          content={notificationModal}
+        />
+      )}
       {isLoading && <Loader />}
       {!isLoading && (
         <section className={styles.section}>
@@ -39,6 +58,7 @@ const SignUp = () => {
               <label>
                 <span>Nombre:</span>
                 <input
+                  defaultValue={defaultValue ? defaultValue.name : ''}
                   className={styles.input}
                   type="text"
                   placeholder="Nombre"
@@ -49,6 +69,7 @@ const SignUp = () => {
               <label>
                 <span>Apellido:</span>
                 <input
+                  defaultValue={defaultValue ? defaultValue.lastName : ''}
                   className={styles.input}
                   type="text"
                   placeholder="Apellido"

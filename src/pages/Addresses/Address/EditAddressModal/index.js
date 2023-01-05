@@ -39,7 +39,6 @@ const EditAddressModal = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(isChecked);
     await editAddress({
       name: nameInput.current.value,
       lastName: lastNameInput.current.value,

@@ -13,14 +13,15 @@ import { useCartContext } from './useCartContext';
 
 export const useSignUp = () => {
   const { dispatch } = useAuthContext();
-  // const { id: cartId, items, totalAmount } = useCartContext();
 
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [defaultValue, setDefaultValue] = useState(false);
 
   const signUp = async ({ name, lastName, email, password }) => {
     setError(null);
     setIsLoading(true);
+    setDefaultValue({ name, lastName });
 
     try {
       const credential = EmailAuthProvider.credential(email, password);
@@ -36,6 +37,7 @@ export const useSignUp = () => {
 
       const user = userCredential.user;
 
+      // TODO: BORRAR ESTO
       // const anonymouseCartRef = doc(db, 'carts', anonymousUser.uid);
       // const anonymousCartDoc = await getDoc(anonymouseCartRef);
 
@@ -58,10 +60,14 @@ export const useSignUp = () => {
       dispatch({ type: 'LOGIN', payload: { user, ...userData } });
     } catch (err) {
       console.log(err);
-      setError(err);
+      if (err.code === 'auth/email-already-in-use') {
+        setError({ message: 'El usuario ya existe' });
+      } else {
+        setError(err);
+      }
       setIsLoading(false);
     }
   };
 
-  return { signUp, error, isLoading };
+  return { signUp, error, isLoading, defaultValue };
 };

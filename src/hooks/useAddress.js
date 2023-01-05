@@ -169,26 +169,26 @@ export const useAddress = () => {
     setError(null);
     setIsLoading(true);
     try {
-      const updatedAddresses = userAddresses.filter(
-        (address) => address.id !== id
-      );
+      // const updatedAddresses = userAddresses.filter(
+      //   (address) => address.id !== id
+      // );
 
-      for (let i = 1; i <= updatedAddresses.length; i++) {
-        updatedAddresses[i - 1].id = i;
-      }
+      // for (let i = 1; i <= updatedAddresses.length; i++) {
+      //   updatedAddresses[i - 1].id = i;
+      // }
 
-      const checkForMain = updatedAddresses.find((address) => address.isMain);
+      // const checkForMain = updatedAddresses.find((address) => address.isMain);
 
-      if (!checkForMain) {
-        updatedAddresses[0].isMain = true;
-      }
+      // if (!checkForMain) {
+      //   updatedAddresses[0].isMain = true;
+      // }
 
-      await updateDoc(userRef, {
-        addresses: updatedAddresses,
-      });
+      // await updateDoc(userRef, {
+      //   addresses: updatedAddresses,
+      // });
 
-      dispatch({ type: 'UPDATE_ADDRESSES', payload: updatedAddresses });
-
+      // dispatch({ type: 'UPDATE_ADDRESSES', payload: updatedAddresses });
+      setError('ye');
       setIsLoading(false);
     } catch (err) {
       console.log(err);
