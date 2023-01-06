@@ -39,7 +39,7 @@ const Products = () => {
       productId: selectedProduct.id,
       id: selectedSku,
       size: selectedSize,
-      name: selectedProduct.model,
+      model: selectedProduct.model,
       type: selectedProduct.type,
       color: selectedVariant.color,
       price: selectedVariant.price,
@@ -59,7 +59,7 @@ const Products = () => {
           details: `${selectedProduct.type} ${selectedProduct.model} ${selectedVariant.color} - ${selectedSize}`,
         });
       } else if (error) {
-        setNotificationModal({ error, details: error.message });
+        setNotificationModal({ error, details: error.details });
       }
 
       setNotification(false);

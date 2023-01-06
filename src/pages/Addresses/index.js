@@ -32,17 +32,14 @@ const Addresses = () => {
   };
 
   useEffect(() => {
-    console.log('hey');
     if (error) {
-      setNotificationModal({ error, details: error.message });
+      setNotificationModal({ error, details: error.details });
     }
   }, [error]);
 
   const toggleNotificationModal = () => {
     setNotificationModal(null);
   };
-
-  console.log(error);
 
   return (
     <>

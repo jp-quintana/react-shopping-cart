@@ -29,7 +29,7 @@ const CartContent = () => {
               <CartItem
                 key={item.id}
                 item={item}
-                name={item.name}
+                model={item.model}
                 type={item.type}
                 color={item.color}
                 size={item.size}

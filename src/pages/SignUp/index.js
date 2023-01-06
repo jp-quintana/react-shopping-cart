@@ -33,7 +33,7 @@ const SignUp = () => {
 
   useEffect(() => {
     if (error) {
-      setNotificationModal({ error, details: error.message });
+      setNotificationModal({ error, details: error.details });
     }
   }, [error]);
 

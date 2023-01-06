@@ -11,7 +11,7 @@ import { addItemPrice } from 'helpers/item';
 import styles from './index.module.scss';
 
 const CartItem = ({
-  name,
+  model,
   type,
   color,
   size,
@@ -52,7 +52,7 @@ const CartItem = ({
       >
         <div className={styles.info_wrapper}>
           <div className={styles.info}>
-            <p className={styles.title}>{name}</p>
+            <p className={styles.title}>{model}</p>
             <p className={styles.type}>{`${type} ${color}`}</p>
             <p className={styles.size}>Talle {size}</p>
             <p className={styles.price}>${formatNumber(price)}</p>

@@ -29,7 +29,7 @@ const Login = () => {
 
   useEffect(() => {
     if (error) {
-      setNotificationModal({ error, details: error });
+      setNotificationModal({ error, details: error.details });
     }
   }, [error]);
 

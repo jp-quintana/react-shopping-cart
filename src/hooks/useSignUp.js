@@ -61,7 +61,7 @@ export const useSignUp = () => {
     } catch (err) {
       console.log(err);
       if (err.code === 'auth/email-already-in-use') {
-        setError({ message: 'El usuario ya existe' });
+        setError({ details: 'El usuario ya existe' });
       } else {
         setError(err);
       }
