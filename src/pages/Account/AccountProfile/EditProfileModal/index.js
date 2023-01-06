@@ -1,9 +1,10 @@
-import { useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { useProfile } from 'hooks/useProfile';
 
 import CenterModal from 'common/CenterModal';
 import Loader from 'common/Loader';
+import NotificationModal from 'common/NotificationModal';
 
 import styles from './index.module.scss';
 
@@ -14,6 +15,9 @@ const EditProfileModal = ({
   phoneNumber,
 }) => {
   const { editProfile, isLoading, error } = useProfile();
+
+  const [notification, setNotification] = useState(false);
+  const [notificationModal, setNotificationModal] = useState(null);
 
   const nameInput = useRef();
   const lastNameInput = useRef();
@@ -28,11 +32,34 @@ const EditProfileModal = ({
       phoneNumber: phoneNumberInput.current.value,
     });
 
-    toggleEditProfile();
+    setNotification(true);
   };
+
+  useEffect(() => {
+    if (notification) {
+      if (error) {
+        setNotificationModal({ error, details: error.details });
+        setNotification(false);
+      } else {
+        toggleEditProfile();
+      }
+    }
+  }, [notification]);
+
+  const toggleNotificationModal = () => {
+    setNotificationModal(null);
+  };
+
+  console.log(notificationModal);
 
   return (
     <>
+      {notificationModal && (
+        <NotificationModal
+          toggleNotificationModal={toggleNotificationModal}
+          content={notificationModal}
+        />
+      )}
       {isLoading && <Loader />}
       {!isLoading && (
         <CenterModal toggleModal={toggleEditProfile}>
