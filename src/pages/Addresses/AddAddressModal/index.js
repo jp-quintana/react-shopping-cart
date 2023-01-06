@@ -4,6 +4,7 @@ import { useAddress } from 'hooks/useAddress';
 
 import CenterModal from 'common/CenterModal';
 import Loader from 'common/Loader';
+import NotificationModal from 'common/NotificationModal';
 
 import styles from './index.module.scss';
 
@@ -11,7 +12,8 @@ const AddAddressModal = ({ toggleAddAddressModal }) => {
   const { createAddress, isLoading, error } = useAddress();
 
   const [isChecked, setIsChecked] = useState(false);
-  const [toggle, setToggle] = useState(false);
+  const [notification, setNotification] = useState(false);
+  const [notificationModal, setNotificationModal] = useState(null);
 
   const handleCheckboxInput = () => {
     setIsChecked((prevState) => !prevState);
@@ -38,19 +40,32 @@ const AddAddressModal = ({ toggleAddAddressModal }) => {
       isMain: isChecked,
     });
 
-    setToggle(true);
+    setNotification(true);
   };
 
   useEffect(() => {
-    if (toggle && !error) {
-      toggleAddAddressModal();
-    } else {
-      setToggle(false);
+    if (notification) {
+      if (error) {
+        setNotificationModal({ error, details: error.details });
+        setNotification(false);
+      } else {
+        toggleAddAddressModal();
+      }
     }
-  }, [toggle]);
+  }, [notification]);
+
+  const toggleNotificationModal = () => {
+    setNotificationModal(null);
+  };
 
   return (
     <>
+      {notificationModal && (
+        <NotificationModal
+          toggleNotificationModal={toggleNotificationModal}
+          content={notificationModal}
+        />
+      )}
       {isLoading && <Loader />}
       {!isLoading && (
         <CenterModal toggleModal={toggleAddAddressModal}>
