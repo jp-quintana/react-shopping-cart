@@ -10,8 +10,6 @@ export const useKeyDown = (callback, keys) => {
   }, []);
 
   useEffect(() => {
-    console.log('hola');
-
     document.addEventListener('keydown', onKeyDown);
     return () => {
       document.removeEventListener('keydown', onKeyDown);

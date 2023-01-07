@@ -14,7 +14,7 @@ export const useCheckout = () => {
   const checkoutSessionRef = doc(db, 'checkoutSessions', user.uid);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
 
   const selectPreviousStep = () => {
     dispatch({ type: 'SELECT_PREVIOUS_STEP' });
@@ -25,20 +25,27 @@ export const useCheckout = () => {
   };
 
   const submitShippingInfo = async (userInput) => {
+    setError(null);
     setIsLoading(true);
-    const { email, ...shippingAddress } = userInput;
+    try {
+      const { email, ...shippingAddress } = userInput;
 
-    await updateDoc(checkoutSessionRef, {
-      email,
-      shippingAddress,
-    });
+      await updateDoc(checkoutSessionRef, {
+        email,
+        shippingAddress,
+      });
 
-    setIsLoading(false);
+      dispatch({
+        type: 'SUBMIT_SHIPPING_INFO',
+        payload: { email, shippingAddress },
+      });
 
-    dispatch({
-      type: 'SUBMIT_SHIPPING_INFO',
-      payload: { email, shippingAddress },
-    });
+      setIsLoading(false);
+    } catch (err) {
+      console.log(err);
+      setError(err);
+      setIsLoading(false);
+    }
   };
 
   const selectShippingOption = (option) => {
@@ -59,19 +66,33 @@ export const useCheckout = () => {
   };
 
   const submitShippingOption = async (option) => {
+    setError(null);
     setIsLoading(true);
+    try {
+      await updateDoc(checkoutSessionRef, {
+        shippingOption: option,
+      });
 
-    await updateDoc(checkoutSessionRef, {
-      shippingOption: option,
-    });
+      dispatch({ type: 'SUBMIT_SHIPPING_OPTION' });
 
-    setIsLoading(false);
-
-    dispatch({ type: 'SUBMIT_SHIPPING_OPTION' });
+      setIsLoading(false);
+    } catch (err) {
+      console.log(err);
+      setError(err);
+      setIsLoading(false);
+    }
   };
 
   const deleteCheckoutSession = async () => {
-    await deleteDoc(checkoutSessionRef);
+    setError(null);
+    setIsLoading(true);
+    try {
+      await deleteDoc(checkoutSessionRef);
+    } catch (err) {
+      console.log(err);
+      setError(err);
+      setIsLoading(false);
+    }
   };
 
   return {
