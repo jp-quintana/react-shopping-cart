@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -12,6 +12,7 @@ import Address from './Address';
 
 import Button from 'common/Button';
 import Loader from 'common/Loader';
+import NotificationModal from 'common/NotificationModal';
 
 import styles from './index.module.scss';
 
@@ -20,6 +21,7 @@ const Addresses = () => {
   const { deleteAddress, isLoading, error } = useAddress();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [notificationModal, setNotificationModal] = useState(null);
 
   const defaultAddress = addresses.find((address) => address.isMain);
 
@@ -29,8 +31,24 @@ const Addresses = () => {
     setIsOpen((prevState) => !prevState);
   };
 
+  useEffect(() => {
+    if (error) {
+      setNotificationModal({ error, details: error.details });
+    }
+  }, [error]);
+
+  const toggleNotificationModal = () => {
+    setNotificationModal(null);
+  };
+
   return (
     <>
+      {notificationModal && (
+        <NotificationModal
+          toggleNotificationModal={toggleNotificationModal}
+          content={notificationModal}
+        />
+      )}
       {isOpen && (
         <AddAddressModal toggleAddAddressModal={toggleAddAddressModal} />
       )}

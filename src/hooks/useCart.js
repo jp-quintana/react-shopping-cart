@@ -10,6 +10,7 @@ import { useCartContext } from './useCartContext';
 export const useCart = () => {
   const { user } = useAuthContext();
   const { items, totalAmount, dispatch } = useCartContext();
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 

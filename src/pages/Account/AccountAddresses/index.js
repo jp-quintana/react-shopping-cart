@@ -4,7 +4,7 @@ import { useAuthContext } from 'hooks/useAuthContext';
 
 import styles from './index.module.scss';
 
-const AccountAddresses = ({}) => {
+const AccountAddresses = () => {
   const { addresses } = useAuthContext();
 
   const defaultAddress = addresses.find((address) => address.isMain);

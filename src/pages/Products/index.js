@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 import { useProductContext } from 'hooks/useProductContext';
 // import { useCartContext } from 'hooks/useCartContext';
 import { useCart } from 'hooks/useCart';
@@ -7,6 +9,7 @@ import ProductSize from './ProductSize';
 
 import Button from 'common/Button';
 import Loader from 'common/Loader';
+import NotificationModal from 'common/NotificationModal';
 
 import { formatNumber } from 'helpers/format';
 
@@ -14,6 +17,7 @@ import styles from './index.module.scss';
 
 const Products = () => {
   const {
+    productIsReady,
     selectedProduct,
     selectedVariant,
     selectedSize,
@@ -23,29 +27,54 @@ const Products = () => {
 
   const { addItem, isLoading, error } = useCart();
 
-  let addEventHandler = false;
-  if (selectedSize.length > 0) {
-    addEventHandler = true;
-  }
+  const [notification, setNotification] = useState(false);
+  const [notificationModal, setNotificationModal] = useState(null);
 
   const handleAddToCart = async () => {
     // const item = items.find((item) => item.sku === selectedSku);
     // if (item && item.amount >= selectedStock) {
     //   return;
     // }
-    addItem({
+    await addItem({
       // TODO: INVENTORY
       productId: selectedProduct.id,
       id: selectedSku,
       size: selectedSize,
-      name: selectedProduct.model,
+      model: selectedProduct.model,
       type: selectedProduct.type,
       color: selectedVariant.color,
       price: selectedVariant.price,
       url: selectedVariant.url,
       thumbnail: selectedVariant.images[0].src,
     });
+
+    setNotification(true);
   };
+
+  useEffect(() => {
+    if (notification) {
+      if (!error) {
+        setNotificationModal({
+          addToCartSuccess: true,
+          _thumbnail: selectedVariant.images[0].src,
+          details: `${selectedProduct.type} ${selectedProduct.model} ${selectedVariant.color} - ${selectedSize}`,
+        });
+      } else if (error) {
+        setNotificationModal({ error, details: error.details });
+      }
+
+      setNotification(false);
+    }
+  }, [notification]);
+
+  const toggleNotificationModal = () => {
+    setNotificationModal(null);
+  };
+
+  let addEventHandler = false;
+  if (selectedSize.length > 0) {
+    addEventHandler = true;
+  }
 
   const buttonContent =
     selectedSize.length === 0
@@ -60,8 +89,14 @@ const Products = () => {
 
   return (
     <>
-      {!selectedVariant && <Loader />}
-      {selectedVariant && (
+      {notificationModal && (
+        <NotificationModal
+          toggleNotificationModal={toggleNotificationModal}
+          content={notificationModal}
+        />
+      )}
+      {!productIsReady && <Loader />}
+      {productIsReady && (
         <section className={`${styles.container} main-container`}>
           <div className={styles.info_wrapper}>
             <div className={styles.info}>

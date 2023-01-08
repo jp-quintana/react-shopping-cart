@@ -12,8 +12,7 @@ import { useCartContext } from './useCartContext';
 import { updateCartAtLogin } from 'helpers/cart';
 
 export const useLogin = () => {
-  const { user: anonymousUser, dispatch: dispatchAuthAction } =
-    useAuthContext();
+  const { user: anonymousUser } = useAuthContext();
   const { dispatch: dispatchCartAction, items, totalAmount } = useCartContext();
 
   const [error, setError] = useState(null);
@@ -72,8 +71,15 @@ export const useLogin = () => {
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
-      setError(err);
+      console.log(err.code);
+      if (
+        err.code === 'auth/wrong-password' ||
+        err.code === 'auth/user-not-found'
+      ) {
+        setError({ details: 'Usario o contraseña incorrecta' });
+      } else {
+        setError(err);
+      }
       setIsLoading(false);
     }
   };

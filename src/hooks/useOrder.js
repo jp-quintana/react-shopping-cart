@@ -57,7 +57,6 @@ export const useOrder = () => {
 
   const getOrders = async () => {
     setError(null);
-    setIsLoading(true);
 
     try {
       const orders = [];
@@ -73,7 +72,6 @@ export const useOrder = () => {
     } catch (err) {
       console.log(err);
       setError(err);
-      setIsLoading(false);
     }
   };
 

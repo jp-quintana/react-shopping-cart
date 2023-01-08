@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 import { doc, collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../firebase/config';
@@ -8,6 +8,7 @@ import { db } from '../../firebase/config';
 import ProductContext from './product-context';
 
 const initialState = {
+  productIsReady: false,
   selectedProduct: null,
   selectedVariant: null,
   selectedSku: '',
@@ -17,9 +18,15 @@ const initialState = {
 
 const productReducer = (state, action) => {
   switch (action.type) {
+    case 'CLEAR_PRODUCT': {
+      return {
+        ...initialState,
+      };
+    }
     case 'SET_PRODUCT': {
       return {
         ...state,
+        productIsReady: true,
         selectedProduct: action.payload.product,
         selectedVariant: action.payload.variant,
       };
@@ -49,11 +56,19 @@ const productReducer = (state, action) => {
 
 const ProductProvider = ({ children }) => {
   const { id: urlId } = useParams();
+  const { state: locationState } = useLocation();
+  const navigate = useNavigate();
 
   const [state, dispatch] = useReducer(productReducer, initialState);
 
   useEffect(() => {
+    console.log('1', 'running');
+
     const fetchProduct = async () => {
+      if (state.productIsReady) {
+        dispatch({ type: 'CLEAR_PRODUCT' });
+      }
+
       const productsRef = collection(db, 'products');
       const q = query(
         productsRef,
@@ -75,9 +90,48 @@ const ProductProvider = ({ children }) => {
     };
 
     fetchProduct();
-  }, []);
+  }, [urlId]);
+
+  // TODO: VER COMO MEJORAR ESTA LOGICA
+
+  useEffect(() => {
+    console.log('2', 'running');
+
+    if (locationState === '/productos') {
+      console.log('3', 'running');
+
+      const fetchProduct = async () => {
+        if (state.productIsReady) {
+          dispatch({ type: 'CLEAR_PRODUCT' });
+        }
+
+        const productsRef = collection(db, 'products');
+        const q = query(
+          productsRef,
+          where('variantUrls', 'array-contains', urlId)
+        );
+
+        let product;
+
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+          product = { id: doc.id, ...doc.data() };
+        });
+
+        const variant = product.variants.find(
+          (variant) => variant.url === urlId
+        );
+
+        dispatch({ type: 'SET_PRODUCT', payload: { product, variant } });
+        navigate('.');
+      };
+
+      fetchProduct();
+    }
+  }, [locationState]);
 
   console.log(state);
+  console.log(locationState);
 
   return (
     <ProductContext.Provider value={{ ...state, dispatch }}>

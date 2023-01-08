@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import { useCart } from 'hooks/useCart';
+import { Link, useParams } from 'react-router-dom';
 
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 
@@ -11,7 +10,7 @@ import { addItemPrice } from 'helpers/item';
 import styles from './index.module.scss';
 
 const CartItem = ({
-  name,
+  model,
   type,
   color,
   size,
@@ -21,8 +20,12 @@ const CartItem = ({
   _thumbnail,
   item,
   toggleCartModal,
+  addItem,
+  removeItem,
+  deleteItem,
+  isLoading,
 }) => {
-  const { addItem, removeItem, deleteItem, isLoading, error } = useCart();
+  const { id: urlId } = useParams();
 
   const handleAddItem = () => {
     if (!isLoading) {
@@ -44,15 +47,18 @@ const CartItem = ({
 
   const thumbnail = require(`assets/${_thumbnail}`);
 
+  const clearProduct = urlId === url && '/productos';
+
   return (
     <Card className={styles.card}>
       <Link
-        to={`/productos/${url}`}
+        to={`productos/${url}`}
+        state={clearProduct}
         onClick={toggleCartModal ? toggleCartModal : ''}
       >
         <div className={styles.info_wrapper}>
           <div className={styles.info}>
-            <p className={styles.title}>{name}</p>
+            <p className={styles.title}>{model}</p>
             <p className={styles.type}>{`${type} ${color}`}</p>
             <p className={styles.size}>Talle {size}</p>
             <p className={styles.price}>${formatNumber(price)}</p>

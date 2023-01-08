@@ -15,7 +15,6 @@ export const useProfile = () => {
   const [error, setError] = useState(false);
 
   const editProfile = async ({ name, lastName, phoneNumber = null }) => {
-    console.log(phoneNumber);
     setError(null);
     setIsLoading(true);
     try {
