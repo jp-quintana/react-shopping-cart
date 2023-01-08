@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { useProduct } from 'hooks/useProduct';
+import { useCollection } from 'hooks/useCollection';
 
 import Loader from 'common/Loader';
 
@@ -15,14 +15,14 @@ const Collections = () => {
   const navigate = useNavigate();
   const { id: urlId } = useParams();
 
-  const { getProducts } = useProduct();
+  const { getCollection } = useCollection();
 
   const [products, setProducts] = useState(null);
   const [collection, setCollection] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const fetchedProducts = await getProducts();
+      const fetchedProducts = await getCollection();
       setProducts(fetchedProducts);
     };
 

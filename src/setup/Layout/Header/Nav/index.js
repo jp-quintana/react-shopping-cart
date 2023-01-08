@@ -1,4 +1,4 @@
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 
 import { useAuthContext } from 'hooks/useAuthContext';
 
@@ -12,7 +12,16 @@ import LogoNav from 'assets/images/logo-nav.png';
 import styles from './index.module.scss';
 
 const Navbar = ({ toggleSideNav, toggleCartModal }) => {
+  const { pathname } = useLocation();
+
   const { isVerified } = useAuthContext();
+
+  const handleToggleCartModal = () => {
+    if (pathname !== '/carrito') {
+      toggleCartModal();
+    }
+  };
+
   return (
     <nav className={`${styles.nav}`}>
       <div className={styles.container_top}>
@@ -44,7 +53,7 @@ const Navbar = ({ toggleSideNav, toggleCartModal }) => {
           <li className={`${styles.search_icon} disabled-link`}>
             <BiSearch />
           </li>
-          <li className={styles.cart_icon} onClick={toggleCartModal}>
+          <li className={styles.cart_icon} onClick={handleToggleCartModal}>
             <CartIcon />
           </li>
           <li className={styles.mobile_icon}>

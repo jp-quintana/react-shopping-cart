@@ -17,6 +17,7 @@ import styles from './index.module.scss';
 
 const Products = () => {
   const {
+    productIsReady,
     selectedProduct,
     selectedVariant,
     selectedSize,
@@ -94,8 +95,8 @@ const Products = () => {
           content={notificationModal}
         />
       )}
-      {!selectedVariant && <Loader />}
-      {selectedVariant && (
+      {!productIsReady && <Loader />}
+      {productIsReady && (
         <section className={`${styles.container} main-container`}>
           <div className={styles.info_wrapper}>
             <div className={styles.info}>

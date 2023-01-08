@@ -1,11 +1,14 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useCartContext } from 'hooks/useCartContext';
+import { useCart } from 'hooks/useCart';
 
 import CartItem from './CartItem';
 
 import Button from 'common/Button';
 import Card from 'common/Card';
+import NotificationModal from 'common/NotificationModal';
 
 import { addAllItemsPrice } from 'helpers/item';
 
@@ -13,10 +16,29 @@ import styles from './index.module.scss';
 
 const CartContent = () => {
   const { items } = useCartContext();
+  const { addItem, removeItem, deleteItem, isLoading, error } = useCart();
+
+  const [notificationModal, setNotificationModal] = useState(null);
+
+  useEffect(() => {
+    if (error) {
+      setNotificationModal({ error, details: error.details });
+    }
+  }, [error]);
+
+  const toggleNotificationModal = () => {
+    setNotificationModal(null);
+  };
 
   let content =
     items.length > 0 ? (
       <>
+        {notificationModal && (
+          <NotificationModal
+            toggleNotificationModal={toggleNotificationModal}
+            content={notificationModal}
+          />
+        )}
         <Card className={styles.checkout_wrapper}>
           <p className={styles.total}>Total: ${addAllItemsPrice(items)}</p>
           <Link to="/checkout">
@@ -37,6 +59,10 @@ const CartContent = () => {
                 url={item.url}
                 amount={item.amount}
                 _thumbnail={item.thumbnail}
+                addItem={addItem}
+                removeItem={removeItem}
+                deleteItem={deleteItem}
+                isLoading={isLoading}
               />
             ))}
           </div>
