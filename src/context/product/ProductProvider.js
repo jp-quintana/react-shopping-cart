@@ -2,7 +2,7 @@ import { useReducer, useEffect } from 'react';
 
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
-import { doc, collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 
 import ProductContext from './product-context';
@@ -61,30 +61,53 @@ const ProductProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(productReducer, initialState);
 
-  useEffect(() => {
-    console.log('1', 'running');
+  const getProduct = async () => {
+    if (state.productIsReady) {
+      dispatch({ type: 'CLEAR_PRODUCT' });
+    }
 
-    const fetchProduct = async () => {
-      if (state.productIsReady) {
-        dispatch({ type: 'CLEAR_PRODUCT' });
+    const productsRef = collection(db, 'products');
+    const qProd = query(
+      productsRef,
+      where('variantUrls', 'array-contains', urlId)
+    );
+
+    let product;
+
+    const productsSnapshot = await getDocs(qProd);
+    productsSnapshot.forEach((doc) => {
+      product = { id: doc.id, ...doc.data() };
+    });
+
+    let inventory = [];
+
+    const inventoryRef = collection(db, 'inventory');
+
+    const qInv = query(inventoryRef, where('productId', '==', product.id));
+    const inventorySnapshot = await getDocs(qInv);
+
+    inventorySnapshot.forEach((doc) => {
+      inventory.push({ id: doc.id, ...doc.data() });
+    });
+
+    for (let i = 0; i < product.variants.length; i++) {
+      const variantInventoryLevels = [];
+      for (const item of product.variants[i].inventoryLevels) {
+        const skuInventoryLevel = inventory.find((sku) => sku.id === item.sku);
+
+        variantInventoryLevels.push({ ...item, ...skuInventoryLevel });
       }
+      product.variants[i].inventoryLevels = [...variantInventoryLevels];
+    }
 
-      const productsRef = collection(db, 'products');
-      const q = query(
-        productsRef,
-        where('variantUrls', 'array-contains', urlId)
-      );
+    const variant = product.variants.find((variant) => variant.url === urlId);
 
-      let product;
+    return { product, variant };
+  };
 
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        product = { id: doc.id, ...doc.data() };
-      });
-
-      const variant = product.variants.find((variant) => variant.url === urlId);
-
-      // TODO: INVENTORY FETCH LEVELS BASE (path:products/productId/variants)
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { product, variant } = await getProduct();
 
       dispatch({ type: 'SET_PRODUCT', payload: { product, variant } });
     };
@@ -92,35 +115,10 @@ const ProductProvider = ({ children }) => {
     fetchProduct();
   }, [urlId]);
 
-  // TODO: VER COMO MEJORAR ESTA LOGICA
-
   useEffect(() => {
-    console.log('2', 'running');
-
     if (locationState === '/productos') {
-      console.log('3', 'running');
-
       const fetchProduct = async () => {
-        if (state.productIsReady) {
-          dispatch({ type: 'CLEAR_PRODUCT' });
-        }
-
-        const productsRef = collection(db, 'products');
-        const q = query(
-          productsRef,
-          where('variantUrls', 'array-contains', urlId)
-        );
-
-        let product;
-
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-          product = { id: doc.id, ...doc.data() };
-        });
-
-        const variant = product.variants.find(
-          (variant) => variant.url === urlId
-        );
+        const { product, variant } = await getProduct();
 
         dispatch({ type: 'SET_PRODUCT', payload: { product, variant } });
         navigate('.');
@@ -130,8 +128,7 @@ const ProductProvider = ({ children }) => {
     }
   }, [locationState]);
 
-  console.log(state);
-  console.log(locationState);
+  console.log('product-context', state);
 
   return (
     <ProductContext.Provider value={{ ...state, dispatch }}>
