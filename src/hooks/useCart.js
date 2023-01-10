@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { doc, setDoc, deleteDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
 
 import { db } from '../firebase/config';
 
@@ -13,6 +13,13 @@ export const useCart = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const getCurrentStock = async (itemId) => {
+    const skuRef = doc(db, 'inventory', itemId);
+    const skuDoc = await getDoc(skuRef);
+
+    return skuDoc.data();
+  };
 
   const addItem = async (itemToAdd) => {
     setError(null);
@@ -27,7 +34,25 @@ export const useCart = () => {
 
       let updatedItems = [...items];
 
+      const { stock } = await getCurrentStock(itemToAdd.id);
+
+      if (stock === 0) {
+        // TODO: LIMPAR PRODUCTO DE CARRITO SI INVENTARIO === 0;
+        throw Error('No Stock');
+      }
+
+      let stockWasUpdated;
+
       if (itemInCart) {
+        if (itemInCart.amount > stock) {
+          itemInCart.amount = stock - 1;
+          stockWasUpdated = true;
+        }
+
+        if (itemInCart.amount === stock) {
+          throw Error('All Products In Cart');
+        }
+
         const updatedItem = {
           ...itemInCart,
           amount: itemInCart.amount + 1,
@@ -56,10 +81,39 @@ export const useCart = () => {
         },
       });
 
+      if (stockWasUpdated) {
+        throw Error('Stock Was Updated');
+      }
+
       setIsLoading(false);
     } catch (err) {
       console.log(err);
-      setError(err);
+      switch (err.message) {
+        case 'No Stock': {
+          setError({
+            details: 'No hay mas stock de este producto',
+          });
+          break;
+        }
+        case 'All Products In Cart': {
+          console.log('in here');
+          setError({
+            details:
+              'Todos los productos en el inventario están en tu carrito.',
+          });
+          break;
+        }
+        case 'Stock Was Updated': {
+          setError({
+            details:
+              'Las cantidades de este producto en tu carrito fueron actualizadas para reflejar la cantidad disponible en el inventario',
+          });
+          break;
+        }
+        default: {
+          setError(err);
+        }
+      }
       setIsLoading(false);
     }
   };
