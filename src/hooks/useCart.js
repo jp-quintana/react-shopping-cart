@@ -86,20 +86,24 @@ export const useCart = () => {
 
       if (updatedTotalAmount === 0) {
         await deleteDoc(cartRef);
+
+        dispatch({
+          type: 'DELETE_CART',
+        });
       } else {
         await setDoc(cartRef, {
           items: updatedItems,
           totalAmount: updatedTotalAmount,
         });
-      }
 
-      dispatch({
-        type: 'UPDATE_CART',
-        payload: {
-          items: updatedItems,
-          totalAmount: updatedTotalAmount,
-        },
-      });
+        dispatch({
+          type: 'UPDATE_CART',
+          payload: {
+            items: updatedItems,
+            totalAmount: updatedTotalAmount,
+          },
+        });
+      }
 
       if (noStock) {
         throw Error(
@@ -133,22 +137,44 @@ export const useCart = () => {
     setError(null);
     setIsLoading(true);
     try {
-      const updatedTotalAmount = totalAmount - 1;
+      // const updatedTotalAmount = totalAmount - 1;
 
       const itemInCartIndex = items.findIndex(
         (item) => item.id === itemToRemove.id
       );
       const itemInCart = items[itemInCartIndex];
 
-      let updatedItems;
+      let updatedItems = [...items];
+
+      const { stock } = await getCurrentStock(itemToRemove.id);
+
+      let noStock;
+      let stockWasUpdated;
 
       if (itemInCart.amount === 1) {
-        updatedItems = items.filter((item) => item.id !== itemToRemove.id);
+        updatedItems = items.filter((item) => item.id !== itemInCart.id);
       } else {
-        const updatedItem = { ...itemInCart, amount: itemInCart.amount - 1 };
-        updatedItems = [...items];
-        updatedItems[itemInCartIndex] = updatedItem;
+        if (stock === 0) {
+          updatedItems = updatedItems.filter(
+            (item) => item.id !== itemInCart.id
+          );
+          noStock = true;
+        } else if (stock < itemInCart.amount) {
+          const updatedItem = {
+            ...itemInCart,
+            amount: stock,
+          };
+
+          updatedItems[itemInCartIndex] = updatedItem;
+
+          stockWasUpdated = true;
+        } else {
+          const updatedItem = { ...itemInCart, amount: itemInCart.amount - 1 };
+          updatedItems[itemInCartIndex] = updatedItem;
+        }
       }
+
+      const updatedTotalAmount = totalCartAmount(updatedItems);
 
       const cartRef = doc(db, 'carts', user.uid);
 
