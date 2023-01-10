@@ -7,6 +7,8 @@ import { db } from '../firebase/config';
 import { useAuthContext } from './useAuthContext';
 import { useCartContext } from './useCartContext';
 
+import { totalCartAmount } from 'helpers/cart';
+
 export const useCart = () => {
   const { user } = useAuthContext();
   const { items, totalAmount, dispatch } = useCartContext();
@@ -25,8 +27,6 @@ export const useCart = () => {
     setError(null);
     setIsLoading(true);
     try {
-      const updatedTotalAmount = totalAmount + 1;
-
       const itemInCartIndex = items.findIndex(
         (item) => item.id === itemToAdd.id
       );
@@ -36,42 +36,62 @@ export const useCart = () => {
 
       const { stock } = await getCurrentStock(itemToAdd.id);
 
-      if (stock === 0) {
-        // TODO: LIMPAR PRODUCTO DE CARRITO SI INVENTARIO === 0;
-        throw Error('No Stock');
-      }
-
+      let noStock;
       let stockWasUpdated;
 
-      if (itemInCart) {
-        if (itemInCart.amount > stock) {
-          itemInCart.amount = stock - 1;
-          stockWasUpdated = true;
+      if (stock === 0) {
+        if (itemInCart) {
+          updatedItems = updatedItems.filter(
+            (item) => item.id !== itemInCart.id
+          );
+          noStock = true;
+        } else {
+          throw Error('No hay más stock de este producto.', {
+            cause: 'custom',
+          });
         }
-
-        if (itemInCart.amount === stock) {
-          throw Error('All Products In Cart');
-        }
-
-        const updatedItem = {
-          ...itemInCart,
-          amount: itemInCart.amount + 1,
-        };
-        updatedItems[itemInCartIndex] = updatedItem;
       } else {
-        const addedItem = {
-          ...itemToAdd,
-          amount: 1,
-        };
-        updatedItems.push(addedItem);
+        if (itemInCart) {
+          if (itemInCart.amount > stock) {
+            itemInCart.amount = stock - 1;
+            stockWasUpdated = true;
+          }
+
+          if (itemInCart.amount === stock) {
+            throw Error(
+              'Todo el stock disponible de este producto está en el carrito.',
+              {
+                cause: 'custom',
+              }
+            );
+          }
+
+          const updatedItem = {
+            ...itemInCart,
+            amount: itemInCart.amount + 1,
+          };
+          updatedItems[itemInCartIndex] = updatedItem;
+        } else {
+          const addedItem = {
+            ...itemToAdd,
+            amount: 1,
+          };
+          updatedItems.push(addedItem);
+        }
       }
+
+      const updatedTotalAmount = totalCartAmount(updatedItems);
 
       const cartRef = doc(db, 'carts', user.uid);
 
-      await setDoc(cartRef, {
-        items: updatedItems,
-        totalAmount: updatedTotalAmount,
-      });
+      if (updatedTotalAmount === 0) {
+        await deleteDoc(cartRef);
+      } else {
+        await setDoc(cartRef, {
+          items: updatedItems,
+          totalAmount: updatedTotalAmount,
+        });
+      }
 
       dispatch({
         type: 'UPDATE_CART',
@@ -81,38 +101,29 @@ export const useCart = () => {
         },
       });
 
+      if (noStock) {
+        throw Error(
+          'No hay más stock de este producto. Las cantidades en el carrito fueron actualizadas.',
+          { cause: 'custom' }
+        );
+      }
+
       if (stockWasUpdated) {
-        throw Error('Stock Was Updated');
+        throw Error(
+          'Hay menos unidades disponibles que las cantidades en el carrito. Las cantidades en el carrito fueron actualizadas.',
+          {
+            cause: 'custom',
+          }
+        );
       }
 
       setIsLoading(false);
     } catch (err) {
       console.log(err);
-      switch (err.message) {
-        case 'No Stock': {
-          setError({
-            details: 'No hay mas stock de este producto',
-          });
-          break;
-        }
-        case 'All Products In Cart': {
-          console.log('in here');
-          setError({
-            details:
-              'Todos los productos en el inventario están en tu carrito.',
-          });
-          break;
-        }
-        case 'Stock Was Updated': {
-          setError({
-            details:
-              'Las cantidades de este producto en tu carrito fueron actualizadas para reflejar la cantidad disponible en el inventario',
-          });
-          break;
-        }
-        default: {
-          setError(err);
-        }
+      if (err.cause === 'custom') {
+        setError({ details: err.message });
+      } else {
+        setError(err);
       }
       setIsLoading(false);
     }
