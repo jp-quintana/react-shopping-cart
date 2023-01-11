@@ -11,7 +11,7 @@ const NotificationModal = ({ toggleNotificationModal, content }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       toggleNotificationModal();
-    }, 7000);
+    }, 6000);
 
     return () => {
       clearTimeout(timer);

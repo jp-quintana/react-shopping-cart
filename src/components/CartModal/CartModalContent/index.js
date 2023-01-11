@@ -20,6 +20,7 @@ const CartModalContent = ({ toggleCartModal }) => {
   const [notificationModal, setNotificationModal] = useState(null);
 
   useEffect(() => {
+    console.log('runnin');
     if (error) {
       setNotificationModal({ error, details: error.details });
     }
@@ -31,18 +32,28 @@ const CartModalContent = ({ toggleCartModal }) => {
 
   if (items.length === 0) {
     return (
-      <div className={styles.empty}>
-        <p className={styles.no_products}>No hay productos en el carrito</p>
-        <Link
-          className={styles.button}
-          to="/categorias/productos"
-          onClick={toggleCartModal}
-        >
-          <Button>Agregá productos</Button>
-        </Link>
-      </div>
+      <>
+        {notificationModal && (
+          <NotificationModal
+            toggleNotificationModal={toggleNotificationModal}
+            content={notificationModal}
+          />
+        )}
+        <div className={styles.empty}>
+          <p className={styles.no_products}>No hay productos en el carrito</p>
+          <Link
+            className={styles.button}
+            to="/categorias/productos"
+            onClick={toggleCartModal}
+          >
+            <Button>Agregá productos</Button>
+          </Link>
+        </div>
+      </>
     );
   }
+
+  console.log(notificationModal);
 
   return (
     <>

@@ -127,6 +127,7 @@ export const useCart = () => {
       if (err.cause === 'custom') {
         setError({ details: err.message });
       } else {
+        console.log('aca');
         setError(err);
       }
       setIsLoading(false);
@@ -137,8 +138,6 @@ export const useCart = () => {
     setError(null);
     setIsLoading(true);
     try {
-      // const updatedTotalAmount = totalAmount - 1;
-
       const itemInCartIndex = items.findIndex(
         (item) => item.id === itemToRemove.id
       );
@@ -199,10 +198,29 @@ export const useCart = () => {
         });
       }
 
+      if (noStock) {
+        throw Error(
+          'No hay más stock de este producto. Las cantidades en el carrito fueron actualizadas.',
+          { cause: 'custom' }
+        );
+      }
+
+      if (stockWasUpdated) {
+        throw Error(
+          'Hay menos unidades disponibles que las cantidades en el carrito. Las cantidades en el carrito fueron actualizadas.',
+          {
+            cause: 'custom',
+          }
+        );
+      }
+
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
-      setError(err);
+      if (err.cause === 'custom') {
+        setError({ details: err.message });
+      } else {
+        setError(err);
+      }
       setIsLoading(false);
     }
   };

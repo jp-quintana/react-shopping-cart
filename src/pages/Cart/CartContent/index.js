@@ -33,12 +33,6 @@ const CartContent = () => {
   let content =
     items.length > 0 ? (
       <>
-        {notificationModal && (
-          <NotificationModal
-            toggleNotificationModal={toggleNotificationModal}
-            content={notificationModal}
-          />
-        )}
         <Card className={styles.checkout_wrapper}>
           <p className={styles.total}>Total: ${addAllItemsPrice(items)}</p>
           <Link to="/checkout">
@@ -91,12 +85,20 @@ const CartContent = () => {
     );
 
   return (
-    <section>
-      <div className={`${styles.container} main-container`}>
-        <h1 className={styles.title}>Tu carrito</h1>
-        {content}
-      </div>
-    </section>
+    <>
+      {notificationModal && (
+        <NotificationModal
+          toggleNotificationModal={toggleNotificationModal}
+          content={notificationModal}
+        />
+      )}
+      <section>
+        <div className={`${styles.container} main-container`}>
+          <h1 className={styles.title}>Tu carrito</h1>
+          {content}
+        </div>
+      </section>
+    </>
   );
 };
 
