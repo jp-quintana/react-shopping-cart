@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { useCartContext } from 'hooks/useCartContext';
 import { useCart } from 'hooks/useCart';
+import { useInventory } from 'hooks/useInventory';
 
 import CartItem from './CartItem';
 
@@ -17,8 +18,13 @@ import styles from './index.module.scss';
 const CartContent = () => {
   const { items } = useCartContext();
   const { addItem, removeItem, deleteItem, isLoading, error } = useCart();
+  const { checkInventory } = useInventory();
 
   const [notificationModal, setNotificationModal] = useState(null);
+
+  useEffect(() => {
+    checkInventory(items);
+  }, []);
 
   useEffect(() => {
     if (error) {
