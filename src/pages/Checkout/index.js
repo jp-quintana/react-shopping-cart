@@ -1,6 +1,9 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useCheckoutContext } from 'hooks/useCheckoutContext';
+import { useCartContext } from 'hooks/useCartContext';
+import { useInventory } from 'hooks/useInventory';
 
 import CheckoutProgression from './CheckoutProgression';
 import ShippingInfo from './ShippingInfo';
@@ -9,6 +12,7 @@ import Payment from './Payment';
 import OrderSummary from './OrderSummary';
 
 import Loader from 'common/Loader';
+import NotificationModal from 'common/NotificationModal';
 
 import logo from 'assets/images/checkout-logo-nav.png';
 
@@ -23,6 +27,14 @@ const progressionSteps = [
 
 const Checkout = () => {
   const { checkoutIsReady, currentStep } = useCheckoutContext();
+  const { items } = useCartContext();
+  const {
+    checkInventory,
+    isLoading: isInventoryLoading,
+    error: inventoryError,
+  } = useInventory();
+
+  const [notificationModal, setNotificationModal] = useState(null);
 
   let formContent;
 
@@ -38,8 +50,32 @@ const Checkout = () => {
     formContent = <Payment />;
   }
 
+  useEffect(() => {
+    checkInventory(items);
+  }, []);
+
+  useEffect(() => {
+    if (inventoryError) {
+      setNotificationModal({
+        error: inventoryError,
+        details: inventoryError.details,
+      });
+    }
+  }, [inventoryError]);
+
+  const toggleNotificationModal = () => {
+    setNotificationModal(null);
+  };
+
   return (
     <>
+      {notificationModal && (
+        <NotificationModal
+          className={styles.error_modal}
+          toggleNotificationModal={toggleNotificationModal}
+          content={notificationModal}
+        />
+      )}
       <div className={styles.background}></div>
       <section className={styles.layout}>
         <>

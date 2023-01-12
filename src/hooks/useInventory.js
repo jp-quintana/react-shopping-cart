@@ -47,7 +47,7 @@ export const useInventory = () => {
         });
       }
 
-      const updatedItems = [...items];
+      let updatedItems = [...items];
       const stockDifference = [];
 
       for (const item of items) {
@@ -97,7 +97,7 @@ export const useInventory = () => {
 
       if (stockDifference.length > 0) {
         throw Error(
-          'No hay stock de algunos productos en el carrito. Las cantidades en el carrito fueron actualizadas.',
+          'No hay stock suficiente de algunos productos en el carrito. Las cantidades en el carrito fueron actualizadas.',
           {
             cause: 'custom',
           }
