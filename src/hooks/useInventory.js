@@ -29,7 +29,7 @@ export const useInventory = () => {
   const cartRef = doc(db, 'carts', user.uid);
 
   const checkInventory = async (items) => {
-    console.log(items);
+    console.log('in inventory hook', items);
     setError(null);
     setIsLoading(true);
     try {
@@ -54,6 +54,7 @@ export const useInventory = () => {
         const { stock } = skus.find((sku) => sku.id === item.id);
 
         if (stock === 0) {
+          console.log('aca stock es 0');
           stockDifference.push(true);
           updatedItems = updatedItems.filter(
             (cartItem) => cartItem.id !== item.id
@@ -63,11 +64,12 @@ export const useInventory = () => {
           const itemInCartIndex = updatedItems.findIndex(
             (i) => i.id === item.id
           );
-          updatedItems[itemInCartIndex] = stock;
+          updatedItems[itemInCartIndex].amount = stock;
         }
       }
 
       const updatedTotalAmount = totalCartAmount(updatedItems);
+      console.log('updatedTotalAmount', updatedItems);
 
       if (updatedTotalAmount === 0) {
         await deleteDoc(cartRef);
@@ -75,7 +77,8 @@ export const useInventory = () => {
         dispatch({
           type: 'DELETE_CART',
         });
-      } else {
+      } else if (stockDifference.length > 0) {
+        console.log('en setDoc', updatedItems);
         await setDoc(cartRef, {
           items: updatedItems,
           totalAmount: updatedTotalAmount,
@@ -89,6 +92,8 @@ export const useInventory = () => {
           },
         });
       }
+
+      console.log(stockDifference);
 
       if (stockDifference.length > 0) {
         throw Error(

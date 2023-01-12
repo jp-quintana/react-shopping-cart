@@ -46,29 +46,31 @@ const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
   useEffect(() => {
-    const getCart = async () => {
-      try {
-        const cartRef = doc(db, 'carts', user.uid);
-        const cartDoc = await getDoc(cartRef);
+    if (user) {
+      const getCart = async () => {
+        try {
+          const cartRef = doc(db, 'carts', user.uid);
+          const cartDoc = await getDoc(cartRef);
 
-        if (cartDoc.exists()) {
-          const cartData = { ...cartDoc.data() };
-          dispatch({
-            type: 'UPDATE_CART',
-            payload: { ...cartData },
-          });
-        } else {
-          dispatch({
-            type: 'CART_IS_READY',
-          });
+          if (cartDoc.exists()) {
+            const cartData = { ...cartDoc.data() };
+            dispatch({
+              type: 'UPDATE_CART',
+              payload: { ...cartData },
+            });
+          } else {
+            dispatch({
+              type: 'CART_IS_READY',
+            });
+          }
+        } catch (err) {
+          console.log(err);
         }
-      } catch (err) {
-        console.log(err);
-      }
-    };
+      };
 
-    getCart();
-  }, []);
+      getCart();
+    }
+  }, [user]);
 
   console.log('cart-context', state);
 

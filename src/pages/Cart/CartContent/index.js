@@ -37,9 +37,20 @@ const CartContent = () => {
     }
   }, [error]);
 
+  useEffect(() => {
+    if (inventoryError) {
+      setNotificationModal({
+        error: inventoryError,
+        details: inventoryError.details,
+      });
+    }
+  }, [inventoryError]);
+
   const toggleNotificationModal = () => {
     setNotificationModal(null);
   };
+
+  console.log(notificationModal);
 
   let content =
     items.length > 0 ? (
