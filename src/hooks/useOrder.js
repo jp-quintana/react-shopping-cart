@@ -1,12 +1,15 @@
 import { useState } from 'react';
 
 import {
+  writeBatch,
+  doc,
   collection,
   query,
   where,
   getDocs,
   addDoc,
   Timestamp,
+  increment,
 } from 'firebase/firestore';
 
 import { db } from '../firebase/config';
@@ -33,6 +36,15 @@ export const useOrder = () => {
     setError(null);
     setIsLoading(true);
     try {
+      const batch = writeBatch(db);
+
+      for (const item of items) {
+        const skuRef = doc(db, 'inventory', item.id);
+        batch.update(skuRef, { stock: increment(-item.amount) });
+      }
+
+      await batch.commit();
+
       const createdAt = Timestamp.fromDate(new Date());
       await addDoc(ordersRef, {
         createdAt,

@@ -20,7 +20,7 @@ const ProductSize = ({ id, value, stock, selectedSize }) => {
   let sizeStyles = `
     ${styles.size} 
     ${value === selectedSize && styles.fill} 
-    ${stock === 0 && styles.no_stock}
+    ${stock <= 0 && styles.no_stock}
   `;
 
   return (

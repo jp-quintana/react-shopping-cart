@@ -52,7 +52,7 @@ const CartItem = ({
   return (
     <Card className={styles.card}>
       <Link
-        to={`productos/${url}`}
+        to={`/productos/${url}`}
         state={clearProduct}
         onClick={toggleCartModal ? toggleCartModal : ''}
       >

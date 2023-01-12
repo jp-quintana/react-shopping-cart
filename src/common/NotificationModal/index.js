@@ -5,13 +5,17 @@ import { IoIosCheckmarkCircle, IoIosAlert } from 'react-icons/io';
 
 import styles from './index.module.scss';
 
-const NotificationModal = ({ toggleNotificationModal, content }) => {
+const NotificationModal = ({ toggleNotificationModal, content, className }) => {
   const overlaysElement = document.getElementById('overlays');
+
+  const errorModalStyles = className
+    ? `${styles.error} ${className}`
+    : `${styles.modal} ${styles.error}`;
 
   useEffect(() => {
     const timer = setTimeout(() => {
       toggleNotificationModal();
-    }, 3000);
+    }, 6000);
 
     return () => {
       clearTimeout(timer);
@@ -42,7 +46,7 @@ const NotificationModal = ({ toggleNotificationModal, content }) => {
 
   if (content.error) {
     ModalContent = (
-      <div className={`${styles.modal} ${styles.error}`}>
+      <div className={errorModalStyles}>
         <div className={styles.content_wrapper}>
           <div>
             <p className={styles.title}>Hubo un error</p>

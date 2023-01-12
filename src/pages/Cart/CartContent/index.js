@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 
 import { useCartContext } from 'hooks/useCartContext';
 import { useCart } from 'hooks/useCart';
+import { useInventory } from 'hooks/useInventory';
 
 import CartItem from './CartItem';
 
 import Button from 'common/Button';
 import Card from 'common/Card';
+import Loader from 'common/Loader';
 import NotificationModal from 'common/NotificationModal';
 
 import { addAllItemsPrice } from 'helpers/item';
@@ -17,8 +19,17 @@ import styles from './index.module.scss';
 const CartContent = () => {
   const { items } = useCartContext();
   const { addItem, removeItem, deleteItem, isLoading, error } = useCart();
+  const {
+    checkInventory,
+    isLoading: isInventoryLoading,
+    error: inventoryError,
+  } = useInventory();
 
   const [notificationModal, setNotificationModal] = useState(null);
+
+  useEffect(() => {
+    checkInventory(items);
+  }, []);
 
   useEffect(() => {
     if (error) {
@@ -26,19 +37,24 @@ const CartContent = () => {
     }
   }, [error]);
 
+  useEffect(() => {
+    if (inventoryError) {
+      setNotificationModal({
+        error: inventoryError,
+        details: inventoryError.details,
+      });
+    }
+  }, [inventoryError]);
+
   const toggleNotificationModal = () => {
     setNotificationModal(null);
   };
 
+  console.log(notificationModal);
+
   let content =
     items.length > 0 ? (
       <>
-        {notificationModal && (
-          <NotificationModal
-            toggleNotificationModal={toggleNotificationModal}
-            content={notificationModal}
-          />
-        )}
         <Card className={styles.checkout_wrapper}>
           <p className={styles.total}>Total: ${addAllItemsPrice(items)}</p>
           <Link to="/checkout">
@@ -91,12 +107,25 @@ const CartContent = () => {
     );
 
   return (
-    <section>
-      <div className={`${styles.container} main-container`}>
-        <h1 className={styles.title}>Tu carrito</h1>
-        {content}
-      </div>
-    </section>
+    <>
+      {isInventoryLoading && <Loader />}
+      {!isInventoryLoading && (
+        <>
+          {notificationModal && (
+            <NotificationModal
+              toggleNotificationModal={toggleNotificationModal}
+              content={notificationModal}
+            />
+          )}
+          <section>
+            <div className={`${styles.container} main-container`}>
+              <h1 className={styles.title}>Tu carrito</h1>
+              {content}
+            </div>
+          </section>
+        </>
+      )}
+    </>
   );
 };
 
