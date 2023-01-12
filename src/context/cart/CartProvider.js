@@ -10,19 +10,28 @@ import CartContext from './cart-context';
 const initialState = {
   items: [],
   totalAmount: 0,
+  cartIsReady: false,
 };
 
 const cartReducer = (state, action) => {
   switch (action.type) {
+    case 'CART_IS_READY': {
+      return {
+        ...state,
+        cartIsReady: true,
+      };
+    }
     case 'UPDATE_CART': {
       return {
         items: action.payload.items,
         totalAmount: action.payload.totalAmount,
+        cartIsReady: true,
       };
     }
     case 'DELETE_CART': {
       return {
         ...initialState,
+        cartIsReady: true,
       };
     }
 
@@ -49,7 +58,9 @@ const CartProvider = ({ children }) => {
             payload: { ...cartData },
           });
         } else {
-          return;
+          dispatch({
+            type: 'CART_IS_READY',
+          });
         }
       } catch (err) {
         console.log(err);

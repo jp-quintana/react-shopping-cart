@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { useAuthContext } from 'hooks/useAuthContext';
+import { useCartContext } from 'hooks/useCartContext';
 
 import CartProvider from 'context/cart/CartProvider';
 import ProductProvider from 'context/product/ProductProvider';
@@ -25,46 +26,52 @@ import './App.scss';
 
 const App = () => {
   const { authIsReady } = useAuthContext();
+  const { cartIsReady } = useCartContext();
+
+  console.log(cartIsReady);
+
   return (
     <>
       {!authIsReady && <Loader />}
       {authIsReady && (
         <CartProvider>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-              <Route path="/categorias/:id" element={<Collections />} />
-              <Route
-                path="/productos/:id"
-                element={
-                  <ProductProvider>
-                    <Products />
-                  </ProductProvider>
-                }
-              />
-              <Route path="/carrito" element={<Cart />} />
-
-              <Route element={<ProtectedRoutes needAuth={true} />}>
+          {cartIsReady && (
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="/categorias/:id" element={<Collections />} />
                 <Route
-                  path="/checkout"
+                  path="/productos/:id"
                   element={
-                    <CheckoutProvider>
-                      <Checkout />
-                    </CheckoutProvider>
+                    <ProductProvider>
+                      <Products />
+                    </ProductProvider>
                   }
                 />
-                <Route path="/cuenta" element={<Account />} />
-                <Route path="/cuenta/direcciones" element={<Addresses />} />
-              </Route>
+                <Route path="/carrito" element={<Cart />} />
 
-              <Route element={<ProtectedRoutes needAuth={false} />}>
-                <Route path="/cuenta/login" element={<Login />} />
-                <Route path="/cuenta/signup" element={<SignUp />} />
-              </Route>
+                <Route element={<ProtectedRoutes needAuth={true} />}>
+                  <Route
+                    path="/checkout"
+                    element={
+                      <CheckoutProvider>
+                        <Checkout />
+                      </CheckoutProvider>
+                    }
+                  />
+                  <Route path="/cuenta" element={<Account />} />
+                  <Route path="/cuenta/direcciones" element={<Addresses />} />
+                </Route>
 
-              <Route path="*" element={<Navigate to="/" />} />
-            </Route>
-          </Routes>
+                <Route element={<ProtectedRoutes needAuth={false} />}>
+                  <Route path="/cuenta/login" element={<Login />} />
+                  <Route path="/cuenta/signup" element={<SignUp />} />
+                </Route>
+
+                <Route path="*" element={<Navigate to="/" />} />
+              </Route>
+            </Routes>
+          )}
         </CartProvider>
       )}
     </>

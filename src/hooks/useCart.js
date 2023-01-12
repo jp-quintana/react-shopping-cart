@@ -13,6 +13,8 @@ export const useCart = () => {
   const { user } = useAuthContext();
   const { items, totalAmount, dispatch } = useCartContext();
 
+  console.log('in inventory hook', items);
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -216,6 +218,7 @@ export const useCart = () => {
 
       setIsLoading(false);
     } catch (err) {
+      console.log(err);
       if (err.cause === 'custom') {
         setError({ details: err.message });
       } else {
