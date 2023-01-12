@@ -39,7 +39,7 @@ export const useCart = () => {
       let noStock;
       let stockWasUpdated;
 
-      if (stock === 0) {
+      if (stock <= 0) {
         if (itemInCart) {
           updatedItems = updatedItems.filter(
             (item) => item.id !== itemInCart.id
@@ -153,7 +153,7 @@ export const useCart = () => {
       if (itemInCart.amount === 1) {
         updatedItems = items.filter((item) => item.id !== itemInCart.id);
       } else {
-        if (stock === 0) {
+        if (stock <= 0) {
           updatedItems = updatedItems.filter(
             (item) => item.id !== itemInCart.id
           );

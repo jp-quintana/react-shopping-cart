@@ -53,7 +53,7 @@ export const useInventory = () => {
       for (const item of items) {
         const { stock } = skus.find((sku) => sku.id === item.id);
 
-        if (stock === 0) {
+        if (stock <= 0) {
           console.log('aca stock es 0');
           stockDifference.push(true);
           updatedItems = updatedItems.filter(
