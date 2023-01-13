@@ -2,8 +2,7 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 
 import { useAuthContext } from 'hooks/useAuthContext';
 
-import { FaBars } from 'react-icons/fa';
-import { BiSearch } from 'react-icons/bi';
+import { CgSearch, CgMenu } from 'react-icons/cg';
 
 import CartIcon from './CartIcon';
 
@@ -26,7 +25,11 @@ const Navbar = ({ toggleSideNav, toggleCartModal }) => {
     <nav className={`${styles.nav}`}>
       <div className={styles.container_top}>
         {!isVerified && <Link to="/cuenta/login">Login</Link>}
-        {isVerified && <Link to="/cuenta">Mi Cuenta</Link>}
+        {isVerified && (
+          <Link className={styles.link} to="/cuenta">
+            Mi Cuenta
+          </Link>
+        )}
       </div>
       <div className={styles.container_bottom}>
         <Link to="/">
@@ -51,13 +54,13 @@ const Navbar = ({ toggleSideNav, toggleCartModal }) => {
         </ul>
         <ul className={styles.icons_menu}>
           <li className={`${styles.search_icon} disabled-link`}>
-            <BiSearch />
+            <CgSearch />
           </li>
           <li className={styles.cart_icon} onClick={handleToggleCartModal}>
             <CartIcon />
           </li>
           <li className={styles.mobile_icon}>
-            <FaBars onClick={toggleSideNav} />
+            <CgMenu onClick={toggleSideNav} />
           </li>
         </ul>
       </div>

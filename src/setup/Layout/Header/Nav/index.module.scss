@@ -3,9 +3,10 @@
 .nav {
   position: fixed;
   width: 100%;
-  background-color: #fff;
-  z-index: 9;
+  background-color: rgba(255, 255, 255, 0.95);
+  z-index: $z-nav;
   border: 1px solid hsla(0, 0%, 5%, 0.2);
+  backdrop-filter: blur(6px);
   border-radius: 0 0 3rem 3rem;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 8px 10px -6px rgba(0, 0, 0, 0.1);
@@ -13,7 +14,7 @@
   padding: 0.5rem 3rem 0.5rem 3rem;
   transform: translateX(-50%);
   width: 98%;
-  
+
   @media (min-width: 900px) {
     max-width: 120rem;
     width: 90%;
@@ -30,14 +31,14 @@
     padding-bottom: 0.2rem;
 
     a {
-      font-family: 'Montserrat', sans-serif;
-      font-weight: bold;
+      font-family: $font-f-secondary;
+      font-weight: $font-w-bold;
       font-size: 1.3rem;
-      color: #3d3d3d;
-      line-height: normal;
+      color: $link-c-primary;
+      line-height: none;
 
       &:hover {
-        color: #000;
+        color: $link-c-hover;
       }
     }
   }
@@ -80,8 +81,7 @@
 }
 
 .search_icon,
-.cart_icon,
-.user_icon {
+.cart_icon {
   display: flex;
   align-items: center;
 }
@@ -101,22 +101,69 @@
 
 .links {
   display: none;
+  font-family: 'Monument Extended', sans-serif;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  letter-spacing: $link-ls;
 
   @media (min-width: 900px) {
     justify-content: center;
     gap: 3rem;
-    font-size: 1.4rem;
-    text-transform: uppercase;
-    letter-spacing: $ls-button;
     display: flex;
     align-self: flex-end;
   }
 
   .link {
     line-height: normal;
-    color: #3d3d3d;
+    color: $link-c-primary;
     &:hover {
-      color: #000;
+      color: $link-c-hover;
     }
   }
 }
+
+.logo,
+.search_icon,
+.cart_icon,
+.mobile_icon {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+
+  &:active {
+    -moz-transition: all 0.1s ease-in;
+    -o-transition: all 0.1s ease-in;
+    -webkit-transition: all 0.1s ease-in;
+    transition: all 0.1s ease-in;
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}
+
+// TODO: AGREGAR EFECTO UNDERLINE CUANDO HOVEREAS EL LINK
+
+// .link {
+//   display: inline-block;
+//   position: relative;
+// }
+
+// .link::after {
+//   content: '';
+//   position: absolute;
+//   width: 100%;
+//   transform: scaleX(0);
+//   height: 2px;
+//   bottom: -0.35rem;
+//   left: 0;
+//   background-color: #000;
+//   transform-origin: bottom right;
+//   transition: transform 0.25s ease-out;
+// }
+
+// .link:hover::after {
+//   transform: scaleX(1);
+//   transform-origin: bottom left;
+// }
