@@ -112,10 +112,10 @@
 .button {
   padding: 1rem 2rem;
   font-size: 1.6rem;
-  border: solid 0.2rem $primary-button;
+  border: solid 0.2rem $c-button-primary;
   border-radius: 1rem;
   width: 100%;
-  background-color: $primary-button;
+  background-color: $c-button-primary;
   color: #fff;
   text-transform: uppercase;
   letter-spacing: $ls-button;
@@ -132,7 +132,7 @@
   &:hover {
     cursor: pointer;
     color: #fff;
-    background-color: $hover-button;
-    border-color: $hover-button;
+    background-color: $c-button-hover;
+    border-color: $c-button-hover;
   }
 }

@@ -22,25 +22,43 @@
 }
 
 .container_top {
-  display: none;
+  border-bottom: 1px solid hsla(0, 0%, 5%, 0.2);
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 0.2rem;
 
-  @media (min-width: 900px) {
-    border-bottom: 1px solid hsla(0, 0%, 5%, 0.2);
-    display: flex;
-    justify-content: flex-end;
-    padding-bottom: 0.2rem;
+  .link {
+    font-family: $font-f-secondary;
+    font-weight: $font-w-bold;
+    letter-spacing: $ls-secondary;
 
-    a {
-      font-family: $font-f-secondary;
-      font-weight: $font-w-bold;
-      font-size: 1.3rem;
-      color: $link-c-primary;
-      line-height: none;
+    font-size: 1.3rem;
+    color: $c-link-primary;
+    line-height: none;
+    display: inline-block;
+    position: relative;
 
-      &:hover {
-        color: $link-c-hover;
-      }
+    &:hover {
+      color: $c-link-hover;
     }
+  }
+
+  .link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -0.35rem;
+    left: 0rem;
+    background-color: #000;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+  
+  .link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
   }
 }
 
@@ -101,10 +119,10 @@
 
 .links {
   display: none;
-  font-family: 'Monument Extended', sans-serif;
+  font-family: $font-f-primary;
   text-transform: uppercase;
   font-size: 1.4rem;
-  letter-spacing: $link-ls;
+  letter-spacing: $ls-link;
 
   @media (min-width: 900px) {
     justify-content: center;
@@ -115,10 +133,31 @@
 
   .link {
     line-height: normal;
-    color: $link-c-primary;
+    color: $c-link-primary;
+    display: inline-block;
+    position: relative;
+
     &:hover {
-      color: $link-c-hover;
+      color: $c-link-hover;
     }
+  }
+
+  .link::after {
+    content: '';
+    position: absolute;
+    width: 110%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -0.35rem;
+    left: -0.5rem;
+    background-color: #000;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+  
+  .link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
   }
 }
 
@@ -143,27 +182,3 @@
   }
 }
 
-// TODO: AGREGAR EFECTO UNDERLINE CUANDO HOVEREAS EL LINK
-
-// .link {
-//   display: inline-block;
-//   position: relative;
-// }
-
-// .link::after {
-//   content: '';
-//   position: absolute;
-//   width: 100%;
-//   transform: scaleX(0);
-//   height: 2px;
-//   bottom: -0.35rem;
-//   left: 0;
-//   background-color: #000;
-//   transform-origin: bottom right;
-//   transition: transform 0.25s ease-out;
-// }
-
-// .link:hover::after {
-//   transform: scaleX(1);
-//   transform-origin: bottom left;
-// }

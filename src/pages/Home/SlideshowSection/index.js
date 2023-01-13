@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Button from 'common/Button';
 import Slideshow from 'common/Slideshow';
 
-import { DUMMY_SLIDES as slides } from './data';
+import { SLIDES as slides } from './data';
 
 import styles from './index.module.scss';
 

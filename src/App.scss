@@ -1,28 +1,31 @@
 // @import url('https://fonts.cdnfonts.com/css/monument-extended');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@400;700;900&display=swap');
-@import url('//db.onlinewebfonts.com/c/0d30d9b619fc0894461b13fd4eaee3df?family=GT+America+Bold');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lato:wght@400;700;900&family=Roboto:wght@400;500;700;900&display=swap');
 @import url('//db.onlinewebfonts.com/c/55d433372d270829c51e2577a78ef12d?family=Monument+Extended');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-$primary-button: #3d3d3d;
-$secondary-button: #fff;
-$hover-button: #000;
-$ls-button: 0.12rem;
 
 $font-f-primary: 'Monument Extended', sans-serif;
 $font-f-secondary: 'Inter', sans-serif;
 
 $font-w-normal: 400;
 $font-w-bold: 700;
+$font-w-black: 900;
 
-$link-c-primary: #3d3d3d;
-$link-c-hover: #000;
+$c-link-primary: #3d3d3d;
+$c-link-hover: #000;
+$c-button-primary: #3d3d3d;
+$c-button-secondary: #fff;
+$c-button-hover: #000;
 
-$link-ls: 0.1rem;
+$ls-primary: .05rem;
+$ls-secondary: -0.05rem;
+$ls-link: 0.1rem;
+$ls-button: 0.12rem;
 
 $z-nav: 5;
 $z-backdrop: 20;
@@ -80,7 +83,6 @@ span {
 
 a {
   text-decoration: none;
-  color: #000;
 }
 
 a:hover {
