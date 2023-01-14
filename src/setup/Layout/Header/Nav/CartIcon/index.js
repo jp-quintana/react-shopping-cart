@@ -11,7 +11,9 @@ const CartIcon = () => {
 
   const [bump, setBump] = useState(false);
 
-  let iconStyles = bump ? styles.bump : '';
+  let iconStyles = bump
+    ? `${styles.bump} ${styles.cart_icon}`
+    : styles.cart_icon;
   let amountStyles = totalAmount === 0 ? styles.no_items : styles.cart_amount;
 
   useEffect(() => {

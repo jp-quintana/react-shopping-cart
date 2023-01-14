@@ -1,3 +1,11 @@
+.cart_icon {
+  padding: .5rem;
+  border-radius: 999rem;
+  &:hover {
+    background-color: hsla(0, 0%, 5%, 0.2);
+  }
+}
+
 .cart_amount {
   position: absolute;
   bottom: -0.3rem;
@@ -14,6 +22,8 @@
   font-weight: 700;
   color: #fff;
   background-color: #8c52ff;
+
+  
 }
 
 .no_items {
