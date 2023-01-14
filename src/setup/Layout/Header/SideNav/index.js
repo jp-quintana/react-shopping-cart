@@ -24,7 +24,7 @@ const SideNav = ({ toggleSideNav }) => {
   const { isVerified, name } = useAuthContext();
 
   return (
-    <SideModal toggleModal={toggleSideNav}>
+    <SideModal toggleModal={toggleSideNav} className={styles.modal}>
       <div className={styles.container}>
         <div className={styles.links_container}>
           <ul className={styles.links_list}>

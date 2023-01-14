@@ -66,8 +66,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding: 0.5rem 0;
 
   & a {
     display: flex;
@@ -84,10 +83,6 @@
   gap: 2rem;
   align-items: center;
   padding-right: 0.5rem;
-
-  @media (max-width: 768px) {
-    gap: 3rem;
-  }
 
   & li {
     font-size: 2.6rem;
@@ -116,6 +111,17 @@
     display: none;
   }
 }
+
+.search_icon,
+.cart_icon,
+.mobile_icon {
+  padding: .5rem;
+  border-radius: 999rem;
+  &:hover {
+    background-color: hsla(0, 0%, 5%, 0.2);
+  }
+}
+
 
 .links {
   display: none;
