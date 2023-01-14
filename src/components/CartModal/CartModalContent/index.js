@@ -53,8 +53,6 @@ const CartModalContent = ({ toggleCartModal }) => {
     );
   }
 
-  console.log(notificationModal);
-
   return (
     <>
       {notificationModal && (
