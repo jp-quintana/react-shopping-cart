@@ -44,13 +44,13 @@ const CartModalContent = ({ toggleCartModal }) => {
         <SideModal className={styles.modal} toggleModal={toggleCartModal}>
           <div className={styles.empty}>
             <p className={styles.no_products}>No hay productos en el carrito</p>
-            <Link
-              className={styles.button}
+            <Button
+              className={`${styles.button} ${styles.empty_button}`}
               to="/categorias/productos"
               onClick={toggleCartModal}
             >
-              <Button>Agregá productos</Button>
-            </Link>
+              Agregá productos
+            </Button>
           </div>
         </SideModal>
       </>
@@ -67,27 +67,29 @@ const CartModalContent = ({ toggleCartModal }) => {
       )}
       <SideModal className={styles.modal} toggleModal={toggleCartModal}>
         <div className={styles.container}>
-          <div className={styles.list_wrapper}>
-            <div className={styles.list}>
-              {items.map((item) => (
-                <CartItem
-                  toggleCartModal={toggleCartModal}
-                  key={item.id}
-                  item={item}
-                  model={item.model}
-                  type={item.type}
-                  color={item.color}
-                  size={item.size}
-                  price={item.price}
-                  url={item.url}
-                  amount={item.amount}
-                  _thumbnail={item.thumbnail}
-                  addItem={addItem}
-                  removeItem={removeItem}
-                  deleteItem={deleteItem}
-                  isLoading={isLoading}
-                />
-              ))}
+          <div className={styles.content}>
+            <div className={styles.list_wrapper}>
+              <div className={styles.list}>
+                {items.map((item) => (
+                  <CartItem
+                    toggleCartModal={toggleCartModal}
+                    key={item.id}
+                    item={item}
+                    model={item.model}
+                    type={item.type}
+                    color={item.color}
+                    size={item.size}
+                    price={item.price}
+                    url={item.url}
+                    amount={item.amount}
+                    _thumbnail={item.thumbnail}
+                    addItem={addItem}
+                    removeItem={removeItem}
+                    deleteItem={deleteItem}
+                    isLoading={isLoading}
+                  />
+                ))}
+              </div>
             </div>
           </div>
           <div className={styles.footer_container}>

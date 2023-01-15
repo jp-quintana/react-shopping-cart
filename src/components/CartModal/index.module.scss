@@ -1,9 +1,14 @@
 @import 'App.scss';
 
+.modal {
+  @media (min-width: 900px) {
+    overflow-y: hidden;
+  }
+}
+
 .empty {
-  max-width: 90%;
+  width: 95%;
   margin: 0 auto;
-  position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -13,52 +18,31 @@
 
   .no_products {
     text-align: center;
-  }
-}
-
-.modal {
-  overflow-y: overlay;
-
-  &::-webkit-scrollbar {
-    width: 1rem;
+    text-transform: uppercase;
   }
 
-  &::-webkit-scrollbar-track {
-    background: hsl(0, 0%, 95%);
-    border-radius: 100vw;
-    margin: 2rem 0;
-  }
+  .empty_button {
+    border-radius: 1rem;
+    font-size: 1.4rem;
+    background-color: $back-c-button-primary;
+    color: $c-secondary;
 
-  &::-webkit-scrollbar-thumb {
-    background: hsl(0, 0%, 76%);
-    border-radius: 100vw;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: hsl(0, 0%, 66%);
-  }
-
-  @media (min-width: 900px) {
-    overflow-y: hidden;
+    &:hover {
+      background-color: $back-c-button-hover;
+    }
   }
 }
 
 .container {
   min-width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 
-  @media (min-width: 900px) {
-    display: flex;
-    flex-direction: column;
+  .content {
     height: 100%;
-  }
-
-  .list_wrapper {
-    margin: 0 0.2rem;
-    height: 100%;
-
-    @media (min-width: 900px) {
-      overflow-y: overlay;
-    }
+    overflow-y: overlay;
+    margin: 0 0.3rem;
 
     &::-webkit-scrollbar {
       width: 1rem;
@@ -67,7 +51,15 @@
     &::-webkit-scrollbar-track {
       background: hsl(0, 0%, 95%);
       border-radius: 100vw;
-      margin: 0.3rem;
+      margin: 3rem 0 0.3rem;
+    }
+
+    @media (min-width: 900px) {
+      &::-webkit-scrollbar-track {
+        background: hsl(0, 0%, 95%);
+        border-radius: 100vw;
+        margin: 0.3rem;
+      }
     }
 
     &::-webkit-scrollbar-thumb {
@@ -79,12 +71,17 @@
       background: hsl(0, 0%, 66%);
     }
 
-    .list {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      padding: 2rem;
+    .list_wrapper {
+      margin: 0 0.2rem;
+      min-height: 100%;
+
+      .list {
+        padding: 2rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
     }
   }
 
@@ -100,6 +97,7 @@
 
     @media (min-width: 900px) {
       position: static;
+      border: none;
       border-top: 3px solid #414141;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
@@ -154,6 +152,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          width: 100%;
 
           span {
             font-size: 2rem;
@@ -179,9 +178,7 @@
   padding: 1.5rem 2rem;
   font-size: 1.6rem;
   border-radius: 1rem;
-  width: 100%;
   text-transform: uppercase;
-  letter-spacing: $ls-button;
 
   &:active {
     transform: scale(0.9);
