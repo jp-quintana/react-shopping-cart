@@ -25,7 +25,44 @@
   border-bottom: 1px solid hsla(0, 0%, 5%, 0.2);
   display: flex;
   justify-content: flex-end;
-  padding-bottom: 0.2rem;
+
+  .info_link,
+  .login_link {
+    padding: 0 0.3rem 0.2rem;
+  }
+
+  .info_link:hover + .info_list {
+    visibility: visible;
+    bottom: -5.25rem;
+    opacity: 1;
+  }
+
+  .info_list:hover {
+    visibility: visible;
+    bottom: -5.25rem;
+    opacity: 1;
+  }
+
+  .info_list {
+    background-color: $back-c-primary;
+    padding: 1.5rem 6rem 1.5rem 1.5rem;
+    border: $border-modal;
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    position: absolute;
+    visibility: hidden;
+    bottom: -6.25rem;
+    display: flex;
+    flex-direction: column;
+    z-index: $z-modal;
+    opacity: 0;
+    transition: all 0.1s ease-in-out;
+
+    .link {
+      font-size: 1.1rem;
+      line-height: normal;
+    }
+  }
 
   .link {
     font-family: $font-f-secondary;
@@ -49,13 +86,13 @@
     width: 100%;
     transform: scaleX(0);
     height: 2px;
-    bottom: -0.35rem;
+    bottom: -0.15rem;
     left: 0rem;
     background-color: #000;
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
   }
-  
+
   .link:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
@@ -114,13 +151,12 @@
 
 .search_icon,
 .mobile_icon {
-  padding: .5rem;
+  padding: 0.5rem;
   border-radius: 999rem;
   &:hover {
     background-color: hsla(0, 0%, 5%, 0.2);
   }
 }
-
 
 .links {
   display: none;
@@ -159,7 +195,7 @@
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
   }
-  
+
   .link:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
@@ -186,4 +222,3 @@
     }
   }
 }
-

@@ -7,6 +7,8 @@ import { CgSearch } from 'react-icons/cg';
 
 import CartIcon from './CartIcon';
 
+import Button from 'common/Button';
+
 import LogoNav from 'assets/images/logo-nav.png';
 
 import styles from './index.module.scss';
@@ -25,13 +27,41 @@ const Navbar = ({ toggleSideNav, toggleCartModal }) => {
   return (
     <nav className={`${styles.nav}`}>
       <div className={styles.container_top}>
+        <Button className={`${styles.link} ${styles.info_link}`} type="button">
+          Info
+        </Button>
+        <ul className={styles.info_list}>
+          <li>
+            <Link className={styles.link} to="/">
+              Info
+            </Link>
+          </li>
+          <li>
+            <Link className={styles.link} to="/">
+              Envios
+            </Link>
+          </li>
+          <li>
+            <Link className={styles.link} to="/">
+              Devoluciones
+            </Link>
+          </li>
+          <li>
+            <Link className={styles.link} to="/">
+              Sobre Nosotros
+            </Link>
+          </li>
+        </ul>
         {!isVerified && (
-          <Link to="/cuenta/login" className={styles.link}>
+          <Link
+            to="/cuenta/login"
+            className={`${styles.link} ${styles.login_link}`}
+          >
             Login
           </Link>
         )}
         {isVerified && (
-          <Link to="/cuenta" className={styles.link}>
+          <Link to="/cuenta" className={`${styles.link} ${styles.login_link}`}>
             Mi Cuenta
           </Link>
         )}
