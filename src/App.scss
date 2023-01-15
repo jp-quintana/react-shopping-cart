@@ -8,7 +8,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 $font-f-primary: 'Monument Extended', sans-serif;
 $font-f-secondary: 'Inter', sans-serif;
 
@@ -16,13 +15,28 @@ $font-w-normal: 400;
 $font-w-bold: 700;
 $font-w-black: 900;
 
+$c-primary: #000;
+$c-secondary: #fff;
 $c-link-primary: #3d3d3d;
 $c-link-hover: #000;
-$c-button-primary: #3d3d3d;
-$c-button-secondary: #fff;
-$c-button-hover: #000;
 
-$ls-primary: .05rem;
+$back-c-primary: #fff;
+
+$back-c-button-primary: #3d3d3d;
+$back-c-button-secondary: #fff;
+$back-c-button-hover: #000;
+$back-c-button-checkout: #48e471;
+$back-c-button-checkout-hover: #74eb93;
+
+$bc-var-hover: hsla(0, 0%, 5%, 0.2);
+
+$border-c-button-checkout: #48e471;
+$border-c-button-checkout-hover: #74eb93;
+$border-c-var: hsla(0, 0%, 5%, 0.2);
+
+$border-modal: 1px solid $border-c-var;
+
+$ls-primary: 0.05rem;
 $ls-secondary: -0.05rem;
 $ls-link: 0.1rem;
 $ls-button: 0.12rem;

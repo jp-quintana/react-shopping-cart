@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import { CgShoppingBag, CgCheckO } from 'react-icons/cg';
+
 import { useCartContext } from 'hooks/useCartContext';
 import { useCart } from 'hooks/useCart';
 
@@ -94,20 +96,28 @@ const CartModalContent = ({ toggleCartModal }) => {
                 <span>Total: ${addAllItemsPrice(items)} </span> | {totalAmount}{' '}
                 Items
               </p>
-              <Link
-                className={styles.button}
-                to="/carrito"
-                onClick={toggleCartModal}
-              >
-                <Button>Carrito</Button>
-              </Link>
-              <Link
-                className={styles.button}
-                to="/checkout"
-                onClick={toggleCartModal}
-              >
-                <Button>Checkout</Button>
-              </Link>
+              <div className={styles.buttons_wrapper}>
+                <Button
+                  className={`${styles.button} ${styles.cart_button}`}
+                  to="/carrito"
+                  onClick={toggleCartModal}
+                >
+                  Carrito{' '}
+                  <span>
+                    <CgShoppingBag />
+                  </span>
+                </Button>
+                <Button
+                  className={`${styles.button} ${styles.checkout_button}`}
+                  to="/checkout"
+                  onClick={toggleCartModal}
+                >
+                  Checkout{' '}
+                  <span>
+                    <CgCheckO />
+                  </span>
+                </Button>
+              </div>
             </div>
           </div>
         </div>

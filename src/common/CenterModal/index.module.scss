@@ -1,3 +1,5 @@
+@import 'App.scss';
+
 .modal {
   position: fixed;
   right: 50%;
@@ -8,10 +10,9 @@
   background-color: white;
   padding: 3rem;
   z-index: 25;
-  border: 1px solid;
+  border: $border-modal;
   border-top-left-radius: 3rem;
   border-top-right-radius: 3rem;
-  border-color: hsla(0, 0%, 5%, 0.2);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 8px 10px -6px rgba(0, 0, 0, 0.1);
 

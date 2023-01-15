@@ -5,7 +5,7 @@
   width: 100%;
   background-color: rgba(255, 255, 255, 0.95);
   z-index: $z-nav;
-  border: 1px solid hsla(0, 0%, 5%, 0.2);
+  border: $border-modal;
   backdrop-filter: blur(6px);
   border-radius: 0 0 3rem 3rem;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),

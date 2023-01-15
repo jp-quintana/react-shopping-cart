@@ -69,11 +69,11 @@
 .button {
   padding: 1rem 2rem;
   font-size: 1.6rem;
-  border: solid 0.2rem $c-button-primary;
+  border: solid 0.2rem $back-c-button-primary;
   border-radius: 1rem;
   width: 100%;
   // override tailwind css
-  background: $c-button-primary !important;
+  background: $back-c-button-primary !important;
   color: white;
   text-transform: uppercase;
   letter-spacing: $ls-button;
@@ -95,7 +95,7 @@
 
   &:hover {
     cursor: pointer;
-    background: $c-button-hover !important;
-    border-color: $c-button-hover;
+    background: $back-c-button-hover !important;
+    border-color: $back-c-button-hover;
   }
 }

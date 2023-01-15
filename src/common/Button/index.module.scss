@@ -1,7 +1,8 @@
 .button {
-  border: 0 solid #e5e7eb;
-  border-radius: 9999rem;
-  box-shadow: 2.5rem 5rem -1.2rem rgba(0,0,0,.25);
   text-align: center;
-  z-index: 1;
+  
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
 }

@@ -40,10 +40,10 @@
   padding: 1rem 2rem;
   margin-top: 1rem;
   font-size: 1.6rem;
-  border: solid 0.2rem $c-button-primary;
+  border: solid 0.2rem $back-c-button-primary;
   border-radius: 1rem;
   width: 100%;
-  background: $c-button-primary;
+  background: $back-c-button-primary;
   color: #fff;
   text-transform: uppercase;
   letter-spacing: $ls-button;
@@ -58,9 +58,9 @@
   }
 
   &:hover {
-    background: $c-button-hover;
+    background: $back-c-button-hover;
     color: #fff;
-    border-color: $c-button-hover;
+    border-color: $back-c-button-hover;
   }
 }
 
