@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Lato:wght@400;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lato:wght@400;700;900&family=Roboto:wght@400;500;700;900&display=swap');
 @import url('//db.onlinewebfonts.com/c/55d433372d270829c51e2577a78ef12d?family=Monument+Extended');
+@import url('//db.onlinewebfonts.com/c/a4745f4b1d04fa025c6a05d891ed0126?family=Monument+Extended+Ultrabold');
 
 @tailwind base;
 @tailwind components;
@@ -10,6 +11,7 @@
 
 $font-f-primary: 'Monument Extended', sans-serif;
 $font-f-secondary: 'Inter', sans-serif;
+$font-f-hero: "Monument Extended Ultrabold", sans-serif;
 
 $font-w-normal: 400;
 $font-w-bold: 700;
