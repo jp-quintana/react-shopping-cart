@@ -6,6 +6,8 @@ const NewsletterSection = () => {
     e.preventDefault();
   };
 
+  // TODO: AGREGARLE FUNCIONAMIENTO AL BOTON DE ENVIO
+
   return (
     <section className={styles.section}>
       <div className={`${styles.container} main-container`}>
@@ -21,7 +23,7 @@ const NewsletterSection = () => {
               placeholder="Tu Dirección de Email"
               type="text"
             />
-            <Button type="submit" className={styles.button}>
+            <Button type="submit" className={`${styles.button} disabled-link`}>
               Enviar
             </Button>
           </form>
