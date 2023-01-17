@@ -1,11 +1,20 @@
+import { useMediaQuery } from 'react-responsive';
+
 import Button from 'common/Button';
 import Slideshow from 'common/Slideshow';
 
-import { SLIDES as slides } from './data';
+import {
+  BIG_SCREEN_SLIDES as bigScreenSlides,
+  SMALL_SCREEN_SLIDES as smallScreenSlides,
+} from './data';
 
 import styles from './index.module.scss';
 
 const SlideshowSection = () => {
+  const isSmallScreen = useMediaQuery({
+    query: '(max-width: 900px)',
+  });
+
   return (
     <section className={styles.section}>
       <div className={`${styles.container} main-container`}>
@@ -14,14 +23,16 @@ const SlideshowSection = () => {
         <div className={styles.wrapper}>
           <div className={styles.content_wrapper}>
             <p className={styles.content_title}>Capsula #01</p>
-            <p className={styles.content_title}>FLAAKKO</p>
+            <p className={styles.content_title}>De gira</p>
             <p className={styles.content_subtitle}>Remeras, buzos y gorras</p>
-            <Button className={styles.link} to="/categorias/productos">
+            <Button className={styles.button} to="/categorias/productos">
               Ver productos
             </Button>
           </div>
-
-          <Slideshow slides={slides} />
+          {!isSmallScreen && <Slideshow slides={bigScreenSlides} />}
+          {isSmallScreen && (
+            <Slideshow slides={smallScreenSlides} className={styles.image} />
+          )}
         </div>
       </div>
     </section>

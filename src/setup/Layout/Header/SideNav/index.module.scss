@@ -52,14 +52,14 @@
   h2 {
     font-size: 1.7rem;
     font-family: $font-f-secondary;
-    font-weight: $font-w-black;
+    font-weight: $font-w-900;
     letter-spacing: -0.05rem;
     margin-bottom: 0.5rem;
   }
 
   .link {
     font-family: $font-f-secondary;
-    font-weight: $font-w-bold;
+    font-weight: $font-w-700;
     letter-spacing: $ls-secondary;
 
     font-size: 1.6rem;
@@ -110,7 +110,7 @@
   .links_list {
     .link {
       font-family: $font-f-secondary;
-      font-weight: $font-w-bold;
+      font-weight: $font-w-700;
       letter-spacing: $ls-secondary;
       color: $c-link-primary;
       font-size: 1.5rem;

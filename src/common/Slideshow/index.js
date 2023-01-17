@@ -6,7 +6,7 @@ import {
 import Slide from './Slide';
 import Card from 'common/Card';
 
-const Slideshow = ({ slides }) => {
+const Slideshow = ({ slides, className }) => {
   return (
     <Card>
       <div
@@ -21,6 +21,7 @@ const Slideshow = ({ slides }) => {
               image={slide.image}
               isActive={slide.is_active}
               url={slide.url}
+              className={className}
             />
           ))}
         </div>
