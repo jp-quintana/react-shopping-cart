@@ -24,7 +24,7 @@ const SlideshowSection = () => {
 
     const timer = setTimeout(() => {
       setShowContent(true);
-    }, 400);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, [isSmallScreen]);

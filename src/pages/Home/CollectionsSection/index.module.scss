@@ -1,5 +1,6 @@
 .container {
   padding: 1.5rem 0 5rem 0;
+  min-height: 50rem;
 
   @media (min-width: 768px) {
     padding: 2.5rem 0 7.5rem 0;
@@ -7,7 +8,9 @@
 }
 
 .title {
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
+  font-size: 2.4rem;
+  text-transform: uppercase;
 }
 
 .grid_container {
@@ -15,12 +18,10 @@
   gap: 2rem;
 
   @media (min-width: 768px) {
-    grid-template-areas: 'remeras buzos'
-                         'accesorios buzos';
+    grid-template-areas:
+      'remeras buzos'
+      'accesorios buzos';
     grid-template-columns: repeat(2, 1fr);
     gap: 4rem;
   }
 }
-
-
-
