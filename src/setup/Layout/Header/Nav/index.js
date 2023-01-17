@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 
 import { useAuthContext } from 'hooks/useAuthContext';
@@ -18,14 +19,50 @@ const Navbar = ({ toggleSideNav, toggleCartModal }) => {
 
   const { isVerified } = useAuthContext();
 
+  const [hasScrolled, setHasSrolled] = useState(false);
+
+  const resizeHeaderOnScroll = () => {
+    setHasSrolled((hasScrolled) => {
+      if (
+        !hasScrolled &&
+        (document.body.scrollTop > 20 ||
+          document.documentElement.scrollTop > 20)
+      ) {
+        return true;
+      }
+
+      if (
+        hasScrolled &&
+        document.body.scrollTop < 4 &&
+        document.documentElement.scrollTop < 4
+      ) {
+        return false;
+      }
+
+      return hasScrolled;
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', resizeHeaderOnScroll);
+
+    return () => window.removeEventListener('scroll', resizeHeaderOnScroll);
+  }, []);
+
   const handleToggleCartModal = () => {
     if (pathname !== '/carrito') {
       toggleCartModal();
     }
   };
 
+  console.log(hasScrolled);
+
+  const navStyles = hasScrolled
+    ? `${styles.nav} ${styles.hasScrolled}`
+    : styles.nav;
+
   return (
-    <nav className={`${styles.nav}`}>
+    <nav className={navStyles}>
       <div className={styles.container_top}>
         <Button className={`${styles.link} ${styles.info_link}`} type="button">
           Info
