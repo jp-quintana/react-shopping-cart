@@ -1,3 +1,4 @@
+import Button from 'common/Button';
 import styles from './index.module.scss';
 
 const NewsletterSection = () => {
@@ -20,7 +21,9 @@ const NewsletterSection = () => {
               placeholder="Tu Dirección de Email"
               type="text"
             />
-            <button className={styles.button}>Enviar</button>
+            <Button type="submit" className={styles.button}>
+              Enviar
+            </Button>
           </form>
         </div>
       </div>

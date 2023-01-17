@@ -23,6 +23,11 @@
 
   .wrapper {
     position: relative;
+    min-height: 40rem;
+
+    @media (min-width: 480px) {
+      min-height: 50rem;
+    }
 
     &:hover {
       transition: all ease 0.2s;
@@ -118,7 +123,7 @@
       }
 
       .button {
-        font-family: $font-f-hero;
+        font-family: $font-f-primary;
         font-size: 1.1rem;
         text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.2);
         text-transform: uppercase;
