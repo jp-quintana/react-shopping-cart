@@ -150,11 +150,6 @@
 
 .content_wrapper_alt {
   text-align: right;
-
-  @media (min-width: 768px) {
-    top: 0;
-    bottom: auto;
-  }
 }
 
 .image {

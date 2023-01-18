@@ -54,6 +54,8 @@ const Collections = () => {
     }
   }, [products, urlId]);
 
+  console.log(products);
+
   return (
     <>
       {!collection && <Loader />}
@@ -70,6 +72,7 @@ const Collections = () => {
                 url={product.url}
                 _imageTop={product.images[0].src}
                 _imageBottom={product.images[1].src}
+                numberOfVariants={product.numberOfVariants}
               />
             ))}
           </div>
