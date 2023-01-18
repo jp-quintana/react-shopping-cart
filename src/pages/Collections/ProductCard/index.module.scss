@@ -67,6 +67,7 @@
       font-family: $font-f-secondary;
       font-weight: $font-w-900;
       letter-spacing: $ls-secondary;
+      text-transform: capitalize;
     }
 
     .color {
@@ -82,7 +83,7 @@
         border-radius: 0.6rem;
         font-size: 1rem;
         color: $c-secondary;
-        background-color: $back-c-button-primary;
+        background-color: $c-var;
         font-family: $font-f-secondary;
         font-weight: $font-w-700;
         letter-spacing: $ls-secondary;

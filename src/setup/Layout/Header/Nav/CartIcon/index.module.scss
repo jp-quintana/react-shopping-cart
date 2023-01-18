@@ -1,5 +1,7 @@
+@import 'App.scss';
+
 .cart_icon {
-  padding: .5rem;
+  padding: 0.5rem;
   border-radius: 999rem;
   &:hover {
     background-color: hsla(0, 0%, 5%, 0.2);
@@ -21,7 +23,7 @@
   font-family: 'Montserrat';
   font-weight: 700;
   color: #fff;
-  background-color: #8c52ff;
+  background: $back-detail;
 }
 
 .no_items {

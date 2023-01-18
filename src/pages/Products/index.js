@@ -31,17 +31,13 @@ const Products = () => {
   const [notificationModal, setNotificationModal] = useState(null);
 
   const handleAddToCart = async () => {
-    // const item = items.find((item) => item.sku === selectedSku);
-    // if (item && item.amount >= selectedStock) {
-    //   return;
-    // }
     await addItem({
-      // TODO: INVENTORY
       productId: selectedProduct.id,
       id: selectedSku,
       size: selectedSize,
       model: selectedProduct.model,
       type: selectedProduct.type,
+      description: selectedProduct.description,
       color: selectedVariant.color,
       price: selectedVariant.price,
       url: selectedVariant.url,
@@ -87,6 +83,8 @@ const Products = () => {
 
   const isButtonDisabled = selectedSize.length === 0 ? true : false;
 
+  // TODO: HACER QUE EL TEXT EN LOS COSTADOS SE DESPLACE APENAS HAY EVENTO DE SCROLL
+
   return (
     <>
       {notificationModal && (
@@ -97,17 +95,47 @@ const Products = () => {
       )}
       {!productIsReady && <Loader />}
       {productIsReady && (
-        <section className={`${styles.container} main-container`}>
-          <div className={styles.info_wrapper}>
-            <div className={styles.info}>
-              <h1 className={styles.name}>{selectedProduct.model}</h1>
-              <p
-                className={styles.details}
-              >{`${selectedProduct.type} ${selectedVariant.color}`}</p>
-              <p className={styles.price}>
-                ${formatNumber(selectedVariant.price)}
-              </p>
+        <section className="main-container">
+          <div className={styles.container}>
+            <div className={styles.details_wrapper}>
+              <div className={styles.details}>
+                <h1 className={styles.name}>{selectedProduct.model}</h1>
+                <p className={styles.description}>
+                  {selectedProduct.description}
+                </p>
+                <p className={styles.color}>{selectedVariant.color}</p>
+                {selectedProduct.tags && (
+                  <div className={styles.tags_wrapper}>
+                    {selectedProduct.tags.map((tag) => (
+                      <span
+                        key={tag.id}
+                        className={
+                          tag.content === 'nuevo' ? styles.tag_alt : styles.tag
+                        }
+                      >
+                        {tag.content}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <p className={styles.price}>
+                  ${formatNumber(selectedVariant.price)}
+                </p>
+              </div>
+            </div>
 
+            <div className={styles.images_wrapper}>
+              {selectedVariant.images.map((image) => (
+                <img
+                  className={styles.images}
+                  key={image.id}
+                  src={require(`assets/${image.src}`)}
+                  alt=""
+                />
+              ))}
+            </div>
+
+            <div className={styles.controls_wrapper}>
               <div className={styles.variants_wrapper}>
                 {selectedProduct.variants.map((variant) => (
                   <ProductVariant
@@ -146,17 +174,6 @@ const Products = () => {
                 </Button>
               )}
             </div>
-          </div>
-
-          <div className={styles.images_wrapper}>
-            {selectedVariant.images.map((image) => (
-              <img
-                className={styles.images}
-                key={image.id}
-                src={require(`assets/${image.src}`)}
-                alt=""
-              />
-            ))}
           </div>
         </section>
       )}

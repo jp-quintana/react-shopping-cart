@@ -55,8 +55,6 @@ const Navbar = ({ toggleSideNav, toggleCartModal }) => {
     }
   };
 
-  console.log(hasScrolled);
-
   const navStyles = hasScrolled
     ? `${styles.nav} ${styles.hasScrolled}`
     : styles.nav;

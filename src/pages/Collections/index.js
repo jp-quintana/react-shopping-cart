@@ -54,8 +54,6 @@ const Collections = () => {
     }
   }, [products, urlId]);
 
-  console.log(products);
-
   return (
     <>
       {!collection && <Loader />}
