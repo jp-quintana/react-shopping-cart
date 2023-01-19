@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useMediaQuery } from 'react-responsive';
 
 import { useProductContext } from 'hooks/useProductContext';
 // import { useCartContext } from 'hooks/useCartContext';
@@ -9,6 +10,7 @@ import ProductSize from './ProductSize';
 
 import Button from 'common/Button';
 import Loader from 'common/Loader';
+import Slider from 'common/Slider';
 import NotificationModal from 'common/NotificationModal';
 
 import { formatNumber } from 'helpers/format';
@@ -83,6 +85,10 @@ const Products = () => {
 
   const isButtonDisabled = selectedSize.length === 0 ? true : false;
 
+  const isBigScreen = useMediaQuery({
+    query: '(min-width: 1024px)',
+  });
+
   // TODO: HACER QUE EL TEXT EN LOS COSTADOS SE DESPLACE APENAS HAY EVENTO DE SCROLL
 
   return (
@@ -97,6 +103,19 @@ const Products = () => {
       {productIsReady && (
         <section className="main-container">
           <div className={styles.container}>
+            {!isBigScreen && (
+              <div className={styles.swiper_container}>
+                <div className={styles.swiper_wrapper}>
+                  <Slider
+                    slides={selectedVariant.images}
+                    slidesPerView={4}
+                    sliderClassName={styles.slider}
+                    slideClassName={styles.slide}
+                    imageClassName={styles.image}
+                  />
+                </div>
+              </div>
+            )}
             <div className={styles.details_wrapper}>
               <div className={styles.details}>
                 <h1 className={styles.name}>{selectedProduct.model}</h1>
@@ -124,16 +143,18 @@ const Products = () => {
               </div>
             </div>
 
-            <div className={styles.images_wrapper}>
-              {selectedVariant.images.map((image) => (
-                <img
-                  className={styles.images}
-                  key={image.id}
-                  src={require(`assets/${image.src}`)}
-                  alt=""
-                />
-              ))}
-            </div>
+            {isBigScreen && (
+              <div className={styles.images_wrapper}>
+                {selectedVariant.images.map((image) => (
+                  <img
+                    className={styles.images}
+                    key={image.id}
+                    src={require(`assets/${image.src}`)}
+                    alt=""
+                  />
+                ))}
+              </div>
+            )}
 
             <div className={styles.controls_wrapper}>
               <div className={styles.variants_wrapper}>

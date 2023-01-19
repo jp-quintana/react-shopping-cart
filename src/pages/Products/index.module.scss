@@ -6,19 +6,50 @@
   padding-top: 10rem;
   padding-bottom: 3rem;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
+  // TODO: HAY QUE SACAR ESTE OVERFLOW SI QUERES QUE FUNCIONE EL EFECTO DE DESPLAZAMIENTO DE LA INFO EN PANTALLA GRANDE
+  overflow: hidden;
+
+  // display: grid;
+  gap: 3rem;
+  // align-items: flex-start;
 
   @media (min-width: 1024px) {
-    display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     align-items: flex-start;
     padding-top: 12.2rem;
-    gap: 3rem;
+    display: grid;
+    // gap: 3rem;
   }
 
   @media (min-width: 1300px) {
     gap: 5rem;
   }
+}
+
+.swiper_container {
+  position: relative;
+  overflow-x: visible;
+  display: flex;
+  justify-content: center;
+}
+
+.swiper_wrapper {
+  top: 0;
+  position: sticky;
+  width: 200%;
+}
+
+.slider {
+}
+
+.slide {
+  box-sizing: border-box;
+}
+
+.image {
+  border-radius: 3rem;
+  width: 100%;
 }
 
 .details_wrapper,
