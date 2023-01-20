@@ -14,10 +14,12 @@ const Slider = ({
   sliderClassName,
   slideClassName,
   imageClassName,
+  bp,
 }) => {
   return (
     <>
       <Swiper
+        breakpoints={bp}
         slidesPerView={slidesPerView}
         spaceBetween={30}
         loop={true}

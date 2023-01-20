@@ -101,102 +101,217 @@ const Products = () => {
       )}
       {!productIsReady && <Loader />}
       {productIsReady && (
-        <section className="main-container">
-          <div className={styles.container}>
-            {!isBigScreen && (
-              <div className={styles.swiper_container}>
-                <div className={styles.swiper_wrapper}>
-                  <Slider
-                    slides={selectedVariant.images}
-                    slidesPerView={4}
-                    sliderClassName={styles.slider}
-                    slideClassName={styles.slide}
-                    imageClassName={styles.image}
-                  />
+        <>
+          {!isBigScreen && (
+            <>
+              <section>
+                <div className={styles.container_s}>
+                  <div className={styles.swiper_container}>
+                    <div className={styles.swiper_wrapper}>
+                      <Slider
+                        slides={selectedVariant.images}
+                        bp={{
+                          500: {
+                            slidesPerView: 1.5,
+                          },
+                          600: {
+                            slidesPerView: 1.7,
+                          },
+                          800: {
+                            slidesPerView: 2,
+                          },
+                        }}
+                        slidesPerView={1.3}
+                        sliderClassName={styles.slider}
+                        slideClassName={styles.slide}
+                        imageClassName={styles.image}
+                      />
+                    </div>
+                  </div>
+                  <div className={styles.grid_footer}>
+                    <div className={styles.details_wrapper}>
+                      <div className={styles.details}>
+                        <div className={styles.name_wrapper}>
+                          <h1 className={styles.name}>
+                            {selectedProduct.model}
+                          </h1>
+                          <p className={styles.price}>
+                            ${formatNumber(selectedVariant.price)}
+                          </p>
+                        </div>
+                        <p className={styles.description}>
+                          {selectedProduct.description}
+                        </p>
+                        <p className={styles.color}>{selectedVariant.color}</p>
+                        {selectedProduct.tags && (
+                          <div className={styles.tags_wrapper}>
+                            {selectedProduct.tags.map((tag) => (
+                              <span
+                                key={tag.id}
+                                className={
+                                  tag.content === 'nuevo'
+                                    ? styles.tag_alt
+                                    : styles.tag
+                                }
+                              >
+                                {tag.content}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className={styles.controls_wrapper}>
+                      <div className={styles.variants_container}>
+                        <p className={styles.number_of_colors}>
+                          {selectedProduct.variants.length}{' '}
+                          {selectedProduct.variants.length > 1
+                            ? 'Colores'
+                            : 'Color'}{' '}
+                          <span>| {selectedVariant.color}</span>
+                        </p>
+                        <div className={styles.variants_wrapper}>
+                          {selectedProduct.variants.map((variant) => (
+                            <ProductVariant
+                              key={variant.variantId}
+                              id={variant.variantId}
+                              _thumbnail={variant.images[0].src}
+                              selectedVariantId={selectedVariant.variantId}
+                            />
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className={styles.sizes_container}>
+                        <p className={styles.pick_size}>Seleccioná tu talle </p>
+
+                        <div className={styles.sizes_wrapper}>
+                          {selectedVariant.inventoryLevels.map((size) => (
+                            <ProductSize
+                              key={size.sku}
+                              id={size.sku}
+                              value={size.value}
+                              stock={size.stock}
+                              selectedSize={selectedSize}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={styles.button_wrapper}>
+                      {!isLoading && (
+                        <Button
+                          className={buttonStyles}
+                          disabled={isButtonDisabled}
+                          onClick={
+                            addEventHandler ? handleAddToCart : undefined
+                          }
+                        >
+                          {buttonContent}
+                        </Button>
+                      )}
+                      {isLoading && (
+                        <Button className={buttonStyles} disabled={true}>
+                          {buttonContent}
+                        </Button>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            )}
-            <div className={styles.details_wrapper}>
-              <div className={styles.details}>
-                <h1 className={styles.name}>{selectedProduct.model}</h1>
-                <p className={styles.description}>
-                  {selectedProduct.description}
-                </p>
-                <p className={styles.color}>{selectedVariant.color}</p>
-                {selectedProduct.tags && (
-                  <div className={styles.tags_wrapper}>
-                    {selectedProduct.tags.map((tag) => (
-                      <span
-                        key={tag.id}
-                        className={
-                          tag.content === 'nuevo' ? styles.tag_alt : styles.tag
-                        }
-                      >
-                        {tag.content}
-                      </span>
+              </section>
+            </>
+          )}
+
+          {isBigScreen && (
+            <>
+              <section className="main-container">
+                <div className={styles.container}>
+                  <div className={styles.details_wrapper}>
+                    <div className={styles.details}>
+                      <h1 className={styles.name}>{selectedProduct.model}</h1>
+                      <p className={styles.description}>
+                        {selectedProduct.description}
+                      </p>
+                      <p className={styles.color}>{selectedVariant.color}</p>
+                      {selectedProduct.tags && (
+                        <div className={styles.tags_wrapper}>
+                          {selectedProduct.tags.map((tag) => (
+                            <span
+                              key={tag.id}
+                              className={
+                                tag.content === 'nuevo'
+                                  ? styles.tag_alt
+                                  : styles.tag
+                              }
+                            >
+                              {tag.content}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      <p className={styles.price}>
+                        ${formatNumber(selectedVariant.price)}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className={styles.images_wrapper}>
+                    {selectedVariant.images.map((image) => (
+                      <img
+                        className={styles.images}
+                        key={image.id}
+                        src={require(`assets/${image.src}`)}
+                        alt=""
+                      />
                     ))}
                   </div>
-                )}
-                <p className={styles.price}>
-                  ${formatNumber(selectedVariant.price)}
-                </p>
-              </div>
-            </div>
 
-            {isBigScreen && (
-              <div className={styles.images_wrapper}>
-                {selectedVariant.images.map((image) => (
-                  <img
-                    className={styles.images}
-                    key={image.id}
-                    src={require(`assets/${image.src}`)}
-                    alt=""
-                  />
-                ))}
-              </div>
-            )}
+                  <div className={styles.controls_wrapper}>
+                    <div className={styles.variants_wrapper}>
+                      {selectedProduct.variants.map((variant) => (
+                        <ProductVariant
+                          key={variant.variantId}
+                          id={variant.variantId}
+                          _thumbnail={variant.images[0].src}
+                          selectedVariantId={selectedVariant.variantId}
+                        />
+                      ))}
+                    </div>
 
-            <div className={styles.controls_wrapper}>
-              <div className={styles.variants_wrapper}>
-                {selectedProduct.variants.map((variant) => (
-                  <ProductVariant
-                    key={variant.variantId}
-                    id={variant.variantId}
-                    _thumbnail={variant.images[0].src}
-                    selectedVariantId={selectedVariant.variantId}
-                  />
-                ))}
-              </div>
+                    <div className={styles.sizes_wrapper}>
+                      {selectedVariant.inventoryLevels.map((size) => (
+                        <ProductSize
+                          key={size.sku}
+                          id={size.sku}
+                          value={size.value}
+                          stock={size.stock}
+                          selectedSize={selectedSize}
+                        />
+                      ))}
+                    </div>
 
-              <div className={styles.sizes_wrapper}>
-                {selectedVariant.inventoryLevels.map((size) => (
-                  <ProductSize
-                    key={size.sku}
-                    id={size.sku}
-                    value={size.value}
-                    stock={size.stock}
-                    selectedSize={selectedSize}
-                  />
-                ))}
-              </div>
-
-              {!isLoading && (
-                <Button
-                  className={buttonStyles}
-                  disabled={isButtonDisabled}
-                  onClick={addEventHandler ? handleAddToCart : undefined}
-                >
-                  {buttonContent}
-                </Button>
-              )}
-              {isLoading && (
-                <Button className={buttonStyles} disabled={true}>
-                  {buttonContent}
-                </Button>
-              )}
-            </div>
-          </div>
-        </section>
+                    {!isLoading && (
+                      <Button
+                        className={buttonStyles}
+                        disabled={isButtonDisabled}
+                        onClick={addEventHandler ? handleAddToCart : undefined}
+                      >
+                        {buttonContent}
+                      </Button>
+                    )}
+                    {isLoading && (
+                      <Button className={buttonStyles} disabled={true}>
+                        {buttonContent}
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </section>
+            </>
+          )}
+        </>
       )}
     </>
   );

@@ -25,7 +25,6 @@ $c-link-primary: #3d3d3d;
 $c-link-hover: #000;
 
 $back-c-primary: #fff;
-
 $back-detail: radial-gradient(
   circle at 12.8% 28%,
   rgb(206, 155, 243) 0%,
@@ -59,6 +58,7 @@ $z-modal-n: 30;
 html {
   box-sizing: border-box;
   font-size: 62.5%;
+  scroll-behavior: smooth;
 
   &::-webkit-scrollbar {
     width: 1rem;
