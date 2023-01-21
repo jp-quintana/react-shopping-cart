@@ -1,70 +1,93 @@
 @import 'App.scss';
 
+.nav_section {
+  margin-bottom: 10rem;
+}
+
 .section {
-  min-height: 100vh;
+  min-height: calc(100vh - 10rem);
   display: flex;
   align-items: center;
   justify-content: center;
-}
+  padding-bottom: 2rem;
 
-.form {
-  margin: 0 auto;
+  .container {
+    min-width: 100%;
 
-  @media (min-width: 768px) {
-    width: 40%;
-  }
-}
+    .form {
+      margin: 0 auto;
 
-.title {
-  text-align: center;
-  margin-bottom: 2rem;
-}
+      @media (min-width: 768px) {
+        width: 50%;
+      }
+      @media (min-width: 1000px) {
+        width: 40%;
+      }
 
-.input {
-  border: solid 0.2rem #9e9e9e;
-  border-radius: 1rem;
-  padding: 1rem 2rem;
-  width: 100%;
-  font-size: 1.6rem;
-  margin-bottom: 3rem;
-}
+      .title {
+        text-align: center;
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+      }
 
-.button {
-  margin-top: 3rem;
-  padding: 1rem 2rem;
-  font-size: 1.6rem;
-  border: solid 0.2rem #000;
-  border-radius: 1rem;
-  width: 100%;
-  // override tailwind css
-  background: #000 !important;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: $ls-button;
+      .label {
+        span {
+          font-family: $font-f-secondary;
+          font-weight: $font-w-700;
+          letter-spacing: $ls-secondary;
+        }
 
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+        .input {
+          border: solid 0.2rem #9e9e9e;
+          border-radius: 1rem;
+          padding: 1rem 2rem;
+          width: 100%;
+          font-size: 1.6rem;
+          margin-bottom: 3rem;
+        }
+      }
+    }
 
-  -moz-transition: all 0.2s ease-in;
-  -o-transition: all 0.2s ease-in;
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
+    .button {
+      margin-top: 3rem;
+      padding: 1rem 2rem;
+      font-size: 1.6rem;
+      border: solid 0.2rem #000;
+      border-radius: 1rem;
+      width: 100%;
+      // override tailwind css
+      background: #000 !important;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: $ls-button;
 
-  &:active {
-    transform: scale(0.9);
-  }
-}
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
 
-.login {
-  text-align: center;
-  margin-top: 2rem;
-  font-family: 'Montserrat', sans-serif;
+      -moz-transition: all 0.2s ease-in;
+      -o-transition: all 0.2s ease-in;
+      -webkit-transition: all 0.2s ease-in;
+      transition: all 0.2s ease-in;
 
-  a {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+
+    .login {
+      text-align: center;
+      margin-top: 2rem;
+      font-family: $font-f-secondary;
+      letter-spacing: $ls-secondary;
+
+      a {
+        font-family: $font-f-secondary;
+        font-weight: $font-w-700;
+        letter-spacing: $ls-secondary;
+      }
+    }
   }
 }

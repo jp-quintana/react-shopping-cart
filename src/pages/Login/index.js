@@ -47,41 +47,46 @@ const Login = () => {
       )}
       {isLoading && <Loader />}
       {!isLoading && (
-        <section className={styles.section}>
-          <div className="main-container">
-            <form onSubmit={handleSubmit} className={styles.form}>
-              <h2 className={styles.title}>Ingresá a tu cuenta:</h2>
-              <label>
-                <span>Email:</span>
-                <input
-                  className={styles.input}
-                  type="email"
-                  placeholder="tunombre@email.com"
-                  required
-                  ref={emailInput}
-                />
-              </label>
-              <label>
-                <span>Contraseña:</span>
-                <input
-                  className={styles.input}
-                  type="password"
-                  required
-                  ref={passwordInput}
-                />
-              </label>
-              <button className={styles.button} type="submit">
-                Iniciar Sesión
-              </button>
-            </form>
-            <p className={styles.no_account}>
-              ¿No tenés cuenta?{' '}
-              <Link to="/cuenta/signup" state={routerState}>
-                Crear cuenta
-              </Link>
-            </p>
-          </div>
-        </section>
+        <>
+          <section className={styles.nav_section}></section>
+          <section className={styles.section}>
+            <div className={styles.container}>
+              <div className={`${styles.wrapper} main-container`}>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                  <h2 className={styles.title}>Ingresa a tu cuenta</h2>
+                  <label className={styles.label}>
+                    <span>Email:</span>
+                    <input
+                      className={styles.input}
+                      type="email"
+                      placeholder="tunombre@email.com"
+                      required
+                      ref={emailInput}
+                    />
+                  </label>
+                  <label className={styles.label}>
+                    <span>Contraseña:</span>
+                    <input
+                      className={styles.input}
+                      type="password"
+                      required
+                      ref={passwordInput}
+                    />
+                  </label>
+                  <button className={styles.button} type="submit">
+                    Iniciar Sesión
+                  </button>
+                </form>
+                <p className={styles.no_account}>
+                  ¿No tenés cuenta?{' '}
+                  <Link to="/cuenta/signup" state={routerState}>
+                    Crear cuenta
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </section>
+        </>
       )}
     </>
   );
