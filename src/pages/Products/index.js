@@ -122,6 +122,10 @@ const Products = () => {
                           },
                         }}
                         slidesPerView={1.3}
+                        spaceBetween={30}
+                        loop={true}
+                        centeredSlides={true}
+                        grabCursor={true}
                         sliderClassName={styles.slider}
                         slideClassName={styles.slide}
                         imageClassName={styles.image}
@@ -227,7 +231,7 @@ const Products = () => {
           {isBigScreen && (
             <>
               <section className="main-container">
-                <div className={styles.container}>
+                <div className={styles.container_b}>
                   <div className={styles.details_wrapper}>
                     <div className={styles.details}>
                       <h1 className={styles.name}>{selectedProduct.model}</h1>
@@ -269,27 +273,40 @@ const Products = () => {
                   </div>
 
                   <div className={styles.controls_wrapper}>
-                    <div className={styles.variants_wrapper}>
-                      {selectedProduct.variants.map((variant) => (
-                        <ProductVariant
-                          key={variant.variantId}
-                          id={variant.variantId}
-                          _thumbnail={variant.images[0].src}
-                          selectedVariantId={selectedVariant.variantId}
-                        />
-                      ))}
+                    <div className={styles.variants_container}>
+                      <p className={styles.number_of_colors}>
+                        {selectedProduct.variants.length}{' '}
+                        {selectedProduct.variants.length > 1
+                          ? 'Colores'
+                          : 'Color'}{' '}
+                        <span>| {selectedVariant.color}</span>
+                      </p>
+                      <div className={styles.variants_wrapper}>
+                        {selectedProduct.variants.map((variant) => (
+                          <ProductVariant
+                            key={variant.variantId}
+                            id={variant.variantId}
+                            _thumbnail={variant.images[0].src}
+                            selectedVariantId={selectedVariant.variantId}
+                          />
+                        ))}
+                      </div>
                     </div>
 
-                    <div className={styles.sizes_wrapper}>
-                      {selectedVariant.inventoryLevels.map((size) => (
-                        <ProductSize
-                          key={size.sku}
-                          id={size.sku}
-                          value={size.value}
-                          stock={size.stock}
-                          selectedSize={selectedSize}
-                        />
-                      ))}
+                    <div className={styles.sizes_container}>
+                      <p className={styles.pick_size}>Seleccioná tu talle </p>
+
+                      <div className={styles.sizes_wrapper}>
+                        {selectedVariant.inventoryLevels.map((size) => (
+                          <ProductSize
+                            key={size.sku}
+                            id={size.sku}
+                            value={size.value}
+                            stock={size.stock}
+                            selectedSize={selectedSize}
+                          />
+                        ))}
+                      </div>
                     </div>
 
                     {!isLoading && (

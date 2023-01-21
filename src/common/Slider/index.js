@@ -10,21 +10,25 @@ import 'swiper/css';
 
 const Slider = ({
   slides,
+  bp,
   slidesPerView,
+  spaceBetween,
+  loop,
+  centeredSlides,
+  grabCursor,
   sliderClassName,
   slideClassName,
   imageClassName,
-  bp,
 }) => {
   return (
     <>
       <Swiper
         breakpoints={bp}
         slidesPerView={slidesPerView}
-        spaceBetween={30}
-        loop={true}
-        centeredSlides={true}
-        grabCursor={true}
+        spaceBetween={spaceBetween}
+        loop={loop}
+        centeredSlides={centeredSlides}
+        grabCursor={grabCursor}
         pagination={{
           clickable: true,
         }}
