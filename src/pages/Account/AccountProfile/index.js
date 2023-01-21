@@ -37,7 +37,7 @@ const AccountProfile = ({ name, email, lastName, phoneNumber }) => {
             </li>
             <li>
               <BiPhone className={styles.profile_icon} />
-              {phoneNumber ? phoneNumber : 'No se agregó un teléfono todavía'}
+              {phoneNumber ? phoneNumber : 'Todavía no agregaste un teléfono'}
             </li>
           </ul>
           <button className={styles.edit_button} onClick={toggleEditProfile}>

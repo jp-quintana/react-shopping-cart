@@ -27,9 +27,9 @@ const OrderModal = ({ toggleOrderModal, id, items, date }) => {
                   <div>{item.amount}</div>
                 </div>
               </div>
-              <div className={styles.info}>
+              <div className={styles.info_wrapper}>
                 <p className={styles.name}>
-                  {item.type} {item.model} {item.color}
+                  {`${item.type} ${item.model} - ${item.color}`}
                 </p>
                 <p className={styles.size}>{item.size}</p>
               </div>

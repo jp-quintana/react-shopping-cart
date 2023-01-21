@@ -113,11 +113,6 @@ input[type='password'] {
   letter-spacing: 0.2rem;
 }
 
-span {
-  font-family: 'Monument Extended', sans-serif;
-  font-weight: 800;
-}
-
 a {
   text-decoration: none;
 }
@@ -126,34 +121,29 @@ a:hover {
   color: inherit;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: 'Monument Extended', sans-serif;
-  font-weight: 800;
-  color: #000;
-}
+// h1 {
+//   font-size: 2rem;
+//   @media (min-width: 768px) {
+//     font-size: 2.7rem;
+//   }
+// }
 
-h1 {
-  font-size: 2rem;
-  @media (min-width: 768px) {
-    font-size: 2.7rem;
-  }
-}
+// h2 {
+//   font-size: 1.725rem;
+//   @media (min-width: 768px) {
+//     font-size: 2.3rem;
+//   }
+// }
 
-h2 {
-  font-size: 1.725rem;
-  @media (min-width: 768px) {
-    font-size: 2.3rem;
-  }
-}
+// h3 {
+//   font-size: 1.6rem;
+//   @media (min-width: 768px) {
+//     font-size: 1.8rem;
+//   }
+// }
 
-h3 {
+h1, h2, h3, h4 {
   font-size: 1.6rem;
-  @media (min-width: 768px) {
-    font-size: 1.8rem;
-  }
 }
 
 p {

@@ -62,11 +62,11 @@ const EditProfileModal = ({
       )}
       {isLoading && <Loader />}
       {!isLoading && (
-        <CenterModal toggleModal={toggleEditProfile}>
+        <CenterModal className={styles.modal} toggleModal={toggleEditProfile}>
           <form id="form" className={styles.form} onSubmit={handleSubmit}>
-            <h2 className={styles.title}>Editar datos:</h2>
+            <h2 className={styles.title}>Editar datos</h2>
             <div className={styles.form_inputs_wrapper}>
-              <label>
+              <label className={styles.label}>
                 <span>Nombre:</span>
                 <input
                   className={styles.input}
@@ -77,7 +77,7 @@ const EditProfileModal = ({
                   defaultValue={name}
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span>Apellido:</span>
                 <input
                   className={styles.input}
@@ -88,7 +88,7 @@ const EditProfileModal = ({
                   defaultValue={lastName}
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span>Teléfono:</span>
                 <input
                   className={styles.input}

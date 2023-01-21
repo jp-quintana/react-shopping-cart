@@ -41,10 +41,11 @@
 
     .nav_title {
       font-family: $font-f-hero;
-      letter-spacing: $ls-primary;
+      letter-spacing: $ls-button;
       text-transform: uppercase;
       font-size: 1.3rem;
       margin-bottom: 0.5rem;
+      font-weight: 400;
     }
 
     a {

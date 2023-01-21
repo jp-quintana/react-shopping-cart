@@ -6,7 +6,7 @@ import Backdrop from 'common/Backdrop';
 
 import styles from './index.module.scss';
 
-const CenterModal = ({ children, toggleModal }) => {
+const CenterModal = ({ children, toggleModal, className }) => {
   const backdropElement = document.getElementById('backdrop');
   const overlaysElement = document.getElementById('overlays');
 
@@ -18,7 +18,7 @@ const CenterModal = ({ children, toggleModal }) => {
     <>
       {createPortal(<Backdrop toggleModal={toggleModal} />, backdropElement)}
       {createPortal(
-        <div className={styles.modal}>{children}</div>,
+        <div className={`${styles.modal} ${className}`}>{children}</div>,
         overlaysElement
       )}
     </>
