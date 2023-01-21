@@ -68,11 +68,14 @@ const AddAddressModal = ({ toggleAddAddressModal }) => {
       )}
       {isLoading && <Loader />}
       {!isLoading && (
-        <CenterModal toggleModal={toggleAddAddressModal}>
+        <CenterModal
+          className={styles.modal}
+          toggleModal={toggleAddAddressModal}
+        >
           <form id="form" className={styles.form} onSubmit={handleSubmit}>
             <h2 className={styles.title}>Agregar Dirección:</h2>
             <div className={styles.form_inputs_wrapper}>
-              <label>
+              <label className={styles.label}>
                 <span>Nombre:</span>
                 <input
                   className={styles.input}
@@ -82,7 +85,7 @@ const AddAddressModal = ({ toggleAddAddressModal }) => {
                   ref={nameInput}
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span>Apellido:</span>
                 <input
                   className={styles.input}
@@ -92,7 +95,7 @@ const AddAddressModal = ({ toggleAddAddressModal }) => {
                   ref={lastNameInput}
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span>Teléfono:</span>
                 <input
                   className={styles.input}
@@ -101,7 +104,7 @@ const AddAddressModal = ({ toggleAddAddressModal }) => {
                   ref={phoneNumberInput}
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span>Dirección:</span>
                 <input
                   className={styles.input}
@@ -110,7 +113,7 @@ const AddAddressModal = ({ toggleAddAddressModal }) => {
                   ref={addressInput}
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span>Ciudad/Localidad:</span>
                 <input
                   className={styles.input}
@@ -119,7 +122,7 @@ const AddAddressModal = ({ toggleAddAddressModal }) => {
                   ref={cityInput}
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span>Código Postal:</span>
                 <input
                   className={styles.input}
@@ -130,7 +133,7 @@ const AddAddressModal = ({ toggleAddAddressModal }) => {
                 />
               </label>
 
-              <label>
+              <label className={styles.label}>
                 <span>Provincia</span>
                 <input
                   className={styles.input}

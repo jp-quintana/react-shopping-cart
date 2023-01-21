@@ -66,11 +66,14 @@ const EditAddressModal = ({
     <>
       {isLoading && <Loader />}
       {!isLoading && (
-        <CenterModal toggleModal={toggleEditAddressModal}>
+        <CenterModal
+          className={styles.modal}
+          toggleModal={toggleEditAddressModal}
+        >
           <form id="form" className={styles.form} onSubmit={handleSubmit}>
-            <h2 className={styles.title}>Editar Dirección:</h2>
+            <h2 className={styles.title}>Editar Direccion</h2>
             <div className={styles.form_inputs_wrapper}>
-              <label>
+              <label className={styles.label}>
                 <span>Nombre:</span>
                 <input
                   className={styles.input}
@@ -81,7 +84,7 @@ const EditAddressModal = ({
                   defaultValue={name}
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span>Apellido:</span>
                 <input
                   className={styles.input}
@@ -92,7 +95,7 @@ const EditAddressModal = ({
                   defaultValue={lastName}
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span>Teléfono:</span>
                 <input
                   className={styles.input}
@@ -102,7 +105,7 @@ const EditAddressModal = ({
                   defaultValue={phoneNumber}
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span>Dirección:</span>
                 <input
                   className={styles.input}
@@ -112,7 +115,7 @@ const EditAddressModal = ({
                   defaultValue={address}
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span>Ciudad/Localidad:</span>
                 <input
                   className={styles.input}
@@ -122,7 +125,7 @@ const EditAddressModal = ({
                   defaultValue={city}
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span>Código Postal:</span>
                 <input
                   className={styles.input}
@@ -134,8 +137,8 @@ const EditAddressModal = ({
                 />
               </label>
 
-              <label>
-                <span>Provincia</span>
+              <label className={styles.label}>
+                <span>Provincia:</span>
                 <input
                   className={styles.input}
                   type="text"

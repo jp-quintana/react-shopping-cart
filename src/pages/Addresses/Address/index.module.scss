@@ -13,20 +13,23 @@
   -o-transition: all 0.1s ease-in;
   -webkit-transition: all 0.1s ease-in;
   transition: all 0.1s ease-in;
-}
 
-.title {
-  padding-bottom: 2rem;
-  font-size: 1.6rem;
-}
+  .title {
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    font-size: 1.4rem;
+  }
 
-.content {
-  margin-top: auto;
-}
+  .content {
+    margin-top: auto;
 
-.name,
-.info {
-  font-family: 'Montserrat', sans-serif;
+    .name,
+    .info {
+      font-family: $font-f-secondary;
+      letter-spacing: $ls-secondary;
+      font-size: 1.5rem;
+    }
+  }
 }
 
 .controls {
