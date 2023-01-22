@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 import { CgShoppingBag, CgCheckO } from 'react-icons/cg';
 
 import { useCartContext } from 'hooks/useCartContext';
 import { useCart } from 'hooks/useCart';
 
-import CartItem from 'pages/Cart/CartContent/CartItem';
+import CartItem from 'pages/Cart/CartItem';
 
 import SideModal from 'common/SideModal';
 import Button from 'common/Button';
