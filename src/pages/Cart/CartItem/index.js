@@ -56,11 +56,11 @@ const CartItem = ({
         state={clearProduct}
         onClick={toggleCartModal ? toggleCartModal : ''}
       >
-        <div className={styles.info_wrapper}>
-          <div className={styles.info}>
-            <p className={styles.title}>{model}</p>
-            <p className={styles.type}>{`${type} ${color}`}</p>
-            <p className={styles.size}>Talle {size}</p>
+        <div className={styles.info_container}>
+          <div className={styles.info_wrapper}>
+            <p className={styles.title}>{`${type} ${model}`}</p>
+            <p className={styles.color}>{color}</p>
+            <p className={styles.size}>{size}</p>
             <p className={styles.price}>${formatNumber(price)}</p>
           </div>
           <img className={styles.image} src={thumbnail} alt="" />
@@ -68,17 +68,19 @@ const CartItem = ({
       </Link>
 
       <div className={styles.controls_wrapper}>
-        <div className={styles.delete}>
-          <FaTrash className={styles.delete_icon} onClick={handleDeleteItem} />
+        <div className={styles.delete_wrapper}>
+          <i className={styles.delete_icon} onClick={handleDeleteItem}>
+            <FaTrash />
+          </i>
         </div>
         <div className={styles.quantity_wrapper}>
-          <div className={styles.minus}>
-            <FaMinus className={styles.minus_icon} onClick={handleRemoveItem} />
-          </div>
+          <i className={styles.minus_icon} onClick={handleRemoveItem}>
+            <FaMinus />
+          </i>
           <div className={styles.quantity}>{amount}</div>
-          <div className={styles.plus}>
-            <FaPlus className={styles.plus_icon} onClick={handleAddItem} />
-          </div>
+          <i className={styles.plus_icon} onClick={handleAddItem}>
+            <FaPlus />
+          </i>
         </div>
         <div className={styles.total}>${addItemPrice({ price, amount })}</div>
       </div>

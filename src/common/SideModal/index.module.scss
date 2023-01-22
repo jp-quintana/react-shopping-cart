@@ -6,7 +6,7 @@
   transform: translate(50%, 0);
   bottom: 0;
   height: 80%;
-  width: 95%;
+  width: 100%;
   background-color: white;
   border-top-left-radius: 3rem;
   border-top-right-radius: 3rem;
@@ -15,6 +15,10 @@
   border-color: hsla(0, 0%, 5%, 0.2);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+  @media (min-width: 600px) {
+    width: 95%;
+  }
 
   @media (min-width: 900px) {
     height: 90%;

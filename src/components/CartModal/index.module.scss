@@ -77,11 +77,15 @@
       min-height: 100%;
 
       .list {
-        padding: 2rem;
+        padding: 2rem 1rem;
         width: 100%;
         display: flex;
         flex-direction: column;
         gap: 2rem;
+
+        @media (min-width: 600px) {
+          padding: 2rem;
+        }
       }
     }
   }
