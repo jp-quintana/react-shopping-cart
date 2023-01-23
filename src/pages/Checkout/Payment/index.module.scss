@@ -1,3 +1,5 @@
+@import 'App.scss';
+
 .loader_wrapper {
   height: auto!important;
   padding-top: 4rem;
@@ -22,7 +24,8 @@
   p,
   span,
   label {
-    font-family: 'Montserrat', sans-serif;
+    font-family: $font-f-secondary;
+    letter-spacing: $ls-secondary;
   }
 
   label {
@@ -49,7 +52,8 @@
   border-radius: 1rem;
   padding: 1rem 0;
 
-  font-family: 'Montserrat', sans-serif;
+  font-family: $font-f-secondary;
+  letter-spacing: $ls-secondary;
 
   & > div {
     &:not(:first-child) {
@@ -144,7 +148,8 @@
 
   .input_no_focus {
     padding: 1.5rem 1rem 1.5rem;
-    font-family: 'Montserrat', sans-serif;
+    font-family: $font-f-secondary;
+    letter-spacing: $ls-secondary;
     letter-spacing: normal;
   }
 
@@ -159,7 +164,8 @@
 
   p,
   button {
-    font-family: 'Montserrat', sans-serif;
+    font-family: $font-f-secondary;
+    letter-spacing: $ls-secondary;
   }
 }
 
@@ -168,10 +174,18 @@
   align-items: center;
   line-height: normal;
   color: #fff;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
+
+  @media (min-width: 360px) {
+    font-size: 1.6rem;
+  }
 
   span {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+
+    @media (min-width: 360px) {
+      font-size: 1.8rem;
+    }
   }
 
   &:hover {
@@ -182,11 +196,11 @@
 
 .button {
   margin-left: auto;
-  padding: 2rem;
+  padding: 1.2rem;
   //override tailwind
   background-color: #48e471 !important;
-  font-size: 1.6rem;
-  font-weight: bold;
+  font-size: 1.4rem;
+  font-weight: $font-w-700;
   border-radius: 1rem;
 
   -webkit-user-select: none;
@@ -199,6 +213,11 @@
   -o-transition: all 0.2s ease-in;
   -webkit-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
+
+  @media (min-width: 360px) {
+    font-size: 1.6rem;
+    padding: 2rem;
+  }
 
   &:active {
     transform: scale(0.9);

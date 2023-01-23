@@ -1,3 +1,5 @@
+@import 'App.scss';
+
 .shipping_option_wrapper {
   h2 {
     color: #fff;
@@ -10,7 +12,8 @@
   p,
   span,
   button {
-    font-family: 'Montserrat', sans-serif;
+    font-family: $font-f-secondary;
+    letter-spacing: $ls-secondary;
   }
 }
 
@@ -56,7 +59,7 @@
 }
 
 .loader_wrapper {
-  height: auto!important;
+  height: auto !important;
   padding-top: 4rem;
 }
 
@@ -109,10 +112,18 @@
   align-items: center;
   line-height: normal;
   color: #fff;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
+
+  @media (min-width: 360px) {
+    font-size: 1.6rem;
+  }
 
   span {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+
+    @media (min-width: 360px) {
+      font-size: 1.8rem;
+    }
   }
 
   &:hover {
@@ -123,11 +134,11 @@
 
 .button {
   margin-left: auto;
-  padding: 2rem;
+  padding: 1.2rem;
   //override tailwind
   background-color: #48e471 !important;
-  font-size: 1.6rem;
-  font-weight: bold;
+  font-size: 1.4rem;
+  font-weight: $font-w-700;
   border-radius: 1rem;
 
   -webkit-user-select: none;
@@ -140,6 +151,12 @@
   -o-transition: all 0.2s ease-in;
   -webkit-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
+
+  @media (min-width: 360px) {
+    font-size: 1.6rem;
+    padding: 2rem;
+  }
+
 
   &:active {
     transform: scale(0.9);
