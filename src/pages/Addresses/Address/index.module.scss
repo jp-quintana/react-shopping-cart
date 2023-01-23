@@ -72,13 +72,15 @@
 }
 
 .delete_icon {
+  padding: 1rem;
+  font-size: 3.2rem;
+  border-radius: 50rem;
+  
   -moz-transition: all 0.1s ease-in;
   -o-transition: all 0.1s ease-in;
   -webkit-transition: all 0.1s ease-in;
   transition: all 0.1s ease-in;
-  padding: 1rem;
-  font-size: 3.2rem;
-  border-radius: 50rem;
+  
 
   &:hover {
     cursor: pointer;
