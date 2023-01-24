@@ -31,6 +31,11 @@ const App = () => {
 
   return (
     <>
+      <div className="fonts_license">
+        Font made from{' '}
+        <a href="http://www.onlinewebfonts.com">oNline Web Fonts</a>is licensed
+        by CC BY 3.0
+      </div>
       {(!authIsReady || !cartIsReady) && <Loader />}
       {authIsReady && cartIsReady && (
         <Routes>

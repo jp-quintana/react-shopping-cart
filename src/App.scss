@@ -1,6 +1,23 @@
-@import url('https://db.onlinewebfonts.com/c/55d433372d270829c51e2577a78ef12d?family=Monument+Extended');
-@import url('https://db.onlinewebfonts.com/c/a4745f4b1d04fa025c6a05d891ed0126?family=Monument+Extended+Ultrabold');
+// @import url('https://db.onlinewebfonts.com/c/55d433372d270829c51e2577a78ef12d?family=Monument+Extended');
+// @import url('https://db.onlinewebfonts.com/c/a4745f4b1d04fa025c6a05d891ed0126?family=Monument+Extended+Ultrabold');
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+@font-face {font-family: "Monument Extended";
+  src: url("https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.eot"); /* IE9*/
+  src: url("https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+  url("https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.woff2") format("woff2"), /* chrome firefox */
+  url("https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.woff") format("woff"), /* chrome firefox */
+  url("https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.ttf") format("truetype"), /* chrome firefox opera Safari, Android, iOS 4.2+*/
+  url("https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.svg#Monument Extended") format("svg"); /* iOS 4.1- */
+}
+@font-face {font-family: "Monument Extended Ultrabold";
+  src: url("https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.eot"); /* IE9*/
+  src: url("https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+  url("https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.woff2") format("woff2"), /* chrome firefox */
+  url("https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.woff") format("woff"), /* chrome firefox */
+  url("https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.ttf") format("truetype"), /* chrome firefox opera Safari, Android, iOS 4.2+*/
+  url("https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.svg#Monument Extended Ultrabold") format("svg"); /* iOS 4.1- */
+}
 
 @tailwind base;
 @tailwind components;
@@ -162,6 +179,10 @@ footer {
   margin-top: auto;
 }
 
+.fonts_license {
+  display: none;
+}
+
 .main-container {
   max-width: 125rem;
   width: 90%;
@@ -175,3 +196,4 @@ footer {
 .swiper-pagination-bullet-active {
   background-color: #fff !important;
 }
+
