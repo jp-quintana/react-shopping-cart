@@ -8,9 +8,9 @@ import { useKeyDown } from 'hooks/useKeyDown';
 
 import CartItem from 'pages/Cart/CartItem';
 
-import Button from 'common/Button';
-import Toast from 'common/Toast';
-import ToastMessage from 'common/ToastMessage';
+import Button from 'components/Button';
+import Toast from 'components/Toast';
+import ToastMessage from 'components/ToastMessage';
 
 import { addAllItemsPrice } from 'helpers/item';
 

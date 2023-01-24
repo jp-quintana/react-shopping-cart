@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useAddress } from 'hooks/useAddress';
 import { useKeyDown } from 'hooks/useKeyDown';
 
-import Loader from 'common/Loader';
+import Loader from 'components/Loader';
 
 import styles from './index.module.scss';
 

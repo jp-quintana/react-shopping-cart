@@ -6,11 +6,11 @@ import { useInventory } from 'hooks/useInventory';
 
 import CartItem from './CartItem';
 
-import Button from 'common/Button';
-import Card from 'common/Card';
-import Loader from 'common/Loader';
-import Toast from 'common/Toast';
-import ToastMessage from 'common/ToastMessage';
+import Button from 'components/Button';
+import Card from 'components/Card';
+import Loader from 'components/Loader';
+import Toast from 'components/Toast';
+import ToastMessage from 'components/ToastMessage';
 
 import { addAllItemsPrice } from 'helpers/item';
 

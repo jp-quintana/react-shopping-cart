@@ -6,7 +6,7 @@ import Header from './Header';
 import Footer from './Footer';
 
 import CartContent from 'components/CartContent';
-import SideModal from 'common/SideModal';
+import SideModal from 'components/SideModal';
 
 const Layout = () => {
   const location = useLocation();

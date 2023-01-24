@@ -1,6 +1,6 @@
 import { createPortal } from 'react-dom';
 
-import Backdrop from 'common/Backdrop';
+import Backdrop from 'components/Backdrop';
 
 import styles from './index.module.scss';
 

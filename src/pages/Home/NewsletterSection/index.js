@@ -1,4 +1,4 @@
-import Button from 'common/Button';
+import Button from 'components/Button';
 import styles from './index.module.scss';
 
 const NewsletterSection = () => {

@@ -1,5 +1,5 @@
-import Card from 'common/Card';
-import Button from 'common/Button';
+import Card from 'components/Card';
+import Button from 'components/Button';
 
 import styles from './index.module.scss';
 

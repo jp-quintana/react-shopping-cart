@@ -9,7 +9,7 @@ import { useOrder } from 'hooks/useOrder';
 
 import CheckoutSummary from '../CheckoutSummary';
 
-import Loader from 'common/Loader';
+import Loader from 'components/Loader';
 
 import { formatCardNumber, formatExpiryDate, formatCvv } from 'helpers/format';
 

@@ -3,11 +3,11 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
 
-import Backdrop from 'common/Backdrop';
+import Backdrop from 'components/Backdrop';
 
 import styles from './index.module.scss';
 
-const SideModal = ({
+const CenterModal = ({
   children,
   toggleModal,
   backdropClassName,
@@ -17,19 +17,19 @@ const SideModal = ({
   const overlaysElement = document.getElementById('overlays');
 
   const isBigScreen = useMediaQuery({
-    query: '(min-width: 900px)',
+    query: '(min-width: 768px)',
   });
 
   const variants = isBigScreen
     ? {
-        initial: { x: '100vw', y: '-50%', opacity: 0 },
-        visible: { x: 0, y: '-50%', opacity: 1 },
-        exit: { x: '100vw', y: '-50%', opacity: 0 },
+        initial: { x: '50%', y: '100vh' },
+        visible: { x: '50%', y: '-50%' },
+        exit: { x: '50%', y: '100vh' },
       }
     : {
-        initial: { x: '50%', y: '100vh', opacity: 0 },
-        visible: { x: '50%', y: 0, opacity: 1 },
-        exit: { x: '50%', y: '100vh', opacity: 0 },
+        initial: { x: '50%', y: '100vh' },
+        visible: { x: '50%', y: 0 },
+        exit: { x: '50%', y: '100vh' },
       };
 
   return (
@@ -44,9 +44,9 @@ const SideModal = ({
             backdropElement
           )}
           {createPortal(
-            <motion.aside
+            <motion.div
               className={`${styles.modal} ${modalClassName}`}
-              key="sidemodal"
+              key="centermodal"
               variants={variants}
               initial="initial"
               animate="visible"
@@ -54,7 +54,7 @@ const SideModal = ({
               exit="exit"
             >
               {children}
-            </motion.aside>,
+            </motion.div>,
             overlaysElement
           )}
         </>
@@ -63,4 +63,4 @@ const SideModal = ({
   );
 };
 
-export default SideModal;
+export default CenterModal;

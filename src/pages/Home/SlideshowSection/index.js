@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
-import Button from 'common/Button';
-import Slideshow from 'common/Slideshow';
+import Button from 'components/Button';
+import Slideshow from 'components/Slideshow';
 
 import {
   BIG_SCREEN_SLIDES as bigScreenSlides,

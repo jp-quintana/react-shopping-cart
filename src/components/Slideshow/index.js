@@ -4,7 +4,7 @@ import {
 } from 'react-icons/io';
 
 import Slide from './Slide';
-import Card from 'common/Card';
+import Card from 'components/Card';
 
 const Slideshow = ({ slides, className }) => {
   return (

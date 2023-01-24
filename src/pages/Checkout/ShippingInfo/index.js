@@ -7,7 +7,7 @@ import { BiChevronLeft } from 'react-icons/bi';
 import { useCheckoutContext } from 'hooks/useCheckoutContext';
 import { useCheckout } from 'hooks/useCheckout';
 
-import Loader from 'common/Loader';
+import Loader from 'components/Loader';
 
 import styles from './index.module.scss';
 

@@ -10,11 +10,11 @@ import { useAddress } from 'hooks/useAddress';
 import AddAddress from './AddAddress';
 import Address from './Address';
 
-import Button from 'common/Button';
-import Loader from 'common/Loader';
-import Toast from 'common/Toast';
-import ToastMessage from 'common/ToastMessage';
-import CenterModal from 'common/CenterModal';
+import Button from 'components/Button';
+import Loader from 'components/Loader';
+import Toast from 'components/Toast';
+import ToastMessage from 'components/ToastMessage';
+import CenterModal from 'components/CenterModal';
 
 import styles from './index.module.scss';
 

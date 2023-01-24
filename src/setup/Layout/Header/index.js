@@ -4,7 +4,7 @@ import { useMediaQuery } from 'react-responsive';
 import Nav from './Nav';
 import SideNav from './SideNav';
 
-import SideModal from 'common/SideModal';
+import SideModal from 'components/SideModal';
 
 import styles from './index.module.scss';
 

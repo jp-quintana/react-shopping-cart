@@ -14,7 +14,7 @@ import {
 import { useAuthContext } from 'hooks/useAuthContext';
 import { useKeyDown } from 'hooks/useKeyDown';
 
-import Slideshow from 'common/Slideshow';
+import Slideshow from 'components/Slideshow';
 
 import { SLIDES as slides } from './data';
 

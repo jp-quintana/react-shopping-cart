@@ -8,7 +8,7 @@ import { CgSearch } from 'react-icons/cg';
 
 import CartIcon from './CartIcon';
 
-import Button from 'common/Button';
+import Button from 'components/Button';
 
 import LogoNav from 'assets/images/logo-nav.png';
 

@@ -4,7 +4,7 @@ import { FaTrash } from 'react-icons/fa';
 
 import EditAddress from './EditAddress';
 
-import CenterModal from 'common/CenterModal';
+import CenterModal from 'components/CenterModal';
 
 import styles from './index.module.scss';
 

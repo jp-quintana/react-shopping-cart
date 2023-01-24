@@ -8,11 +8,11 @@ import { useCart } from 'hooks/useCart';
 import ProductVariant from './ProductVariant';
 import ProductSize from './ProductSize';
 
-import Button from 'common/Button';
-import Loader from 'common/Loader';
-import Slider from 'common/Slider';
-import Toast from 'common/Toast';
-import ToastMessage from 'common/ToastMessage';
+import Button from 'components/Button';
+import Loader from 'components/Loader';
+import Slider from 'components/Slider';
+import Toast from 'components/Toast';
+import ToastMessage from 'components/ToastMessage';
 
 import { formatNumber } from 'helpers/format';
 

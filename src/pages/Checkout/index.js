@@ -11,9 +11,9 @@ import ShippingOption from './ShippingOption';
 import Payment from './Payment';
 import OrderSummary from './OrderSummary';
 
-import Loader from 'common/Loader';
-import Toast from 'common/Toast';
-import ToastMessage from 'common/ToastMessage';
+import Loader from 'components/Loader';
+import Toast from 'components/Toast';
+import ToastMessage from 'components/ToastMessage';
 
 import logo from 'assets/images/checkout-logo-nav.png';
 

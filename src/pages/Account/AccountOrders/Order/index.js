@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import OrderContent from './OrderContent';
 
-import CenterModal from 'common/CenterModal';
+import CenterModal from 'components/CenterModal';
 
 import { formatDate } from 'helpers/format';
 

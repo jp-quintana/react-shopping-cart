@@ -4,7 +4,7 @@ import { BiUser, BiEnvelope, BiPhone } from 'react-icons/bi';
 
 import EditProfile from './EditProfile';
 
-import CenterModal from 'common/CenterModal';
+import CenterModal from 'components/CenterModal';
 
 import styles from './index.module.scss';
 

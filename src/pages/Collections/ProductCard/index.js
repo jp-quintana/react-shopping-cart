@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import Card from 'common/Card';
+import Card from 'components/Card';
 
 import { formatNumber } from 'helpers/format';
 

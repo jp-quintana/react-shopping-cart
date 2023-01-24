@@ -3,7 +3,7 @@ import { useCheckout } from 'hooks/useCheckout';
 
 import CheckoutSummary from '../CheckoutSummary';
 
-import Loader from 'common/Loader';
+import Loader from 'components/Loader';
 
 import { BiChevronLeft } from 'react-icons/bi';
 
