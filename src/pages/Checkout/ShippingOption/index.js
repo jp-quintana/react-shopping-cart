@@ -26,7 +26,7 @@ const ShippingOption = () => {
   return (
     <div className={styles.shipping_option_wrapper}>
       {isLoading && (
-        <Loader className={styles.loader_wrapper} noPortal={true} />
+        <Loader wrapperClassName={styles.loader_wrapper} noPortal={true} />
       )}
       {!isLoading && (
         <>

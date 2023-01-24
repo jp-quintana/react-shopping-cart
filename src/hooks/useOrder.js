@@ -6,6 +6,7 @@ import {
   collection,
   query,
   where,
+  orderBy,
   getDocs,
   addDoc,
   Timestamp,
@@ -73,7 +74,11 @@ export const useOrder = () => {
     try {
       const orders = [];
 
-      const q = query(ordersRef, where('createdBy', '==', user.uid));
+      const q = query(
+        ordersRef,
+        where('createdBy', '==', user.uid),
+        orderBy('createdAt', 'desc')
+      );
 
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {

@@ -44,7 +44,8 @@ const OrderContent = ({ toggleOrderModal, id, items, date }) => {
       <div className={styles.modal_footer}>
         <p>
           <span>Total: {addAllItemsPrice(items)} </span> |{' '}
-          {addAllItemsAmount(items)} Items
+          {addAllItemsAmount(items)}{' '}
+          {addAllItemsAmount(items) > 1 ? 'Items' : 'Item'}
         </p>
         <Button className={styles.button} onClick={toggleOrderModal}>
           Volver a mi cuenta

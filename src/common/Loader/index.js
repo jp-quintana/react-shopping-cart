@@ -7,7 +7,6 @@ import styles from './index.module.scss';
 import LoaderImage from 'assets/images/loader.png';
 
 const Loader = ({
-  className,
   noPortal,
   backdropClassName,
   wrapperClassName,
@@ -19,8 +18,12 @@ const Loader = ({
   if (noPortal) {
     return (
       <>
-        <div className={`${className} ${styles.loader_wrapper}`}>
-          <img className={styles.loader} src={LoaderImage} alt="" />
+        <div className={`${styles.loader_wrapper} ${wrapperClassName}`}>
+          <img
+            className={`${styles.loader} ${loaderClassName}`}
+            src={LoaderImage}
+            alt=""
+          />
         </div>
       </>
     );
@@ -34,7 +37,11 @@ const Loader = ({
       )}
       {createPortal(
         <div className={`${styles.loader_wrapper} ${wrapperClassName}`}>
-          <img className={styles.loader} src={LoaderImage} alt="" />
+          <img
+            className={`${styles.loader} ${loaderClassName}`}
+            src={LoaderImage}
+            alt=""
+          />
         </div>,
         overlaysElement
       )}

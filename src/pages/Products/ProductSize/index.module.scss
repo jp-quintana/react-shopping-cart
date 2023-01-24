@@ -26,6 +26,7 @@
 
   &:hover {
     cursor: pointer;
+    background-color: $back-c-var-hover;
   }
 
   &:active {
@@ -36,13 +37,21 @@
 .no_stock {
   border: none;
   text-decoration: line-through;
+
+  &:hover {
+    background-color: transparent;
+  }
 }
 
 .fill {
   border: none;
-  background-color: #000;
+  background-color: $back-c-button-primary;
   color: #fff;
   font-weight: $font-w-700;
+
+  &:hover {
+    background-color: $back-c-button-primary;
+  }
 }
 
 .no_stock,

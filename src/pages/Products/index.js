@@ -56,7 +56,7 @@ const Products = () => {
         setToastMessage({
           addToCartSuccess: true,
           _thumbnail: selectedVariant.images[0].src,
-          details: `${selectedProduct.type} ${selectedProduct.model} ${selectedVariant.color} - ${selectedSize}`,
+          details: `${selectedProduct.type} ${selectedProduct.model} - ${selectedVariant.color} - ${selectedSize}`,
         });
       } else if (error) {
         setToastMessage({ error, details: error.details });

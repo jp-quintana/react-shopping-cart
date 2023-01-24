@@ -1,5 +1,9 @@
 @import 'App.scss';
 
+.loader_wrapper {
+  height: 100% !important;
+}
+
 .form {
   height: 100%;
   display: flex;
@@ -58,11 +62,11 @@
   .button {
     padding: 1rem 2rem;
     font-size: 1.6rem;
-    border: solid 0.2rem #000;
+    border: solid 0.2rem $back-c-button-primary;
     border-radius: 1rem;
     width: 100%;
     // override tailwind css
-    background: #000 !important;
+    background: $back-c-button-primary !important;
     color: white;
     text-transform: uppercase;
     letter-spacing: $ls-button;
@@ -77,6 +81,11 @@
     -o-transition: all 0.1s ease-in;
     -webkit-transition: all 0.1s ease-in;
     transition: all 0.1s ease-in;
+
+    &:hover {
+      border: solid 0.2rem $back-c-button-hover;
+      background: $back-c-button-hover !important;
+    }
 
     &:active {
       transform: scale(0.9);

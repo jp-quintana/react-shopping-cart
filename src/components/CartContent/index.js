@@ -51,7 +51,7 @@ const CartContent = ({ toggleCartModal }) => {
             to="/categorias/productos"
             onClick={toggleCartModal}
           >
-            Agregá productos
+            Agrega productos
           </Button>
         </div>
       </>
@@ -95,7 +95,7 @@ const CartContent = ({ toggleCartModal }) => {
           <div className={styles.footer_wrapper}>
             <p>
               <span>Total: ${addAllItemsPrice(items)} </span> | {totalAmount}{' '}
-              Items
+              {+totalAmount > 1 ? 'items' : 'item'}
             </p>
             <div className={styles.buttons_wrapper}>
               <Button

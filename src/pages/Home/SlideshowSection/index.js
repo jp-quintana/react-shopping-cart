@@ -14,8 +14,8 @@ import styles from './index.module.scss';
 const SlideshowSection = () => {
   const [showContent, setShowContent] = useState(true);
 
-  const isSmallScreen = useMediaQuery({
-    query: '(max-width: 900px)',
+  const isBigScreen = useMediaQuery({
+    query: '(min-width: 900px)',
   });
 
   // TODO: AGREGAR EFECTO CUANDO APARECE EL CONTENIDO
@@ -27,7 +27,7 @@ const SlideshowSection = () => {
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [isSmallScreen]);
+  }, [isBigScreen]);
 
   return (
     <section className={styles.section}>
@@ -45,8 +45,8 @@ const SlideshowSection = () => {
               </Button>
             </div>
           )}
-          {!isSmallScreen && <Slideshow slides={bigScreenSlides} />}
-          {isSmallScreen && (
+          {isBigScreen && <Slideshow slides={bigScreenSlides} />}
+          {!isBigScreen && (
             <Slideshow slides={smallScreenSlides} className={styles.image} />
           )}
         </div>

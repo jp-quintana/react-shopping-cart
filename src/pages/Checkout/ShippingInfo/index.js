@@ -171,7 +171,7 @@ const ShippingInfo = () => {
   return (
     <div className={styles.info_container}>
       {isLoading && (
-        <Loader className={styles.loader_wrapper} noPortal={true} />
+        <Loader wrapperClassName={styles.loader_wrapper} noPortal={true} />
       )}
       {!isLoading && (
         <form className={styles.info_form} onSubmit={handleSubmit}>

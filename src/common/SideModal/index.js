@@ -3,8 +3,6 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
 
-// import { useKeyDown } from 'hooks/useKeyDown';
-
 import Backdrop from 'common/Backdrop';
 
 import styles from './index.module.scss';
@@ -17,10 +15,6 @@ const SideModal = ({
 }) => {
   const backdropElement = document.getElementById('backdrop');
   const overlaysElement = document.getElementById('overlays');
-
-  // useKeyDown(() => {
-  //   toggleModal();
-  // }, ['Escape']);
 
   const isBigScreen = useMediaQuery({
     query: '(min-width: 900px)',

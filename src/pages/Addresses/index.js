@@ -79,12 +79,17 @@ const Addresses = () => {
 
           <div className={styles.addresses_container}>
             {isLoading && (
-              <Loader className={styles.loader_wrapper} noPortal={true} />
+              <Loader
+                wrapperClassName={styles.loader_wrapper}
+                noPortal={true}
+              />
             )}
             {!isLoading && (
               <>
                 {addresses.length === 0 && (
-                  <h2>Todavia no agregaste una direccion!</h2>
+                  <h2 className={styles.no_addresses}>
+                    Todavia no agregaste una direccion!
+                  </h2>
                 )}
 
                 {addresses.length > 0 && (

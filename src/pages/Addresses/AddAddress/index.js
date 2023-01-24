@@ -70,7 +70,9 @@ const AddAddress = ({ toggleAddAddressModal }) => {
           <ToastMessage toggleToast={toggleToast} content={toastMessage} />
         )}
       </Toast>
-      {isLoading && <Loader noPortal={true} />}
+      {isLoading && (
+        <Loader noPortal={true} wrapperClassName={styles.loader_wrapper} />
+      )}
       {!isLoading && (
         <form id="form" className={styles.form} onSubmit={handleSubmit}>
           <h2 className={styles.title}>Agregar Dirección:</h2>

@@ -33,10 +33,10 @@
     .products_button {
       padding: 1rem 2rem;
       font-size: 1.2rem;
-      border: solid 0.2rem #000;
+      border: solid 0.2rem $back-c-button-primary;
       border-radius: 1rem;
       width: 100%;
-      background: #000;
+      background-color: $back-c-button-primary;
       color: #fff;
       text-transform: uppercase;
       letter-spacing: $ls-button;
@@ -52,6 +52,8 @@
       }
 
       &:hover {
+        background-color: $back-c-button-hover;
+        border: solid 0.2rem $back-c-button-hover;
         color: #fff;
       }
 
@@ -114,7 +116,6 @@
       -o-transition: all 0.1s ease-in;
       -webkit-transition: all 0.1s ease-in;
       transition: all 0.1s ease-in;
-
 
       @media (min-width: 480px) {
         font-size: 1.6rem;
