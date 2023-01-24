@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 
-import { RiInstagramLine, RiTwitterLine, RiSpotifyLine } from 'react-icons/ri';
+import { FaInstagram, FaTwitterSquare, FaSpotify } from 'react-icons/fa';
 
 import styles from './index.module.scss';
 
 const Footer = () => {
   return (
     <footer className={styles.footer}>
-      <div className={`${styles.container} main-container`}>
+      <div className={styles.container}>
         <div className={styles.sitemap}>
           <div className={styles.nav_wrapper}>
             <h4 className={styles.nav_title}>Ayuda</h4>
@@ -41,13 +41,13 @@ const Footer = () => {
             target="_blank"
             rel="noreferrer"
           >
-            <RiInstagramLine />
+            <FaInstagram />
           </a>
           <a href="https://twitter.com" target="_blank" rel="noreferrer">
-            <RiTwitterLine />
+            <FaTwitterSquare />
           </a>
           <a href="https://spotify.com" target="_blank" rel="noreferrer">
-            <RiSpotifyLine />
+            <FaSpotify />
           </a>
         </div>
       </div>

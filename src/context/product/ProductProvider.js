@@ -13,7 +13,7 @@ const initialState = {
   selectedVariant: null,
   selectedSku: '',
   selectedSize: '',
-  selectedStock: 0,
+  // selectedStock: 0,
 };
 
 const productReducer = (state, action) => {
@@ -37,7 +37,7 @@ const productReducer = (state, action) => {
         selectedVariant: action.payload,
         selectedSku: '',
         selectedSize: '',
-        selectedStock: 0,
+        // selectedStock: 0,
       };
     }
     case 'SELECT_SIZE': {
@@ -45,7 +45,7 @@ const productReducer = (state, action) => {
         ...state,
         selectedSku: action.payload.id,
         selectedSize: action.payload.value,
-        selectedStock: action.payload.stock,
+        // selectedStock: action.payload.stock,
       };
     }
     default: {

@@ -1,9 +1,12 @@
+import Button from 'components/Button';
 import styles from './index.module.scss';
 
 const NewsletterSection = () => {
   const newsletterSubmitHandler = (e) => {
     e.preventDefault();
   };
+
+  // TODO: AGREGARLE FUNCIONAMIENTO AL BOTON DE ENVIO
 
   return (
     <section className={styles.section}>
@@ -20,7 +23,9 @@ const NewsletterSection = () => {
               placeholder="Tu Dirección de Email"
               type="text"
             />
-            <button className={styles.button}>Enviar</button>
+            <Button type="submit" className={`${styles.button} disabled-link`}>
+              Enviar
+            </Button>
           </form>
         </div>
       </div>

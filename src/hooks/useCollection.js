@@ -33,6 +33,7 @@ export const useCollection = () => {
             price: variant.price,
             url: variant.url,
             images: variant.images,
+            numberOfVariants: product.variants.length,
           });
         }
       }

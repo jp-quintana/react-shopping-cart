@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-
 import { useAuthContext } from 'hooks/useAuthContext';
+
+import Button from 'components/Button';
 
 import styles from './index.module.scss';
 
@@ -16,11 +16,15 @@ const AccountAddresses = () => {
       <div className={styles.addresses_wrapper}>
         <h3 className={styles.addresses_titles}>Mis Direcciones</h3>
         <div className={styles.addresses_list}>
-          {addresses.length === 0 && <p>Todavía no agregaste una dirección!</p>}
+          {addresses.length === 0 && (
+            <p className={styles.no_addresses}>
+              Todavía no agregaste una dirección
+            </p>
+          )}
 
           {addresses.length > 0 && (
             <>
-              <div>
+              <div className={styles.address_wrapper}>
                 <h3 className={styles.title}>Direccion predeterminada</h3>
 
                 <h4 className={styles.name}>
@@ -35,7 +39,7 @@ const AccountAddresses = () => {
                 </ul>
               </div>
               {otherAddresses.map((address) => (
-                <div key={address.id}>
+                <div className={styles.address_wrapper} key={address.id}>
                   <h3 className={styles.title}>Direccion {address.id}</h3>
 
                   <h4 className={styles.name}>
@@ -53,9 +57,9 @@ const AccountAddresses = () => {
             </>
           )}
         </div>
-        <Link className={styles.edit_button} to="/cuenta/direcciones">
+        <Button className={styles.edit_button} to="/cuenta/direcciones">
           Editar Direcciones
-        </Link>
+        </Button>
       </div>
     </div>
   );

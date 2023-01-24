@@ -7,12 +7,14 @@ import { BiChevronLeft, BiPlus } from 'react-icons/bi';
 import { useAuthContext } from 'hooks/useAuthContext';
 import { useAddress } from 'hooks/useAddress';
 
-import AddAddressModal from './AddAddressModal';
+import AddAddress from './AddAddress';
 import Address from './Address';
 
-import Button from 'common/Button';
-import Loader from 'common/Loader';
-import NotificationModal from 'common/NotificationModal';
+import Button from 'components/Button';
+import Loader from 'components/Loader';
+import Toast from 'components/Toast';
+import ToastMessage from 'components/ToastMessage';
+import CenterModal from 'components/CenterModal';
 
 import styles from './index.module.scss';
 
@@ -21,7 +23,7 @@ const Addresses = () => {
   const { deleteAddress, isLoading, error } = useAddress();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [notificationModal, setNotificationModal] = useState(null);
+  const [toastMessage, setToastMessage] = useState(null);
 
   const defaultAddress = addresses.find((address) => address.isMain);
 
@@ -33,25 +35,27 @@ const Addresses = () => {
 
   useEffect(() => {
     if (error) {
-      setNotificationModal({ error, details: error.details });
+      setToastMessage({ error, details: error.details });
     }
   }, [error]);
 
-  const toggleNotificationModal = () => {
-    setNotificationModal(null);
+  const toggleToast = () => {
+    setToastMessage(null);
   };
 
   return (
     <>
-      {notificationModal && (
-        <NotificationModal
-          toggleNotificationModal={toggleNotificationModal}
-          content={notificationModal}
-        />
-      )}
-      {isOpen && (
-        <AddAddressModal toggleAddAddressModal={toggleAddAddressModal} />
-      )}
+      <Toast>
+        {toastMessage && (
+          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+        )}
+      </Toast>
+      <CenterModal
+        modalClassName={styles.modal}
+        toggleModal={toggleAddAddressModal}
+      >
+        {isOpen && <AddAddress toggleAddAddressModal={toggleAddAddressModal} />}
+      </CenterModal>
       <section>
         <div className={`${styles.container} main-container`}>
           <Link className={styles.back_button} to="/cuenta">
@@ -75,12 +79,17 @@ const Addresses = () => {
 
           <div className={styles.addresses_container}>
             {isLoading && (
-              <Loader className={styles.loader_wrapper} noPortal={true} />
+              <Loader
+                wrapperClassName={styles.loader_wrapper}
+                noPortal={true}
+              />
             )}
             {!isLoading && (
               <>
                 {addresses.length === 0 && (
-                  <h2>Todavia no agregaste una direccion!</h2>
+                  <h2 className={styles.no_addresses}>
+                    Todavia no agregaste una direccion!
+                  </h2>
                 )}
 
                 {addresses.length > 0 && (

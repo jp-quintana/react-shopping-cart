@@ -8,9 +8,10 @@ import AccountOrders from './AccountOrders';
 import AccountProfile from './AccountProfile';
 import AccountAddresses from './AccountAddresses';
 
-import Button from 'common/Button';
-import Loader from 'common/Loader';
-import NotificationModal from 'common/NotificationModal';
+import Button from 'components/Button';
+import Loader from 'components/Loader';
+import Toast from 'components/Toast';
+import ToastMessage from 'components/ToastMessage';
 
 import styles from './index.module.scss';
 
@@ -21,7 +22,7 @@ const Account = () => {
   const { logout } = useLogout();
 
   const [orders, setOrders] = useState(null);
-  const [notificationModal, setNotificationModal] = useState(null);
+  const [toastMessage, setToastMessage] = useState(null);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -38,15 +39,15 @@ const Account = () => {
 
   useEffect(() => {
     if (error) {
-      setNotificationModal({
+      setToastMessage({
         error,
         details: 'No se pudieron recuperar las órdenes.',
       });
     }
   }, [error]);
 
-  const toggleNotificationModal = () => {
-    setNotificationModal(null);
+  const toggleToast = () => {
+    setToastMessage(null);
   };
 
   const handleLogout = async () => {
@@ -55,12 +56,11 @@ const Account = () => {
 
   return (
     <>
-      {notificationModal && (
-        <NotificationModal
-          toggleNotificationModal={toggleNotificationModal}
-          content={notificationModal}
-        />
-      )}
+      <Toast>
+        {toastMessage && (
+          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+        )}
+      </Toast>
       {!orders && <Loader />}
       {orders && (
         <>

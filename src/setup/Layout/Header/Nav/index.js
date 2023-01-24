@@ -1,11 +1,14 @@
+import { useState, useEffect } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 
 import { useAuthContext } from 'hooks/useAuthContext';
 
-import { FaBars } from 'react-icons/fa';
-import { BiSearch } from 'react-icons/bi';
+import { RiMenuLine } from 'react-icons/ri';
+import { CgSearch } from 'react-icons/cg';
 
 import CartIcon from './CartIcon';
+
+import Button from 'components/Button';
 
 import LogoNav from 'assets/images/logo-nav.png';
 
@@ -16,17 +19,87 @@ const Navbar = ({ toggleSideNav, toggleCartModal }) => {
 
   const { isVerified } = useAuthContext();
 
+  const [hasScrolled, setHasSrolled] = useState(false);
+
+  const resizeHeaderOnScroll = () => {
+    setHasSrolled((hasScrolled) => {
+      if (
+        !hasScrolled &&
+        (document.body.scrollTop > 20 ||
+          document.documentElement.scrollTop > 20)
+      ) {
+        return true;
+      }
+
+      if (
+        hasScrolled &&
+        document.body.scrollTop < 4 &&
+        document.documentElement.scrollTop < 4
+      ) {
+        return false;
+      }
+
+      return hasScrolled;
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', resizeHeaderOnScroll);
+
+    return () => window.removeEventListener('scroll', resizeHeaderOnScroll);
+  }, []);
+
   const handleToggleCartModal = () => {
     if (pathname !== '/carrito') {
       toggleCartModal();
     }
   };
 
+  const navStyles = hasScrolled
+    ? `${styles.nav} ${styles.hasScrolled}`
+    : styles.nav;
+
   return (
-    <nav className={`${styles.nav}`}>
+    <nav className={navStyles}>
       <div className={styles.container_top}>
-        {!isVerified && <Link to="/cuenta/login">Login</Link>}
-        {isVerified && <Link to="/cuenta">Mi Cuenta</Link>}
+        <Button className={`${styles.link} ${styles.info_link}`} type="button">
+          Info
+        </Button>
+        <ul className={styles.info_list}>
+          <li>
+            <Link className={styles.link} to="/">
+              Info
+            </Link>
+          </li>
+          <li>
+            <Link className={styles.link} to="/">
+              Envios
+            </Link>
+          </li>
+          <li>
+            <Link className={styles.link} to="/">
+              Devoluciones
+            </Link>
+          </li>
+          <li>
+            <Link className={styles.link} to="/">
+              Sobre Nosotros
+            </Link>
+          </li>
+        </ul>
+        {!isVerified && (
+          <Link
+            to="/cuenta/login"
+            className={`${styles.link} ${styles.login_link}`}
+          >
+            Login
+          </Link>
+        )}
+        {isVerified && (
+          <Link to="/cuenta" className={`${styles.link} ${styles.login_link}`}>
+            Mi Cuenta
+          </Link>
+        )}
       </div>
       <div className={styles.container_bottom}>
         <Link to="/">
@@ -51,13 +124,13 @@ const Navbar = ({ toggleSideNav, toggleCartModal }) => {
         </ul>
         <ul className={styles.icons_menu}>
           <li className={`${styles.search_icon} disabled-link`}>
-            <BiSearch />
+            <CgSearch />
           </li>
           <li className={styles.cart_icon} onClick={handleToggleCartModal}>
             <CartIcon />
           </li>
           <li className={styles.mobile_icon}>
-            <FaBars onClick={toggleSideNav} />
+            <RiMenuLine onClick={toggleSideNav} />
           </li>
         </ul>
       </div>

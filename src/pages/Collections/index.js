@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { useCollection } from 'hooks/useCollection';
 
-import Loader from 'common/Loader';
+import Loader from 'components/Loader';
 
 import ProductCard from './ProductCard';
 
@@ -70,6 +70,7 @@ const Collections = () => {
                 url={product.url}
                 _imageTop={product.images[0].src}
                 _imageBottom={product.images[1].src}
+                numberOfVariants={product.numberOfVariants}
               />
             ))}
           </div>

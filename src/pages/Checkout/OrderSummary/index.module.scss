@@ -1,3 +1,5 @@
+@import 'App.scss';
+
 .list_wrapper {
   // TODO: chequear este padding
   width: 100%;
@@ -10,54 +12,57 @@
   @media (min-width: 1200px) {
     padding-top: 4rem;
   }
-}
 
-.item_container {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 2rem;
-}
+  .item_container {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 2rem;
 
-.image_wrapper {
-  position: relative;
-}
+    .image_wrapper {
+      position: relative;
 
-.amount {
-  position: absolute;
-  top: -0.8rem;
-  right: -0.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  width: 2.2rem;
-  height: 2.2rem;
-  text-align: center;
-  font-size: 1.3rem;
-  font-family: 'Montserrat';
-  font-weight: 700;
-  color: #fff;
-  background-color: rgba(107, 107, 107, 0.8);
-}
+      .image {
+        max-height: 12rem;
+        border-radius: 1rem;
+        overflow-x: hidden;
+        align-self: center;
+      }
 
-.price,
-.name {
-  font-weight: bold;
-}
+      .amount {
+        position: absolute;
+        top: -0.8rem;
+        right: -0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        width: 2.2rem;
+        height: 2.2rem;
+        text-align: center;
+        font-size: 1.3rem;
+        font-family: $font-f-secondary;
+        letter-spacing: $ls-secondary;
+        font-weight: $font-w-700;
+        color: $c-secondary;
+        background-color: rgba(107, 107, 107, 0.8);
+      }
+    }
 
-.name,
-.size,
-.price {
-  font-family: 'Montserrat', sans-serif;
-  color: #fff;
-}
+    .price,
+    .name {
+      font-weight: $font-w-700;
+      text-transform: capitalize;
+    }
 
-.image {
-  max-height: 12rem;
-  border-radius: 1rem;
-  overflow-x: hidden;
-  align-self: center;
+    .name,
+    .size,
+    .price {
+      font-family: $font-f-secondary;
+      letter-spacing: $ls-secondary;
+      color: $c-secondary;
+    }
+  }
 }
 
 .subtotal_wrapper {
@@ -71,16 +76,12 @@
   div {
     display: flex;
     p {
-      color: #fff;
-      font-family: 'Montserrat', sans-serif;
+      color: $c-secondary;
+      font-family: $font-f-secondary;
+      letter-spacing: $ls-secondary;
     }
   }
-}
 
-.subtotal_price,
-.total_price {
-  margin-left: auto;
-  font-weight: bold;
 }
 
 .total_wrapper {
@@ -89,12 +90,21 @@
   align-items: center;
 
   p {
-    color: #fff;
-    font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
+    color: $c-secondary;
+    font-weight: $font-w-700;
+    font-family: $font-f-secondary;
+      letter-spacing: $ls-secondary;
+  }
+
+  .total_price {
+    font-size: 2.6rem;
   }
 }
 
+.subtotal_price,
 .total_price {
-  font-size: 2.6rem;
+  margin-left: auto;
+  font-weight: $font-w-700
 }
+
+

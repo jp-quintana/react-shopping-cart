@@ -3,8 +3,9 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { useSignUp } from 'hooks/useSignUp';
 
-import Loader from 'common/Loader';
-import NotificationModal from 'common/NotificationModal';
+import Loader from 'components/Loader';
+import Toast from 'components/Toast';
+import ToastMessage from 'components/ToastMessage';
 
 import styles from './index.module.scss';
 
@@ -13,7 +14,7 @@ const SignUp = () => {
 
   const { signUp, isLoading, error, defaultValue } = useSignUp();
 
-  const [notificationModal, setNotificationModal] = useState(null);
+  const [toastMessage, setToastMessage] = useState(null);
 
   const nameInput = useRef();
   const lastNameInput = useRef();
@@ -33,81 +34,85 @@ const SignUp = () => {
 
   useEffect(() => {
     if (error) {
-      setNotificationModal({ error, details: error.details });
+      setToastMessage({ error, details: error.details });
     }
   }, [error]);
 
-  const toggleNotificationModal = () => {
-    setNotificationModal(null);
+  const toggleToast = () => {
+    setToastMessage(null);
   };
 
   return (
     <>
-      {notificationModal && (
-        <NotificationModal
-          toggleNotificationModal={toggleNotificationModal}
-          content={notificationModal}
-        />
-      )}
+      <Toast>
+        {toastMessage && (
+          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+        )}
+      </Toast>
       {isLoading && <Loader />}
       {!isLoading && (
-        <section className={styles.section}>
-          <div className="main-container">
-            <form onSubmit={handleSubmit} className={styles.form}>
-              <h2 className={styles.title}>Crear cuenta:</h2>
-              <label>
-                <span>Nombre:</span>
-                <input
-                  defaultValue={defaultValue ? defaultValue.name : ''}
-                  className={styles.input}
-                  type="text"
-                  placeholder="Nombre"
-                  required
-                  ref={nameInput}
-                />
-              </label>
-              <label>
-                <span>Apellido:</span>
-                <input
-                  defaultValue={defaultValue ? defaultValue.lastName : ''}
-                  className={styles.input}
-                  type="text"
-                  placeholder="Apellido"
-                  required
-                  ref={lastNameInput}
-                />
-              </label>
-              <label>
-                <span>Email:</span>
-                <input
-                  className={styles.input}
-                  type="email"
-                  placeholder="tunombre@email.com"
-                  required
-                  ref={emailInput}
-                />
-              </label>
-              <label>
-                <span>Contraseña:</span>
-                <input
-                  className={styles.input}
-                  type="password"
-                  required
-                  ref={passwordInput}
-                />
-              </label>
-              <button className={styles.button} type="submit">
-                Crear Cuenta
-              </button>
-            </form>
-            <p className={styles.login}>
-              ¿Ya tenés cuenta?{' '}
-              <Link to="/cuenta/login" state={routerState}>
-                Ingresá
-              </Link>
-            </p>
-          </div>
-        </section>
+        <>
+          <section className={styles.nav_section}></section>
+          <section className={styles.section}>
+            <div className={styles.container}>
+              <div className={`${styles.wrapper} main-container`}>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                  <h2 className={styles.title}>Crear cuenta</h2>
+                  <label className={styles.label}>
+                    <span>Nombre:</span>
+                    <input
+                      defaultValue={defaultValue ? defaultValue.name : ''}
+                      className={styles.input}
+                      type="text"
+                      placeholder="Nombre"
+                      required
+                      ref={nameInput}
+                    />
+                  </label>
+                  <label className={styles.label}>
+                    <span>Apellido:</span>
+                    <input
+                      defaultValue={defaultValue ? defaultValue.lastName : ''}
+                      className={styles.input}
+                      type="text"
+                      placeholder="Apellido"
+                      required
+                      ref={lastNameInput}
+                    />
+                  </label>
+                  <label className={styles.label}>
+                    <span>Email:</span>
+                    <input
+                      className={styles.input}
+                      type="email"
+                      placeholder="tunombre@email.com"
+                      required
+                      ref={emailInput}
+                    />
+                  </label>
+                  <label className={styles.label}>
+                    <span>Contraseña:</span>
+                    <input
+                      className={styles.input}
+                      type="password"
+                      required
+                      ref={passwordInput}
+                    />
+                  </label>
+                  <button className={styles.button} type="submit">
+                    Crear Cuenta
+                  </button>
+                </form>
+                <p className={styles.login}>
+                  ¿Ya tenés cuenta?{' '}
+                  <Link to="/cuenta/login" state={routerState}>
+                    Ingresá
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </section>
+        </>
       )}
     </>
   );

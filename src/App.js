@@ -19,7 +19,7 @@ import Products from './pages/Products';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 
-import Loader from './common/Loader';
+import Loader from './components/Loader';
 
 import './App.scss';
 

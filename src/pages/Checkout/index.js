@@ -11,8 +11,9 @@ import ShippingOption from './ShippingOption';
 import Payment from './Payment';
 import OrderSummary from './OrderSummary';
 
-import Loader from 'common/Loader';
-import NotificationModal from 'common/NotificationModal';
+import Loader from 'components/Loader';
+import Toast from 'components/Toast';
+import ToastMessage from 'components/ToastMessage';
 
 import logo from 'assets/images/checkout-logo-nav.png';
 
@@ -34,7 +35,7 @@ const Checkout = () => {
     error: inventoryError,
   } = useInventory();
 
-  const [notificationModal, setNotificationModal] = useState(null);
+  const [toastMessage, setToastMessage] = useState(null);
 
   let formContent;
 
@@ -56,26 +57,24 @@ const Checkout = () => {
 
   useEffect(() => {
     if (inventoryError) {
-      setNotificationModal({
+      setToastMessage({
         error: inventoryError,
         details: inventoryError.details,
       });
     }
   }, [inventoryError]);
 
-  const toggleNotificationModal = () => {
-    setNotificationModal(null);
+  const toggleToast = () => {
+    setToastMessage(null);
   };
 
   return (
     <>
-      {notificationModal && (
-        <NotificationModal
-          className={styles.error_modal}
-          toggleNotificationModal={toggleNotificationModal}
-          content={notificationModal}
-        />
-      )}
+      <Toast>
+        {toastMessage && (
+          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+        )}
+      </Toast>
       <div className={styles.background}></div>
       <section className={styles.layout}>
         <>

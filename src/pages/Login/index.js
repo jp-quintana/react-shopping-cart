@@ -3,8 +3,9 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { useLogin } from 'hooks/useLogin';
 
-import Loader from 'common/Loader';
-import NotificationModal from 'common/NotificationModal';
+import Loader from 'components/Loader';
+import Toast from 'components/Toast';
+import ToastMessage from 'components/ToastMessage';
 
 import styles from './index.module.scss';
 
@@ -13,7 +14,7 @@ const Login = () => {
 
   const { login, isLoading, error } = useLogin();
 
-  const [notificationModal, setNotificationModal] = useState(null);
+  const [toastMessage, setToastMessage] = useState(null);
 
   const emailInput = useRef();
   const passwordInput = useRef();
@@ -29,59 +30,63 @@ const Login = () => {
 
   useEffect(() => {
     if (error) {
-      setNotificationModal({ error, details: error.details });
+      setToastMessage({ error, details: error.details });
     }
   }, [error]);
 
-  const toggleNotificationModal = () => {
-    setNotificationModal(null);
+  const toggleToast = () => {
+    setToastMessage(null);
   };
 
   return (
     <>
-      {notificationModal && (
-        <NotificationModal
-          toggleNotificationModal={toggleNotificationModal}
-          content={notificationModal}
-        />
-      )}
+      <Toast>
+        {toastMessage && (
+          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+        )}
+      </Toast>
       {isLoading && <Loader />}
       {!isLoading && (
-        <section className={styles.section}>
-          <div className="main-container">
-            <form onSubmit={handleSubmit} className={styles.form}>
-              <h2 className={styles.title}>Ingresá a tu cuenta:</h2>
-              <label>
-                <span>Email:</span>
-                <input
-                  className={styles.input}
-                  type="email"
-                  placeholder="tunombre@email.com"
-                  required
-                  ref={emailInput}
-                />
-              </label>
-              <label>
-                <span>Contraseña:</span>
-                <input
-                  className={styles.input}
-                  type="password"
-                  required
-                  ref={passwordInput}
-                />
-              </label>
-              <button className={styles.button} type="submit">
-                Iniciar Sesión
-              </button>
-            </form>
-            <p className={styles.no_account}>
-              ¿No tenés cuenta?{' '}
-              <Link to="/cuenta/signup" state={routerState}>
-                Crear cuenta
-              </Link>
-            </p>
-          </div>
-        </section>
+        <>
+          <section className={styles.nav_section}></section>
+          <section className={styles.section}>
+            <div className={styles.container}>
+              <div className={`${styles.wrapper} main-container`}>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                  <h2 className={styles.title}>Ingresa a tu cuenta</h2>
+                  <label className={styles.label}>
+                    <span>Email:</span>
+                    <input
+                      className={styles.input}
+                      type="email"
+                      placeholder="tunombre@email.com"
+                      required
+                      ref={emailInput}
+                    />
+                  </label>
+                  <label className={styles.label}>
+                    <span>Contraseña:</span>
+                    <input
+                      className={styles.input}
+                      type="password"
+                      required
+                      ref={passwordInput}
+                    />
+                  </label>
+                  <button className={styles.button} type="submit">
+                    Iniciar Sesión
+                  </button>
+                </form>
+                <p className={styles.no_account}>
+                  ¿No tenés cuenta?{' '}
+                  <Link to="/cuenta/signup" state={routerState}>
+                    Crear cuenta
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </section>
+        </>
       )}
     </>
   );

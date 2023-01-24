@@ -3,7 +3,7 @@ import { useCheckout } from 'hooks/useCheckout';
 
 import CheckoutSummary from '../CheckoutSummary';
 
-import Loader from 'common/Loader';
+import Loader from 'components/Loader';
 
 import { BiChevronLeft } from 'react-icons/bi';
 
@@ -26,7 +26,7 @@ const ShippingOption = () => {
   return (
     <div className={styles.shipping_option_wrapper}>
       {isLoading && (
-        <Loader className={styles.loader_wrapper} noPortal={true} />
+        <Loader wrapperClassName={styles.loader_wrapper} noPortal={true} />
       )}
       {!isLoading && (
         <>

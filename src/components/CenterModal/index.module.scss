@@ -1,0 +1,45 @@
+@import 'App.scss';
+
+.modal {
+  position: fixed;
+  right: 50%;
+  transform: translate(50%, 0);
+  bottom: 0;
+  height: 85%;
+  width: 98%;
+  background-color: white;
+  padding: 3rem 0; 
+  // TODO: REMOVER CUANDO SE SAQUE TAILWIND
+  z-index: $z-modal !important;
+  border: $border-modal;
+  border-top-left-radius: 3rem;
+  border-top-right-radius: 3rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+  @media (min-width: 768px) {
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    height: 90%;
+
+    width: 50%;
+    border-radius: 3rem;
+  }
+
+  @media (min-width: 900px) {
+    width: 45%;
+  }
+
+  @media (min-width: 1024px) {
+    width: 40%;
+  }
+
+  @media (min-width: 1200px) {
+    width: 30%;
+  }
+
+  @media (min-width: 1920px) {
+    width: 25%;
+  }
+}

@@ -3,18 +3,6 @@ import { useCheckout } from 'hooks/useCheckout';
 
 import styles from './index.module.scss';
 
-// TODO: ELIMINAR ESTO
-// const shippingAddress = {
-//   email: 'juanquintana1996@gmail.com',
-//   name: 'Juan',
-//   lastName: 'Quintana',
-//   address: 'Felix de Amador 1679',
-//   city: 'Olivos',
-//   province: 'Buenos Aires',
-//   zipCode: '1636',
-//   phoneNumber: '1132074782',
-// };
-
 const CheckoutSummary = () => {
   const { currentStep, email, shippingAddress, shippingOption } =
     useCheckoutContext();

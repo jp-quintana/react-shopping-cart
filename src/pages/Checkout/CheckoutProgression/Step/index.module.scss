@@ -1,3 +1,5 @@
+@import 'App.scss';
+
 .step_wrapper {
   display: flex;
   flex-direction: column;
@@ -18,8 +20,8 @@
 .label_completed,
 .label_selected,
 .label {
-  font-family: 'Montserrat', sans-serif;
-
+  font-family: $font-f-secondary;
+  letter-spacing: $ls-secondary;
 }
 
 .label_completed,
@@ -40,8 +42,9 @@
   justify-content: center;
   border: 2px solid white;
   border-radius: 1rem;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: bold;
+  font-family: $font-f-secondary;
+  letter-spacing: $ls-secondary;
+  font-weight: $font-w-700;
   line-height: normal;
   background-color: rgba(0, 0, 0, 0.3);
 }
@@ -69,8 +72,9 @@
   box-shadow: 0 0 2rem #fff;
   background-color: #fff;
 
-  font-family: 'Montserrat', sans-serif;
-  font-weight: bold;
+  font-family: $font-f-secondary;
+  letter-spacing: $ls-secondary;
+  font-weight: $font-w-700;
   line-height: normal;
 }
 

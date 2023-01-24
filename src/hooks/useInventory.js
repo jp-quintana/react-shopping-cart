@@ -29,7 +29,6 @@ export const useInventory = () => {
   const cartRef = doc(db, 'carts', user.uid);
 
   const checkInventory = async (items) => {
-    console.log('in inventory hook', items);
     setError(null);
     setIsLoading(true);
     try {

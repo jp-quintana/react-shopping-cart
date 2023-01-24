@@ -1,13 +1,17 @@
+@import 'App.scss';
+
 .size {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 4rem;
   height: 4rem;
-  border: .2rem solid #9e9e9e;
+  border: 0.2rem solid #9e9e9e;
   border-radius: 1rem;
   color: #000;
-  font-family: 'Montserrat';
+  font-family: $font-f-secondary;
+  letter-spacing: $ls-secondary;
+  margin: 0 auto;
 
   -webkit-user-select: none;
   -webkit-touch-callout: none;
@@ -15,30 +19,39 @@
   -ms-user-select: none;
   user-select: none;
 
-  -moz-transition: all .2s ease-in;
-  -o-transition: all .2s ease-in;
-  -webkit-transition: all .2s ease-in;
-  transition: all .2s ease-in;
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
 
   &:hover {
     cursor: pointer;
+    background-color: $back-c-var-hover;
   }
 
   &:active {
-    transform: scale(.9);
+    transform: scale(0.9);
   }
 }
 
 .no_stock {
   border: none;
   text-decoration: line-through;
+
+  &:hover {
+    background-color: transparent;
+  }
 }
 
 .fill {
   border: none;
-  background-color: #000;
+  background-color: $back-c-button-primary;
   color: #fff;
-  font-weight: bold;
+  font-weight: $font-w-700;
+
+  &:hover {
+    background-color: $back-c-button-primary;
+  }
 }
 
 .no_stock,

@@ -7,7 +7,7 @@ import { BiChevronLeft } from 'react-icons/bi';
 import { useCheckoutContext } from 'hooks/useCheckoutContext';
 import { useCheckout } from 'hooks/useCheckout';
 
-import Loader from 'common/Loader';
+import Loader from 'components/Loader';
 
 import styles from './index.module.scss';
 
@@ -171,7 +171,7 @@ const ShippingInfo = () => {
   return (
     <div className={styles.info_container}>
       {isLoading && (
-        <Loader className={styles.loader_wrapper} noPortal={true} />
+        <Loader wrapperClassName={styles.loader_wrapper} noPortal={true} />
       )}
       {!isLoading && (
         <form className={styles.info_form} onSubmit={handleSubmit}>

@@ -1,28 +1,24 @@
 .thumbnail {
-  max-height: 12rem;
-  border: .2 inset #fff;
-  border-radius: 1rem;
-  -moz-transition: transform .2s ease-in;
-  -o-transition: transform .2s ease-in;
-  -webkit-transition: transform .2s ease-in;
-  transition: transform .2s ease-in;
-
   &:hover {
     cursor: pointer;
   }
 
   &:active {
-    transform: scale(.9)
+    transform: scale(0.9);
   }
-  
 }
 
 .thumbnail_selected {
+  filter: grayscale(100%);
+}
+
+.thumbnail,
+.thumbnail_selected {
   max-height: 12rem;
-  border: .2rem inset #3d3d3d;
   border-radius: 1rem;
-  -moz-transition: transform .2s ease-in;
-  -o-transition: transform .2s ease-in;
-  -webkit-transition: transform .2s ease-in;
-  transition: transform .2s ease-in;
+  
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
 }

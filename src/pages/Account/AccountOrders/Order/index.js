@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
-import OrderModal from './OrderModal';
+import OrderContent from './OrderContent';
+
+import CenterModal from 'components/CenterModal';
 
 import { formatDate } from 'helpers/format';
 
@@ -14,14 +16,16 @@ const Order = ({ id, items, date }) => {
   };
   return (
     <>
-      {isOpen && (
-        <OrderModal
-          toggleOrderModal={toggleOrderModal}
-          id={id}
-          items={items}
-          date={date}
-        />
-      )}
+      <CenterModal toggleModal={toggleOrderModal}>
+        {isOpen && (
+          <OrderContent
+            toggleOrderModal={toggleOrderModal}
+            id={id}
+            items={items}
+            date={date}
+          />
+        )}
+      </CenterModal>
       <div className={styles.card} onClick={toggleOrderModal}>
         <h3>Orden #{id}</h3>
         <p className={styles.date}>{formatDate(date)}</p>
