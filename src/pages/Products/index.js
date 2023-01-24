@@ -11,7 +11,8 @@ import ProductSize from './ProductSize';
 import Button from 'common/Button';
 import Loader from 'common/Loader';
 import Slider from 'common/Slider';
-import NotificationModal from 'common/NotificationModal';
+import Toast from 'common/Toast';
+import ToastMessage from 'common/ToastMessage';
 
 import { formatNumber } from 'helpers/format';
 
@@ -30,7 +31,7 @@ const Products = () => {
   const { addItem, isLoading, error } = useCart();
 
   const [notification, setNotification] = useState(false);
-  const [notificationModal, setNotificationModal] = useState(null);
+  const [toastMessage, setToastMessage] = useState(null);
 
   const handleAddToCart = async () => {
     await addItem({
@@ -52,21 +53,21 @@ const Products = () => {
   useEffect(() => {
     if (notification) {
       if (!error) {
-        setNotificationModal({
+        setToastMessage({
           addToCartSuccess: true,
           _thumbnail: selectedVariant.images[0].src,
           details: `${selectedProduct.type} ${selectedProduct.model} ${selectedVariant.color} - ${selectedSize}`,
         });
       } else if (error) {
-        setNotificationModal({ error, details: error.details });
+        setToastMessage({ error, details: error.details });
       }
 
       setNotification(false);
     }
   }, [notification]);
 
-  const toggleNotificationModal = () => {
-    setNotificationModal(null);
+  const toggleToast = () => {
+    setToastMessage(null);
   };
 
   let addEventHandler = false;
@@ -93,12 +94,11 @@ const Products = () => {
 
   return (
     <>
-      {notificationModal && (
-        <NotificationModal
-          toggleNotificationModal={toggleNotificationModal}
-          content={notificationModal}
-        />
-      )}
+      <Toast>
+        {toastMessage && (
+          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+        )}
+      </Toast>
       {!productIsReady && <Loader />}
       {productIsReady && (
         <>

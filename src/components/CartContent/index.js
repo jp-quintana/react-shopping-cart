@@ -9,7 +9,8 @@ import { useKeyDown } from 'hooks/useKeyDown';
 import CartItem from 'pages/Cart/CartItem';
 
 import Button from 'common/Button';
-import NotificationModal from 'common/NotificationModal';
+import Toast from 'common/Toast';
+import ToastMessage from 'common/ToastMessage';
 
 import { addAllItemsPrice } from 'helpers/item';
 
@@ -19,16 +20,16 @@ const CartContent = ({ toggleCartModal }) => {
   const { items, totalAmount } = useCartContext();
   const { addItem, removeItem, deleteItem, isLoading, error } = useCart();
 
-  const [notificationModal, setNotificationModal] = useState(null);
+  const [toastMessage, setToastMessage] = useState(null);
 
   useEffect(() => {
     if (error) {
-      setNotificationModal({ error, details: error.details });
+      setToastMessage({ error, details: error.details });
     }
   }, [error]);
 
-  const toggleNotificationModal = () => {
-    setNotificationModal(null);
+  const toggleToast = () => {
+    setToastMessage(null);
   };
 
   useKeyDown(() => {
@@ -38,12 +39,11 @@ const CartContent = ({ toggleCartModal }) => {
   if (items.length === 0) {
     return (
       <>
-        {notificationModal && (
-          <NotificationModal
-            toggleNotificationModal={toggleNotificationModal}
-            content={notificationModal}
-          />
-        )}
+        <Toast>
+          {toastMessage && (
+            <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+          )}
+        </Toast>
         <div className={styles.empty}>
           <p className={styles.no_products}>No hay productos en el carrito</p>
           <Button
@@ -60,12 +60,11 @@ const CartContent = ({ toggleCartModal }) => {
 
   return (
     <>
-      {notificationModal && (
-        <NotificationModal
-          toggleNotificationModal={toggleNotificationModal}
-          content={notificationModal}
-        />
-      )}
+      <Toast>
+        {toastMessage && (
+          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+        )}
+      </Toast>
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.list_wrapper}>

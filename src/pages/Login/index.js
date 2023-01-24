@@ -4,7 +4,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { useLogin } from 'hooks/useLogin';
 
 import Loader from 'common/Loader';
-import NotificationModal from 'common/NotificationModal';
+import Toast from 'common/Toast';
+import ToastMessage from 'common/ToastMessage';
 
 import styles from './index.module.scss';
 
@@ -13,7 +14,7 @@ const Login = () => {
 
   const { login, isLoading, error } = useLogin();
 
-  const [notificationModal, setNotificationModal] = useState(null);
+  const [toastMessage, setToastMessage] = useState(null);
 
   const emailInput = useRef();
   const passwordInput = useRef();
@@ -29,22 +30,21 @@ const Login = () => {
 
   useEffect(() => {
     if (error) {
-      setNotificationModal({ error, details: error.details });
+      setToastMessage({ error, details: error.details });
     }
   }, [error]);
 
-  const toggleNotificationModal = () => {
-    setNotificationModal(null);
+  const toggleToast = () => {
+    setToastMessage(null);
   };
 
   return (
     <>
-      {notificationModal && (
-        <NotificationModal
-          toggleNotificationModal={toggleNotificationModal}
-          content={notificationModal}
-        />
-      )}
+      <Toast>
+        {toastMessage && (
+          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+        )}
+      </Toast>
       {isLoading && <Loader />}
       {!isLoading && (
         <>

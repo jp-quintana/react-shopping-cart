@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 import { useCartContext } from 'hooks/useCartContext';
 import { useCart } from 'hooks/useCart';
@@ -10,7 +9,8 @@ import CartItem from './CartItem';
 import Button from 'common/Button';
 import Card from 'common/Card';
 import Loader from 'common/Loader';
-import NotificationModal from 'common/NotificationModal';
+import Toast from 'common/Toast';
+import ToastMessage from 'common/ToastMessage';
 
 import { addAllItemsPrice } from 'helpers/item';
 
@@ -25,7 +25,7 @@ const Cart = () => {
     error: inventoryError,
   } = useInventory();
 
-  const [notificationModal, setNotificationModal] = useState(null);
+  const [toastMessage, setToastMessage] = useState(null);
 
   useEffect(() => {
     checkInventory(items);
@@ -33,24 +33,22 @@ const Cart = () => {
 
   useEffect(() => {
     if (error) {
-      setNotificationModal({ error, details: error.details });
+      setToastMessage({ error, details: error.details });
     }
   }, [error]);
 
   useEffect(() => {
     if (inventoryError) {
-      setNotificationModal({
+      setToastMessage({
         error: inventoryError,
         details: inventoryError.details,
       });
     }
   }, [inventoryError]);
 
-  const toggleNotificationModal = () => {
-    setNotificationModal(null);
+  const toggleToast = () => {
+    setToastMessage(null);
   };
-
-  console.log(notificationModal);
 
   let content =
     items.length > 0 ? (
@@ -113,12 +111,11 @@ const Cart = () => {
       {isInventoryLoading && <Loader />}
       {!isInventoryLoading && (
         <>
-          {notificationModal && (
-            <NotificationModal
-              toggleNotificationModal={toggleNotificationModal}
-              content={notificationModal}
-            />
-          )}
+          <Toast>
+            {toastMessage && (
+              <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+            )}
+          </Toast>
           <section>
             <div className={`${styles.container} main-container`}>
               <h1 className={styles.title}>Tu carrito</h1>

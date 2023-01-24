@@ -4,7 +4,8 @@ import { useAddress } from 'hooks/useAddress';
 import { useKeyDown } from 'hooks/useKeyDown';
 
 import Loader from 'common/Loader';
-import NotificationModal from 'common/NotificationModal';
+import Toast from 'common/Toast';
+import ToastMessage from 'common/ToastMessage';
 
 import styles from './index.module.scss';
 
@@ -13,7 +14,7 @@ const AddAddress = ({ toggleAddAddressModal }) => {
 
   const [isChecked, setIsChecked] = useState(false);
   const [notification, setNotification] = useState(false);
-  const [notificationModal, setNotificationModal] = useState(null);
+  const [toastMessage, setToastMessage] = useState(null);
 
   const handleCheckboxInput = () => {
     setIsChecked((prevState) => !prevState);
@@ -46,7 +47,7 @@ const AddAddress = ({ toggleAddAddressModal }) => {
   useEffect(() => {
     if (notification) {
       if (error) {
-        setNotificationModal({ error, details: error.details });
+        setToastMessage({ error, details: error.details });
         setNotification(false);
       } else {
         toggleAddAddressModal();
@@ -54,8 +55,8 @@ const AddAddress = ({ toggleAddAddressModal }) => {
     }
   }, [notification]);
 
-  const toggleNotificationModal = () => {
-    setNotificationModal(null);
+  const toggleToast = () => {
+    setToastMessage(null);
   };
 
   useKeyDown(() => {
@@ -64,12 +65,11 @@ const AddAddress = ({ toggleAddAddressModal }) => {
 
   return (
     <>
-      {notificationModal && (
-        <NotificationModal
-          toggleNotificationModal={toggleNotificationModal}
-          content={notificationModal}
-        />
-      )}
+      <Toast>
+        {toastMessage && (
+          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+        )}
+      </Toast>
       {isLoading && <Loader noPortal={true} />}
       {!isLoading && (
         <form id="form" className={styles.form} onSubmit={handleSubmit}>

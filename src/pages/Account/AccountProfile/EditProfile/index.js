@@ -4,7 +4,8 @@ import { useProfile } from 'hooks/useProfile';
 import { useKeyDown } from 'hooks/useKeyDown';
 
 import Loader from 'common/Loader';
-import NotificationModal from 'common/NotificationModal';
+import Toast from 'common/Toast';
+import ToastMessage from 'common/ToastMessage';
 
 import styles from './index.module.scss';
 
@@ -12,7 +13,7 @@ const EditProfile = ({ toggleEditProfile, name, lastName, phoneNumber }) => {
   const { editProfile, isLoading, error } = useProfile();
 
   const [notification, setNotification] = useState(false);
-  const [notificationModal, setNotificationModal] = useState(null);
+  const [toastMessage, setToastMessage] = useState(null);
 
   const nameInput = useRef();
   const lastNameInput = useRef();
@@ -33,7 +34,7 @@ const EditProfile = ({ toggleEditProfile, name, lastName, phoneNumber }) => {
   useEffect(() => {
     if (notification) {
       if (error) {
-        setNotificationModal({ error, details: error.details });
+        setToastMessage({ error, details: error.details });
         setNotification(false);
       } else {
         toggleEditProfile();
@@ -41,8 +42,8 @@ const EditProfile = ({ toggleEditProfile, name, lastName, phoneNumber }) => {
     }
   }, [notification]);
 
-  const toggleNotificationModal = () => {
-    setNotificationModal(null);
+  const toggleToast = () => {
+    setToastMessage(null);
   };
 
   useKeyDown(() => {
@@ -51,12 +52,11 @@ const EditProfile = ({ toggleEditProfile, name, lastName, phoneNumber }) => {
 
   return (
     <>
-      {notificationModal && (
-        <NotificationModal
-          toggleNotificationModal={toggleNotificationModal}
-          content={notificationModal}
-        />
-      )}
+      <Toast>
+        {toastMessage && (
+          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+        )}
+      </Toast>
       {isLoading && <Loader noPortal={true} />}
       {!isLoading && (
         <form id="form" className={styles.form} onSubmit={handleSubmit}>

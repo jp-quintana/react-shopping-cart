@@ -1,25 +1,15 @@
 @import 'App.scss';
 
-.modal {
-  max-width: 45rem;
-  width: 90%;
-  min-height: 8rem;
-  position: fixed;
-  right: 50%;
-  transform: translate(50%, 0);
-  bottom: 2.5%;
-  z-index: 100;
-  border-radius: 1rem;
-}
-
 .success {
   background-color: rgba(85, 209, 119, 0.95);
   border: 1px solid #49e472;
+  border-radius: 1rem;
 }
 
 .error {
   background-color: rgba(243, 121, 120, 0.95);
   border: 1px solid #ff6666;
+  border-radius: 1rem;
   display: grid;
   grid-template-columns: 8fr 2fr;
   align-items: center;
@@ -64,6 +54,17 @@
 .details {
   font-size: 1rem;
   text-transform: capitalize;
+  font-weight: $font-w-700;
+  font-family: $font-f-secondary;
+  letter-spacing: $ls-secondary;
+
+  @media (min-width: 768px) {
+    font-size: 1.2rem;
+  }
+}
+
+.error_details {
+  font-size: 1rem;
   font-weight: $font-w-700;
   font-family: $font-f-secondary;
   letter-spacing: $ls-secondary;

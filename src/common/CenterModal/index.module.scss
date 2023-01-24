@@ -9,7 +9,8 @@
   width: 98%;
   background-color: white;
   padding: 3rem 0; 
-  z-index: 25;
+  // TODO: REMOVER CUANDO SE SAQUE TAILWIND
+  z-index: $z-modal !important;
   border: $border-modal;
   border-top-left-radius: 3rem;
   border-top-right-radius: 3rem;

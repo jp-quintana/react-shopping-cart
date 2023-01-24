@@ -12,7 +12,8 @@ import Address from './Address';
 
 import Button from 'common/Button';
 import Loader from 'common/Loader';
-import NotificationModal from 'common/NotificationModal';
+import Toast from 'common/Toast';
+import ToastMessage from 'common/ToastMessage';
 import CenterModal from 'common/CenterModal';
 
 import styles from './index.module.scss';
@@ -22,7 +23,7 @@ const Addresses = () => {
   const { deleteAddress, isLoading, error } = useAddress();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [notificationModal, setNotificationModal] = useState(null);
+  const [toastMessage, setToastMessage] = useState(null);
 
   const defaultAddress = addresses.find((address) => address.isMain);
 
@@ -34,22 +35,21 @@ const Addresses = () => {
 
   useEffect(() => {
     if (error) {
-      setNotificationModal({ error, details: error.details });
+      setToastMessage({ error, details: error.details });
     }
   }, [error]);
 
-  const toggleNotificationModal = () => {
-    setNotificationModal(null);
+  const toggleToast = () => {
+    setToastMessage(null);
   };
 
   return (
     <>
-      {notificationModal && (
-        <NotificationModal
-          toggleNotificationModal={toggleNotificationModal}
-          content={notificationModal}
-        />
-      )}
+      <Toast>
+        {toastMessage && (
+          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+        )}
+      </Toast>
       <CenterModal
         modalClassName={styles.modal}
         toggleModal={toggleAddAddressModal}

@@ -1,20 +1,13 @@
 import { useEffect } from 'react';
-import { createPortal } from 'react-dom';
 
 import { IoIosCheckmarkCircle, IoIosAlert } from 'react-icons/io';
 
 import styles from './index.module.scss';
 
-const NotificationModal = ({ toggleNotificationModal, content, className }) => {
-  const overlaysElement = document.getElementById('overlays');
-
-  const errorModalStyles = className
-    ? `${styles.error} ${className}`
-    : `${styles.modal} ${styles.error}`;
-
+const ToastMessage = ({ toggleToast, content, className }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      toggleNotificationModal();
+      toggleToast();
     }, 6000);
 
     return () => {
@@ -22,12 +15,10 @@ const NotificationModal = ({ toggleNotificationModal, content, className }) => {
     };
   }, [content]);
 
-  let ModalContent;
-
   if (content.addToCartSuccess) {
     const thumbnail = require(`assets/${content._thumbnail}`);
-    ModalContent = (
-      <div className={`${styles.modal} ${styles.addToCart} ${styles.success}`}>
+    return (
+      <div className={`${styles.addToCart} ${styles.success}`}>
         <div className={styles.content_wrapper}>
           <img className={styles.image} src={thumbnail} alt="" />
           <div>
@@ -45,12 +36,12 @@ const NotificationModal = ({ toggleNotificationModal, content, className }) => {
   }
 
   if (content.error) {
-    ModalContent = (
-      <div className={errorModalStyles}>
+    return (
+      <div className={`${styles.error} ${className}`}>
         <div className={styles.content_wrapper}>
           <div>
-            <p className={styles.title}>Hubo un error</p>
-            <p className={styles.details}>
+            <p className={styles.title}>Hubo un error.</p>
+            <p className={styles.error_details}>
               {content.details || 'La operacion no pudo ser realizada.'}
             </p>
           </div>
@@ -61,7 +52,6 @@ const NotificationModal = ({ toggleNotificationModal, content, className }) => {
       </div>
     );
   }
-  return <>{createPortal(ModalContent, overlaysElement)}</>;
 };
 
-export default NotificationModal;
+export default ToastMessage;
