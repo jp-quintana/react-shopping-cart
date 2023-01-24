@@ -31,7 +31,7 @@ const NotificationModal = ({ toggleNotificationModal, content, className }) => {
         <div className={styles.content_wrapper}>
           <img className={styles.image} src={thumbnail} alt="" />
           <div>
-            <p className={styles.title}>Producto agregado al carrito</p>
+            <p className={styles.title}>Producto agregado al carrito.</p>
             <p className={styles.details}>
               {content.details || 'La operacion se realizó con éxito.'}
             </p>

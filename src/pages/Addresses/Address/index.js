@@ -2,7 +2,9 @@ import { useState } from 'react';
 
 import { FaTrash } from 'react-icons/fa';
 
-import EditAddressModal from './EditAddressModal';
+import EditAddress from './EditAddress';
+
+import CenterModal from 'common/CenterModal';
 
 import styles from './index.module.scss';
 
@@ -30,20 +32,25 @@ const Address = ({
 
   return (
     <>
-      {isOpen && (
-        <EditAddressModal
-          toggleEditAddressModal={toggleEditAddressModal}
-          name={name}
-          lastName={lastName}
-          phoneNumber={phoneNumber}
-          address={address}
-          zipCode={zipCode}
-          city={city}
-          province={province}
-          isMain={isMain}
-          id={id}
-        />
-      )}
+      <CenterModal
+        modalClassName={styles.modal}
+        toggleModal={toggleEditAddressModal}
+      >
+        {isOpen && (
+          <EditAddress
+            toggleEditAddressModal={toggleEditAddressModal}
+            name={name}
+            lastName={lastName}
+            phoneNumber={phoneNumber}
+            address={address}
+            zipCode={zipCode}
+            city={city}
+            province={province}
+            isMain={isMain}
+            id={id}
+          />
+        )}
+      </CenterModal>
       <div className={styles.card}>
         {isMain && <h3 className={styles.title}>Direccion predeterminada</h3>}
         {!isMain && <h3 className={styles.title}>Direccion {id}</h3>}

@@ -7,12 +7,13 @@ import { BiChevronLeft, BiPlus } from 'react-icons/bi';
 import { useAuthContext } from 'hooks/useAuthContext';
 import { useAddress } from 'hooks/useAddress';
 
-import AddAddressModal from './AddAddressModal';
+import AddAddress from './AddAddress';
 import Address from './Address';
 
 import Button from 'common/Button';
 import Loader from 'common/Loader';
 import NotificationModal from 'common/NotificationModal';
+import CenterModal from 'common/CenterModal';
 
 import styles from './index.module.scss';
 
@@ -49,9 +50,12 @@ const Addresses = () => {
           content={notificationModal}
         />
       )}
-      {isOpen && (
-        <AddAddressModal toggleAddAddressModal={toggleAddAddressModal} />
-      )}
+      <CenterModal
+        modalClassName={styles.modal}
+        toggleModal={toggleAddAddressModal}
+      >
+        {isOpen && <AddAddress toggleAddAddressModal={toggleAddAddressModal} />}
+      </CenterModal>
       <section>
         <div className={`${styles.container} main-container`}>
           <Link className={styles.back_button} to="/cuenta">

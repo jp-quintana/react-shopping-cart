@@ -1,29 +1,71 @@
 import { createPortal } from 'react-dom';
 
-import { useKeyDown } from 'hooks/useKeyDown';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useMediaQuery } from 'react-responsive';
+
+// import { useKeyDown } from 'hooks/useKeyDown';
 
 import Backdrop from 'common/Backdrop';
 
 import styles from './index.module.scss';
 
-const SideModal = ({ children, toggleModal, className }) => {
+const SideModal = ({
+  children,
+  toggleModal,
+  backdropClassName,
+  modalClassName,
+}) => {
   const backdropElement = document.getElementById('backdrop');
   const overlaysElement = document.getElementById('overlays');
 
-  useKeyDown(() => {
-    toggleModal();
-  }, ['Escape']);
+  // useKeyDown(() => {
+  //   toggleModal();
+  // }, ['Escape']);
 
-  console.log(className);
+  const isBigScreen = useMediaQuery({
+    query: '(min-width: 900px)',
+  });
+
+  const variants = isBigScreen
+    ? {
+        initial: { x: '100vw', y: '-50%', opacity: 0 },
+        visible: { x: 0, y: '-50%', opacity: 1 },
+        exit: { x: '100vw', y: '-50%', opacity: 0 },
+      }
+    : {
+        initial: { x: '50%', y: '100vh', opacity: 0 },
+        visible: { x: '50%', y: 0, opacity: 1 },
+        exit: { x: '50%', y: '100vh', opacity: 0 },
+      };
 
   return (
-    <>
-      {createPortal(<Backdrop toggleModal={toggleModal} />, backdropElement)}
-      {createPortal(
-        <aside className={`${styles.modal} ${className}`}>{children}</aside>,
-        overlaysElement
+    <AnimatePresence>
+      {children && (
+        <>
+          {createPortal(
+            <Backdrop
+              toggleModal={toggleModal}
+              className={backdropClassName}
+            />,
+            backdropElement
+          )}
+          {createPortal(
+            <motion.aside
+              className={`${styles.modal} ${modalClassName}`}
+              key="sidemodal"
+              variants={variants}
+              initial="initial"
+              animate="visible"
+              transition={{ duration: 0.2 }}
+              exit="exit"
+            >
+              {children}
+            </motion.aside>,
+            overlaysElement
+          )}
+        </>
       )}
-    </>
+    </AnimatePresence>
   );
 };
 

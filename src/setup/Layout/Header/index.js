@@ -4,6 +4,10 @@ import { useMediaQuery } from 'react-responsive';
 import Nav from './Nav';
 import SideNav from './SideNav';
 
+import SideModal from 'common/SideModal';
+
+import styles from './index.module.scss';
+
 const Header = ({ toggleCartModal }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -11,19 +15,25 @@ const Header = ({ toggleCartModal }) => {
     setIsOpen((prevState) => !prevState);
   };
 
-  const isSmallScreen = useMediaQuery({
-    query: '(max-width: 900px)',
+  const isBigScreen = useMediaQuery({
+    query: '(min-width: 900px)',
   });
 
   useEffect(() => {
-    if (!isSmallScreen && isOpen) {
+    if (isBigScreen && isOpen) {
       setIsOpen(false);
     }
-  }, [isSmallScreen]);
+  }, [isBigScreen]);
 
   return (
     <header>
-      {isOpen && <SideNav toggleSideNav={toggleSideNav} />}
+      <SideModal
+        toggleModal={toggleSideNav}
+        backdropClassName={styles.backdrop}
+        modalClassName={styles.side_nav}
+      >
+        {isOpen && <SideNav toggleSideNav={toggleSideNav} />}
+      </SideModal>
       <Nav toggleSideNav={toggleSideNav} toggleCartModal={toggleCartModal} />
     </header>
   );

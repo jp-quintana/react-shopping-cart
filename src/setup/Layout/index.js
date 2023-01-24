@@ -5,7 +5,8 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 
-import CartModal from 'components/CartModal';
+import CartContent from 'components/CartContent';
+import SideModal from 'common/SideModal';
 
 const Layout = () => {
   const location = useLocation();
@@ -21,7 +22,9 @@ const Layout = () => {
 
   return (
     <>
-      {isOpen && <CartModal toggleCartModal={toggleCartModal} />}
+      <SideModal toggleModal={toggleCartModal}>
+        {isOpen && <CartContent toggleCartModal={toggleCartModal} />}
+      </SideModal>
       {!isCheckout && <Header toggleCartModal={toggleCartModal} />}
       <main>
         <Outlet />

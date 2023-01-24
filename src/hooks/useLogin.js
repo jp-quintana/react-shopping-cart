@@ -76,7 +76,7 @@ export const useLogin = () => {
         err.code === 'auth/wrong-password' ||
         err.code === 'auth/user-not-found'
       ) {
-        setError({ details: 'Usario o contraseña incorrecta' });
+        setError({ details: 'Usario o contraseña incorrecta.' });
       } else {
         setError(err);
       }

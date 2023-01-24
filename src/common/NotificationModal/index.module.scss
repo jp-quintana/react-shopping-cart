@@ -53,8 +53,12 @@
 .title {
   font-size: 1.2rem;
   font-family: $font-f-secondary;
-  font-weight: $font-w-700;
+  font-weight: $font-w-900;
   letter-spacing: $ls-secondary;
+
+  @media (min-width: 768px) {
+    font-size: 1.4rem;
+  }
 }
 
 .details {
@@ -63,6 +67,10 @@
   font-weight: $font-w-700;
   font-family: $font-f-secondary;
   letter-spacing: $ls-secondary;
+
+  @media (min-width: 768px) {
+    font-size: 1.2rem;
+  }
 }
 
 .icon {
