@@ -19,21 +19,35 @@ const ShippingInfo = () => {
   const { email, shippingAddress } = useCheckoutContext();
   const { submitShippingInfo, isLoading } = useCheckout();
 
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [selectedOption, setSelectedOption] = useState(true);
+
   const [userInput, setUserInput] = useState({
     email: email || '',
-    name: shippingAddress.name || '',
-    lastName: shippingAddress.lastName || '',
-    address: shippingAddress.address || '',
-    city: shippingAddress.city || '',
-    province: shippingAddress.province || '',
-    zipCode: shippingAddress.zipCode || '',
-    phoneNumber: shippingAddress.phoneNumber || '',
+    name: selectedOption.name || '',
+    lastName: selectedOption.lastName || '',
+    address: selectedOption.address || '',
+    city: selectedOption.city || '',
+    province: selectedOption.province || '',
+    zipCode: selectedOption.zipCode || '',
+    phoneNumber: selectedOption.phoneNumber || '',
   });
 
-  const options = [...addresses, { label: 'Dirección nueva' }];
+  const defaultOption = addresses.find((address) => address.isMain);
+  const options = [...addresses, { label: 'Dirección nueva', value: 'new' }];
 
   const handleSelectAddress = (option) => {
     console.log(option);
+    setUserInput((prevState) => ({
+      ...prevState,
+      name: option.name,
+      lastName: option.lastName,
+      address: option.address,
+      city: option.city,
+      province: option.province,
+      zipCode: option.zipCode,
+      phoneNumber: option.phoneNumber,
+    }));
   };
 
   const handleSubmit = (e) => {
@@ -190,12 +204,23 @@ const ShippingInfo = () => {
                 className={emailStyles.input}
                 required
                 placeholder="Email"
+                disabled={isDisabled}
               />
             </div>
           </div>
           <div className={styles.shipping_address_wrapper}>
             <p className={styles.title}>Dirección de Envío</p>
-            <Select options={options} onChange={handleSelectAddress} />
+            <Select
+              // styles={{
+              //   control: (baseStyles, state) => ({
+              //     ...baseStyles,
+              //     backgroundColor: 'transparent',
+              //   }),
+              // }}
+              options={options}
+              onChange={handleSelectAddress}
+              defaultValue={defaultOption}
+            />
             <div className={styles.name_wrapper}>
               <div className={styles.float_container}>
                 <label htmlFor="name" className={nameStyles.label}>

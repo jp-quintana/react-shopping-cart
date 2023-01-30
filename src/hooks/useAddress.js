@@ -53,7 +53,8 @@ export const useAddress = () => {
         city,
         province,
         isMain,
-        label: `${address} - ${province} - ${zipCode}`,
+        label: `${address} - ${city}, ${zipCode} - ${province}`,
+        value: address,
       };
 
       if (isMain && userAddresses.length > 0) {
