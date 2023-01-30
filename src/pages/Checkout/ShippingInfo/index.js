@@ -2,8 +2,11 @@ import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
+import Select from 'react-select';
+
 import { BiChevronLeft } from 'react-icons/bi';
 
+import { useAuthContext } from 'hooks/useAuthContext';
 import { useCheckoutContext } from 'hooks/useCheckoutContext';
 import { useCheckout } from 'hooks/useCheckout';
 
@@ -11,19 +14,8 @@ import Loader from 'components/Loader';
 
 import styles from './index.module.scss';
 
-// TODO: ELIMINAR ESTO
-// const DUMMY_INFO = {
-//   email: 'juanquintana1996@gmail.com',
-//   name: 'Juan',
-//   lastName: 'Quintana',
-//   address: 'Felix de Amador 1679',
-//   city: 'Olivos',
-//   province: 'Buenos Aires',
-//   zipCode: '1636',
-//   phoneNumber: '1132074782',
-// };
-
 const ShippingInfo = () => {
+  const { addresses } = useAuthContext();
   const { email, shippingAddress } = useCheckoutContext();
   const { submitShippingInfo, isLoading } = useCheckout();
 
@@ -37,6 +29,12 @@ const ShippingInfo = () => {
     zipCode: shippingAddress.zipCode || '',
     phoneNumber: shippingAddress.phoneNumber || '',
   });
+
+  const options = [...addresses, { label: 'Dirección nueva' }];
+
+  const handleSelectAddress = (option) => {
+    console.log(option);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -168,6 +166,8 @@ const ShippingInfo = () => {
         : styles.input_no_focus,
   };
 
+  console.log(addresses);
+
   return (
     <div className={styles.info_container}>
       {isLoading && (
@@ -195,6 +195,7 @@ const ShippingInfo = () => {
           </div>
           <div className={styles.shipping_address_wrapper}>
             <p className={styles.title}>Dirección de Envío</p>
+            <Select options={options} onChange={handleSelectAddress} />
             <div className={styles.name_wrapper}>
               <div className={styles.float_container}>
                 <label htmlFor="name" className={nameStyles.label}>

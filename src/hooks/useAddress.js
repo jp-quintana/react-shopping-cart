@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import { v4 as uuid } from 'uuid';
-
 import { doc, updateDoc, deleteDoc, arrayUnion } from 'firebase/firestore';
 
 import { db } from '../firebase/config';
@@ -55,6 +53,7 @@ export const useAddress = () => {
         city,
         province,
         isMain,
+        label: `${address} - ${province} - ${zipCode}`,
       };
 
       if (isMain && userAddresses.length > 0) {
