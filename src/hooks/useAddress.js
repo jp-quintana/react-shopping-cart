@@ -7,7 +7,6 @@ import { doc, updateDoc, deleteDoc, arrayUnion } from 'firebase/firestore';
 import { db } from '../firebase/config';
 
 import { useAuthContext } from 'hooks/useAuthContext';
-import { RiContactsBookLine } from 'react-icons/ri';
 
 export const useAddress = () => {
   const { user, addresses, dispatch } = useAuthContext();
@@ -173,14 +172,16 @@ export const useAddress = () => {
         (address) => address.id !== id
       );
 
-      for (let i = 1; i <= updatedAddresses.length; i++) {
-        updatedAddresses[i - 1].id = i;
-      }
+      if (updatedAddresses.length > 0) {
+        for (let i = 1; i <= updatedAddresses.length; i++) {
+          updatedAddresses[i - 1].id = i;
+        }
 
-      const checkForMain = updatedAddresses.find((address) => address.isMain);
+        const checkForMain = updatedAddresses.find((address) => address.isMain);
 
-      if (!checkForMain) {
-        updatedAddresses[0].isMain = true;
+        if (!checkForMain) {
+          updatedAddresses[0].isMain = true;
+        }
       }
 
       await updateDoc(userRef, {
