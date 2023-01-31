@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { doc, updateDoc, deleteDoc, arrayUnion } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 
 import { db } from '../firebase/config';
 
@@ -13,6 +13,7 @@ export const useAddress = () => {
   const [error, setError] = useState(null);
 
   const userRef = doc(db, 'users', user.uid);
+  const checkoutSessionRef = doc(db, 'checkoutSessions', user.uid);
 
   const userAddresses = [...addresses];
 
@@ -25,20 +26,14 @@ export const useAddress = () => {
     city,
     province,
     isMain = false,
-    existingId = null,
-    isFromCheckout = null,
+    // isFromCheckout = null,
   }) => {
     setError(null);
     setIsLoading(true);
     try {
-      // TODO: PARA EL SELECT EN EL CHECKOUT EN UN FUTURO!!!
-      if (existingId) {
-        setIsLoading(false);
-        return;
-      }
-      if (isFromCheckout) {
-        isMain = true;
-      }
+      // if (isFromCheckout) {
+      //   isMain = true;
+      // }
 
       if (!isMain) {
         userAddresses.length === 0 ? (isMain = true) : (isMain = false);
@@ -167,7 +162,19 @@ export const useAddress = () => {
   const deleteAddress = async (id) => {
     setError(null);
     setIsLoading(true);
+
     try {
+      const checkoutSessionDoc = await checkoutSessionRef.get();
+
+      if (checkoutSessionDoc.exists) {
+        const { shippingAddress } = checkoutSessionDoc.data();
+        if (shippingAddress.id === id) {
+          await updateDoc(checkoutSessionRef, {
+            shippingAddress: {},
+          });
+        }
+      }
+
       const updatedAddresses = userAddresses.filter(
         (address) => address.id !== id
       );

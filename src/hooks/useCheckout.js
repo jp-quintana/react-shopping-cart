@@ -6,10 +6,12 @@ import { db } from '../firebase/config';
 
 import { useCheckoutContext } from './useCheckoutContext';
 import { useAuthContext } from './useAuthContext';
+import { useAddress } from './useAddress';
 
 export const useCheckout = () => {
   const { dispatch } = useCheckoutContext();
-  const { user } = useAuthContext();
+  const { user, addresses } = useAuthContext();
+  const { createAddress } = useAddress();
 
   const checkoutSessionRef = doc(db, 'checkoutSessions', user.uid);
 
@@ -29,6 +31,12 @@ export const useCheckout = () => {
     setIsLoading(true);
     try {
       const { email, ...shippingAddress } = userInput;
+
+      if (shippingAddress.isNew) {
+        shippingAddress.id = addresses.length + 1;
+        delete shippingAddress.isNew;
+        await createAddress(shippingAddress);
+      }
 
       await updateDoc(checkoutSessionRef, {
         email,

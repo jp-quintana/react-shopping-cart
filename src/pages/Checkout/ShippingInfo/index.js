@@ -29,6 +29,7 @@ const ShippingInfo = () => {
   ];
 
   let defaultOption;
+  let initialIsNew = false;
 
   if (shippingAddress.hasOwnProperty('address')) {
     defaultOption = shippingAddress;
@@ -36,21 +37,26 @@ const ShippingInfo = () => {
     defaultOption = addresses.find((address) => address.isMain);
 
     if (!defaultOption) {
-      defaultOption = { label: 'Agregar Dirección Nueva', value: 'new' };
+      defaultOption = {
+        label: 'Agregar Dirección Nueva',
+        value: 'new',
+      };
+      initialIsNew = true;
     }
   }
 
   const [userInput, setUserInput] = useState({
     email: email || '',
-    name: shippingAddress.name || defaultOption.name || '',
-    lastName: shippingAddress.lastName || defaultOption.lastName || '',
-    address: shippingAddress.address || defaultOption.address || '',
-    city: shippingAddress.city || defaultOption.city || '',
-    province: shippingAddress.province || defaultOption.province || '',
-    zipCode: shippingAddress.zipCode || defaultOption.zipCode || '',
-    phoneNumber: shippingAddress.phoneNumber || defaultOption.phoneNumber || '',
-    label: shippingAddress.label || defaultOption.label || '',
-    value: shippingAddress.value || defaultOption.value || '',
+    name: defaultOption.name || '',
+    lastName: defaultOption.lastName || '',
+    address: defaultOption.address || '',
+    city: defaultOption.city || '',
+    province: defaultOption.province || '',
+    zipCode: defaultOption.zipCode || '',
+    phoneNumber: defaultOption.phoneNumber || '',
+    label: defaultOption.label || '',
+    value: defaultOption.value || '',
+    isNew: initialIsNew,
   });
 
   useEffect(() => {
@@ -62,19 +68,19 @@ const ShippingInfo = () => {
   }, [userInput.value]);
 
   const handleSelectAddress = (option) => {
-    console.log(option);
     if (option.value === 'new') {
       setUserInput((prevState) => ({
         ...prevState,
-        name: newAddress.name || option.name || '',
-        lastName: newAddress.lastName || option.lastName || '',
-        address: newAddress.address || option.address || '',
-        city: newAddress.city || option.city || '',
-        province: newAddress.province || option.province || '',
-        zipCode: newAddress.zipCode || option.zipCode || '',
-        phoneNumber: newAddress.phoneNumber || option.phoneNumber || '',
+        name: newAddress.name || '',
+        lastName: newAddress.lastName || '',
+        address: newAddress.address || '',
+        city: newAddress.city || '',
+        province: newAddress.province || '',
+        zipCode: newAddress.zipCode || '',
+        phoneNumber: newAddress.phoneNumber || '',
         label: option.label,
         value: option.value,
+        isNew: true,
       }));
     } else {
       setUserInput((prevState) => ({
@@ -88,9 +94,12 @@ const ShippingInfo = () => {
         phoneNumber: option.phoneNumber || '',
         label: option.label,
         value: option.value,
+        isNew: false,
       }));
     }
   };
+
+  console.log(userInput);
 
   const handleSubmit = (e) => {
     e.preventDefault();
