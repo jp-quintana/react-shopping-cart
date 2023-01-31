@@ -13,40 +13,66 @@ import { useCheckout } from 'hooks/useCheckout';
 import Loader from 'components/Loader';
 
 import styles from './index.module.scss';
+import { useEffect } from 'react';
 
 const ShippingInfo = () => {
   const { addresses } = useAuthContext();
   const { email, shippingAddress } = useCheckoutContext();
   const { submitShippingInfo, isLoading } = useCheckout();
 
-  const [isDisabled, setIsDisabled] = useState(true);
-  const [selectedOption, setSelectedOption] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  const options = [
+    ...addresses,
+    { label: 'Agregar Dirección Nueva', value: 'new' },
+  ];
+
+  let defaultOption;
+
+  if (shippingAddress.hasOwnProperty('address')) {
+    defaultOption = shippingAddress;
+  } else {
+    defaultOption = addresses.find((address) => address.isMain);
+
+    if (!defaultOption) {
+      defaultOption = { label: 'Agregar Dirección Nueva', value: 'new' };
+    }
+  }
 
   const [userInput, setUserInput] = useState({
     email: email || '',
-    name: selectedOption.name || '',
-    lastName: selectedOption.lastName || '',
-    address: selectedOption.address || '',
-    city: selectedOption.city || '',
-    province: selectedOption.province || '',
-    zipCode: selectedOption.zipCode || '',
-    phoneNumber: selectedOption.phoneNumber || '',
+    name: shippingAddress.name || defaultOption.name || '',
+    lastName: shippingAddress.lastName || defaultOption.lastName || '',
+    address: shippingAddress.address || defaultOption.address || '',
+    city: shippingAddress.city || defaultOption.city || '',
+    province: shippingAddress.province || defaultOption.province || '',
+    zipCode: shippingAddress.zipCode || defaultOption.zipCode || '',
+    phoneNumber: shippingAddress.phoneNumber || defaultOption.phoneNumber || '',
+    label: shippingAddress.label || defaultOption.label || '',
+    value: shippingAddress.value || defaultOption.value || '',
   });
 
-  const defaultOption = addresses.find((address) => address.isMain);
-  const options = [...addresses, { label: 'Dirección nueva', value: 'new' }];
+  useEffect(() => {
+    if (userInput.value === 'new') {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }, [userInput.value]);
 
   const handleSelectAddress = (option) => {
     console.log(option);
     setUserInput((prevState) => ({
       ...prevState,
-      name: option.name,
-      lastName: option.lastName,
-      address: option.address,
-      city: option.city,
-      province: option.province,
-      zipCode: option.zipCode,
-      phoneNumber: option.phoneNumber,
+      name: option.name || '',
+      lastName: option.lastName || '',
+      address: option.address || '',
+      city: option.city || '',
+      province: option.province || '',
+      zipCode: option.zipCode || '',
+      phoneNumber: option.phoneNumber || '',
+      label: option.label || '',
+      value: option.value || '',
     }));
   };
 
@@ -180,8 +206,6 @@ const ShippingInfo = () => {
         : styles.input_no_focus,
   };
 
-  console.log(addresses);
-
   return (
     <div className={styles.info_container}>
       {isLoading && (
@@ -204,7 +228,6 @@ const ShippingInfo = () => {
                 className={emailStyles.input}
                 required
                 placeholder="Email"
-                disabled={isDisabled}
               />
             </div>
           </div>
@@ -235,6 +258,7 @@ const ShippingInfo = () => {
                   className={nameStyles.input}
                   required
                   placeholder="Nombre"
+                  disabled={isDisabled}
                 />
               </div>
               <div className={styles.float_container}>
@@ -250,6 +274,7 @@ const ShippingInfo = () => {
                   className={lastNameStyles.input}
                   required
                   placeholder="Apellido"
+                  disabled={isDisabled}
                 />
               </div>
             </div>
@@ -266,6 +291,7 @@ const ShippingInfo = () => {
                 className={addressStyles.input}
                 required
                 placeholder="Dirección"
+                disabled={isDisabled}
               />
             </div>
             <div className={styles.zip_wrapper}>
@@ -282,6 +308,7 @@ const ShippingInfo = () => {
                   className={cityStyles.input}
                   required
                   placeholder="Ciudad"
+                  disabled={isDisabled}
                 />
               </div>
               <div className={styles.float_container}>
@@ -297,6 +324,7 @@ const ShippingInfo = () => {
                   className={provinceStyles.input}
                   required
                   placeholder="Provincia"
+                  disabled={isDisabled}
                 />
               </div>
               <div className={styles.float_container}>
@@ -312,6 +340,7 @@ const ShippingInfo = () => {
                   className={zipCodeStyles.input}
                   required
                   placeholder="Código Postal"
+                  disabled={isDisabled}
                 />
               </div>
             </div>
@@ -328,6 +357,7 @@ const ShippingInfo = () => {
                 className={phoneNumberStyles.input}
                 required
                 placeholder="Teléfono"
+                disabled={isDisabled}
               />
             </div>
           </div>
