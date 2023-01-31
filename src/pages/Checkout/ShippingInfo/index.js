@@ -258,32 +258,69 @@ const ShippingInfo = () => {
   };
 
   const reactSelectStyles = {
-    menu: (baseStyles, { isFocused, isSelected }) => ({
+    option: (baseStyles, { isSelected }) => ({
       ...baseStyles,
-      backgroundColor: 'red',
-      color: 'red',
+      backgroundColor: isSelected ? '#787878 !important' : 'transparent',
+      color: 'white',
+      cursor: 'pointer',
+      fontFamily: 'Inter',
+      fontWeight: isSelected ? 'bold' : 'normal',
+      letterSpacing: '-0.05rem',
+      fontSize: '1.6rem',
+      width: '97%',
+      borderRadius: '1rem',
+      margin: '.5rem auto',
+      '&:hover': {
+        backgroundColor: '#3c3c3c',
+      },
     }),
 
-    menu: (baseStyles, { isFocused, isSelected }) => ({
+    singleValue: (baseStyles) => ({
       ...baseStyles,
-      backgroundColor: 'red',
+      color: 'white',
+      fontFamily: 'Inter',
+      fontWeight: 'bold',
+      letterSpacing: '-0.05rem',
+      fontSize: '1.6rem',
     }),
 
-    indicatorSeparator: (baseStyles, { isFocused, isSelected }) => ({
+    menu: (baseStyles) => ({
       ...baseStyles,
-      backgroundColor: 'red',
+      backgroundColor: 'rgba(0, 0, 0, 0.9)',
+      padding: '1.5rem 0',
+      border: '1px solid #515255',
+      borderRadius: '1rem',
+      backdropFilter: 'blur(8px)',
+      isSelected: true,
     }),
 
-    dropdownIndicator: (baseStyles, { isFocused, isSelected }) => ({
+    indicatorSeparator: (baseStyles) => ({
       ...baseStyles,
-      color: 'red',
+      backgroundColor: '#616161',
+      '&:hover': {
+        backgroundColor: '616161',
+      },
     }),
 
-    control: (baseStyles, { isFocused, isSelected }) => ({
+    dropdownIndicator: (baseStyles, { isFocused }) => ({
+      ...baseStyles,
+      color: isFocused ? 'white' : '#616161',
+      '&:hover': {
+        color: 'white',
+      },
+    }),
+
+    control: (baseStyles, { isFocused }) => ({
       ...baseStyles,
       backgroundColor: 'rgba(0, 0, 0, 0.3)',
       padding: '1.5rem 0',
       borderRadius: '1rem',
+      cursor: 'pointer',
+      boxShadow: 'none',
+      border: isFocused ? '1px solid #fff' : '1px solid #515255',
+      '&:hover': {
+        border: isFocused ? '1px solid #fff' : '1px solid #515255',
+      },
     }),
   };
 
@@ -317,6 +354,7 @@ const ShippingInfo = () => {
             <Select
               styles={reactSelectStyles}
               options={options}
+              isSearchable={false}
               onChange={handleSelectAddress}
               defaultValue={defaultOption}
             />
