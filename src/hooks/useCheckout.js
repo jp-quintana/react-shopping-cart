@@ -30,11 +30,13 @@ export const useCheckout = () => {
     setError(null);
     setIsLoading(true);
     try {
-      const { email, ...shippingAddress } = userInput;
+      const { email, isNew, ...shippingAddress } = userInput;
 
-      if (shippingAddress.isNew) {
+      shippingAddress.value = shippingAddress.address;
+      shippingAddress.label = `${shippingAddress.address} - ${shippingAddress.city}, ${shippingAddress.zipCode} - ${shippingAddress.province}`;
+
+      if (isNew) {
         shippingAddress.id = addresses.length + 1;
-        delete shippingAddress.isNew;
         await createAddress(shippingAddress);
       }
 

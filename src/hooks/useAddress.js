@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
 
 import { db } from '../firebase/config';
 
@@ -164,7 +164,7 @@ export const useAddress = () => {
     setIsLoading(true);
 
     try {
-      const checkoutSessionDoc = await checkoutSessionRef.get();
+      const checkoutSessionDoc = await getDoc(checkoutSessionRef);
 
       if (checkoutSessionDoc.exists) {
         const { shippingAddress } = checkoutSessionDoc.data();

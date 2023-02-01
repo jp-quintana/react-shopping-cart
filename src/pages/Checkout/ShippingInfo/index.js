@@ -32,6 +32,7 @@ const ShippingInfo = () => {
   let initialIsNew = false;
 
   if (shippingAddress.hasOwnProperty('address')) {
+    console.log(shippingAddress);
     defaultOption = shippingAddress;
   } else {
     defaultOption = addresses.find((address) => address.isMain);
@@ -47,6 +48,7 @@ const ShippingInfo = () => {
 
   const [userInput, setUserInput] = useState({
     email: email || '',
+    id: defaultOption.id || '',
     name: defaultOption.name || '',
     lastName: defaultOption.lastName || '',
     address: defaultOption.address || '',
@@ -71,6 +73,7 @@ const ShippingInfo = () => {
     if (option.value === 'new') {
       setUserInput((prevState) => ({
         ...prevState,
+        id: newAddress.id || '',
         name: newAddress.name || '',
         lastName: newAddress.lastName || '',
         address: newAddress.address || '',
@@ -85,6 +88,7 @@ const ShippingInfo = () => {
     } else {
       setUserInput((prevState) => ({
         ...prevState,
+        id: option.id || '',
         name: option.name || '',
         lastName: option.lastName || '',
         address: option.address || '',
@@ -98,8 +102,6 @@ const ShippingInfo = () => {
       }));
     }
   };
-
-  console.log(userInput);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -332,6 +334,8 @@ const ShippingInfo = () => {
       },
     }),
   };
+
+  console.log(addresses);
 
   return (
     <div className={styles.info_container}>
