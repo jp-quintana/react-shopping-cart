@@ -32,7 +32,6 @@ const ShippingInfo = () => {
   let initialIsNew = false;
 
   if (shippingAddress.hasOwnProperty('address')) {
-    console.log(shippingAddress);
     defaultOption = shippingAddress;
   } else {
     defaultOption = addresses.find((address) => address.isMain);

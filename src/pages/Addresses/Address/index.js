@@ -18,6 +18,7 @@ const Address = ({
   city,
   province,
   isMain,
+  displayOrder,
   onDelete,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,12 +49,13 @@ const Address = ({
             province={province}
             isMain={isMain}
             id={id}
+            displayOrder={displayOrder}
           />
         )}
       </CenterModal>
       <div className={styles.card}>
         {isMain && <h3 className={styles.title}>Direccion predeterminada</h3>}
-        {!isMain && <h3 className={styles.title}>Direccion {id}</h3>}
+        {!isMain && <h3 className={styles.title}>Direccion {displayOrder}</h3>}
         <div className={styles.content}>
           <h4 className={styles.name}>
             {name} {lastName}

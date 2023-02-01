@@ -18,6 +18,7 @@ const EditAddress = ({
   province,
   isMain,
   id,
+  displayOrder,
 }) => {
   const { editAddress, isLoading, error } = useAddress();
 
@@ -49,6 +50,7 @@ const EditAddress = ({
       province: provinceInput.current.value,
       isMain: isChecked,
       id,
+      displayOrder,
     });
 
     setToggle(true);

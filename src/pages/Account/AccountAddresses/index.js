@@ -40,7 +40,9 @@ const AccountAddresses = () => {
               </div>
               {otherAddresses.map((address) => (
                 <div className={styles.address_wrapper} key={address.id}>
-                  <h3 className={styles.title}>Direccion {address.id}</h3>
+                  <h3 className={styles.title}>
+                    Direccion {address.displayOrder}
+                  </h3>
 
                   <h4 className={styles.name}>
                     {address.name} {address.lastName}

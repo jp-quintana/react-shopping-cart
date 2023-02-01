@@ -120,6 +120,7 @@ const Addresses = () => {
                         province={address.province}
                         id={address.id}
                         isMain={address.isMain}
+                        displayOrder={address.displayOrder}
                         onDelete={deleteAddress}
                       />
                     ))}

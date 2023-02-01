@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { v4 as uuid } from 'uuid';
 
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
@@ -32,13 +33,14 @@ export const useCheckout = () => {
     try {
       const { email, isNew, ...shippingAddress } = userInput;
 
-      shippingAddress.value = shippingAddress.address;
-      shippingAddress.label = `${shippingAddress.address} - ${shippingAddress.city}, ${shippingAddress.zipCode} - ${shippingAddress.province}`;
-
       if (isNew) {
-        shippingAddress.id = addresses.length + 1;
+        shippingAddress.id = uuid();
+        // Se puede agregar el display order aca de ser necesario, loopear por todos los addresses => index + 1 => etc
         await createAddress(shippingAddress);
       }
+
+      shippingAddress.value = shippingAddress.id;
+      shippingAddress.label = `${shippingAddress.name} ${shippingAddress.lastName} - ${shippingAddress.address} - ${shippingAddress.city}, ${shippingAddress.zipCode} - ${shippingAddress.province}`;
 
       await updateDoc(checkoutSessionRef, {
         email,
