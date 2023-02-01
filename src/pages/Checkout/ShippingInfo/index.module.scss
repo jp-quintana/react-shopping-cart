@@ -94,6 +94,11 @@
   .input_focus {
     padding: 2.2rem 1rem 0.8rem;
   }
+
+  input:disabled {
+    user-select: none;
+    pointer-events: none;
+  }
 }
 
 .name_wrapper {
@@ -168,4 +173,8 @@
   &:hover {
     background-color: #74eb93 !important;
   }
+}
+
+.disabled {
+  cursor: not-allowed;
 }

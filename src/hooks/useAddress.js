@@ -1,8 +1,7 @@
 import { useState } from 'react';
-
 import { v4 as uuid } from 'uuid';
 
-import { doc, updateDoc, deleteDoc, arrayUnion } from 'firebase/firestore';
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
 
 import { db } from '../firebase/config';
 
@@ -15,10 +14,12 @@ export const useAddress = () => {
   const [error, setError] = useState(null);
 
   const userRef = doc(db, 'users', user.uid);
+  const checkoutSessionRef = doc(db, 'checkoutSessions', user.uid);
 
   const userAddresses = [...addresses];
 
   const createAddress = async ({
+    id = null,
     name,
     lastName,
     phoneNumber,
@@ -27,26 +28,25 @@ export const useAddress = () => {
     city,
     province,
     isMain = false,
-    existingId = null,
-    isFromCheckout = null,
+    // isFromCheckout = null,
   }) => {
     setError(null);
     setIsLoading(true);
     try {
-      // TODO: PARA EL SELECT EN EL CHECKOUT EN UN FUTURO!!!
-      if (existingId) {
-        setIsLoading(false);
-        return;
-      }
-      if (isFromCheckout) {
-        isMain = true;
-      }
+      // if (isFromCheckout) {
+      //   isMain = true;
+      // }
 
       if (!isMain) {
         userAddresses.length === 0 ? (isMain = true) : (isMain = false);
       }
 
+      if (!id) {
+        id = uuid();
+      }
+
       const addressToAdd = {
+        id,
         name,
         lastName,
         phoneNumber,
@@ -55,6 +55,8 @@ export const useAddress = () => {
         city,
         province,
         isMain,
+        label: `${name} ${lastName} - ${address} - ${city}, ${zipCode} - ${province}`,
+        value: id,
       };
 
       if (isMain && userAddresses.length > 0) {
@@ -70,7 +72,7 @@ export const useAddress = () => {
       }
 
       for (let i = 1; i <= userAddresses.length; i++) {
-        userAddresses[i - 1].id = i;
+        userAddresses[i - 1].displayOrder = i;
       }
 
       await updateDoc(userRef, {
@@ -96,10 +98,13 @@ export const useAddress = () => {
     province,
     isMain,
     id,
+    displayOrder,
   }) => {
     setError(null);
     setIsLoading(true);
     try {
+      // Check so that there is always at least one address that is default
+
       if (!isMain) {
         const currentAddressIndex = userAddresses.findIndex(
           (address) => address.id === id
@@ -111,6 +116,7 @@ export const useAddress = () => {
       }
 
       const updatedAddress = {
+        id,
         name,
         lastName,
         phoneNumber,
@@ -119,7 +125,26 @@ export const useAddress = () => {
         city,
         province,
         isMain,
+        label: `${name} ${lastName} - ${address} - ${city}, ${zipCode} - ${province}`,
+        value: id,
+        displayOrder,
       };
+
+      const checkoutSessionDoc = await getDoc(checkoutSessionRef);
+
+      if (checkoutSessionDoc.exists()) {
+        const { shippingAddress } = checkoutSessionDoc.data();
+        if (shippingAddress.id === updatedAddress.id) {
+          const { isMain, displayOrder, ...updatedShippingAddress } =
+            updatedAddress;
+
+          await updateDoc(checkoutSessionRef, {
+            shippingAddress: {
+              ...updatedShippingAddress,
+            },
+          });
+        }
+      }
 
       let updatedAddresses = [...userAddresses];
 
@@ -137,7 +162,7 @@ export const useAddress = () => {
         updatedAddresses.unshift(updatedAddress);
 
         for (let i = 1; i <= updatedAddresses.length; i++) {
-          updatedAddresses[i - 1].id = i;
+          updatedAddresses[i - 1].displayOrder = i;
         }
       } else {
         const addressToEditIndex = updatedAddresses.findIndex(
@@ -146,7 +171,6 @@ export const useAddress = () => {
 
         updatedAddresses[addressToEditIndex] = {
           ...updatedAddress,
-          id,
         };
       }
 
@@ -167,14 +191,26 @@ export const useAddress = () => {
   const deleteAddress = async (id) => {
     setError(null);
     setIsLoading(true);
+
     try {
+      const checkoutSessionDoc = await getDoc(checkoutSessionRef);
+
+      if (checkoutSessionDoc.exists()) {
+        const { shippingAddress } = checkoutSessionDoc.data();
+        if (shippingAddress.id === id) {
+          await updateDoc(checkoutSessionRef, {
+            shippingAddress: {},
+          });
+        }
+      }
+
       const updatedAddresses = userAddresses.filter(
         (address) => address.id !== id
       );
 
       if (updatedAddresses.length > 0) {
         for (let i = 1; i <= updatedAddresses.length; i++) {
-          updatedAddresses[i - 1].id = i;
+          updatedAddresses[i - 1].displayOrder = i;
         }
 
         const checkForMain = updatedAddresses.find((address) => address.isMain);

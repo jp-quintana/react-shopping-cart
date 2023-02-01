@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { v4 as uuid } from 'uuid';
 
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
@@ -6,10 +7,12 @@ import { db } from '../firebase/config';
 
 import { useCheckoutContext } from './useCheckoutContext';
 import { useAuthContext } from './useAuthContext';
+import { useAddress } from './useAddress';
 
 export const useCheckout = () => {
   const { dispatch } = useCheckoutContext();
-  const { user } = useAuthContext();
+  const { user, addresses } = useAuthContext();
+  const { createAddress } = useAddress();
 
   const checkoutSessionRef = doc(db, 'checkoutSessions', user.uid);
 
@@ -28,7 +31,16 @@ export const useCheckout = () => {
     setError(null);
     setIsLoading(true);
     try {
-      const { email, ...shippingAddress } = userInput;
+      const { email, isNew, ...shippingAddress } = userInput;
+
+      if (isNew) {
+        shippingAddress.id = uuid();
+        // Se puede agregar el display order aca de ser necesario, loopear por todos los addresses => index + 1 => etc
+        await createAddress(shippingAddress);
+      }
+
+      shippingAddress.value = shippingAddress.id;
+      shippingAddress.label = `${shippingAddress.name} ${shippingAddress.lastName} - ${shippingAddress.address} - ${shippingAddress.city}, ${shippingAddress.zipCode} - ${shippingAddress.province}`;
 
       await updateDoc(checkoutSessionRef, {
         email,
