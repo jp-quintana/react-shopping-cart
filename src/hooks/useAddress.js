@@ -104,6 +104,7 @@ export const useAddress = () => {
     setIsLoading(true);
     try {
       // Check so that there is always at least one address that is default
+
       if (!isMain) {
         const currentAddressIndex = userAddresses.findIndex(
           (address) => address.id === id
@@ -124,10 +125,26 @@ export const useAddress = () => {
         city,
         province,
         isMain,
-        label: `${address} - ${city}, ${zipCode} - ${province}`,
-        value: address,
+        label: `${name} ${lastName} - ${address} - ${city}, ${zipCode} - ${province}`,
+        value: id,
         displayOrder,
       };
+
+      const checkoutSessionDoc = await getDoc(checkoutSessionRef);
+
+      if (checkoutSessionDoc.exists()) {
+        const { shippingAddress } = checkoutSessionDoc.data();
+        if (shippingAddress.id === updatedAddress.id) {
+          const { isMain, displayOrder, ...updatedShippingAddress } =
+            updatedAddress;
+
+          await updateDoc(checkoutSessionRef, {
+            shippingAddress: {
+              ...updatedShippingAddress,
+            },
+          });
+        }
+      }
 
       let updatedAddresses = [...userAddresses];
 
@@ -177,17 +194,6 @@ export const useAddress = () => {
 
     try {
       const checkoutSessionDoc = await getDoc(checkoutSessionRef);
-
-      // if (checkoutSessionDoc.exists()) {
-      //   const checkoutSessionData = checkoutSessionDoc.data();
-      //   if (Object.keys(checkoutSessionData.shippingAddress).length === 0) {
-      //     if (checkoutSessionData.shippingAddress.id === id) {
-      //       await updateDoc(checkoutSessionRef, {
-      //         shippingAddress: {},
-      //       });
-      //     }
-      //   }
-      // }
 
       if (checkoutSessionDoc.exists()) {
         const { shippingAddress } = checkoutSessionDoc.data();
