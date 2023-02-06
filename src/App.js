@@ -27,8 +27,6 @@ const App = () => {
   const { authIsReady } = useAuthContext();
   const { cartIsReady } = useCartContext();
 
-  console.log(cartIsReady);
-
   return (
     <>
       <div className="fonts_license">

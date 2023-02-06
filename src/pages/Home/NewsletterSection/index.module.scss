@@ -22,10 +22,19 @@
 
 .form {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  width: 100%;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    width: 75%;
+  }
+
+  @media (min-width: 1200px) {
+    width: 50%;
+  }
 }
 
 .input {
@@ -34,27 +43,59 @@
   padding: 1rem 2rem;
   width: 100%;
   font-size: 1.6rem;
-
-  @media (min-width: 768px) {
-    width: 50%;
-  }
 }
 
 .button {
-  padding: 1rem 2rem;
-  font-size: 1.6rem;
+  padding: 0 2rem;
+  font-size: 1.2rem;
   border-radius: 1rem;
-  width: 100%;
   color: #fff;
   text-transform: uppercase;
   letter-spacing: $ls-button;
   background-color: $back-c-button-primary !important;
+  width: auto;
+  align-self: stretch;
 
-  @media (min-width: 768px) {
-    width: 50%;
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+
+  @media (min-width: 480px) {
+    font-size: 1.4rem;
+  }
+
+  @media (min-width: 600px) {
+    font-size: 1.6rem;
+  }
+
+  &:active {
+    transform: scale(0.9);
   }
 
   &:hover {
     background-color: $back-c-button-hover !important;
+  }
+}
+
+.success {
+  padding: 1rem 2rem;
+  width: 100%;
+  font-size: 1.6rem;
+  border-radius: 1rem;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: $ls-button;
+  border: 2px solid $border-c-button-checkout;
+  background-color: #ccc !important;
+  align-self: stretch;
+
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+
+  &:hover {
+    cursor: auto;
   }
 }

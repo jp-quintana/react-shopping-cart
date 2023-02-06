@@ -1,44 +1,36 @@
 import { useState } from 'react';
 
-import {
-  writeBatch,
-  doc,
-  collection,
-  query,
-  where,
-  orderBy,
-  getDocs,
-  addDoc,
-  Timestamp,
-  increment,
-} from 'firebase/firestore';
+import { collection, query, where, getDocs, addDoc } from 'firebase/firestore';
 
 import { db } from '../firebase/config';
 
 export const useNewsletter = () => {
   const newsletterRef = collection(db, 'newsletter');
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
 
   const subscribeToNewsletter = async ({ email }) => {
     setError(null);
-
+    setIsLoading(true);
     try {
-      // const checkForEmail = [];
-
       const q = query(newsletterRef, where('email', '==', email));
 
       const querySnapshot = await getDocs(q);
 
-      if (querySnapshot.isEmpty()) {
-        console.log('test');
-      }
+      if (querySnapshot.empty) {
+        await addDoc(newsletterRef, { email });
 
-      // querySnapshot.forEach((doc) => {
-      //   orders.push({ id: doc.id, ...doc.data() });
-      // });
-    } catch (err) {}
+        setSuccess({ content: 'Gracias por unirte!' });
+      } else {
+        setSuccess({ content: 'Ya estas unido!' });
+      }
+    } catch (err) {
+      console.log(err);
+      setError('');
+    }
   };
 
-  return { subscribeToNewsletter, error };
+  return { subscribeToNewsletter, isLoading, success, error };
 };
