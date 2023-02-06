@@ -16,9 +16,11 @@ const NewsletterSection = () => {
 
     const email = emailInputRef.current.value;
 
-    console.log(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+.[A-Za-z]+$/.test(email));
+    // console.log(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+.[A-Za-z]+$/.test(email));
 
-    // await subscribeToNewsletter({});
+    await subscribeToNewsletter({ email });
+
+    console.log('working');
   };
 
   return (
