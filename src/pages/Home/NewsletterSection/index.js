@@ -1,35 +1,91 @@
+import { useState, useRef, useEffect } from 'react';
+
+import { useNewsletter } from 'hooks/useNewsletter';
+
 import Button from 'components/Button';
+import Toast from 'components/Toast';
+import ToastMessage from 'components/ToastMessage';
+
 import styles from './index.module.scss';
 
 const NewsletterSection = () => {
-  const newsletterSubmitHandler = (e) => {
-    e.preventDefault();
+  const { subscribeToNewsletter, success, error } = useNewsletter();
+
+  const emailInputRef = useRef();
+  const scrollToRef = useRef();
+
+  const [toastMessage, setToastMessage] = useState(null);
+
+  const scrollTo = () => {
+    scrollToRef.current.scrollIntoView();
   };
 
-  // TODO: AGREGARLE FUNCIONAMIENTO AL BOTON DE ENVIO
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const email = emailInputRef.current.value;
+
+    // console.log(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+.[A-Za-z]+$/.test(email));
+
+    await subscribeToNewsletter({ email });
+  };
+
+  const toggleToast = () => {
+    setToastMessage(null);
+  };
+
+  useEffect(() => {
+    if (success || error) {
+      scrollTo();
+    }
+
+    if (error) {
+      if (error) {
+        setToastMessage({ error, details: error.details });
+      }
+    }
+  }, [success, error]);
 
   return (
-    <section className={styles.section}>
-      <div className={`${styles.container} main-container`}>
-        <h3 className={styles.title}>Subscribite a nuestra newsletter</h3>
-        <div>
-          <form
-            className={styles.form}
-            onSubmit={newsletterSubmitHandler}
-            action=""
-          >
-            <input
-              className={styles.input}
-              placeholder="Tu Dirección de Email"
-              type="text"
-            />
-            <Button type="submit" className={`${styles.button} disabled-link`}>
-              Enviar
-            </Button>
-          </form>
+    <>
+      <Toast>
+        {toastMessage && (
+          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+        )}
+      </Toast>
+      <section className={styles.section}>
+        <div className={`${styles.container} main-container`}>
+          <h3 className={styles.title}>Subscribite a nuestra newsletter</h3>
+          <div>
+            <form
+              className={styles.form}
+              onSubmit={handleSubmit}
+              ref={scrollToRef}
+            >
+              {!success && (
+                <>
+                  <input
+                    className={styles.input}
+                    placeholder="Tu Dirección de Email"
+                    type="email"
+                    ref={emailInputRef}
+                    required
+                  />
+                  <Button type="submit" className={styles.button}>
+                    Enviar
+                  </Button>
+                </>
+              )}
+              {success && (
+                <Button type="button" className={styles.success} disabled>
+                  {success.content}
+                </Button>
+              )}
+            </form>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

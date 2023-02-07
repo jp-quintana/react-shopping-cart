@@ -88,6 +88,12 @@ $z-backdrop: 20;
 $z-modal: 25;
 $z-modal-n: 30;
 
+#layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 html {
   box-sizing: border-box;
   font-size: 62.5%;
@@ -126,12 +132,6 @@ body {
   color: #000;
   font-size: 1.2rem;
   line-height: 1.5;
-}
-
-#root {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 input,

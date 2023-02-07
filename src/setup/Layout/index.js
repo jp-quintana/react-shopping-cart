@@ -21,7 +21,7 @@ const Layout = () => {
   const isCheckout = pathName.includes('checkout');
 
   return (
-    <>
+    <div id="layout">
       <SideModal toggleModal={toggleCartModal}>
         {isOpen && <CartContent toggleCartModal={toggleCartModal} />}
       </SideModal>
@@ -30,7 +30,7 @@ const Layout = () => {
         <Outlet />
       </main>
       {!isCheckout && <Footer />}
-    </>
+    </div>
   );
 };
 
