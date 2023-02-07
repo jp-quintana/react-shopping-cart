@@ -7,13 +7,11 @@ import { db } from '../firebase/config';
 export const useNewsletter = () => {
   const newsletterRef = collection(db, 'newsletter');
 
-  const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
 
   const subscribeToNewsletter = async ({ email }) => {
     setError(null);
-    setIsLoading(true);
     try {
       const q = query(newsletterRef, where('email', '==', email));
 
@@ -28,9 +26,9 @@ export const useNewsletter = () => {
       }
     } catch (err) {
       console.log(err);
-      setError('');
+      setError(err);
     }
   };
 
-  return { subscribeToNewsletter, isLoading, success, error };
+  return { subscribeToNewsletter, success, error };
 };
