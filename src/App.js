@@ -10,6 +10,8 @@ import Layout from './setup/Layout';
 import ProtectedRoutes from './setup/ProtectedRoutes';
 
 import Home from './pages/Home';
+import Admin from './pages/Admin';
+import AdminCollections from './pages/AdminCollections';
 import Account from './pages/Account';
 import Addresses from './pages/Addresses';
 import Login from 'pages/Login';
@@ -39,33 +41,35 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="/categorias/:id" element={<Collections />} />
+            <Route path="admin" element={<Admin />} />
+            <Route path="admin/categorias/:id" element={<AdminCollections />} />
+            <Route path="categorias/:id" element={<Collections />} />
             <Route
-              path="/productos/:id"
+              path="productos/:id"
               element={
                 <ProductProvider>
                   <Products />
                 </ProductProvider>
               }
             />
-            <Route path="/carrito" element={<Cart />} />
+            <Route path="carrito" element={<Cart />} />
 
             <Route element={<ProtectedRoutes needAuth={true} />}>
               <Route
-                path="/checkout"
+                path="checkout"
                 element={
                   <CheckoutProvider>
                     <Checkout />
                   </CheckoutProvider>
                 }
               />
-              <Route path="/cuenta" element={<Account />} />
-              <Route path="/cuenta/direcciones" element={<Addresses />} />
+              <Route path="cuenta" element={<Account />} />
+              <Route path="cuenta/direcciones" element={<Addresses />} />
             </Route>
 
             <Route element={<ProtectedRoutes needAuth={false} />}>
-              <Route path="/cuenta/login" element={<Login />} />
-              <Route path="/cuenta/signup" element={<SignUp />} />
+              <Route path="cuenta/login" element={<Login />} />
+              <Route path="cuenta/signup" element={<SignUp />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/" />} />
