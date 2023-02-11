@@ -16,6 +16,7 @@ const initialState = {
   phoneNumber: null,
   addresses: [],
   isVerified: false,
+  isAdmin: false,
   authIsReady: false,
 };
 
@@ -30,6 +31,7 @@ const authReducer = (state, action) => {
         phoneNumber: action.payload.phoneNumber || null,
         addresses: action.payload.addresses || [],
         isVerified: true,
+        isAdmin: action.payload.isAdmin || null,
         authIsReady: true,
       };
     }
@@ -52,6 +54,7 @@ const authReducer = (state, action) => {
         phoneNumber: action.payload.phoneNumber || null,
         addresses: action.payload.addresses || [],
         isVerified: action.payload.isVerified,
+        isAdmin: action.payload.isAdmin || null,
       };
     }
 
