@@ -1,66 +1,36 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
 
 import { useCollection } from 'hooks/useCollection';
 
 import Loader from 'components/Loader';
 
-import ProductCard from './ProductCard';
-
-// import { DUMMY_COLLECTIONS_PRODUCTS as products } from './data';
+import ProductCard from 'components/ProductCard';
 
 import styles from './index.module.scss';
 
 const Collections = () => {
-  // const navigate = useNavigate();
-  // const { id: urlId } = useParams();
+  const { getCollection } = useCollection();
 
-  // const { getCollection } = useCollection();
+  const [products, setProducts] = useState(null);
 
-  // const [products, setProducts] = useState(null);
-  // const [collection, setCollection] = useState(null);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const fetchedProducts = await getCollection();
+      setProducts(fetchedProducts);
+    };
 
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     const fetchedProducts = await getCollection();
-  //     setProducts(fetchedProducts);
-  //   };
+    fetchProducts();
+  }, []);
 
-  //   fetchProducts();
-  // }, []);
-
-  // useEffect(() => {
-  //   if (products) {
-  //     let selectedProducts;
-  //     if (urlId === 'productos') {
-  //       selectedProducts = products;
-  //     } else if (
-  //       urlId === 'remeras' ||
-  //       urlId === 'buzos' ||
-  //       urlId === 'accesorios'
-  //     ) {
-  //       selectedProducts = products.filter(
-  //         (product) => product.collection === urlId
-  //       );
-  //     } else {
-  //       selectedProducts = null;
-  //     }
-
-  //     if (selectedProducts) {
-  //       setCollection(selectedProducts);
-  //     } else {
-  //       navigate('/');
-  //     }
-  //   }
-  // }, [products, urlId]);
+  useEffect(() => {}, []);
 
   return (
     <>
-      {/* {!collection && <Loader />}
-      {collection && (
+      {!products && <Loader />}
+      {products && (
         <section>
           <div className={`${styles.container} main-container`}>
-            {collection.map((product) => (
+            {products.map((product) => (
               <ProductCard
                 key={product.id}
                 model={product.model}
@@ -75,8 +45,7 @@ const Collections = () => {
             ))}
           </div>
         </section>
-      )} */}
-      <div>AdminCollections</div>
+      )}
     </>
   );
 };

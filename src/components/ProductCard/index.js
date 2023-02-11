@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 
+import { useLocation } from 'react-router-dom';
+
 import Card from 'components/Card';
+import Button from 'components/Button';
 
 import { formatNumber } from 'helpers/format';
 
@@ -16,8 +19,14 @@ const ProductCard = ({
   _imageBottom,
   numberOfVariants,
 }) => {
+  const location = useLocation();
+
+  const isAdmin = location.pathname.split('/')[1] === 'admin';
+
   const imageTop = require(`assets/${_imageTop}`);
   const imageBottom = require(`assets/${_imageBottom}`);
+
+  // TODO: Corregir url del edit button
 
   return (
     <>
@@ -46,6 +55,7 @@ const ProductCard = ({
           </li>
           <li className={styles.price}>${formatNumber(price)}</li>
         </ul>
+        {isAdmin && <Button to={`/admin/products/`}>Editar</Button>}
       </div>
     </>
   );

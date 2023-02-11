@@ -1,0 +1,26 @@
+@import 'App.scss';
+
+.container {
+  padding-top: 10rem;
+  padding-bottom: 3rem;
+  font-family: $font-f-secondary;
+  font-weight: $font-w-700;
+  letter-spacing: $ls-secondary;
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .links_wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+  }
+
+  a div {
+    padding: 2rem;
+    border: 1px solid #000;
+    border-radius: 1rem;
+  }
+}

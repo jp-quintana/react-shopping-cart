@@ -17,7 +17,7 @@ import styles from './index.module.scss';
 const Navbar = ({ toggleSideNav, toggleCartModal }) => {
   const { pathname } = useLocation();
 
-  const { isVerified } = useAuthContext();
+  const { isVerified, isAdmin } = useAuthContext();
 
   const [hasScrolled, setHasSrolled] = useState(false);
 
@@ -98,6 +98,11 @@ const Navbar = ({ toggleSideNav, toggleCartModal }) => {
         {isVerified && (
           <Link to="/cuenta" className={`${styles.link} ${styles.login_link}`}>
             Mi Cuenta
+          </Link>
+        )}
+        {isAdmin && (
+          <Link to="/admin" className={`${styles.link} ${styles.login_link}`}>
+            Admin
           </Link>
         )}
       </div>
