@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import {
+  FaExclamationTriangle,
   FaUserCircle,
   FaShippingFast,
   FaQuestionCircle,
@@ -21,7 +22,7 @@ import { SLIDES as slides } from './data';
 import styles from './index.module.scss';
 
 const SideNav = ({ toggleSideNav }) => {
-  const { isVerified, name } = useAuthContext();
+  const { isAdmin, isVerified, name } = useAuthContext();
 
   useKeyDown(() => {
     toggleSideNav();
@@ -81,6 +82,16 @@ const SideNav = ({ toggleSideNav }) => {
           <h2 className={styles.title}>Bienvenido devuelta, {name}!</h2>
         )}
         <ul className={styles.links_list}>
+          {isAdmin && (
+            <li>
+              <Link to="/admin" onClick={toggleSideNav} className={styles.link}>
+                <i>
+                  <FaExclamationTriangle />
+                </i>
+                Admin
+              </Link>
+            </li>
+          )}
           <li>
             <Link
               to={isVerified ? '/cuenta' : '/login'}

@@ -1,20 +1,36 @@
+@import 'App.scss';
+
 .container {
   padding-bottom: 3rem;
   padding-top: 10rem;
-  display: grid;
-  justify-content: center;
-  gap: 2rem;
-
-  @media (min-width: 600px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
 
   @media (min-width: 1200px) {
     padding-top: 12.2rem;
-    grid-template-columns: repeat(4, 1fr);
+  }
+
+  h1 {
+    font-family: $font-f-secondary;
+    font-weight: $font-w-700;
+    letter-spacing: $ls-secondary;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .products_wrapper {
+    display: grid;
+    justify-content: center;
+    gap: 2rem;
+
+    @media (min-width: 600px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (min-width: 1200px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 }

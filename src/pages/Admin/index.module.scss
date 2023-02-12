@@ -7,6 +7,10 @@
   font-weight: $font-w-700;
   letter-spacing: $ls-secondary;
 
+  @media (min-width: 1200px) {
+    padding-top: 12.2rem;
+  }
+
   h1 {
     font-size: 3rem;
     margin-bottom: 3rem;

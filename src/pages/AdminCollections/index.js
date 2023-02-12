@@ -30,19 +30,23 @@ const Collections = () => {
       {products && (
         <section>
           <div className={`${styles.container} main-container`}>
-            {products.map((product) => (
-              <ProductCard
-                key={product.id}
-                model={product.model}
-                color={product.color}
-                price={product.price}
-                type={product.type}
-                url={product.url}
-                _imageTop={product.images[0].src}
-                _imageBottom={product.images[1].src}
-                numberOfVariants={product.numberOfVariants}
-              />
-            ))}
+            <h1>Admin Products</h1>
+            <div className={styles.products_wrapper}>
+              {products.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  id={product.id}
+                  model={product.model}
+                  color={product.color}
+                  price={product.price}
+                  type={product.type}
+                  url={product.url}
+                  _imageTop={product.images[0].src}
+                  _imageBottom={product.images[1].src}
+                  numberOfVariants={product.numberOfVariants}
+                />
+              ))}
+            </div>
           </div>
         </section>
       )}

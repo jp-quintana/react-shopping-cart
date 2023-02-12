@@ -102,4 +102,29 @@
       color: #3d3d3d;
     }
   }
+
+  .admin_buttons_wrapper {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .edit {
+      background: $back-detail;
+    }
+
+    .delete {
+      background: rgba(243, 121, 120, 0.95);
+    }
+    
+    .edit,
+    .delete {
+      border-radius: 1rem;
+      font-family: $font-f-secondary;
+      font-weight: $font-w-900;
+      font-size: 1.4rem;
+      letter-spacing: $ls-secondary;
+      padding: 1rem;
+    }
+  }
 }
