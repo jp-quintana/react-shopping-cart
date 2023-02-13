@@ -46,5 +46,42 @@ export const useCollection = () => {
     }
   };
 
-  return { getCollection, isLoading, error };
+  const fetchCollection = async () => {
+    setError(null);
+    setIsLoading(true);
+    try {
+      const products = [];
+      const variants = [];
+
+      const querySnapshot = await getDocs(productsRef);
+      querySnapshot.forEach((doc) => {
+        products.push({ id: doc.id, ...doc.data() });
+      });
+
+      for (const product of products) {
+        for (const variant of product.variants) {
+          variants.push({
+            model: product.model,
+            collection: product.collection,
+            type: product.type,
+            productId: product.id,
+            variantId: variant.variantId,
+            color: variant.color,
+            price: variant.price,
+            url: variant.url,
+            images: variant.images,
+            numberOfVariants: product.variants.length,
+          });
+        }
+      }
+
+      return variants;
+    } catch (err) {
+      console.log(err);
+      setError(err);
+      setIsLoading(false);
+    }
+  };
+
+  return { getCollection, fetchCollection, isLoading, error };
 };

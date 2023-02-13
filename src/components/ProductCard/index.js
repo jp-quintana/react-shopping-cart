@@ -10,7 +10,7 @@ import { formatNumber } from 'helpers/format';
 import styles from './index.module.scss';
 
 const ProductCard = ({
-  id,
+  productId,
   model,
   color,
   price,
@@ -58,7 +58,7 @@ const ProductCard = ({
         </ul>
         {isAdmin && (
           <div className={styles.admin_buttons_wrapper}>
-            <Button className={styles.edit} to={`/admin/products/${id}`}>
+            <Button className={styles.edit} to={`/admin/products/${productId}`}>
               Editar
             </Button>
             <Button className={styles.delete} type="button">

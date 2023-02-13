@@ -9,13 +9,13 @@ import ProductCard from 'components/ProductCard';
 import styles from './index.module.scss';
 
 const Collections = () => {
-  const { getCollection } = useCollection();
+  const { fetchCollection } = useCollection();
 
   const [products, setProducts] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const fetchedProducts = await getCollection();
+      const fetchedProducts = await fetchCollection();
       setProducts(fetchedProducts);
     };
 
@@ -34,8 +34,8 @@ const Collections = () => {
             <div className={styles.products_wrapper}>
               {products.map((product) => (
                 <ProductCard
-                  key={product.id}
-                  id={product.id}
+                  key={product.variantId}
+                  productId={product.productId}
                   model={product.model}
                   color={product.color}
                   price={product.price}
