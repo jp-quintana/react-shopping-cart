@@ -1,0 +1,93 @@
+import { useRef } from 'react';
+
+import { FaFileUpload, FaFileImage, FaTimesCircle } from 'react-icons/fa';
+
+import styles from './index.module.scss';
+
+const DragDropFiles = ({
+  id,
+  title,
+  type,
+  files,
+  handleImagesInput,
+  handleDeleteImage,
+  className,
+  dropzoneClassName,
+  fileListClassName,
+}) => {
+  const icon = {
+    image: <FaFileImage />,
+  };
+
+  const hiddenInputRef = useRef();
+
+  const handleClick = (e) => {
+    hiddenInputRef.current.click();
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    handleImagesInput(e);
+  };
+
+  console.log(files);
+
+  return (
+    <div className={className}>
+      <div
+        className={`${styles.dropzone} ${dropzoneClassName}`}
+        onClick={handleClick}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+      >
+        <i>
+          <FaFileUpload />
+        </i>
+        {files.length === 0 && (
+          <>
+            <p className={styles.legend}>Choose {title || 'Files'}</p>
+          </>
+        )}
+        {files.length > 0 && (
+          <p className={styles.legend}>
+            {files.length > 1
+              ? `${files.length} files have been selected`
+              : `${files.length} file has been selected`}
+          </p>
+        )}
+        <input
+          type="file"
+          multiple
+          onChange={handleImagesInput}
+          ref={hiddenInputRef}
+          id={id}
+          hidden
+          accept="image/*"
+          required
+        />
+      </div>
+      {files.length > 0 && (
+        <ul className={`${styles.files_list} ${fileListClassName}`}>
+          {files.map((file) => (
+            <li key={file.name}>
+              <i>{icon[type]}</i>
+              <p>{file.name}</p>
+              <i
+                onClick={() => handleDeleteImage(file.name)}
+                className={styles.delete}
+              >
+                <FaTimesCircle />
+              </i>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+export default DragDropFiles;

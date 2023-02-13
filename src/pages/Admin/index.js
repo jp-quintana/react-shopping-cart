@@ -9,10 +9,10 @@ const Admin = () => {
         <h1>Panel</h1>
         <div className={styles.links_wrapper}>
           <Link to="/admin/products">
-            <div>Productos</div>
+            <div>Products</div>
           </Link>
           <Link to="/admin/products/add">
-            <div>Agregar Producto</div>
+            <div>Add Product</div>
           </Link>
         </div>
       </div>
