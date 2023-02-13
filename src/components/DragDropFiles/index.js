@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useState, useRef } from 'react';
 
 import { FaFileUpload, FaFileImage, FaTimesCircle } from 'react-icons/fa';
 
@@ -19,6 +19,8 @@ const DragDropFiles = ({
     image: <FaFileImage />,
   };
 
+  const [isDragging, setIsDragging] = useState(false);
+
   const hiddenInputRef = useRef();
 
   const handleClick = (e) => {
@@ -32,15 +34,18 @@ const DragDropFiles = ({
   const handleDrop = (e) => {
     e.preventDefault();
     handleImagesInput(e);
+    setIsDragging(false);
   };
-
-  console.log(files);
 
   return (
     <div className={className}>
       <div
-        className={`${styles.dropzone} ${dropzoneClassName}`}
+        className={`${styles.dropzone} ${dropzoneClassName} ${
+          isDragging ? styles.dragging : ''
+        }`}
         onClick={handleClick}
+        onDragEnter={() => setIsDragging(true)}
+        onDragLeave={() => setIsDragging(false)}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >

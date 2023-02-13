@@ -1,5 +1,9 @@
 @import 'App.scss';
 
+.dragging {
+  background: $back-detail;
+}
+
 .dropzone {
   display: flex;
   flex-direction: column;
