@@ -5,7 +5,7 @@ import { useCollection } from 'hooks/useCollection';
 
 import Loader from 'components/Loader';
 
-import ProductCard from './ProductCard';
+import ProductCard from 'components/ProductCard';
 
 // import { DUMMY_COLLECTIONS_PRODUCTS as products } from './data';
 
@@ -62,7 +62,7 @@ const Collections = () => {
           <div className={`${styles.container} main-container`}>
             {collection.map((product) => (
               <ProductCard
-                key={product.id}
+                key={product.variantId}
                 model={product.model}
                 color={product.color}
                 price={product.price}
