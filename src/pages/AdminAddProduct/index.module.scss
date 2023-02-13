@@ -1,0 +1,46 @@
+@import 'App.scss';
+
+.container {
+  padding-bottom: 3rem;
+  padding-top: 10rem;
+
+  @media (min-width: 1200px) {
+    padding-top: 12.2rem;
+  }
+
+  h1 {
+    font-family: $font-f-secondary;
+    font-weight: $font-w-700;
+    letter-spacing: $ls-secondary;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .form_wrapper {
+    .form {
+      width: 70%;
+      margin: 0 auto;
+
+      .label {
+        font-family: $font-f-secondary;
+        font-weight: $font-w-700;
+        letter-spacing: $ls-secondary;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 2rem;
+
+        span {
+          margin-bottom: .5rem;
+        }
+
+        input,
+        textarea,
+        select {
+          border: 1px solid #3d3d3d;
+          border-radius: 1rem;
+          padding: 1rem;
+        }
+      }
+    }
+  }
+}

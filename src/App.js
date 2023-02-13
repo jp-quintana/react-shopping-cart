@@ -12,8 +12,8 @@ import ProtectedRoutes from './setup/ProtectedRoutes';
 import Home from './pages/Home';
 import Admin from './pages/Admin';
 import AdminCollections from './pages/AdminCollections';
-import AdminProductAdd from './pages/AdminProductAdd';
-import AdminProductEdit from './pages/AdminProductEdit';
+import AdminAddProduct from './pages/AdminAddProduct';
+import AdminEditProduct from './pages/AdminEditProduct';
 import Account from './pages/Account';
 import Addresses from './pages/Addresses';
 import Login from 'pages/Login';
@@ -75,8 +75,8 @@ const App = () => {
             <Route element={<ProtectedRoutes needAdmin={true} />}>
               <Route path="admin" element={<Admin />} />
               <Route path="admin/products" element={<AdminCollections />} />
-              <Route path="admin/products/add" element={<AdminProductAdd />} />
-              <Route path="admin/products/:id" element={<AdminProductEdit />} />
+              <Route path="admin/products/add" element={<AdminAddProduct />} />
+              <Route path="admin/products/:id" element={<AdminEditProduct />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/" />} />
