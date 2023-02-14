@@ -14,7 +14,13 @@ const AdminAddProduct = () => {
     tags: [],
   });
   const [variants, setVariants] = useState(0);
-  const [sizes, setSizes] = useState([]);
+  const [sizes, setSizes] = useState({
+    s: false,
+    m: false,
+    l: false,
+    xl: false,
+    xxl: false,
+  });
 
   const handleImagesInput = (e) => {
     let inputFiles;
@@ -50,15 +56,42 @@ const AdminAddProduct = () => {
     setImages(updatedImages);
   };
 
-  const handleModelInput = (e) => {};
-  const handleTypeInput = (e) => {};
-  const handleCollectionInput = (e) => {};
-  const handleDescriptionInput = (e) => {};
-  const handleTagsInput = (e) => {};
-  const handleVariantsInput = (e) => {};
-  const handleSizesInput = (e) => {};
+  const handleModelInput = (e) => {
+    setProductInput((prevState) => ({ ...prevState, model: e.target.value }));
+  };
 
-  // TODO: CREAR TAG INPUT COMPONENT
+  const handleTypeInput = (e) => {
+    setProductInput((prevState) => ({ ...prevState, type: e.target.value }));
+  };
+
+  const handleCollectionInput = (e) => {
+    setProductInput((prevState) => ({
+      ...prevState,
+      collection: e.target.value,
+    }));
+  };
+
+  const handleDescriptionInput = (e) => {
+    setProductInput((prevState) => ({
+      ...prevState,
+      description: e.target.value,
+    }));
+  };
+
+  const handleTagsInput = (e) => {};
+
+  const handleVariantsInput = (e) => {
+    setVariants(+e.target.value);
+  };
+
+  const handleSizesInput = (e) => {
+    const updatedSizes = { ...sizes };
+    updatedSizes[e.target.value] = e.target.checked;
+    setSizes(updatedSizes);
+  };
+
+  console.log(productInput);
+
   return (
     <section>
       <div className={`${styles.container} main-container`}>
@@ -81,16 +114,30 @@ const AdminAddProduct = () => {
             </div>
             <label className={styles.label}>
               <span>Model:</span>
-              <input type="text" required />
+              <input
+                type="text"
+                onChange={handleModelInput}
+                value={productInput.model}
+                required
+              />
             </label>
             <label className={styles.label}>
               <span>Type:</span>
-              <input type="text" required />
+              <input
+                type="text"
+                onChange={handleTypeInput}
+                value={productInput.type}
+                required
+              />
             </label>
             <label className={styles.label}>
               <span>Collection:</span>
-              <select defaultValue="default" required>
-                <option value="default" disabled>
+              <select
+                onChange={handleCollectionInput}
+                value={productInput.collection}
+                required
+              >
+                <option value="" disabled>
                   Select your option
                 </option>
                 <option value="remeras">remeras</option>
@@ -100,7 +147,12 @@ const AdminAddProduct = () => {
             </label>
             <label className={styles.label}>
               <span>Description:</span>
-              <textarea type="text" required />
+              <textarea
+                type="text"
+                onChange={handleDescriptionInput}
+                value={productInput.description}
+                required
+              />
             </label>
             <label className={styles.label}>
               <span>Tags:</span>
@@ -108,8 +160,12 @@ const AdminAddProduct = () => {
             </label>
             <label className={styles.label}>
               <span>Variants:</span>
-              <select defaultValue="default" required>
-                <option value="default" disabled>
+              <select
+                value={`${variants}`}
+                onChange={handleVariantsInput}
+                required
+              >
+                <option value="0" disabled>
                   Select your option
                 </option>
                 <option value="1">1</option>
@@ -125,23 +181,43 @@ const AdminAddProduct = () => {
               <legend>Sizes:</legend>
               <div className={styles.checkbox_wrapper}>
                 <label>
-                  <input type="checkbox" value="S" />
+                  <input
+                    type="checkbox"
+                    value="s"
+                    onChange={handleSizesInput}
+                  />
                   <span>S</span>
                 </label>
                 <label>
-                  <input type="checkbox" value="M" />
+                  <input
+                    type="checkbox"
+                    value="m"
+                    onChange={handleSizesInput}
+                  />
                   <span>M</span>
                 </label>
                 <label>
-                  <input type="checkbox" value="L" />
+                  <input
+                    type="checkbox"
+                    value="l"
+                    onChange={handleSizesInput}
+                  />
                   <span>L</span>
                 </label>
                 <label>
-                  <input type="checkbox" value="XL" />
+                  <input
+                    type="checkbox"
+                    value="xl"
+                    onChange={handleSizesInput}
+                  />
                   <span>XL</span>
                 </label>
                 <label>
-                  <input type="checkbox" value="XXL" />
+                  <input
+                    type="checkbox"
+                    value="xxl"
+                    onChange={handleSizesInput}
+                  />
                   <span>XXL</span>
                 </label>
               </div>
