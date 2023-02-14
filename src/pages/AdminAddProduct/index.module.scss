@@ -21,13 +21,19 @@
       width: 70%;
       margin: 0 auto;
 
-      .images_wrapper {
-        .dropzone_wrapper {
-          margin-bottom: 2rem;
-        }
+      input, select, textarea {
+        font-weight: $font-w-400;
       }
 
-      .label:not([for='file']) {
+      .images_wrapper {
+        margin-bottom: 2rem;
+      }
+
+      .tags_input {
+        margin-bottom: 2rem;
+      }
+
+      .label:not([for='file']):not([for='tags']) {
         margin-bottom: 2rem;
       }
 

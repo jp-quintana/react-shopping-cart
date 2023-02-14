@@ -1,19 +1,25 @@
 import { useState } from 'react';
 
-import DragDropFiles from 'components/DragDropFiles';
+import DragDropFileInput from 'components/DragDropFileInput';
+import TagsInput from 'components/TagsInput';
 
 import styles from './index.module.scss';
 
 const AdminAddProduct = () => {
   const [images, setImages] = useState([]);
+
   const [productInput, setProductInput] = useState({
     model: '',
     type: '',
     collection: '',
     description: '',
-    tags: [],
+    tags: '',
   });
+
+  const [tags, setTags] = useState([]);
+
   const [variants, setVariants] = useState(0);
+
   const [sizes, setSizes] = useState({
     s: false,
     m: false,
@@ -78,7 +84,29 @@ const AdminAddProduct = () => {
     }));
   };
 
-  const handleTagsInput = (e) => {};
+  const handleTagsInput = (e) => {
+    setProductInput((prevState) => ({ ...prevState, tags: e.target.value }));
+
+    if (e.key === 'Enter') {
+      const checkForExistingTag = tags.find(
+        (tag) => tag.content === e.target.value
+      );
+
+      if (checkForExistingTag) {
+        return;
+      }
+
+      const updatedTags = tags;
+      updatedTags.push({ content: e.target.value.toLowerCase() });
+      setTags(updatedTags);
+      setProductInput((prevState) => ({ ...prevState, tags: '' }));
+    }
+  };
+
+  const handleDeleteTags = (tagContent) => {
+    const updatedTags = tags.filter((tag) => tag.content !== tagContent);
+    setTags(updatedTags);
+  };
 
   const handleVariantsInput = (e) => {
     setVariants(+e.target.value);
@@ -90,7 +118,7 @@ const AdminAddProduct = () => {
     setSizes(updatedSizes);
   };
 
-  console.log(productInput);
+  console.log(tags);
 
   return (
     <section>
@@ -102,14 +130,13 @@ const AdminAddProduct = () => {
               <label htmlFor="file" className={styles.label}>
                 <span>All images:</span>
               </label>
-              <DragDropFiles
+              <DragDropFileInput
                 id="file"
                 title="images"
                 type="image"
                 files={images}
                 handleImagesInput={handleImagesInput}
                 handleDeleteImage={handleDeleteImage}
-                className={styles.dropzone_wrapper}
               />
             </div>
             <label className={styles.label}>
@@ -154,10 +181,17 @@ const AdminAddProduct = () => {
                 required
               />
             </label>
-            <label className={styles.label}>
+            <label htmlFor="tags" className={styles.label}>
               <span>Tags:</span>
-              <input type="text" required />
             </label>
+            <TagsInput
+              id="tags"
+              tags={tags}
+              tagsInput={productInput.tags}
+              handleTagsInput={handleTagsInput}
+              handleDeleteTags={handleDeleteTags}
+              className={styles.tags_input}
+            />
             <label className={styles.label}>
               <span>Variants:</span>
               <select

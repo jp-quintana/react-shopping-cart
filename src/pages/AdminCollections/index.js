@@ -8,7 +8,7 @@ import ProductCard from 'components/ProductCard';
 
 import styles from './index.module.scss';
 
-const Collections = () => {
+const AdminCollections = () => {
   const { fetchCollection } = useCollection();
 
   const [products, setProducts] = useState(null);
@@ -54,4 +54,4 @@ const Collections = () => {
   );
 };
 
-export default Collections;
+export default AdminCollections;

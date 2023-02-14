@@ -4,7 +4,7 @@ import { FaFileUpload, FaFileImage, FaTimesCircle } from 'react-icons/fa';
 
 import styles from './index.module.scss';
 
-const DragDropFiles = ({
+const DragDropFileInput = ({
   id,
   title,
   type,
@@ -95,4 +95,4 @@ const DragDropFiles = ({
   );
 };
 
-export default DragDropFiles;
+export default DragDropFileInput;
