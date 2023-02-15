@@ -1,0 +1,27 @@
+.tooltip {
+  text-transform: none;
+  position: absolute;
+  z-index: 1;
+  width: 200%;
+  bottom: 4rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s;
+  background: #3d3d3d !important;
+  font-weight: normal !important;
+  font-size: 1.2rem !important;
+  text-align: center !important;
+
+  &::after {
+    content: ' ';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #3d3d3d transparent transparent transparent;
+  }
+}

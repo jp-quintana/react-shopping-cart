@@ -1,4 +1,7 @@
+import { FaQuestionCircle } from 'react-icons/fa';
+
 import Button from 'components/Button';
+import ToolTip from 'components/ToolTip';
 
 import styles from './index.module.scss';
 
@@ -27,14 +30,35 @@ const VariantsForm = ({ variants, sizes, baseSku, images }) => {
                     <span>Images</span>
                   </th>
                   <th>
-                    <span>Color</span>
+                    <span className={styles.color_header}>
+                      Color
+                      <ToolTip className={styles.tooltip}>
+                        Color masculino. Ejemplo: blanco sí, blanca no.
+                      </ToolTip>
+                      <i>
+                        <FaQuestionCircle />
+                      </i>
+                    </span>
+                  </th>
+                  <th>
+                    <span className={styles.color_header}>
+                      Color Alt
+                      <ToolTip className={styles.tooltip}>
+                        Solo tildar si el género gramatical del tipo de producto
+                        no coincide con el género gramatical del color del
+                        casillero anterior. Ejemplo: remera y blanco.
+                      </ToolTip>
+                      <i>
+                        <FaQuestionCircle />
+                      </i>
+                    </span>
                   </th>
                   <th>
                     <span>Price</span>
                   </th>
-                  <th>
+                  {/* <th>
                     <span>Url</span>
-                  </th>
+                  </th> */}
                   <th>
                     <span>SKU</span>
                   </th>
@@ -69,8 +93,13 @@ const VariantsForm = ({ variants, sizes, baseSku, images }) => {
                       )}
                     </td>
                     <td>{index === 0 && <input type="text" />}</td>
+                    <td>{index === 0 && <input type="checkbox" />}</td>
                     <td>{index === 0 && <input type="number" />}</td>
-                    <td>{index === 0 && <input type="text" />}</td>
+                    {/* <td>
+                      {index === 0 && (
+                        <input type="text" placeholder="remera-flaakko-negra" />
+                      )}
+                    </td> */}
                     <td>{(baseSku + skuSizeCode[size]).toUpperCase()}</td>
                     <td>
                       <input type="number" min="0" step="1" />

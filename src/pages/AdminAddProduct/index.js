@@ -3,6 +3,8 @@ import { useState } from 'react';
 import ProductForm from './ProductForm';
 import VariantsForm from './VariantsForm';
 
+import CenterModal from 'components/CenterModal';
+
 import styles from './index.module.scss';
 
 const AdminAddProduct = () => {
@@ -129,34 +131,37 @@ const AdminAddProduct = () => {
   };
 
   return (
-    <section>
-      <div className={`${styles.container} main-container`}>
-        <h1>Add Product</h1>
-        <ProductForm
-          images={images}
-          productInput={productInput}
-          tags={tags}
-          variants={variants}
-          handleImagesInput={handleImagesInput}
-          handleDeleteImage={handleDeleteImage}
-          handleModelInput={handleModelInput}
-          handleTypeInput={handleTypeInput}
-          handleCollectionInput={handleCollectionInput}
-          handleDescriptionInput={handleDescriptionInput}
-          handleTagsInput={handleTagsInput}
-          handleDeleteTags={handleDeleteTags}
-          handleSkuInput={handleSkuInput}
-          handleVariantsInput={handleVariantsInput}
-          handleSizesInput={handleSizesInput}
-        />
-        <VariantsForm
-          variants={variants}
-          sizes={sizes.selected}
-          baseSku={productInput.sku}
-          images={images}
-        />
-      </div>
-    </section>
+    <>
+      <CenterModal />
+      <section>
+        <div className={`${styles.container} main-container`}>
+          <h1>Add Product</h1>
+          <ProductForm
+            images={images}
+            productInput={productInput}
+            tags={tags}
+            variants={variants}
+            handleImagesInput={handleImagesInput}
+            handleDeleteImage={handleDeleteImage}
+            handleModelInput={handleModelInput}
+            handleTypeInput={handleTypeInput}
+            handleCollectionInput={handleCollectionInput}
+            handleDescriptionInput={handleDescriptionInput}
+            handleTagsInput={handleTagsInput}
+            handleDeleteTags={handleDeleteTags}
+            handleSkuInput={handleSkuInput}
+            handleVariantsInput={handleVariantsInput}
+            handleSizesInput={handleSizesInput}
+          />
+          <VariantsForm
+            variants={variants}
+            sizes={sizes.selected}
+            baseSku={productInput.sku}
+            images={images}
+          />
+        </div>
+      </section>
+    </>
   );
 };
 
