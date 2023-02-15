@@ -14,6 +14,7 @@ const AdminAddProduct = () => {
     collection: '',
     description: '',
     tags: '',
+    sku: '',
   });
 
   const [tags, setTags] = useState([]);
@@ -21,11 +22,8 @@ const AdminAddProduct = () => {
   const [variants, setVariants] = useState(0);
 
   const [sizes, setSizes] = useState({
-    s: false,
-    m: false,
-    l: false,
-    xl: false,
-    xxl: false,
+    options: { s: false, m: false, l: false, xl: false, xxl: false },
+    selected: [],
   });
 
   const handleImagesInput = (e) => {
@@ -108,17 +106,27 @@ const AdminAddProduct = () => {
     setTags(updatedTags);
   };
 
+  const handleSkuInput = (e) => {
+    setProductInput((prevState) => ({
+      ...prevState,
+      sku: e.target.value,
+    }));
+  };
+
   const handleVariantsInput = (e) => {
     setVariants(+e.target.value);
   };
 
   const handleSizesInput = (e) => {
     const updatedSizes = { ...sizes };
-    updatedSizes[e.target.value] = e.target.checked;
+    updatedSizes.options[e.target.value] = e.target.checked;
+
+    updatedSizes.selected = Object.keys(updatedSizes.options).filter(
+      (key) => updatedSizes.options[key]
+    );
+
     setSizes(updatedSizes);
   };
-
-  console.log(productInput);
 
   return (
     <section>
@@ -137,10 +145,16 @@ const AdminAddProduct = () => {
           handleDescriptionInput={handleDescriptionInput}
           handleTagsInput={handleTagsInput}
           handleDeleteTags={handleDeleteTags}
+          handleSkuInput={handleSkuInput}
           handleVariantsInput={handleVariantsInput}
           handleSizesInput={handleSizesInput}
         />
-        <VariantsForm />
+        <VariantsForm
+          variants={variants}
+          sizes={sizes.selected}
+          baseSku={productInput.sku}
+          images={images}
+        />
       </div>
     </section>
   );

@@ -1,0 +1,108 @@
+@import 'App.scss';
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .table_container {
+    .variant_number {
+      font-family: $font-f-secondary;
+      font-weight: $font-w-700;
+      letter-spacing: $ls-secondary;
+      margin-bottom: 0.5rem;
+    }
+
+    .table_wrapper {
+      border: 1px solid #3d3d3d;
+      padding: 1rem 2rem;
+      border-radius: 1rem;
+
+      table {
+        border-collapse: collapse;
+        overflow: hidden;
+        width: 100%;
+
+        tbody {
+          // display: grid;
+          // grid-auto-rows: 1fr;
+          // gap: 1rem;
+        }
+
+        tr {
+          // display: grid;
+          // grid-template-columns: 0.5fr repeat(6, 1fr);
+          // gap: 1rem;
+          // align-items: center;
+
+          th {
+            margin-bottom: 0.5rem;
+            padding: 1rem 0;
+
+            span {
+              color: white;
+              background: $back-detail;
+              border-radius: 0.6rem;
+              padding: 0.5rem 1rem;
+            }
+          }
+
+          th,
+          td {
+            font-family: $font-f-secondary;
+            font-weight: $font-w-700;
+            letter-spacing: $ls-secondary;
+          }
+
+          .size,
+          th {
+            text-transform: uppercase;
+            text-align: center;
+          }
+
+          td {
+            padding: 1rem 2rem;
+
+            .images_button {
+              font-family: $font-f-secondary;
+              font-weight: $font-w-700;
+              letter-spacing: $ls-secondary;
+              padding: .5rem 2rem;
+              color: #fff;
+              background-color: #3d3d3d;
+              border-radius: .6rem;
+            }
+            // .image_links {
+            //   width: auto;
+            //   .image_link {
+            //     display: flex;
+            //     gap: 1rem;
+
+            //     div > label {
+            //       width: calc(100% / 7);
+            //       overflow: hidden;
+            //       white-space: nowrap;
+            //       text-overflow: ellipsis;
+            //     }
+            //   }
+            // }
+
+            input,
+            .button {
+              width: 100%;
+            }
+
+            input:not([type='checkbox']) {
+              border: 1px solid #3d3d3d;
+              padding: 1rem;
+              border-radius: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

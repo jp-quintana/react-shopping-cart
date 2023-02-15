@@ -16,6 +16,7 @@ const ProductForm = ({
   handleDescriptionInput,
   handleTagsInput,
   handleDeleteTags,
+  handleSkuInput,
   handleVariantsInput,
   handleSizesInput,
 }) => {
@@ -89,6 +90,16 @@ const ProductForm = ({
             handleDeleteTags={handleDeleteTags}
             className={styles.tags_input}
           />
+          <label className={styles.label}>
+            <span>SKU:</span>
+            <input
+              type="text"
+              onChange={handleSkuInput}
+              value={productInput.sku}
+              maxLength="6"
+              required
+            />
+          </label>
           <label className={styles.label}>
             <span>Variants:</span>
             <select
