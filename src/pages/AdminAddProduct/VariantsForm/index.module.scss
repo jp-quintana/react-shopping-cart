@@ -29,7 +29,8 @@
             margin-bottom: 0.5rem;
             padding: 1rem 0;
 
-            span {
+            .color_header,
+            .table_header {
               color: white;
               background: $back-detail;
               border-radius: 0.6rem;

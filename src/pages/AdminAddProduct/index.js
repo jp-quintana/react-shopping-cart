@@ -3,8 +3,6 @@ import { useState } from 'react';
 import ProductForm from './ProductForm';
 import VariantsForm from './VariantsForm';
 
-import CenterModal from 'components/CenterModal';
-
 import styles from './index.module.scss';
 
 const AdminAddProduct = () => {
@@ -132,7 +130,6 @@ const AdminAddProduct = () => {
 
   return (
     <>
-      <CenterModal />
       <section>
         <div className={`${styles.container} main-container`}>
           <h1>Add Product</h1>

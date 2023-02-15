@@ -1,7 +1,9 @@
+// TODO: REMOVE TAILWIND PARA SACAR LOS IMPORTANTS
+@import 'App.scss';
+
 .tooltip {
   text-transform: none;
   position: absolute;
-  z-index: 1;
   width: 200%;
   bottom: 4rem;
   left: 50%;
@@ -9,10 +11,15 @@
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.5s;
-  background: #3d3d3d !important;
-  font-weight: normal !important;
+  background: #3d3d3d;
   font-size: 1.2rem !important;
   text-align: center !important;
+  z-index: 1 !important;
+  font-family: $font-f-secondary !important;
+  font-weight: $font-w-400 !important;
+  letter-spacing: $ls-secondary !important;
+  border-radius: .6rem !important;
+  padding: .5rem !important;
 
   &::after {
     content: ' ';
