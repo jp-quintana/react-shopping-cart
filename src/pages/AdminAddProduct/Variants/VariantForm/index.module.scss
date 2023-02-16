@@ -4,12 +4,14 @@
   .buttons_container {
     display: flex;
     padding: 1rem;
+    border-radius: 1rem;
+    border: 1px solid #3d3d3d;
+    align-items: center;
 
     .variant_number {
       font-family: $font-f-secondary;
       font-weight: $font-w-700;
       letter-spacing: $ls-secondary;
-      align-self: flex-end;
       line-height: 1rem;
     }
 
@@ -17,7 +19,6 @@
       display: flex;
       gap: 1rem;
       margin-left: auto;
-      align-self: center;
 
       button {
         padding: 0.5rem 2rem;
@@ -33,7 +34,8 @@
         background: #3d3d3d;
       }
 
-      .cancel {
+      .cancel,
+      .delete {
         background: rgba(243, 121, 120, 0.95);
       }
     }

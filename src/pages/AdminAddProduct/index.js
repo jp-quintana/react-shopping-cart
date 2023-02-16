@@ -19,7 +19,6 @@ const AdminAddProduct = () => {
     description: '',
     tags: '',
     sku: '',
-    variants: 0,
     sizes: { s: false, m: false, l: false, xl: false, xxl: false },
   });
 
@@ -29,16 +28,16 @@ const AdminAddProduct = () => {
 
   const [sizes, setSizes] = useState([]);
 
-  const [isEditingVariant, setIsEditingVariant] = useState(-1);
-  const [isEditingOtherVariant, setIsEditingOtherVariant] = useState(false);
+  const [isEditingVariants, setIsEditingVariants] = useState(false);
+  const [editCount, setEditCount] = useState(0);
 
   useEffect(() => {
-    if (isEditingVariant > -1) {
-      setIsEditingOtherVariant(true);
+    if (editCount === 0) {
+      setIsEditingVariants(true);
     } else {
-      setIsEditingOtherVariant(false);
+      setIsEditingVariants(false);
     }
-  }, [isEditingVariant]);
+  }, [editCount]);
 
   const handleImagesInput = (e) => {
     let inputFiles;
@@ -127,28 +126,6 @@ const AdminAddProduct = () => {
     }));
   };
 
-  const handleVariantsInput = (e) => {
-    const updatedVariants = variants;
-    const numberOfVariants = +e.target.value;
-    for (let i = 0; i < numberOfVariants; i++) {
-      if (!updatedVariants[i]) {
-        updatedVariants.push({
-          id: uuid(),
-          color: '',
-          isAltColor: false,
-          price: '',
-          inventory: { s: '', m: '', l: '', xl: '', xxl: '' },
-        });
-      }
-    }
-
-    setVariants(updatedVariants.slice(0, numberOfVariants));
-    setProductInput((prevState) => ({
-      ...prevState,
-      variants: numberOfVariants,
-    }));
-  };
-
   const handleSizesInput = (e) => {
     const updatedSizesInput = { ...productInput.sizes };
 
@@ -165,14 +142,35 @@ const AdminAddProduct = () => {
     }));
   };
 
-  const handleEditVariant = (index) => {
-    setIsEditingVariant(index);
+  const handleAddVariant = () => {
+    const updatedVariants = [...variants];
+
+    updatedVariants.push({
+      id: uuid(),
+      color: '',
+      isColorAlt: false,
+      price: 0,
+      inventory: { s: 0, m: 0, l: 0, xl: 0, xxl: 0 },
+    });
+
+    setVariants(updatedVariants);
+  };
+
+  const handleEditVariant = (num) => {
+    setEditCount((prevState) => prevState + num);
+  };
+
+  const handleDeleteVariant = (index) => {
+    const updatedVariants = [...variants];
+
+    updatedVariants.splice(index, 1);
+
+    setVariants(updatedVariants);
   };
 
   const handleVariantEditSubmit = ({ variantIndex, ...updatedVariant }) => {
     const updatedVariants = [...variants];
 
-    console.log('aca', updatedVariant);
     updatedVariants[variantIndex] = updatedVariant;
 
     setVariants(updatedVariants);
@@ -181,6 +179,10 @@ const AdminAddProduct = () => {
   const handleProductSubmit = (e) => {
     e.preventDefault();
   };
+
+  console.log(variants);
+
+  console.log(editCount);
 
   return (
     <>
@@ -200,21 +202,19 @@ const AdminAddProduct = () => {
             handleTagsInput={handleTagsInput}
             handleDeleteTags={handleDeleteTags}
             handleSkuInput={handleSkuInput}
-            handleVariantsInput={handleVariantsInput}
             handleSizesInput={handleSizesInput}
             handleProductSubmit={handleProductSubmit}
           />
-          {!!productInput.variants && (
-            <Variants
-              variants={variants}
-              sizes={sizes}
-              images={images}
-              isEditingVariant={isEditingVariant}
-              isEditingOtherVariant={isEditingOtherVariant}
-              handleEditVariant={handleEditVariant}
-              handleVariantEditSubmit={handleVariantEditSubmit}
-            />
-          )}
+          <Variants
+            productInput={productInput}
+            variants={variants}
+            sizes={sizes}
+            images={images}
+            handleAddVariant={handleAddVariant}
+            handleEditVariant={handleEditVariant}
+            handleDeleteVariant={handleDeleteVariant}
+            handleVariantEditSubmit={handleVariantEditSubmit}
+          />
           <div className={styles.button_wrapper}>
             <Button type="submit" form="product-form">
               Create

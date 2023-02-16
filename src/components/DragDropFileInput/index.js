@@ -5,7 +5,7 @@ import { FaFileUpload, FaFileImage, FaTimesCircle } from 'react-icons/fa';
 import styles from './index.module.scss';
 
 const DragDropFileInput = ({
-  id,
+  name,
   title,
   type,
   files,
@@ -69,10 +69,9 @@ const DragDropFileInput = ({
           multiple
           onChange={handleImagesInput}
           ref={hiddenInputRef}
-          id={id}
+          name={name}
           hidden
           accept="image/*"
-          required
         />
       </div>
       {files.length > 0 && (

@@ -16,7 +16,6 @@ const ProductForm = ({
   handleTagsInput,
   handleDeleteTags,
   handleSkuInput,
-  handleVariantsInput,
   handleSizesInput,
   handleProductSubmit,
 }) => {
@@ -104,7 +103,7 @@ const ProductForm = ({
               required
             />
           </label>
-          <label className={styles.label}>
+          {/* <label className={styles.label}>
             <span>Variants:</span>
             <select
               value={`${productInput.variants}`}
@@ -122,7 +121,7 @@ const ProductForm = ({
               <option value="6">6</option>
               <option value="7">7</option>
             </select>
-          </label>
+          </label> */}
           <fieldset>
             <legend>Sizes:</legend>
             <div className={styles.checkbox_wrapper}>

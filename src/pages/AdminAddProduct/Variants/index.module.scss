@@ -1,10 +1,38 @@
 @import 'App.scss';
 
-.container {
+.section {
   width: 90%;
   margin: 0 auto;
   margin-top: 3rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+ 
+
+  .label,
+  .add_variant_button {
+    font-family: $font-f-secondary;
+    font-weight: $font-w-700;
+    letter-spacing: $ls-secondary;
+  }
+
+  .label {
+    font-size: 1.2rem;
+  }
+
+  .variants_container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .add_variant_button {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-size: 1.6rem;
+    color: #fff;
+    padding: .5rem 2rem;
+    border-radius: .6rem;
+    background: #3d3d3d;
+    margin-top: 2rem;
+  }
 }
