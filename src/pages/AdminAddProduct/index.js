@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import ProductForm from './ProductForm';
-import VariantsForm from './VariantsForm';
+import Variants from './Variants';
 
 import styles from './index.module.scss';
 
@@ -182,7 +182,7 @@ const AdminAddProduct = () => {
             handleVariantsInput={handleVariantsInput}
             handleSizesInput={handleSizesInput}
           />
-          <VariantsForm
+          <Variants
             variants={variants}
             sizes={sizes}
             baseSku={productInput.sku}

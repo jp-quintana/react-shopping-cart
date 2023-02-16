@@ -1,0 +1,10 @@
+@import 'App.scss';
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
