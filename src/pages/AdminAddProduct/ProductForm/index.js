@@ -7,7 +7,6 @@ const ProductForm = ({
   images,
   productInput,
   tags,
-  variants,
   handleImagesInput,
   handleDeleteImage,
   handleModelInput,
@@ -103,7 +102,7 @@ const ProductForm = ({
           <label className={styles.label}>
             <span>Variants:</span>
             <select
-              value={`${variants}`}
+              value={`${productInput.variants}`}
               onChange={handleVariantsInput}
               required
             >
@@ -122,7 +121,18 @@ const ProductForm = ({
           <fieldset>
             <legend>Sizes:</legend>
             <div className={styles.checkbox_wrapper}>
-              <label>
+              {Object.keys(productInput.sizes).map((key) => (
+                <label key={key}>
+                  <input
+                    type="checkbox"
+                    value={key}
+                    checked={productInput.sizes[key]}
+                    onChange={handleSizesInput}
+                  />
+                  <span>{key.toUpperCase()}</span>
+                </label>
+              ))}
+              {/* <label>
                 <input type="checkbox" value="s" onChange={handleSizesInput} />
                 <span>S</span>
               </label>
@@ -145,7 +155,7 @@ const ProductForm = ({
                   onChange={handleSizesInput}
                 />
                 <span>XXL</span>
-              </label>
+              </label> */}
             </div>
           </fieldset>
         </form>

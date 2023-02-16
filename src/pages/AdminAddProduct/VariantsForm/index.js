@@ -6,7 +6,13 @@ import CenterModal from 'components/CenterModal';
 
 import styles from './index.module.scss';
 
-const VariantsForm = ({ variants, sizes, baseSku, images }) => {
+const VariantsForm = ({
+  variants,
+  sizes,
+  baseSku,
+  images,
+  handleInventoryInput,
+}) => {
   const skuSizeCode = {
     s: 'sm',
     m: 'md',
@@ -14,14 +20,14 @@ const VariantsForm = ({ variants, sizes, baseSku, images }) => {
     xl: 'xl',
     xxl: 'xx',
   };
+
   return (
     <>
       <CenterModal></CenterModal>
       <div className={styles.container}>
-        {[...Array(variants).keys()].map((key) => (
-          <div className={styles.table_container}>
-            <p className={styles.variant_number}>Variant {+key + 1}:</p>
-
+        {variants.map((variant, variantIndex) => (
+          <div className={styles.table_container} key={variant.id}>
+            <p className={styles.variant_number}>Variant {variantIndex + 1}:</p>
             <div className={styles.table_wrapper}>
               <table>
                 <thead>
@@ -60,9 +66,7 @@ const VariantsForm = ({ variants, sizes, baseSku, images }) => {
                     <th>
                       <span className={styles.table_header}>Price</span>
                     </th>
-                    {/* <th>
-                    <span>Url</span>
-                  </th> */}
+
                     <th>
                       <span className={styles.table_header}>SKU</span>
                     </th>
@@ -72,11 +76,11 @@ const VariantsForm = ({ variants, sizes, baseSku, images }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {sizes.map((size, index) => (
-                    <tr>
+                  {sizes.map((size, sizeIndex) => (
+                    <tr key={size}>
                       <td className={styles.size}>{size}</td>
                       <td>
-                        {index === 0 && (
+                        {sizeIndex === 0 && (
                           // <ul className={styles.image_links}>
                           //   {images.map((image) => (
                           //     <li className={styles.image_link}>
@@ -99,17 +103,20 @@ const VariantsForm = ({ variants, sizes, baseSku, images }) => {
                           </Button>
                         )}
                       </td>
-                      <td>{index === 0 && <input type="text" />}</td>
-                      <td>{index === 0 && <input type="checkbox" />}</td>
-                      <td>{index === 0 && <input type="number" />}</td>
-                      {/* <td>
-                      {index === 0 && (
-                        <input type="text" placeholder="remera-flaakko-negra" />
-                      )}
-                    </td> */}
+                      <td>{sizeIndex === 0 && <input type="text" />}</td>
+                      <td>{sizeIndex === 0 && <input type="checkbox" />}</td>
+                      <td>{sizeIndex === 0 && <input type="number" />}</td>
                       <td>{(baseSku + skuSizeCode[size]).toUpperCase()}</td>
                       <td>
-                        <input type="number" min="0" step="1" />
+                        <input
+                          type="number"
+                          min="0"
+                          step="1"
+                          value={variant.inventory[size]}
+                          onChange={(e) =>
+                            handleInventoryInput(e, variantIndex, size)
+                          }
+                        />
                       </td>
                     </tr>
                   ))}

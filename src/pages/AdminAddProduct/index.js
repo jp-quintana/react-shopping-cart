@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { v4 as uuid } from 'uuid';
+
 import ProductForm from './ProductForm';
 import VariantsForm from './VariantsForm';
 
@@ -15,16 +17,15 @@ const AdminAddProduct = () => {
     description: '',
     tags: '',
     sku: '',
+    variants: 0,
+    sizes: { s: false, m: false, l: false, xl: false, xxl: false },
   });
 
   const [tags, setTags] = useState([]);
 
-  const [variants, setVariants] = useState(0);
+  const [variants, setVariants] = useState([]);
 
-  const [sizes, setSizes] = useState({
-    options: { s: false, m: false, l: false, xl: false, xxl: false },
-    selected: [],
-  });
+  const [sizes, setSizes] = useState([]);
 
   const handleImagesInput = (e) => {
     let inputFiles;
@@ -114,18 +115,50 @@ const AdminAddProduct = () => {
   };
 
   const handleVariantsInput = (e) => {
-    setVariants(+e.target.value);
+    const updatedVariants = variants;
+    const numberOfVariants = +e.target.value;
+    for (let i = 0; i < numberOfVariants; i++) {
+      if (!updatedVariants[i]) {
+        updatedVariants.push({
+          id: uuid(),
+          color: '',
+          isAltColor: false,
+          price: '',
+          inventory: { s: '', m: '', l: '', xl: '', xxl: '' },
+        });
+      }
+    }
+
+    setVariants(updatedVariants.slice(0, numberOfVariants));
+    setProductInput((prevState) => ({
+      ...prevState,
+      variants: numberOfVariants,
+    }));
   };
 
-  const handleSizesInput = (e) => {
-    const updatedSizes = { ...sizes };
-    updatedSizes.options[e.target.value] = e.target.checked;
+  console.log(variants);
 
-    updatedSizes.selected = Object.keys(updatedSizes.options).filter(
-      (key) => updatedSizes.options[key]
+  const handleSizesInput = (e) => {
+    const updatedSizesInput = { ...productInput.sizes };
+
+    updatedSizesInput[e.target.value] = e.target.checked;
+
+    const updatedSizes = Object.keys(updatedSizesInput).filter(
+      (key) => updatedSizesInput[key]
     );
 
     setSizes(updatedSizes);
+    setProductInput((prevState) => ({
+      ...prevState,
+      sizes: updatedSizesInput,
+    }));
+  };
+
+  const handleInventoryInput = (e, variantIndex, size) => {
+    const updatedVariants = [...variants];
+    updatedVariants[variantIndex].inventory[size] = +e.target.value;
+
+    setVariants(updatedVariants);
   };
 
   return (
@@ -134,10 +167,9 @@ const AdminAddProduct = () => {
         <div className={`${styles.container} main-container`}>
           <h1>Add Product</h1>
           <ProductForm
-            images={images}
             productInput={productInput}
+            images={images}
             tags={tags}
-            variants={variants}
             handleImagesInput={handleImagesInput}
             handleDeleteImage={handleDeleteImage}
             handleModelInput={handleModelInput}
@@ -152,9 +184,10 @@ const AdminAddProduct = () => {
           />
           <VariantsForm
             variants={variants}
-            sizes={sizes.selected}
+            sizes={sizes}
             baseSku={productInput.sku}
             images={images}
+            handleInventoryInput={handleInventoryInput}
           />
         </div>
       </section>
