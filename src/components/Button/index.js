@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import styles from './index.module.scss';
 
-const Button = ({ children, className, to, type, onClick }) => {
+const Button = ({ children, form, className, to, type, onClick }) => {
   if (to) {
     return (
       <Link
@@ -17,6 +17,7 @@ const Button = ({ children, className, to, type, onClick }) => {
 
   return (
     <button
+      form={form}
       type={type}
       className={`${styles.button} ${className}`}
       onClick={onClick}

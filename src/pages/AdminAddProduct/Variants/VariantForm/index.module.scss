@@ -1,30 +1,49 @@
 @import 'App.scss';
 
-.table_container {
-  .variant_number {
-    font-family: $font-f-secondary;
-    font-weight: $font-w-700;
-    letter-spacing: $ls-secondary;
-    margin-bottom: 0.5rem;
+.form_container {
+  .buttons_container {
+    display: flex;
+    padding: 1rem;
+
+    .variant_number {
+      font-family: $font-f-secondary;
+      font-weight: $font-w-700;
+      letter-spacing: $ls-secondary;
+      align-self: flex-end;
+      line-height: 1rem;
+    }
+
+    .buttons_wrapper {
+      display: flex;
+      gap: 1rem;
+      margin-left: auto;
+      align-self: center;
+
+      button {
+        padding: 0.5rem 2rem;
+        font-family: $font-f-secondary;
+        font-weight: $font-w-700;
+        letter-spacing: $ls-secondary;
+        border-radius: 0.6rem;
+        color: #fff;
+      }
+
+      .edit,
+      .submit {
+        background: #3d3d3d;
+      }
+
+      .cancel {
+        background: rgba(243, 121, 120, 0.95);
+      }
+    }
   }
 
-  
   .table_wrapper {
     border: 1px solid #3d3d3d;
     padding: 1rem 2rem;
     border-radius: 1rem;
 
-    .buttons_container {
-      display: flex;
-      gap: 1rem;
-
-      button {
-        padding: 1rem;
-        margin-left: auto;
-        width: auto !important;
-      }
-    }
-    
     table {
       width: 100%;
 
@@ -68,15 +87,19 @@
 
         td {
           padding: 1rem 2rem;
-
-          .images_button {
-            font-family: $font-f-secondary;
-            font-weight: $font-w-700;
-            letter-spacing: $ls-secondary;
-            padding: 0.5rem 2rem;
-            color: #fff;
-            background-color: #3d3d3d;
-            border-radius: 0.6rem;
+          
+          .images_button_wrapper {
+            text-align: center;
+            
+            .images_button {
+              font-family: $font-f-secondary;
+              font-weight: $font-w-700;
+              letter-spacing: $ls-secondary;
+              padding: 0.5rem 2rem;
+              color: #fff;
+              background-color: #3d3d3d;
+              border-radius: 0.6rem;
+            }
           }
 
           // .image_links {

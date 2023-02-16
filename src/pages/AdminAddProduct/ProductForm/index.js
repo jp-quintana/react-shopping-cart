@@ -18,17 +18,22 @@ const ProductForm = ({
   handleSkuInput,
   handleVariantsInput,
   handleSizesInput,
+  handleProductSubmit,
 }) => {
   return (
     <>
       <div className={styles.form_wrapper}>
-        <form className={styles.form}>
+        <form
+          id="product-form"
+          onSubmit={handleProductSubmit}
+          className={styles.form}
+        >
           <div className={styles.images_wrapper}>
             <label htmlFor="file" className={styles.label}>
               <span>All images:</span>
             </label>
             <DragDropFileInput
-              id="file"
+              name="file"
               title="images"
               type="image"
               files={images}
@@ -132,30 +137,6 @@ const ProductForm = ({
                   <span>{key.toUpperCase()}</span>
                 </label>
               ))}
-              {/* <label>
-                <input type="checkbox" value="s" onChange={handleSizesInput} />
-                <span>S</span>
-              </label>
-              <label>
-                <input type="checkbox" value="m" onChange={handleSizesInput} />
-                <span>M</span>
-              </label>
-              <label>
-                <input type="checkbox" value="l" onChange={handleSizesInput} />
-                <span>L</span>
-              </label>
-              <label>
-                <input type="checkbox" value="xl" onChange={handleSizesInput} />
-                <span>XL</span>
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  value="xxl"
-                  onChange={handleSizesInput}
-                />
-                <span>XXL</span>
-              </label> */}
             </div>
           </fieldset>
         </form>

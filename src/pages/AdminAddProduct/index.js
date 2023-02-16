@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { v4 as uuid } from 'uuid';
 
 import ProductForm from './ProductForm';
 import Variants from './Variants';
+
+import Button from 'components/Button';
 
 import styles from './index.module.scss';
 
@@ -26,6 +28,17 @@ const AdminAddProduct = () => {
   const [variants, setVariants] = useState([]);
 
   const [sizes, setSizes] = useState([]);
+
+  const [isEditingVariant, setIsEditingVariant] = useState(-1);
+  const [isEditingOtherVariant, setIsEditingOtherVariant] = useState(false);
+
+  useEffect(() => {
+    if (isEditingVariant > -1) {
+      setIsEditingOtherVariant(true);
+    } else {
+      setIsEditingOtherVariant(false);
+    }
+  }, [isEditingVariant]);
 
   const handleImagesInput = (e) => {
     let inputFiles;
@@ -136,8 +149,6 @@ const AdminAddProduct = () => {
     }));
   };
 
-  console.log(variants);
-
   const handleSizesInput = (e) => {
     const updatedSizesInput = { ...productInput.sizes };
 
@@ -154,11 +165,21 @@ const AdminAddProduct = () => {
     }));
   };
 
-  const handleInventoryInput = (e, variantIndex, size) => {
+  const handleEditVariant = (index) => {
+    setIsEditingVariant(index);
+  };
+
+  const handleVariantEditSubmit = ({ variantIndex, ...updatedVariant }) => {
     const updatedVariants = [...variants];
-    updatedVariants[variantIndex].inventory[size] = +e.target.value;
+
+    console.log('aca', updatedVariant);
+    updatedVariants[variantIndex] = updatedVariant;
 
     setVariants(updatedVariants);
+  };
+
+  const handleProductSubmit = (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -181,14 +202,24 @@ const AdminAddProduct = () => {
             handleSkuInput={handleSkuInput}
             handleVariantsInput={handleVariantsInput}
             handleSizesInput={handleSizesInput}
+            handleProductSubmit={handleProductSubmit}
           />
-          <Variants
-            variants={variants}
-            sizes={sizes}
-            baseSku={productInput.sku}
-            images={images}
-            handleInventoryInput={handleInventoryInput}
-          />
+          {!!productInput.variants && (
+            <Variants
+              variants={variants}
+              sizes={sizes}
+              images={images}
+              isEditingVariant={isEditingVariant}
+              isEditingOtherVariant={isEditingOtherVariant}
+              handleEditVariant={handleEditVariant}
+              handleVariantEditSubmit={handleVariantEditSubmit}
+            />
+          )}
+          <div className={styles.button_wrapper}>
+            <Button type="submit" form="product-form">
+              Create
+            </Button>
+          </div>
         </div>
       </section>
     </>
