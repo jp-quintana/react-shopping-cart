@@ -180,7 +180,8 @@ const AdminAddProduct = () => {
     e.preventDefault();
   };
 
-  const createButtonIsDisabled = isEditingVariants || sizes.length === 0;
+  const createButtonIsDisabled =
+    isEditingVariants || sizes.length === 0 || variants.length === 0;
 
   let createButtonContent;
 
@@ -188,6 +189,8 @@ const AdminAddProduct = () => {
     createButtonContent = `Editing...`;
   } else if (sizes.length === 0) {
     createButtonContent = `No sizes selected`;
+  } else if (variants.length === 0) {
+    createButtonContent = `No variants selected`;
   } else {
     createButtonContent = `Create`;
   }

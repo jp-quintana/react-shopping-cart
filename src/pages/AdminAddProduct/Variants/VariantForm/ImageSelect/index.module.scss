@@ -1,0 +1,49 @@
+@import 'App.scss';
+
+.container {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+
+  .available_images_container {
+  }
+
+  .selected_images_container {
+  }
+}
+
+.available_images_container,
+.selected_images_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.title,
+.image {
+  font-family: $font-f-secondary;
+  font-weight: $font-w-700;
+  letter-spacing: $ls-secondary;
+}
+
+.title {
+  margin-bottom: 1rem;
+}
+
+.images_list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 1rem;
+  border: 1px solid #3d3d3d;
+  padding: 2rem;
+  flex: 1;
+}
+
+.image {
+  padding: 1rem;
+  color: #fff;
+  border-radius: 1rem;
+
+  background: #3d3d3d;
+}

@@ -2,7 +2,6 @@ import VariantForm from './VariantForm';
 
 import { FaPlusCircle } from 'react-icons/fa';
 
-import CenterModal from 'components/CenterModal';
 import Button from 'components/Button';
 
 import styles from './index.module.scss';
@@ -19,7 +18,6 @@ const Variants = ({
 }) => {
   return (
     <>
-      <CenterModal></CenterModal>
       <div className={styles.section}>
         <p className={styles.label}>Variants:</p>
         {variants.length > 0 && (

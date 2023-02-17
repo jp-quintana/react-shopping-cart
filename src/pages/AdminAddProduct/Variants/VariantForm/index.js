@@ -2,8 +2,11 @@ import { useState, useEffect } from 'react';
 
 import { FaQuestionCircle } from 'react-icons/fa';
 
+import ImageSelect from './ImageSelect';
+
 import Button from 'components/Button';
 import ToolTip from 'components/ToolTip';
+import CenterModal from 'components/CenterModal';
 
 import styles from './index.module.scss';
 
@@ -92,6 +95,9 @@ const VariantForm = ({
 
   return (
     <>
+      <CenterModal modalClassName={styles.modal}>
+        <ImageSelect />
+      </CenterModal>
       <form onSubmit={handleEditSubmit} className={styles.form_container}>
         <div
           className={`${styles.buttons_container} ${buttonsContainerEditingStyles}`}
