@@ -8,11 +8,11 @@
     border: 1px solid #3d3d3d;
     align-items: center;
 
-    .variant_number {
+    .variant_title {
       font-family: $font-f-secondary;
       font-weight: $font-w-700;
       letter-spacing: $ls-secondary;
-      line-height: 1rem;
+      text-transform: capitalize;
     }
 
     .buttons_wrapper {
@@ -41,10 +41,23 @@
     }
   }
 
+  .buttons_container_editing {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-bottom: none !important;
+  }
+
   .table_wrapper {
     border: 1px solid #3d3d3d;
     padding: 1rem 2rem;
     border-radius: 1rem;
+    
+    .no_sizes {
+      font-family: $font-f-secondary;
+      font-weight: $font-w-700;
+      letter-spacing: $ls-secondary;
+      text-align: center;
+    }
 
     table {
       width: 100%;
@@ -89,10 +102,10 @@
 
         td {
           padding: 1rem 2rem;
-          
+
           .images_button_wrapper {
             text-align: center;
-            
+
             .images_button {
               font-family: $font-f-secondary;
               font-weight: $font-w-700;
@@ -134,5 +147,10 @@
         }
       }
     }
+  }
+
+  .table_wrapper_editing {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
   }
 }

@@ -33,9 +33,9 @@ const AdminAddProduct = () => {
 
   useEffect(() => {
     if (editCount === 0) {
-      setIsEditingVariants(true);
-    } else {
       setIsEditingVariants(false);
+    } else {
+      setIsEditingVariants(true);
     }
   }, [editCount]);
 
@@ -148,7 +148,7 @@ const AdminAddProduct = () => {
     updatedVariants.push({
       id: uuid(),
       color: '',
-      isColorAlt: false,
+      colorDisplay: '',
       price: 0,
       inventory: { s: 0, m: 0, l: 0, xl: 0, xxl: 0 },
     });
@@ -180,9 +180,19 @@ const AdminAddProduct = () => {
     e.preventDefault();
   };
 
-  console.log(variants);
+  const createButtonIsDisabled = isEditingVariants || sizes.length === 0;
 
-  console.log(editCount);
+  let createButtonContent;
+
+  if (isEditingVariants) {
+    createButtonContent = `Editing...`;
+  } else if (sizes.length === 0) {
+    createButtonContent = `No sizes selected`;
+  } else {
+    createButtonContent = `Create`;
+  }
+
+  console.log(createButtonIsDisabled);
 
   return (
     <>
@@ -216,8 +226,12 @@ const AdminAddProduct = () => {
             handleVariantEditSubmit={handleVariantEditSubmit}
           />
           <div className={styles.button_wrapper}>
-            <Button type="submit" form="product-form">
-              Create
+            <Button
+              type="submit"
+              form="product-form"
+              disabled={createButtonIsDisabled}
+            >
+              {createButtonContent}
             </Button>
           </div>
         </div>

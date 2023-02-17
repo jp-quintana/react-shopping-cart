@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 import { FaQuestionCircle } from 'react-icons/fa';
 
@@ -11,6 +11,7 @@ const VariantForm = ({
   productInput,
   variant,
   variantIndex,
+  images,
   sizes,
   handleEditVariant,
   handleDeleteVariant,
@@ -20,11 +21,12 @@ const VariantForm = ({
 
   const [detailsInput, setDetailsInput] = useState({
     color: variant.color,
-    isColorAlt: variant.isColorAlt,
+    colorDisplay: variant.colorDisplay,
     price: variant.price,
   });
 
   const [inventoryInput, setInventoryInput] = useState(variant.inventory);
+  const [variantTitleInventory, setVariantTitleInventory] = useState('');
 
   // const skuSizeCode = {
   //   s: 'sm',
@@ -49,24 +51,52 @@ const VariantForm = ({
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
-    handleVariantEditSubmit({
-      variantIndex,
-      id: variant.id,
-      color: detailsInput.color,
-      isColorAlt: detailsInput.isColorAlt,
-      price: +detailsInput.price,
-      inventory: inventoryInput,
-    });
+    if (sizes.length > 0) {
+      handleVariantEditSubmit({
+        variantIndex,
+        id: variant.id,
+        color: detailsInput.color.toLowerCase(),
+        colorDisplay: detailsInput.colorDisplay.toLowerCase(),
+        price: +detailsInput.price,
+        inventory: inventoryInput,
+      });
+    }
     setIsEditing(false);
   };
+
+  let variantTitleColor = variant.colorDisplay
+    ? variant.colorDisplay
+    : variant.color;
+
+  const createVariantTitleInventory = () => {
+    let text = ' - Inventory: ( ';
+    for (const size of sizes) {
+      text += `${size.toUpperCase()}: ${variant.inventory[size]} `;
+    }
+    return (text += ')');
+  };
+
+  useEffect(() => {
+    setVariantTitleInventory(createVariantTitleInventory());
+  }, [variant.inventory, sizes]);
+
+  let variantTitle = `Variant ${variantIndex + 1}: ${productInput.type} ${
+    productInput.model
+  } ${variantTitleColor} ${variantTitleInventory}`;
+
+  let buttonsContainerEditingStyles = isEditing
+    ? styles.buttons_container_editing
+    : '';
+
+  let tableWrapperEditingStyles = isEditing ? styles.table_wrapper_editing : '';
 
   return (
     <>
       <form onSubmit={handleEditSubmit} className={styles.form_container}>
-        <div className={styles.buttons_container}>
-          <p className={styles.variant_number}>
-            Variant {variantIndex + 1}: {productInput.type} {productInput.model}
-          </p>
+        <div
+          className={`${styles.buttons_container} ${buttonsContainerEditingStyles}`}
+        >
+          <p className={styles.variant_title}>{variantTitle}</p>
           <div className={styles.buttons_wrapper}>
             {isEditing && (
               <>
@@ -103,148 +133,159 @@ const VariantForm = ({
           </div>
         </div>
         {isEditing && (
-          <div className={styles.table_wrapper}>
-            <table>
-              <thead>
-                <tr>
-                  <th>
-                    <span className={styles.table_header}>Sizes</span>
-                  </th>
-                  <th>
-                    <span className={styles.table_header}>Images</span>
-                  </th>
-                  <th>
-                    <span className={styles.color_header}>
-                      Color
-                      <ToolTip className={styles.tooltip}>
-                        Color masculino. Ejemplo: blanco sí, blanca no.
-                      </ToolTip>
-                      <i>
-                        <FaQuestionCircle />
-                      </i>
-                    </span>
-                  </th>
-                  <th>
-                    <span className={styles.color_header}>
-                      Color Alt
-                      <ToolTip className={styles.tooltip}>
-                        Solo tildar si el género gramatical del tipo de producto
-                        no coincide con el género gramatical del color del
-                        casillero anterior. Ejemplo: remera y blanco.
-                      </ToolTip>
-                      <i>
-                        <FaQuestionCircle />
-                      </i>
-                    </span>
-                  </th>
-                  <th>
-                    <span className={styles.table_header}>Price</span>
-                  </th>
+          <div
+            className={`${styles.table_wrapper} ${tableWrapperEditingStyles}`}
+          >
+            {sizes.length === 0 && (
+              <p className={styles.no_sizes}>Please choose sizes.</p>
+            )}
+            {sizes.length > 0 && (
+              <table>
+                <thead>
+                  <tr>
+                    <th>
+                      <span className={styles.table_header}>Sizes</span>
+                    </th>
+                    <th>
+                      <span className={styles.table_header}>Images</span>
+                    </th>
+                    <th>
+                      <span className={styles.color_header}>
+                        Color
+                        <ToolTip className={styles.tooltip}>
+                          Escribir color masculino. Ejemplo: blanco sí, blanca
+                          no.
+                        </ToolTip>
+                        <i>
+                          <FaQuestionCircle />
+                        </i>
+                      </span>
+                    </th>
+                    <th>
+                      <span className={styles.color_header}>
+                        Color Display
+                        <ToolTip className={styles.tooltip}>
+                          Escribir color con género gramatical correcto según el
+                          tipo de producto. Ejemplo: remera y blanco, escribir
+                          blanca.
+                        </ToolTip>
+                        <i>
+                          <FaQuestionCircle />
+                        </i>
+                      </span>
+                    </th>
+                    <th>
+                      <span className={styles.table_header}>Price</span>
+                    </th>
 
-                  <th>
-                    <span className={styles.table_header}>Inventory</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {sizes.map((size, sizeIndex) => (
-                  <tr key={size}>
-                    <td className={styles.size}>{size}</td>
-                    <td>
-                      {sizeIndex === 0 && (
-                        // <ul className={styles.image_links}>
-                        //   {images.map((image) => (
-                        //     <li className={styles.image_link}>
-                        //       <input
-                        //         type="checkbox"
-                        //         key={image.name}
-                        //         value={image.name}
-                        //       />
-                        //       <div>
-                        //         <label htmlFor={image.name}>{image.name}</label>
-                        //       </div>
-                        //     </li>
-                        //   ))}
-                        // </ul>
-                        <div className={styles.images_button_wrapper}>
-                          <Button
-                            className={styles.images_button}
-                            type="button"
-                          >
-                            Select
-                          </Button>
-                        </div>
-                      )}
-                    </td>
-                    <td>
-                      {sizeIndex === 0 && (
-                        <>
+                    <th>
+                      <span className={styles.table_header}>Inventory</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {sizes.map((size, sizeIndex) => (
+                    <tr key={size}>
+                      <td className={styles.size}>{size}</td>
+                      <td>
+                        {sizeIndex === 0 && (
+                          // <ul className={styles.image_links}>
+                          //   {images.map((image) => (
+                          //     <li className={styles.image_link}>
+                          //       <input
+                          //         type="checkbox"
+                          //         key={image.name}
+                          //         value={image.name}
+                          //       />
+                          //       <div>
+                          //         <label htmlFor={image.name}>{image.name}</label>
+                          //       </div>
+                          //     </li>
+                          //   ))}
+                          // </ul>
+                          <div className={styles.images_button_wrapper}>
+                            {images.length === 0 && <p>No Images Uploaded</p>}
+                            {images.length > 0 && (
+                              <Button
+                                className={styles.images_button}
+                                type="button"
+                              >
+                                Select
+                              </Button>
+                            )}
+                          </div>
+                        )}
+                      </td>
+                      <td>
+                        {sizeIndex === 0 && (
+                          <>
+                            <input
+                              type="text"
+                              value={detailsInput.color}
+                              onChange={(e) =>
+                                setDetailsInput((prevState) => ({
+                                  ...prevState,
+                                  color: e.target.value,
+                                }))
+                              }
+                              disabled={!isEditing}
+                              required
+                            />
+                          </>
+                        )}
+                      </td>
+                      <td>
+                        {sizeIndex === 0 && (
                           <input
                             type="text"
-                            value={detailsInput.color}
+                            value={detailsInput.colorDisplay}
                             onChange={(e) =>
                               setDetailsInput((prevState) => ({
                                 ...prevState,
-                                color: e.target.value,
+                                colorDisplay: e.target.value,
+                              }))
+                            }
+                            disabled={!isEditing}
+                          />
+                        )}
+                      </td>
+                      <td>
+                        {sizeIndex === 0 && (
+                          <input
+                            type="number"
+                            value={detailsInput.price}
+                            onChange={(e) =>
+                              setDetailsInput((prevState) => ({
+                                ...prevState,
+                                price: e.target.value,
                               }))
                             }
                             disabled={!isEditing}
                             required
                           />
-                        </>
-                      )}
-                    </td>
-                    <td>
-                      {sizeIndex === 0 && (
-                        <input
-                          type="checkbox"
-                          checked={detailsInput.isColorAlt}
-                          onChange={(e) =>
-                            setDetailsInput((prevState) => ({
-                              ...prevState,
-                              isColorAlt: e.target.checked,
-                            }))
-                          }
-                          disabled={!isEditing}
-                        />
-                      )}
-                    </td>
-                    <td>
-                      {sizeIndex === 0 && (
+                        )}
+                      </td>
+                      <td>
                         <input
                           type="number"
-                          value={detailsInput.price}
+                          min="0"
+                          step="1"
+                          value={inventoryInput[size]}
                           onChange={(e) =>
-                            setDetailsInput((prevState) => ({
+                            setInventoryInput((prevState) => ({
                               ...prevState,
-                              price: e.target.value,
+                              [size]: +e.target.value,
                             }))
                           }
                           disabled={!isEditing}
                           required
                         />
-                      )}
-                    </td>
-                    <td>
-                      <input
-                        type="number"
-                        min="0"
-                        step="1"
-                        value={inventoryInput[size]}
-                        onChange={(e) =>
-                          setInventoryInput((prevState) => ({
-                            ...prevState,
-                            [size]: +e.target.value,
-                          }))
-                        }
-                        disabled={!isEditing}
-                        required
-                      />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </div>
         )}
       </form>

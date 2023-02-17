@@ -29,6 +29,11 @@
       background: $back-detail;
       color: #fff;
       border-radius: 1rem;
+
+      &:disabled {
+        color: #3d3d3d;
+        background: #bdc3c7 ;
+      }
     }
   }
 }
