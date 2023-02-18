@@ -23,7 +23,7 @@ const ProductForm = ({
     <>
       <div className={styles.form_wrapper}>
         <form
-          id="product-form"
+          id="productForm"
           onSubmit={handleProductSubmit}
           className={styles.form}
         >

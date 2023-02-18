@@ -195,8 +195,6 @@ const AdminAddProduct = () => {
     createButtonContent = `Create`;
   }
 
-  console.log(createButtonIsDisabled);
-
   return (
     <>
       <section>
@@ -231,7 +229,7 @@ const AdminAddProduct = () => {
           <div className={styles.button_wrapper}>
             <Button
               type="submit"
-              form="product-form"
+              form="productForm"
               disabled={createButtonIsDisabled}
             >
               {createButtonContent}

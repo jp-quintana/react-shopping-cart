@@ -96,7 +96,7 @@ const VariantForm = ({
   return (
     <>
       <CenterModal modalClassName={styles.modal}>
-        <ImageSelect />
+        <ImageSelect images={images} />
       </CenterModal>
       <form onSubmit={handleEditSubmit} className={styles.form_container}>
         <div
