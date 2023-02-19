@@ -6,10 +6,41 @@
   grid-template-columns: repeat(2, 50%);
   gap: 2rem;
 
+  .available_images_container,
+  .selected_images_container {
+    li {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+
+      i {
+        color: #fff;
+        margin-left: auto;
+        font-size: 1.6rem;
+      }
+    }
+  }
+
   .available_images_container {
+    li {
+      cursor: pointer;
+    }
   }
 
   .selected_images_container {
+    li {
+      cursor: move;
+
+      &:first-child {
+        background: $back-detail;
+      }
+
+      i {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
   }
 }
 
@@ -41,15 +72,15 @@
 
   li {
     display: inline-block;
+    background: #3d3d3d;
+    border-radius: 1rem;
+    padding: 1rem;
   }
 }
 
 .image {
-  padding: 1rem;
   color: #fff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-radius: 1rem;
-  background: #3d3d3d;
 }

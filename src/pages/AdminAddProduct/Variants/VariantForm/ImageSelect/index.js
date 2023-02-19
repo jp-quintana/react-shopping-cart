@@ -1,109 +1,109 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+
+import { FaTimesCircle, FaPlusCircle } from 'react-icons/fa';
 
 import styles from './index.module.scss';
 
 const ImageSelect = ({ images }) => {
-  const [availableImages, setAvailableImages] = useState(
-    images.map((image) => ({
-      name: image.name,
-    }))
-  );
+  const [availableImages, setAvailableImages] = useState(null);
   const [selectedImages, setSelectedImages] = useState([]);
-  const [itemBeingDragged, setItemBeingDragged] = useState(null);
 
-  const handleDragStart = (e, id) => {
-    setItemBeingDragged(id);
+  const startDragIndex = useRef();
+  const currentDragIndex = useRef();
+
+  const handleDrop = () => {
+    let updatedImages = [...selectedImages];
+
+    const dragItemContent = updatedImages.splice(startDragIndex.current, 1)[0];
+
+    updatedImages.splice(currentDragIndex.current, 0, dragItemContent);
+
+    startDragIndex.current = null;
+    currentDragIndex.current = null;
+
+    setSelectedImages(updatedImages);
   };
 
-  const handleDragEnd = (e) => {
-    setItemBeingDragged(null);
+  const handleAdd = (image) => {
+    const updatedAvailableImages = availableImages.filter(
+      (availableImage) => availableImage !== image
+    );
+
+    const updatedSelectedImages = [...selectedImages];
+    updatedSelectedImages.push(image);
+
+    setSelectedImages(updatedSelectedImages);
+    setAvailableImages(updatedAvailableImages);
   };
 
-  const handleDragOver = (e) => {
-    e.preventDefault();
+  const handleDelete = (image) => {
+    const updatedSelectedImages = selectedImages.filter(
+      (selectedImage) => selectedImage !== image
+    );
+
+    const updatedAvailableImages = [...availableImages];
+    updatedAvailableImages.push(image);
+
+    setSelectedImages(updatedSelectedImages);
+    setAvailableImages(updatedAvailableImages);
   };
 
-  const handleDrop = (e) => {
-    e.preventDefault();
+  useEffect(() => {
+    const allImages = images.map((image) => image.name);
 
-    if (e.target.id === 'selectedImagesList') {
-      const updatedSelectedImages = [...selectedImages];
-      if (
-        updatedSelectedImages.filter(
-          (selectedImage) => selectedImage.name === itemBeingDragged
-        ).length > 0
-      ) {
-        return;
-      }
+    const availableImages = allImages.filter(
+      (image) => !selectedImages.includes(image)
+    );
 
-      const updatedAvailableImages = availableImages.filter(
-        (availableImage) => availableImage.name !== itemBeingDragged
-      );
-
-      updatedSelectedImages.push({ name: itemBeingDragged });
-
-      setAvailableImages(updatedAvailableImages);
-      setSelectedImages(updatedSelectedImages);
-    }
-
-    if (e.target.id === 'availableImagesList') {
-      const updatedAvailableImages = [...availableImages];
-      if (
-        updatedAvailableImages.filter(
-          (availableImage) => availableImage.name === itemBeingDragged
-        ).length > 0
-      ) {
-        return;
-      }
-
-      const updatedSelectedImages = selectedImages.filter(
-        (selectedImage) => selectedImage.name !== itemBeingDragged
-      );
-
-      updatedAvailableImages.push({ name: itemBeingDragged });
-
-      setSelectedImages(updatedSelectedImages);
-      setAvailableImages(updatedAvailableImages);
-    }
-  };
+    setAvailableImages(availableImages);
+  }, []);
 
   return (
     <div className={styles.container}>
-      <div className={styles.available_images_container}>
-        <p className={styles.title}>Available Images:</p>
-        <ul
-          id="availableImagesList"
-          onDragOver={handleDragOver}
-          onDrop={handleDrop}
-          className={styles.images_list}
-        >
-          {availableImages.map((availableImage) => (
-            <li
-              key={availableImage.name}
-              onDragStart={(e) => handleDragStart(e, availableImage.name)}
-              onDragEnd={handleDragEnd}
-              draggable
+      {availableImages && (
+        <>
+          <div className={styles.available_images_container}>
+            <p className={styles.title}>Available Images:</p>
+            <ul className={styles.images_list}>
+              {availableImages.map((availableImage) => (
+                <li
+                  key={availableImage}
+                  onClick={() => handleAdd(availableImage)}
+                >
+                  <p className={styles.image}>{availableImage}</p>
+                  <i>
+                    <FaPlusCircle />
+                  </i>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className={styles.selected_images_container}>
+            <p className={styles.title}>Selected Images:</p>
+            <ul
+              onDragOver={(e) => e.preventDefault()}
+              onDrop={handleDrop}
+              className={styles.images_list}
             >
-              <p className={styles.image}>{availableImage.name}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className={styles.selected_images_container}>
-        <p className={styles.title}>Selected Images:</p>
-        <ul
-          id="selectedImagesList"
-          onDragOver={handleDragOver}
-          onDrop={handleDrop}
-          className={styles.images_list}
-        >
-          {selectedImages.map((selectedImage) => (
-            <li key={selectedImage.name} draggable>
-              <p className={styles.image}>{selectedImage.name}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
+              {selectedImages.map((selectedImage, index) => (
+                <li
+                  key={selectedImage}
+                  onDragStart={() => (startDragIndex.current = index)}
+                  onDragEnter={() => (currentDragIndex.current = index)}
+                  draggable
+                >
+                  <p className={styles.image}>{selectedImage}</p>
+                  <i>
+                    <FaTimesCircle
+                      onClick={() => handleDelete(selectedImage)}
+                    />
+                  </i>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </>
+      )}
     </div>
   );
 };
