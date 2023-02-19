@@ -16,10 +16,12 @@ const VariantForm = ({
   variantIndex,
   images,
   sizes,
-  handleEditVariant,
+  handleEditVariantCount,
   handleDeleteVariant,
   handleVariantEditSubmit,
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const [isEditing, setIsEditing] = useState(false);
 
   const [detailsInput, setDetailsInput] = useState({
@@ -31,25 +33,22 @@ const VariantForm = ({
   const [inventoryInput, setInventoryInput] = useState(variant.inventory);
   const [variantTitleInventory, setVariantTitleInventory] = useState('');
 
-  // const skuSizeCode = {
-  //   s: 'sm',
-  //   m: 'md',
-  //   l: 'lg',
-  //   xl: 'xl',
-  //   xxl: 'xx',
-  // };
+  const [currentlySelectedImages, setCurrentlySelectedImages] = useState(
+    variant.images
+  );
 
   const handleEditStart = () => {
     setIsEditing(true);
-    handleEditVariant(1);
+    handleEditVariantCount(1);
   };
 
   const handleEditCancel = () => {
-    const { inventory, ...details } = variant;
+    const { inventory, images, ...details } = variant;
+    setCurrentlySelectedImages(images);
     setDetailsInput(details);
     setInventoryInput(inventory);
     setIsEditing(false);
-    handleEditVariant(-1);
+    handleEditVariantCount(-1);
   };
 
   const handleEditSubmit = (e) => {
@@ -62,9 +61,19 @@ const VariantForm = ({
         colorDisplay: detailsInput.colorDisplay.toLowerCase(),
         price: +detailsInput.price,
         inventory: inventoryInput,
+        images: [...currentlySelectedImages],
       });
     }
     setIsEditing(false);
+    handleEditVariantCount(-1);
+  };
+
+  const handleImageConfirm = (currentImages) => {
+    setCurrentlySelectedImages(currentImages);
+  };
+
+  const closeImageSelector = () => {
+    setIsOpen(false);
   };
 
   let variantTitleColor = variant.colorDisplay
@@ -95,8 +104,19 @@ const VariantForm = ({
 
   return (
     <>
-      <CenterModal modalClassName={styles.modal}>
-        <ImageSelect images={images} />
+      <CenterModal
+        modalClassName={styles.modal}
+        toggleModal={closeImageSelector}
+      >
+        {isOpen && (
+          <ImageSelect
+            images={images}
+            currentlySelectedImages={currentlySelectedImages}
+            variantIndex={variantIndex}
+            handleImageConfirm={handleImageConfirm}
+            closeImageSelector={closeImageSelector}
+          />
+        )}
       </CenterModal>
       <form onSubmit={handleEditSubmit} className={styles.form_container}>
         <div
@@ -192,8 +212,8 @@ const VariantForm = ({
                 <tbody>
                   {sizes.map((size, sizeIndex) => (
                     <tr key={size}>
-                      <td className={styles.size}>{size}</td>
-                      <td>
+                      <td className={styles.size_td}>{size}</td>
+                      <td className={styles.images_td}>
                         {sizeIndex === 0 && (
                           // <ul className={styles.image_links}>
                           //   {images.map((image) => (
@@ -212,17 +232,30 @@ const VariantForm = ({
                           <div className={styles.images_button_wrapper}>
                             {images.length === 0 && <p>No Images Uploaded</p>}
                             {images.length > 0 && (
-                              <Button
-                                className={styles.images_button}
-                                type="button"
-                              >
-                                Select
-                              </Button>
+                              <>
+                                {currentlySelectedImages.length === 0 && (
+                                  <p>No files selected</p>
+                                )}
+                                {currentlySelectedImages.length > 0 && (
+                                  <p>{`${currentlySelectedImages.length} File${
+                                    currentlySelectedImages.length > 1
+                                      ? 's'
+                                      : ''
+                                  } selected`}</p>
+                                )}
+                                <Button
+                                  onClick={() => setIsOpen(true)}
+                                  className={styles.images_button}
+                                  type="button"
+                                >
+                                  Select
+                                </Button>
+                              </>
                             )}
                           </div>
                         )}
                       </td>
-                      <td>
+                      <td className={styles.color_td}>
                         {sizeIndex === 0 && (
                           <>
                             <input
@@ -240,7 +273,7 @@ const VariantForm = ({
                           </>
                         )}
                       </td>
-                      <td>
+                      <td className={styles.color_d_td}>
                         {sizeIndex === 0 && (
                           <input
                             type="text"
@@ -255,7 +288,7 @@ const VariantForm = ({
                           />
                         )}
                       </td>
-                      <td>
+                      <td className={styles.price_td}>
                         {sizeIndex === 0 && (
                           <input
                             type="number"
@@ -271,7 +304,7 @@ const VariantForm = ({
                           />
                         )}
                       </td>
-                      <td>
+                      <td className={styles.inventory_td}>
                         <input
                           type="number"
                           min="0"

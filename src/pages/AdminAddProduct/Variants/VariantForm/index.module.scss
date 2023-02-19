@@ -1,9 +1,8 @@
 @import 'App.scss';
 
 .modal {
-  padding-left: 3rem;
-  padding-right: 3rem;
-  
+  padding: 2rem !important;
+
   @media (min-width: 900px) {
     height: 60%;
     width: 50%;
@@ -104,7 +103,7 @@
           letter-spacing: $ls-secondary;
         }
 
-        .size,
+        .size_td,
         th {
           text-transform: uppercase;
           text-align: center;
@@ -115,6 +114,12 @@
 
           .images_button_wrapper {
             text-align: center;
+
+            p {
+              margin-bottom: 1rem;
+              display:inline-block;
+              text-transform: capitalize;
+            }
 
             .images_button {
               font-family: $font-f-secondary;

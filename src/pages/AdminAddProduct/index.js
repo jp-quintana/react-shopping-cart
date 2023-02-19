@@ -150,13 +150,14 @@ const AdminAddProduct = () => {
       color: '',
       colorDisplay: '',
       price: 0,
+      images: [],
       inventory: { s: 0, m: 0, l: 0, xl: 0, xxl: 0 },
     });
 
     setVariants(updatedVariants);
   };
 
-  const handleEditVariant = (num) => {
+  const handleEditVariantCount = (num) => {
     setEditCount((prevState) => prevState + num);
   };
 
@@ -195,6 +196,8 @@ const AdminAddProduct = () => {
     createButtonContent = `Create`;
   }
 
+  console.log(variants);
+
   return (
     <>
       <section>
@@ -222,7 +225,7 @@ const AdminAddProduct = () => {
             sizes={sizes}
             images={images}
             handleAddVariant={handleAddVariant}
-            handleEditVariant={handleEditVariant}
+            handleEditVariantCount={handleEditVariantCount}
             handleDeleteVariant={handleDeleteVariant}
             handleVariantEditSubmit={handleVariantEditSubmit}
           />

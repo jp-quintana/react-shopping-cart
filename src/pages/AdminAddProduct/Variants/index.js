@@ -12,7 +12,7 @@ const Variants = ({
   sizes,
   images,
   handleAddVariant,
-  handleEditVariant,
+  handleEditVariantCount,
   handleDeleteVariant,
   handleVariantEditSubmit,
 }) => {
@@ -30,7 +30,7 @@ const Variants = ({
                 variantIndex={variantIndex}
                 images={images}
                 sizes={sizes}
-                handleEditVariant={handleEditVariant}
+                handleEditVariantCount={handleEditVariantCount}
                 handleDeleteVariant={handleDeleteVariant}
                 handleVariantEditSubmit={handleVariantEditSubmit}
               />
