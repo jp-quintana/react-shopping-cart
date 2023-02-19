@@ -3,12 +3,20 @@ import { useState } from 'react';
 import styles from './index.module.scss';
 
 const ImageSelect = ({ images }) => {
-  const [availableImages, setAvailableImages] = useState(images);
+  const [availableImages, setAvailableImages] = useState(
+    images.map((image) => ({
+      name: image.name,
+    }))
+  );
   const [selectedImages, setSelectedImages] = useState([]);
   const [itemBeingDragged, setItemBeingDragged] = useState(null);
 
-  const handleDragStart = (e) => {
-    console.log(e.target);
+  const handleDragStart = (e, id) => {
+    setItemBeingDragged(id);
+  };
+
+  const handleDragEnd = (e) => {
+    setItemBeingDragged(null);
   };
 
   const handleDragOver = (e) => {
@@ -17,31 +25,63 @@ const ImageSelect = ({ images }) => {
 
   const handleDrop = (e) => {
     e.preventDefault();
-    console.log(e.fromData);
-    // if (e.target.id === 'selectedImagesList') {
-    //   const updatedAvailableImages = availableImages.filter(
-    //     (availableImage) => availableImage.name !== e.target.value
-    //   );
-    //   const updatedSelectedImages = [...selectedImages];
 
-    //   console.log(e.dataTransfer);
+    if (e.target.id === 'selectedImagesList') {
+      const updatedSelectedImages = [...selectedImages];
+      if (
+        updatedSelectedImages.filter(
+          (selectedImage) => selectedImage.name === itemBeingDragged
+        ).length > 0
+      ) {
+        return;
+      }
 
-    //   // updatedSelectedImages.push(e.dataTransfer.files[0]);
+      const updatedAvailableImages = availableImages.filter(
+        (availableImage) => availableImage.name !== itemBeingDragged
+      );
 
-    //   // setSelectedImages(updatedSelectedImages);
-    // }
+      updatedSelectedImages.push({ name: itemBeingDragged });
+
+      setAvailableImages(updatedAvailableImages);
+      setSelectedImages(updatedSelectedImages);
+    }
+
+    if (e.target.id === 'availableImagesList') {
+      const updatedAvailableImages = [...availableImages];
+      if (
+        updatedAvailableImages.filter(
+          (availableImage) => availableImage.name === itemBeingDragged
+        ).length > 0
+      ) {
+        return;
+      }
+
+      const updatedSelectedImages = selectedImages.filter(
+        (selectedImage) => selectedImage.name !== itemBeingDragged
+      );
+
+      updatedAvailableImages.push({ name: itemBeingDragged });
+
+      setSelectedImages(updatedSelectedImages);
+      setAvailableImages(updatedAvailableImages);
+    }
   };
 
-  console.log(availableImages);
   return (
     <div className={styles.container}>
       <div className={styles.available_images_container}>
         <p className={styles.title}>Available Images:</p>
-        <ul onDragOver={handleDragOver} className={styles.images_list}>
+        <ul
+          id="availableImagesList"
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+          className={styles.images_list}
+        >
           {availableImages.map((availableImage) => (
             <li
               key={availableImage.name}
-              onDragStart={handleDragStart}
+              onDragStart={(e) => handleDragStart(e, availableImage.name)}
+              onDragEnd={handleDragEnd}
               draggable
             >
               <p className={styles.image}>{availableImage.name}</p>
@@ -59,7 +99,6 @@ const ImageSelect = ({ images }) => {
         >
           {selectedImages.map((selectedImage) => (
             <li key={selectedImage.name} draggable>
-              {console.log(selectedImage)}
               <p className={styles.image}>{selectedImage.name}</p>
             </li>
           ))}

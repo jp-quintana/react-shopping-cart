@@ -3,7 +3,7 @@
 .container {
   height: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 50%);
   gap: 2rem;
 
   .available_images_container {
@@ -38,12 +38,18 @@
   border: 1px solid #3d3d3d;
   padding: 2rem;
   flex: 1;
+
+  li {
+    display: inline-block;
+  }
 }
 
 .image {
   padding: 1rem;
   color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   border-radius: 1rem;
-
   background: #3d3d3d;
 }
