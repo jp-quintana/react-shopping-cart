@@ -73,13 +73,14 @@ const ImageSelect = ({
 
   useEffect(() => {
     const allImages = images.map((image) => image.name);
+    const selectedImages = currentlySelectedImages.map((image) => image.name);
 
     const availableImages = allImages.filter(
-      (image) => !currentlySelectedImages.includes(image)
+      (image) => !selectedImages.includes(image)
     );
 
     setAvailableImages(availableImages);
-    setSelectedImages(currentlySelectedImages);
+    setSelectedImages(selectedImages);
   }, []);
 
   const handleConfirm = () => {

@@ -7,6 +7,7 @@ import ImageSelect from './ImageSelect';
 import Button from 'components/Button';
 import ToolTip from 'components/ToolTip';
 import CenterModal from 'components/CenterModal';
+import ConfirmMessage from 'components/ConfirmMessage';
 
 import styles from './index.module.scss';
 
@@ -20,30 +21,29 @@ const VariantForm = ({
   handleDeleteVariant,
   handleVariantEditSubmit,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isSelectorOpen, setIsSelectorOpen] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const [isEditing, setIsEditing] = useState(false);
 
   const [detailsInput, setDetailsInput] = useState({
     color: variant.color,
     colorDisplay: variant.colorDisplay,
-    price: variant.price,
+    // price: variant.price,
   });
 
   const [inventoryInput, setInventoryInput] = useState(variant.inventory);
   const [variantTitleInventory, setVariantTitleInventory] = useState('');
 
-  const [currentlySelectedImages, setCurrentlySelectedImages] = useState(
-    variant.images
-  );
+  const [selectedImages, setSelectedImages] = useState(variant.images);
 
   useEffect(() => {
     const availableImageNames = images.map((image) => image.name);
-    const updatedSelectedImages = currentlySelectedImages.filter((image) =>
-      availableImageNames.includes(image)
+    const updatedSelectedImages = selectedImages.filter((selectedImage) =>
+      availableImageNames.includes(selectedImage.name)
     );
 
-    setCurrentlySelectedImages(updatedSelectedImages);
+    setSelectedImages(updatedSelectedImages);
   }, [images]);
 
   const handleEditStart = () => {
@@ -53,7 +53,7 @@ const VariantForm = ({
 
   const handleEditCancel = () => {
     const { inventory, images, ...details } = variant;
-    setCurrentlySelectedImages(images);
+    setSelectedImages(images);
     setDetailsInput(details);
     setInventoryInput(inventory);
     setIsEditing(false);
@@ -68,21 +68,37 @@ const VariantForm = ({
         id: variant.id,
         color: detailsInput.color.toLowerCase(),
         colorDisplay: detailsInput.colorDisplay.toLowerCase(),
-        price: +detailsInput.price,
+        // price: +detailsInput.price,
         inventory: inventoryInput,
-        images: [...currentlySelectedImages],
+        images: [...selectedImages],
       });
     }
     setIsEditing(false);
     handleEditVariantCount(-1);
   };
 
-  const handleImageConfirm = (currentImages) => {
-    setCurrentlySelectedImages(currentImages);
+  const handleDeleteOnConfirm = () => {
+    handleDeleteVariant(variantIndex);
+  };
+
+  const closeConfirm = () => {
+    setIsConfirmOpen(false);
+  };
+
+  const handleImageConfirm = (currentImagesName) => {
+    const selectedImages = [];
+
+    for (const currentImageName of currentImagesName) {
+      selectedImages.push(
+        images.find((image) => image.name === currentImageName)
+      );
+    }
+
+    setSelectedImages(selectedImages);
   };
 
   const closeImageSelector = () => {
-    setIsOpen(false);
+    setIsSelectorOpen(false);
   };
 
   let variantTitleColor = variant.colorDisplay
@@ -105,25 +121,32 @@ const VariantForm = ({
     productInput.model
   } ${variantTitleColor} ${variantTitleInventory}`;
 
-  let buttonsContainerEditingStyles = isEditing
-    ? styles.buttons_container_editing
+  let controlsContainerEditingStyles = isEditing
+    ? styles.controls_container_editing
     : '';
 
   let tableWrapperEditingStyles = isEditing ? styles.table_wrapper_editing : '';
 
-  console.log(1, images);
-  console.log(2, currentlySelectedImages);
-
   return (
     <>
+      <CenterModal modalClassName={styles.confirm_modal}>
+        {isConfirmOpen && (
+          <ConfirmMessage
+            isConfirmOpen={isConfirmOpen}
+            handleConfirm={handleDeleteOnConfirm}
+            handleCancel={closeConfirm}
+            text="Are you sure you want to delete this variant?"
+          />
+        )}
+      </CenterModal>
       <CenterModal
         modalClassName={styles.modal}
         toggleModal={closeImageSelector}
       >
-        {isOpen && (
+        {isSelectorOpen && (
           <ImageSelect
             images={images}
-            currentlySelectedImages={currentlySelectedImages}
+            currentlySelectedImages={selectedImages}
             variantIndex={variantIndex}
             handleImageConfirm={handleImageConfirm}
             closeImageSelector={closeImageSelector}
@@ -132,8 +155,17 @@ const VariantForm = ({
       </CenterModal>
       <form onSubmit={handleEditSubmit} className={styles.form_container}>
         <div
-          className={`${styles.buttons_container} ${buttonsContainerEditingStyles}`}
+          className={`${styles.controls_container} ${controlsContainerEditingStyles}`}
         >
+          {selectedImages.length === 0 && (
+            <div className={styles.no_image}></div>
+          )}
+          {selectedImages.length > 0 && (
+            <div className={styles.image_wrapper}>
+              <img src={selectedImages[0].src} alt="" />
+              <div>{selectedImages.length}</div>
+            </div>
+          )}
           <p className={styles.variant_title}>{variantTitle}</p>
           <div className={styles.buttons_wrapper}>
             {isEditing && (
@@ -162,7 +194,7 @@ const VariantForm = ({
                 <Button
                   className={styles.delete}
                   type="button"
-                  onClick={() => handleDeleteVariant(variantIndex)}
+                  onClick={() => setIsConfirmOpen(true)}
                 >
                   Delete
                 </Button>
@@ -212,9 +244,9 @@ const VariantForm = ({
                         </i>
                       </span>
                     </th>
-                    <th>
+                    {/* <th>
                       <span className={styles.table_header}>Price</span>
-                    </th>
+                    </th> */}
 
                     <th>
                       <span className={styles.table_header}>Inventory</span>
@@ -245,23 +277,23 @@ const VariantForm = ({
                             {images.length === 0 && <p>No Images Uploaded</p>}
                             {images.length > 0 && (
                               <>
-                                {currentlySelectedImages.length === 0 && (
+                                {selectedImages.length === 0 && (
                                   <p>No files selected</p>
                                 )}
-                                {currentlySelectedImages.length > 0 && (
-                                  <p>{`${currentlySelectedImages.length} File${
-                                    currentlySelectedImages.length > 1
-                                      ? 's'
-                                      : ''
+                                {selectedImages.length > 0 && (
+                                  <p>{`${selectedImages.length} File${
+                                    selectedImages.length > 1 ? 's' : ''
                                   } selected`}</p>
                                 )}
-                                <Button
-                                  onClick={() => setIsOpen(true)}
-                                  className={styles.images_button}
-                                  type="button"
-                                >
-                                  Select
-                                </Button>
+                                <div>
+                                  <Button
+                                    onClick={() => setIsSelectorOpen(true)}
+                                    className={styles.images_button}
+                                    type="button"
+                                  >
+                                    Select
+                                  </Button>
+                                </div>
                               </>
                             )}
                           </div>
@@ -300,7 +332,7 @@ const VariantForm = ({
                           />
                         )}
                       </td>
-                      <td className={styles.price_td}>
+                      {/* <td className={styles.price_td}>
                         {sizeIndex === 0 && (
                           <input
                             type="number"
@@ -315,7 +347,7 @@ const VariantForm = ({
                             required
                           />
                         )}
-                      </td>
+                      </td> */}
                       <td className={styles.inventory_td}>
                         <input
                           type="number"

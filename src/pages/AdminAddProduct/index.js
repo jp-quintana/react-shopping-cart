@@ -21,6 +21,7 @@ const AdminAddProduct = () => {
     type: '',
     collection: '',
     description: '',
+    price: 0,
     tags: '',
     sku: '',
     sizes: { s: false, m: false, l: false, xl: false, xxl: false },
@@ -95,6 +96,13 @@ const AdminAddProduct = () => {
     }));
   };
 
+  const handlePriceInput = (e) => {
+    setProductInput((prevState) => ({
+      ...prevState,
+      price: +e.target.value,
+    }));
+  };
+
   const handleTagsInput = (e) => {
     setProductInput((prevState) => ({ ...prevState, tags: e.target.value }));
 
@@ -149,7 +157,6 @@ const AdminAddProduct = () => {
       id: uuid(),
       color: '',
       colorDisplay: '',
-      price: 0,
       images: [],
       inventory: { s: 0, m: 0, l: 0, xl: 0, xxl: 0 },
     });
@@ -196,7 +203,7 @@ const AdminAddProduct = () => {
     createButtonContent = `Create`;
   }
 
-  console.log(variants);
+  console.log(editCount);
 
   return (
     <>
@@ -213,6 +220,7 @@ const AdminAddProduct = () => {
             handleTypeInput={handleTypeInput}
             handleCollectionInput={handleCollectionInput}
             handleDescriptionInput={handleDescriptionInput}
+            handlePriceInput={handlePriceInput}
             handleTagsInput={handleTagsInput}
             handleDeleteTags={handleDeleteTags}
             handleSkuInput={handleSkuInput}

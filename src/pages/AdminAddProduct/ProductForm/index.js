@@ -13,6 +13,7 @@ const ProductForm = ({
   handleTypeInput,
   handleCollectionInput,
   handleDescriptionInput,
+  handlePriceInput,
   handleTagsInput,
   handleDeleteTags,
   handleSkuInput,
@@ -39,6 +40,7 @@ const ProductForm = ({
               accept="image/*"
               handleFileInput={handleImagesInput}
               handleDeleteFile={handleDeleteImage}
+              needsConfirmOnDelete={true}
               previewImages={true}
             />
           </div>
@@ -81,6 +83,15 @@ const ProductForm = ({
               type="text"
               onChange={handleDescriptionInput}
               value={productInput.description}
+              required
+            />
+          </label>
+          <label className={styles.label}>
+            <span>Price:</span>
+            <input
+              type="number"
+              onChange={handlePriceInput}
+              value={productInput.price}
               required
             />
           </label>

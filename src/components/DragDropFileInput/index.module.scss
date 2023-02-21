@@ -1,5 +1,13 @@
 @import 'App.scss';
 
+.confirm_modal {
+  padding-right: 3rem;
+  padding-left: 3rem;
+
+  width: auto !important;
+  height: auto !important;
+}
+
 .dragging {
   background: $back-detail;
 }

@@ -1,5 +1,13 @@
 @import 'App.scss';
 
+.confirm_modal {
+  padding-right: 3rem;
+  padding-left: 3rem;
+
+  width: auto !important;
+  height: auto !important;
+}
+
 .modal {
   padding: 2rem !important;
 
@@ -10,12 +18,51 @@
 }
 
 .form_container {
-  .buttons_container {
+  .controls_container {
     display: flex;
-    padding: 1rem;
+    padding: 2rem;
     border-radius: 1rem;
     border: 1px solid #3d3d3d;
     align-items: center;
+    gap: 2rem;
+
+    .no_image,
+    .image_wrapper {
+      height: 9rem;
+      width: 6.363rem;
+    }
+
+    .no_image {
+      border: 1px dashed #3d3d3d;
+      border-radius: 0.6rem;
+    }
+
+    .image_wrapper {
+      position: relative;
+
+      img {
+        border-radius: 0.6rem;
+      }
+
+      div {
+        position: absolute;
+        top: -0.5rem;
+        right: -0.5rem;
+        width: 2.2rem;
+        height: 2.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 1.3rem;
+        font-family: $font-f-secondary;
+        letter-spacing: $ls-secondary;
+        font-weight: 700;
+        color: #fff;
+        background: #3d3d3d;
+      }
+    }
 
     .variant_title {
       font-family: $font-f-secondary;
@@ -50,7 +97,7 @@
     }
   }
 
-  .buttons_container_editing {
+  .controls_container_editing {
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
     border-bottom: none !important;
@@ -114,10 +161,12 @@
 
           .images_button_wrapper {
             text-align: center;
+            display: flex;
+            flex-direction: column;
 
             p {
               margin-bottom: 1rem;
-              display:inline-block;
+              display: inline-block;
               text-transform: capitalize;
             }
 

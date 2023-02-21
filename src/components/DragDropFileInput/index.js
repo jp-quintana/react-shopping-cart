@@ -7,6 +7,9 @@ import {
   FaEllipsisH,
 } from 'react-icons/fa';
 
+import CenterModal from 'components/CenterModal';
+import ConfirmMessage from 'components/ConfirmMessage';
+
 import styles from './index.module.scss';
 
 const DragDropFileInput = ({
@@ -22,6 +25,7 @@ const DragDropFileInput = ({
   fileListClassName,
   previewFiles,
   previewImages,
+  needsConfirmOnDelete,
 }) => {
   const icon = {
     image: <FaFileImage />,
@@ -29,6 +33,8 @@ const DragDropFileInput = ({
 
   const [isLoading, setIsLoading] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [fileToBeDeleted, setFileToBeDeleted] = useState(null);
 
   const hiddenInputRef = useRef();
 
@@ -48,97 +54,138 @@ const DragDropFileInput = ({
     setIsDragging(false);
   };
 
+  const handleDeleteOnConfirm = () => {
+    handleDeleteFile(fileToBeDeleted);
+    setFileToBeDeleted(null);
+    setIsConfirmOpen(false);
+  };
+
+  const closeConfirm = () => {
+    setIsConfirmOpen(false);
+    setFileToBeDeleted(null);
+  };
+
   return (
-    <div className={className}>
-      <div
-        className={`${styles.dropzone} ${dropzoneClassName} ${
-          isDragging ? styles.dragging : ''
-        }`}
-        onClick={handleClick}
-        onDragEnter={() => setIsDragging(true)}
-        onDragLeave={() => setIsDragging(false)}
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
-      >
-        <>
-          {isLoading && (
-            <>
-              <p className={styles.legend}>Uploading</p>
-              <i>
-                <FaEllipsisH />
-              </i>
-            </>
+    <>
+      {needsConfirmOnDelete && (
+        <CenterModal modalClassName={styles.confirm_modal}>
+          {isConfirmOpen && (
+            <ConfirmMessage
+              isConfirmOpen={isConfirmOpen}
+              handleConfirm={handleDeleteOnConfirm}
+              handleCancel={closeConfirm}
+              text={`Are you sure you want to delete this ${
+                title.split('s')[0] || 'file'
+              }? This image will also be removed from any variant currently using it.`}
+            />
           )}
-          {!isLoading && (
-            <>
-              <i>
-                <FaFileUpload />
-              </i>
-              {files.length === 0 && (
-                <>
-                  <p className={styles.legend}>Choose {title || 'Files'}</p>
-                </>
-              )}
-              {files.length > 0 && (
-                <p className={styles.legend}>
-                  {files.length > 1
-                    ? `${files.length} files have been uploaded`
-                    : `${files.length} file has been uploaded`}
-                </p>
-              )}
-              <input
-                type="file"
-                multiple
-                onChange={handleFileInput}
-                ref={hiddenInputRef}
-                name={name}
-                hidden
-                accept={accept}
-              />
-            </>
-          )}
-        </>
+        </CenterModal>
+      )}
+      <div className={className}>
+        <div
+          className={`${styles.dropzone} ${dropzoneClassName} ${
+            isDragging ? styles.dragging : ''
+          }`}
+          onClick={handleClick}
+          onDragEnter={() => setIsDragging(true)}
+          onDragLeave={() => setIsDragging(false)}
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+        >
+          <>
+            {isLoading && (
+              <>
+                <p className={styles.legend}>Uploading</p>
+                <i>
+                  <FaEllipsisH />
+                </i>
+              </>
+            )}
+            {!isLoading && (
+              <>
+                <i>
+                  <FaFileUpload />
+                </i>
+                {files.length === 0 && (
+                  <>
+                    <p className={styles.legend}>Choose {title || 'Files'}</p>
+                  </>
+                )}
+                {files.length > 0 && (
+                  <p className={styles.legend}>
+                    {files.length > 1
+                      ? `${files.length} files have been uploaded`
+                      : `${files.length} file has been uploaded`}
+                  </p>
+                )}
+                <input
+                  type="file"
+                  multiple
+                  onChange={handleFileInput}
+                  ref={hiddenInputRef}
+                  name={name}
+                  hidden
+                  accept={accept}
+                />
+              </>
+            )}
+          </>
+        </div>
+        {previewFiles && (
+          <>
+            {files.length > 0 && (
+              <ul className={`${styles.files_list} ${fileListClassName}`}>
+                {files.map((file) => (
+                  <li key={file.name}>
+                    <i>{icon[type]}</i>
+                    <p>{file.name}</p>
+                    <i
+                      onClick={
+                        !needsConfirmOnDelete
+                          ? () => handleDeleteFile(file.name)
+                          : () => {
+                              setIsConfirmOpen(true);
+                              setFileToBeDeleted(file.name);
+                            }
+                      }
+                      className={styles.delete}
+                    >
+                      <FaTimesCircle />
+                    </i>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </>
+        )}
+        {previewImages && (
+          <>
+            {files.length > 0 && (
+              <ul className={`${styles.images_list} ${fileListClassName}`}>
+                {files.map((file) => (
+                  <li key={file.name}>
+                    <img src={file.src} alt="" />
+                    <i
+                      onClick={
+                        !needsConfirmOnDelete
+                          ? () => handleDeleteFile(file.name)
+                          : () => {
+                              setIsConfirmOpen(true);
+                              setFileToBeDeleted(file.name);
+                            }
+                      }
+                      className={styles.delete}
+                    >
+                      <FaTimesCircle />
+                    </i>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </>
+        )}
       </div>
-      {previewFiles && (
-        <>
-          {files.length > 0 && (
-            <ul className={`${styles.files_list} ${fileListClassName}`}>
-              {files.map((file) => (
-                <li key={file.name}>
-                  <i>{icon[type]}</i>
-                  <p>{file.name}</p>
-                  <i
-                    onClick={() => handleDeleteFile(file.name)}
-                    className={styles.delete}
-                  >
-                    <FaTimesCircle />
-                  </i>
-                </li>
-              ))}
-            </ul>
-          )}
-        </>
-      )}
-      {previewImages && (
-        <>
-          {files.length > 0 && (
-            <ul className={`${styles.images_list} ${fileListClassName}`}>
-              {files.map((file) => (
-                <li key={file.name}>
-                  <img src={file.src} alt="" />
-                  <i
-                    onClick={() => handleDeleteFile(file.name)}
-                    className={styles.delete}
-                  >
-                    <FaTimesCircle />
-                  </i>
-                </li>
-              ))}
-            </ul>
-          )}
-        </>
-      )}
-    </div>
+    </>
   );
 };
 
