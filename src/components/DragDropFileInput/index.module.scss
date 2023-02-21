@@ -63,3 +63,31 @@
     }
   }
 }
+
+.images_list {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+
+  li {
+    position: relative;
+
+    img {
+      border-radius: 1rem;
+    }
+
+    i {
+      font-size: 2.5rem;
+      position: absolute;
+      top: .5rem;
+      right: .5rem;
+      color: #fff;
+    }
+
+    .delete {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

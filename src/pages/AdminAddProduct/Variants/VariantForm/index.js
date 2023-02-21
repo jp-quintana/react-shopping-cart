@@ -37,6 +37,15 @@ const VariantForm = ({
     variant.images
   );
 
+  useEffect(() => {
+    const availableImageNames = images.map((image) => image.name);
+    const updatedSelectedImages = currentlySelectedImages.filter((image) =>
+      availableImageNames.includes(image)
+    );
+
+    setCurrentlySelectedImages(updatedSelectedImages);
+  }, [images]);
+
   const handleEditStart = () => {
     setIsEditing(true);
     handleEditVariantCount(1);
@@ -101,6 +110,9 @@ const VariantForm = ({
     : '';
 
   let tableWrapperEditingStyles = isEditing ? styles.table_wrapper_editing : '';
+
+  console.log(1, images);
+  console.log(2, currentlySelectedImages);
 
   return (
     <>

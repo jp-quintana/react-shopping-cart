@@ -36,8 +36,10 @@ const ProductForm = ({
               title="images"
               type="image"
               files={images}
-              handleImagesInput={handleImagesInput}
-              handleDeleteImage={handleDeleteImage}
+              accept="image/*"
+              handleFileInput={handleImagesInput}
+              handleDeleteFile={handleDeleteImage}
+              previewImages={true}
             />
           </div>
           <label className={styles.label}>
@@ -103,25 +105,6 @@ const ProductForm = ({
               required
             />
           </label>
-          {/* <label className={styles.label}>
-            <span>Variants:</span>
-            <select
-              value={`${productInput.variants}`}
-              onChange={handleVariantsInput}
-              required
-            >
-              <option value="0" disabled>
-                Select your option
-              </option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-            </select>
-          </label> */}
           <fieldset>
             <legend>Sizes:</legend>
             <div className={styles.checkbox_wrapper}>

@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 
 import { v4 as uuid } from 'uuid';
 
+import { useAdmin } from 'hooks/useAdmin';
+
 import ProductForm from './ProductForm';
 import Variants from './Variants';
 
@@ -10,6 +12,8 @@ import Button from 'components/Button';
 import styles from './index.module.scss';
 
 const AdminAddProduct = () => {
+  const { uploadFiles } = useAdmin();
+
   const [images, setImages] = useState([]);
 
   const [productInput, setProductInput] = useState({
@@ -39,7 +43,7 @@ const AdminAddProduct = () => {
     }
   }, [editCount]);
 
-  const handleImagesInput = (e) => {
+  const handleImagesInput = async (e) => {
     let inputFiles;
 
     e.dataTransfer
@@ -47,30 +51,26 @@ const AdminAddProduct = () => {
       : (inputFiles = e.target.files);
 
     if (inputFiles.length > 0) {
-      const updatedFileList = [...images];
+      const updatedImages = await uploadFiles('product-images', {
+        currentFiles: [...images],
+        newFiles: [...inputFiles],
+      });
 
-      for (let i = 0; i < inputFiles.length; i++) {
-        const isImage = !!inputFiles[i].type.match(`image.*`);
-
-        if (isImage) {
-          const checkForExistingImage = images.find(
-            (image) => image.name === inputFiles[i].name
-          );
-
-          if (!checkForExistingImage) {
-            updatedFileList.push(inputFiles[i]);
-          }
-        }
-      }
-
-      setImages(updatedFileList);
+      setImages(updatedImages);
     }
   };
 
   const handleDeleteImage = (fileName) => {
     const updatedImages = images.filter((image) => image.name !== fileName);
 
+    const updatedVariants = [...variants];
+
+    for (const variant of updatedVariants) {
+      variant.images = variant.images.filter((image) => image !== fileName);
+    }
+
     setImages(updatedImages);
+    setVariants(updatedVariants);
   };
 
   const handleModelInput = (e) => {
