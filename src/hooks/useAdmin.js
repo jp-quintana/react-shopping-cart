@@ -37,5 +37,8 @@ export const useAdmin = () => {
     return updatedFiles;
   };
 
-  return { uploadFiles, isLoading, error };
+  const createProduct = ({ productInfo, variants }) => {
+    console.log(productInfo, variants);
+  };
+  return { uploadFiles, createProduct, isLoading, error };
 };

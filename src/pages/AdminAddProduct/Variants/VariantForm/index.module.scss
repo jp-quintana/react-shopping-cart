@@ -124,6 +124,7 @@
           padding: 1rem 0;
 
           .color_header,
+          .actual_price_header,
           .table_header {
             color: white;
             background: $back-detail;
@@ -134,7 +135,8 @@
             align-items: center;
           }
 
-          .color_header {
+          .color_header,
+          .actual_price_header {
             position: relative;
             &:hover .tooltip {
               visibility: visible;

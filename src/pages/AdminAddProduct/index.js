@@ -12,7 +12,7 @@ import Button from 'components/Button';
 import styles from './index.module.scss';
 
 const AdminAddProduct = () => {
-  const { uploadFiles } = useAdmin();
+  const { uploadFiles, createProduct } = useAdmin();
 
   const [images, setImages] = useState([]);
 
@@ -96,17 +96,10 @@ const AdminAddProduct = () => {
     }));
   };
 
-  const handlePriceInput = (e) => {
-    setProductInput((prevState) => ({
-      ...prevState,
-      price: +e.target.value,
-    }));
-  };
-
   const handleTagsInput = (e) => {
     setProductInput((prevState) => ({ ...prevState, tags: e.target.value }));
 
-    if (e.key === 'Enter') {
+    if (e.key === ',') {
       const checkForExistingTag = tags.find(
         (tag) => tag.content === e.target.value
       );
@@ -116,7 +109,7 @@ const AdminAddProduct = () => {
       }
 
       const updatedTags = tags;
-      updatedTags.push({ content: e.target.value.toLowerCase() });
+      updatedTags.push({ content: e.target.value.split(',')[0].toLowerCase() });
       setTags(updatedTags);
       setProductInput((prevState) => ({ ...prevState, tags: '' }));
     }
@@ -157,6 +150,8 @@ const AdminAddProduct = () => {
       id: uuid(),
       color: '',
       colorDisplay: '',
+      currentPrice: 0,
+      actualPrice: 0,
       images: [],
       inventory: { s: 0, m: 0, l: 0, xl: 0, xxl: 0 },
     });
@@ -186,6 +181,7 @@ const AdminAddProduct = () => {
 
   const handleProductSubmit = (e) => {
     e.preventDefault();
+    createProduct({ productInfo: productInput, variants });
   };
 
   const createButtonIsDisabled =
@@ -203,8 +199,6 @@ const AdminAddProduct = () => {
     createButtonContent = `Create`;
   }
 
-  console.log(editCount);
-
   return (
     <>
       <section>
@@ -220,7 +214,6 @@ const AdminAddProduct = () => {
             handleTypeInput={handleTypeInput}
             handleCollectionInput={handleCollectionInput}
             handleDescriptionInput={handleDescriptionInput}
-            handlePriceInput={handlePriceInput}
             handleTagsInput={handleTagsInput}
             handleDeleteTags={handleDeleteTags}
             handleSkuInput={handleSkuInput}

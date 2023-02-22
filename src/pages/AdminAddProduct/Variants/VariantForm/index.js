@@ -29,7 +29,8 @@ const VariantForm = ({
   const [detailsInput, setDetailsInput] = useState({
     color: variant.color,
     colorDisplay: variant.colorDisplay,
-    // price: variant.price,
+    currentPrice: variant.currentPrice,
+    actualPrice: variant.actualPrice,
   });
 
   const [inventoryInput, setInventoryInput] = useState(variant.inventory);
@@ -62,13 +63,18 @@ const VariantForm = ({
 
   const handleEditSubmit = (e) => {
     e.preventDefault();
+    if (detailsInput.currentPrice > detailsInput.actualPrice) {
+      // TODO: Agregar error
+      return;
+    }
     if (sizes.length > 0) {
       handleVariantEditSubmit({
         variantIndex,
         id: variant.id,
         color: detailsInput.color.toLowerCase(),
         colorDisplay: detailsInput.colorDisplay.toLowerCase(),
-        // price: +detailsInput.price,
+        currentPrice: +detailsInput.currentPrice,
+        actualPrice: +detailsInput.actualPrice,
         inventory: inventoryInput,
         images: [...selectedImages],
       });
@@ -126,6 +132,8 @@ const VariantForm = ({
     : '';
 
   let tableWrapperEditingStyles = isEditing ? styles.table_wrapper_editing : '';
+
+  console.log(variant);
 
   return (
     <>
@@ -244,10 +252,22 @@ const VariantForm = ({
                         </i>
                       </span>
                     </th>
-                    {/* <th>
-                      <span className={styles.table_header}>Price</span>
-                    </th> */}
-
+                    <th>
+                      <span className={styles.table_header}>Current Price</span>
+                    </th>
+                    <th>
+                      <span className={styles.actual_price_header}>
+                        Actual Price{' '}
+                        <ToolTip className={styles.tooltip}>
+                          Un "current price" menor al "actual" muestra al
+                          product "ON SALE". Se calcula automaticamente el
+                          porcentaje de descuento.
+                        </ToolTip>
+                        <i>
+                          <FaQuestionCircle />
+                        </i>
+                      </span>
+                    </th>
                     <th>
                       <span className={styles.table_header}>Inventory</span>
                     </th>
@@ -332,28 +352,44 @@ const VariantForm = ({
                           />
                         )}
                       </td>
-                      {/* <td className={styles.price_td}>
+                      <td className={styles.price_td}>
                         {sizeIndex === 0 && (
                           <input
                             type="number"
-                            value={detailsInput.price}
+                            value={detailsInput.currentPrice.toString()}
                             onChange={(e) =>
                               setDetailsInput((prevState) => ({
                                 ...prevState,
-                                price: e.target.value,
+                                currentPrice: +e.target.value,
                               }))
                             }
                             disabled={!isEditing}
                             required
                           />
                         )}
-                      </td> */}
+                      </td>
+                      <td className={styles.price_td}>
+                        {sizeIndex === 0 && (
+                          <input
+                            type="number"
+                            value={detailsInput.actualPrice.toString()}
+                            onChange={(e) =>
+                              setDetailsInput((prevState) => ({
+                                ...prevState,
+                                actualPrice: +e.target.value,
+                              }))
+                            }
+                            disabled={!isEditing}
+                            required
+                          />
+                        )}
+                      </td>
                       <td className={styles.inventory_td}>
                         <input
                           type="number"
                           min="0"
                           step="1"
-                          value={inventoryInput[size]}
+                          value={inventoryInput[size].toString()}
                           onChange={(e) =>
                             setInventoryInput((prevState) => ({
                               ...prevState,
