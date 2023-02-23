@@ -199,6 +199,8 @@ const AdminAddProduct = () => {
     createButtonContent = `Create`;
   }
 
+  console.log(variants);
+
   return (
     <>
       <section>

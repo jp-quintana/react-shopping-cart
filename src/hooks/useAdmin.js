@@ -39,6 +39,29 @@ export const useAdmin = () => {
 
   const createProduct = ({ productInfo, variants }) => {
     console.log(productInfo, variants);
+    let product = { ...productInfo };
+
+    const formattedType = product.type.replace(/\s+/g, ' ').trim();
+
+    console.log('formattedType', formattedType);
+
+    const formattedModel = product.model.replace(/\s+/g, ' ').trim();
+
+    console.log('formattedModel', formattedModel);
+
+    const variantSlugs = [];
+    for (const variant of variants) {
+      let variantSlug = `${product.type} ${product.model}`;
+      if (variant.colorDisplay) {
+        variantSlug += ` ${variant.colorDisplay}`;
+      } else {
+        variantSlug += ` ${variant.color}`;
+      }
+
+      variantSlugs.push(variantSlug.replaceAll(' ', '-').toLowerCase());
+    }
+
+    console.log('variantSlugs', variantSlugs);
   };
   return { uploadFiles, createProduct, isLoading, error };
 };
