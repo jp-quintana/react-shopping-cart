@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { v4 as uuid } from 'uuid';
 
-import { writeBatch, doc, collection, setDoc } from 'firebase/firestore';
+import { writeBatch, doc, setDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 import { db, storage } from '../firebase/config';
@@ -46,45 +46,40 @@ export const useAdmin = () => {
     return updatedFiles;
   };
 
-  const createProduct = async ({ productInfo, variants }) => {
-    const formattedModel = productInfo.model
+  const createProduct = async ({ productData, variants }) => {
+    const formattedModel = productData.model
       .replace(/\s+/g, ' ')
       .trim()
       .toLowerCase();
-    const formattedType = productInfo.type
+    const formattedType = productData.type
       .replace(/\s+/g, ' ')
       .trim()
       .toLowerCase();
-    const formattedDescription = productInfo.description
+    const formattedDescription = productData.description
       .replace(/\s+/g, ' ')
       .trim()
       .toLowerCase();
 
     const {
       sku: productBaseSku,
-      sizes: productSizes,
-      ...productData
-    } = productInfo;
-
-    const selectedSizes = Object.keys(productSizes).filter(
-      (key) => productSizes[key]
-    );
+      sizes: selectedSizes,
+      ...productProps
+    } = productData;
 
     const productId = uuid();
 
     let product = {
-      ...productData,
+      ...productProps,
       model: formattedModel,
       type: formattedType,
       description: formattedDescription,
       variantUrls: [],
-      variants: [...variants],
+      variants: [],
     };
 
     const batch = writeBatch(db);
 
-    // crear slugs
-    for (let variant of product.variants) {
+    for (let variant of variants) {
       let variantSlug = `${product.type} ${product.model}`;
       if (variant.colorDisplay) {
         variantSlug += ` ${variant.colorDisplay}`;
@@ -94,11 +89,10 @@ export const useAdmin = () => {
 
       product.variantUrls.push(variantSlug.replaceAll(' ', '-').toLowerCase());
 
-      // crear skus
       const colorSplit = variant.color.split(' ');
       let skuColor;
 
-      if (colorSplit.length > 0) {
+      if (colorSplit.length > 1) {
         skuColor = colorSplit[0].substr(0, 1) + colorSplit[1].substr(0, 2);
       } else {
         skuColor = variant.color.substr(0, 3);
@@ -119,19 +113,18 @@ export const useAdmin = () => {
           value: size,
         };
 
-        // const skuInventoryRef = doc(db, 'inventory', sku);
+        const skuInventoryRef = doc(db, 'inventory', sku);
 
-        // batch.set(skuInventoryRef, skuInventory);
+        batch.set(skuInventoryRef, skuInventory);
       }
+      product.variants.push(variantContent);
     }
 
-    // await batch.commit();
+    await batch.commit();
 
-    // const productRef = doc(collection(db, 'products', productId));
+    const productRef = doc(db, 'products', productId);
 
-    // await setDoc(productRef, product);
-
-    console.log(product);
+    await setDoc(productRef, product);
   };
 
   return { uploadFiles, createProduct, isLoading, error };

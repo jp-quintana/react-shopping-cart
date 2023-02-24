@@ -178,9 +178,12 @@ const AdminAddProduct = () => {
     setVariants(updatedVariants);
   };
 
-  const handleProductSubmit = (e) => {
+  const handleProductSubmit = async (e) => {
     e.preventDefault();
-    createProduct({ productInfo: productInput, variants });
+    let productData = { ...productInput };
+    productData.sizes = sizes;
+    productData.tags = tags;
+    await createProduct({ productData, variants });
   };
 
   const createButtonIsDisabled =
