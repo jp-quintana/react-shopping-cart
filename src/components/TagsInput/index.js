@@ -27,7 +27,7 @@ const TagsInput = ({
       </ul>
       <input
         type="text"
-        placeholder="Type ',' to enter to add tags"
+        placeholder="Type ',' to add tags"
         value={tagsInput}
         id={id}
         onKeyUp={handleTagsInput}

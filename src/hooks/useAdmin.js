@@ -37,20 +37,44 @@ export const useAdmin = () => {
     return updatedFiles;
   };
 
-  const createProduct = ({ productInfo, variants }) => {
+  const createProduct = async ({ productInfo, variants }) => {
     console.log(productInfo, variants);
-    let product = { ...productInfo };
 
-    const formattedType = product.type.replace(/\s+/g, ' ').trim();
+    const formattedModel = productInfo.model
+      .replace(/\s+/g, ' ')
+      .trim()
+      .toLowerCase();
+    const formattedType = productInfo.type
+      .replace(/\s+/g, ' ')
+      .trim()
+      .toLowerCase();
+    const formattedDescription = productInfo.description
+      .replace(/\s+/g, ' ')
+      .trim()
+      .toLowerCase();
 
-    console.log('formattedType', formattedType);
+    const {
+      sku: productBaseSku,
+      sizes: productSizes,
+      ...productData
+    } = productInfo;
 
-    const formattedModel = product.model.replace(/\s+/g, ' ').trim();
+    const selectedSizes = Object.keys(productSizes).filter(
+      (key) => productSizes[key]
+    );
 
-    console.log('formattedModel', formattedModel);
+    let product = {
+      ...productData,
+      id: uuid(),
+      model: formattedModel,
+      type: formattedType,
+      description: formattedDescription,
+      variantUrls: [],
+      variants: [...variants],
+    };
 
-    const variantSlugs = [];
-    for (const variant of variants) {
+    // crear slugs
+    for (let variant of product.variants) {
       let variantSlug = `${product.type} ${product.model}`;
       if (variant.colorDisplay) {
         variantSlug += ` ${variant.colorDisplay}`;
@@ -58,10 +82,25 @@ export const useAdmin = () => {
         variantSlug += ` ${variant.color}`;
       }
 
-      variantSlugs.push(variantSlug.replaceAll(' ', '-').toLowerCase());
-    }
+      product.variantUrls.push(variantSlug.replaceAll(' ', '-').toLowerCase());
 
-    console.log('variantSlugs', variantSlugs);
+      // crear skus
+
+      const checkColor = variant.color[1];
+
+      if (checkColor) {
+        // agarrar 2 letras primera palabra y 1 segunda
+        // else agarrar 3 letras de la palabra unica
+      }
+
+      const { inventory: variantInventory, ...variantContent } = variant;
+
+      variantContent.inventoryLevels = [];
+
+      for (const size of selectedSizes) {
+        const sku = product.sku + variant;
+      }
+    }
   };
   return { uploadFiles, createProduct, isLoading, error };
 };

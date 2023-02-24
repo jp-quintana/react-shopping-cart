@@ -21,7 +21,6 @@ const AdminAddProduct = () => {
     type: '',
     collection: '',
     description: '',
-    price: 0,
     tags: '',
     sku: '',
     sizes: { s: false, m: false, l: false, xl: false, xxl: false },
