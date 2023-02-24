@@ -73,7 +73,7 @@ export const useAdmin = () => {
       model: formattedModel,
       type: formattedType,
       description: formattedDescription,
-      variantUrls: [],
+      variantSlugs: [],
       variants: [],
     };
 
@@ -87,7 +87,11 @@ export const useAdmin = () => {
         variantSlug += ` ${variant.color}`;
       }
 
-      product.variantUrls.push(variantSlug.replaceAll(' ', '-').toLowerCase());
+      const formattedVariantSlug = variantSlug
+        .replaceAll(' ', '-')
+        .toLowerCase();
+
+      product.variantSlugs.push(formattedVariantSlug);
 
       const colorSplit = variant.color.split(' ');
       let skuColor;
@@ -100,12 +104,14 @@ export const useAdmin = () => {
 
       const { inventory: variantInventory, ...variantContent } = variant;
 
+      variantContent.slug = formattedVariantSlug;
+
       variantContent.inventoryLevels = [];
 
       for (const size of selectedSizes) {
         const sku =
           `${productBaseSku}-${skuColor}-${skuSizeCode[size]}`.toUpperCase();
-        variantContent.inventoryLevels.push(sku);
+        variantContent.inventoryLevels.push({ sku });
 
         const skuInventory = {
           productId,
