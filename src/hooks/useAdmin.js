@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { v4 as uuid } from 'uuid';
 
-import { collection, getDocs } from 'firebase/firestore';
+import { writeBatch, doc, collection, setDoc } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 import { db, storage } from '../firebase/config';
@@ -11,7 +11,16 @@ export const useAdmin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const skuSizeCode = {
+    s: 'sm',
+    m: 'md',
+    l: 'lg',
+    xl: 'xl',
+    xxl: 'xx',
+  };
+
   const uploadFiles = async (directory, { currentFiles, newFiles }) => {
+    const batch = writeBatch(db);
     const updatedFiles = [...currentFiles];
 
     for (const newFile of newFiles) {
@@ -38,8 +47,6 @@ export const useAdmin = () => {
   };
 
   const createProduct = async ({ productInfo, variants }) => {
-    console.log(productInfo, variants);
-
     const formattedModel = productInfo.model
       .replace(/\s+/g, ' ')
       .trim()
@@ -63,15 +70,18 @@ export const useAdmin = () => {
       (key) => productSizes[key]
     );
 
+    const productId = uuid();
+
     let product = {
       ...productData,
-      id: uuid(),
       model: formattedModel,
       type: formattedType,
       description: formattedDescription,
       variantUrls: [],
       variants: [...variants],
     };
+
+    const batch = writeBatch(db);
 
     // crear slugs
     for (let variant of product.variants) {
@@ -85,12 +95,13 @@ export const useAdmin = () => {
       product.variantUrls.push(variantSlug.replaceAll(' ', '-').toLowerCase());
 
       // crear skus
+      const colorSplit = variant.color.split(' ');
+      let skuColor;
 
-      const checkColor = variant.color[1];
-
-      if (checkColor) {
-        // agarrar 2 letras primera palabra y 1 segunda
-        // else agarrar 3 letras de la palabra unica
+      if (colorSplit.length > 0) {
+        skuColor = colorSplit[0].substr(0, 1) + colorSplit[1].substr(0, 2);
+      } else {
+        skuColor = variant.color.substr(0, 3);
       }
 
       const { inventory: variantInventory, ...variantContent } = variant;
@@ -98,9 +109,30 @@ export const useAdmin = () => {
       variantContent.inventoryLevels = [];
 
       for (const size of selectedSizes) {
-        const sku = product.sku + variant;
+        const sku =
+          `${productBaseSku}-${skuColor}-${skuSizeCode[size]}`.toUpperCase();
+        variantContent.inventoryLevels.push(sku);
+
+        const skuInventory = {
+          productId,
+          stock: variantInventory[size],
+          value: size,
+        };
+
+        // const skuInventoryRef = doc(db, 'inventory', sku);
+
+        // batch.set(skuInventoryRef, skuInventory);
       }
     }
+
+    // await batch.commit();
+
+    // const productRef = doc(collection(db, 'products', productId));
+
+    // await setDoc(productRef, product);
+
+    console.log(product);
   };
+
   return { uploadFiles, createProduct, isLoading, error };
 };
