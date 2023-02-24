@@ -24,6 +24,8 @@ const AdminCollections = () => {
 
   useEffect(() => {}, []);
 
+  console.log(products);
+
   return (
     <>
       {!products && <Loader />}
@@ -38,11 +40,13 @@ const AdminCollections = () => {
                   productId={product.productId}
                   model={product.model}
                   color={product.color}
-                  price={product.price}
+                  colorDisplay={product.colorDisplay}
+                  currentPrice={product.currentPrice}
+                  actualPrice={product.actualPrice}
                   type={product.type}
                   url={product.url}
-                  _imageTop={product.images[0].src}
-                  _imageBottom={product.images[1].src}
+                  imageTop={product.images[0].src}
+                  imageBottom={product.images[1].src}
                   numberOfVariants={product.numberOfVariants}
                 />
               ))}

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { useLocation } from 'react-router-dom';
+import { useAuthContext } from 'hooks/useAuthContext';
 
 import Card from 'components/Card';
 import Button from 'components/Button';
@@ -13,19 +13,16 @@ const ProductCard = ({
   productId,
   model,
   color,
-  price,
+  colorDisplay,
+  currentPrice,
+  actualPrice,
   type,
   url,
-  _imageTop,
-  _imageBottom,
+  imageTop,
+  imageBottom,
   numberOfVariants,
 }) => {
-  const location = useLocation();
-
-  const isAdmin = location.pathname.split('/')[1] === 'admin';
-
-  const imageTop = require(`assets/${_imageTop}`);
-  const imageBottom = require(`assets/${_imageBottom}`);
+  const { isAdmin } = useAuthContext();
 
   // TODO: Corregir url del edit button
 
@@ -54,7 +51,7 @@ const ProductCard = ({
               <span>{`${numberOfVariants} colores`}</span>
             )}
           </li>
-          <li className={styles.price}>${formatNumber(price)}</li>
+          <li className={styles.price}>${formatNumber(currentPrice)}</li>
         </ul>
         {isAdmin && (
           <div className={styles.admin_buttons_wrapper}>
