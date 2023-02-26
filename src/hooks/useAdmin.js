@@ -2,7 +2,16 @@ import { useState } from 'react';
 
 import { v4 as uuid } from 'uuid';
 
-import { writeBatch, doc, setDoc } from 'firebase/firestore';
+import {
+  writeBatch,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  collection,
+  query,
+  where,
+} from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 import { db, storage } from '../firebase/config';
@@ -111,6 +120,7 @@ export const useAdmin = () => {
       for (const size of selectedSizes) {
         const sku =
           `${productBaseSku}-${skuColor}-${skuSizeCode[size]}`.toUpperCase();
+
         variantContent.inventoryLevels.push({ sku });
 
         const skuInventory = {
@@ -133,5 +143,73 @@ export const useAdmin = () => {
     await setDoc(productRef, product);
   };
 
-  return { uploadFiles, createProduct, isLoading, error };
+  const getProduct = async (productId) => {
+    const productRef = doc(db, 'products', productId);
+    const docSnap = await getDoc(productRef);
+
+    const product = { id: docSnap.id, ...docSnap.data() };
+
+    let images = [];
+
+    for (const variant of product.variants) {
+      images = [...images, ...variant.images];
+    }
+
+    let inventory = [];
+
+    const inventoryRef = collection(db, 'inventory');
+
+    const qInv = query(inventoryRef, where('productId', '==', product.id));
+    const inventorySnapshot = await getDocs(qInv);
+
+    inventorySnapshot.forEach((doc) => {
+      inventory.push({ id: doc.id, ...doc.data() });
+    });
+
+    const currentInventoryLevels = [];
+
+    for (let i = 0; i < product.variants.length; i++) {
+      let variantInventory = {};
+      for (const item of product.variants[i].inventoryLevels) {
+        const skuInventoryLevel = inventory.find((sku) => sku.id === item.sku);
+
+        const value = skuInventoryLevel.value;
+        const stock = skuInventoryLevel.stock;
+
+        variantInventory = { ...variantInventory, [value]: stock };
+        currentInventoryLevels.push({ ...item, ...skuInventoryLevel });
+      }
+
+      product.variants[i].inventory = variantInventory;
+      delete product.variants[i].inventoryLevels;
+    }
+
+    const sizesInput = {
+      s: false,
+      m: false,
+      l: false,
+      xl: false,
+      xxl: false,
+    };
+
+    const selectedSizes = Object.keys(product.variants[0].inventory);
+
+    console.log(selectedSizes);
+
+    for (const value of selectedSizes) {
+      sizesInput[value] = true;
+    }
+
+    product.images = images;
+    product.sizesInput = sizesInput;
+    product.sizes = selectedSizes;
+    product.currentInventoryLevels = currentInventoryLevels;
+    product.baseSku = currentInventoryLevels[0].id.split('-')[0];
+
+    console.log(product);
+
+    return product;
+  };
+
+  return { uploadFiles, createProduct, getProduct, isLoading, error };
 };

@@ -134,7 +134,6 @@ const VariantForm = ({
   let tableWrapperEditingStyles = isEditing ? styles.table_wrapper_editing : '';
 
   console.log(variant.inventory);
-
   return (
     <>
       <CenterModal modalClassName={styles.confirm_modal}>

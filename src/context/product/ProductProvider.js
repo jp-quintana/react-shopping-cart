@@ -83,8 +83,6 @@ const ProductProvider = ({ children }) => {
 
     const inventoryRef = collection(db, 'inventory');
 
-    console.log(product);
-
     const qInv = query(inventoryRef, where('productId', '==', product.id));
     const inventorySnapshot = await getDocs(qInv);
 
