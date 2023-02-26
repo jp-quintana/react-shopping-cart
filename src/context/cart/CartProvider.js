@@ -45,6 +45,8 @@ const CartProvider = ({ children }) => {
   const { user } = useAuthContext();
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
+  // TODO: Update Cart Schema
+
   useEffect(() => {
     if (user) {
       const getCart = async () => {

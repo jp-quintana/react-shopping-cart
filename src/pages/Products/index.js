@@ -42,8 +42,8 @@ const Products = () => {
       type: selectedProduct.type,
       description: selectedProduct.description,
       color: selectedVariant.color,
-      price: selectedVariant.price,
-      url: selectedVariant.url,
+      price: selectedVariant.currentPrice,
+      slug: selectedVariant.slug,
       thumbnail: selectedVariant.images[0].src,
     });
 
@@ -55,8 +55,10 @@ const Products = () => {
       if (!error) {
         setToastMessage({
           addToCartSuccess: true,
-          _thumbnail: selectedVariant.images[0].src,
-          details: `${selectedProduct.type} ${selectedProduct.model} - ${selectedVariant.color} - ${selectedSize}`,
+          thumbnail: selectedVariant.images[0].src,
+          details: `${selectedProduct.type} ${selectedProduct.model} - ${
+            selectedVariant.color
+          } - ${selectedSize.toUpperCase()}`,
         });
       } else if (error) {
         setToastMessage({ error, details: error.details });
@@ -78,7 +80,7 @@ const Products = () => {
   const buttonContent =
     selectedSize.length === 0
       ? 'SELECCIONAR TALLE'
-      : `AGREGAR ${selectedSize} AL CARRITO`;
+      : `AGREGAR ${selectedSize.toUpperCase()} AL CARRITO`;
 
   const buttonStyles = `
     ${selectedSize.length === 0 ? styles.button_disabled : styles.button}
@@ -140,7 +142,7 @@ const Products = () => {
                             {selectedProduct.model}
                           </h1>
                           <p className={styles.price}>
-                            ${formatNumber(selectedVariant.price)}
+                            ${formatNumber(selectedVariant.currentPrice)}
                           </p>
                         </div>
                         <p className={styles.description}>
@@ -149,9 +151,9 @@ const Products = () => {
                         <p className={styles.color}>{selectedVariant.color}</p>
                         {selectedProduct.tags && (
                           <div className={styles.tags_wrapper}>
-                            {selectedProduct.tags.map((tag) => (
+                            {selectedProduct.tags.map((tag, index) => (
                               <span
-                                key={tag.id}
+                                key={index}
                                 className={
                                   tag.content === 'nuevo'
                                     ? styles.tag_alt
@@ -178,10 +180,10 @@ const Products = () => {
                         <div className={styles.variants_wrapper}>
                           {selectedProduct.variants.map((variant) => (
                             <ProductVariant
-                              key={variant.variantId}
-                              id={variant.variantId}
-                              _thumbnail={variant.images[0].src}
-                              selectedVariantId={selectedVariant.variantId}
+                              key={variant.id}
+                              id={variant.id}
+                              thumbnail={variant.images[0].src}
+                              selectedVariantId={selectedVariant.id}
                             />
                           ))}
                         </div>
@@ -241,9 +243,9 @@ const Products = () => {
                       <p className={styles.color}>{selectedVariant.color}</p>
                       {selectedProduct.tags && (
                         <div className={styles.tags_wrapper}>
-                          {selectedProduct.tags.map((tag) => (
+                          {selectedProduct.tags.map((tag, index) => (
                             <span
-                              key={tag.id}
+                              key={index}
                               className={
                                 tag.content === 'nuevo'
                                   ? styles.tag_alt
@@ -256,7 +258,7 @@ const Products = () => {
                         </div>
                       )}
                       <p className={styles.price}>
-                        ${formatNumber(selectedVariant.price)}
+                        ${formatNumber(selectedVariant.currentPrice)}
                       </p>
                     </div>
                   </div>
@@ -266,7 +268,7 @@ const Products = () => {
                       <img
                         className={styles.images}
                         key={image.id}
-                        src={require(`assets/${image.src}`)}
+                        src={image.src}
                         alt=""
                       />
                     ))}
@@ -284,10 +286,10 @@ const Products = () => {
                       <div className={styles.variants_wrapper}>
                         {selectedProduct.variants.map((variant) => (
                           <ProductVariant
-                            key={variant.variantId}
-                            id={variant.variantId}
-                            _thumbnail={variant.images[0].src}
-                            selectedVariantId={selectedVariant.variantId}
+                            key={variant.id}
+                            id={variant.id}
+                            thumbnail={variant.images[0].src}
+                            selectedVariantId={selectedVariant.id}
                           />
                         ))}
                       </div>

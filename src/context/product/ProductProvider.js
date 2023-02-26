@@ -69,7 +69,7 @@ const ProductProvider = ({ children }) => {
     const productsRef = collection(db, 'products');
     const qProd = query(
       productsRef,
-      where('variantUrls', 'array-contains', urlId)
+      where('variantSlugs', 'array-contains', urlId)
     );
 
     let product;
@@ -82,6 +82,8 @@ const ProductProvider = ({ children }) => {
     let inventory = [];
 
     const inventoryRef = collection(db, 'inventory');
+
+    console.log(product);
 
     const qInv = query(inventoryRef, where('productId', '==', product.id));
     const inventorySnapshot = await getDocs(qInv);
@@ -100,7 +102,7 @@ const ProductProvider = ({ children }) => {
       product.variants[i].inventoryLevels = [...variantInventoryLevels];
     }
 
-    const variant = product.variants.find((variant) => variant.url === urlId);
+    const variant = product.variants.find((variant) => variant.slug === urlId);
 
     return { product, variant };
   };
@@ -114,6 +116,8 @@ const ProductProvider = ({ children }) => {
 
     fetchProduct();
   }, [urlId]);
+
+  // TODO: se puede reemplazar con un link condicional en el cart modal (dentro de cartItem). Solo agregarle link al item si el slugId del params no coincide con el slug del product.
 
   useEffect(() => {
     if (locationState === '/productos') {

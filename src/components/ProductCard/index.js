@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom';
-
-import { useAuthContext } from 'hooks/useAuthContext';
+import { Link, useLocation } from 'react-router-dom';
 
 import Card from 'components/Card';
 import Button from 'components/Button';
@@ -17,20 +15,22 @@ const ProductCard = ({
   currentPrice,
   actualPrice,
   type,
-  url,
+  slug,
   imageTop,
   imageBottom,
   numberOfVariants,
 }) => {
-  const { isAdmin } = useAuthContext();
+  const location = useLocation();
 
-  // TODO: Corregir url del edit button
+  const isAdmin = location.pathname.split('/')[1] === 'admin';
+
+  // TODO: Corregir slug del edit button
 
   return (
     <>
       <div className={styles.card_wrapper}>
         <Card className={styles.card}>
-          <Link to={`/productos/${url}`} className={styles.link}>
+          <Link to={`/productos/${slug}`} className={styles.link}>
             <div className={styles.image_wrapper}>
               <img src={imageTop} alt="" className={styles.image_top}></img>
               <img
@@ -56,10 +56,10 @@ const ProductCard = ({
         {isAdmin && (
           <div className={styles.admin_buttons_wrapper}>
             <Button className={styles.edit} to={`/admin/products/${productId}`}>
-              Editar
+              Edit
             </Button>
             <Button className={styles.delete} type="button">
-              Borrar
+              Delete
             </Button>
           </div>
         )}

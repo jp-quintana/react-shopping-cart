@@ -79,9 +79,9 @@ const CartContent = ({ toggleCartModal }) => {
                   color={item.color}
                   size={item.size}
                   price={item.price}
-                  url={item.url}
+                  slug={item.slug}
                   amount={item.amount}
-                  _thumbnail={item.thumbnail}
+                  thumbnail={item.thumbnail}
                   addItem={addItem}
                   removeItem={removeItem}
                   deleteItem={deleteItem}

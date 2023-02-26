@@ -2,7 +2,7 @@ import { useProduct } from 'hooks/useProduct';
 
 import styles from './index.module.scss';
 
-const ProductVariant = ({ id, _thumbnail, selectedVariantId }) => {
+const ProductVariant = ({ id, thumbnail, selectedVariantId }) => {
   const { selectVariant } = useProduct();
 
   let shouldAddEventHandler = false;
@@ -19,8 +19,6 @@ const ProductVariant = ({ id, _thumbnail, selectedVariantId }) => {
 
   let variantStyles =
     selectedVariantId === id ? styles.thumbnail_selected : styles.thumbnail;
-
-  const thumbnail = require(`assets/${_thumbnail}`);
 
   return (
     <img

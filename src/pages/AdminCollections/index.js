@@ -9,22 +9,21 @@ import ProductCard from 'components/ProductCard';
 import styles from './index.module.scss';
 
 const AdminCollections = () => {
-  const { fetchCollection } = useCollection();
+  const { getCollection } = useCollection();
 
   const [products, setProducts] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const fetchedProducts = await fetchCollection();
+      const fetchedProducts = await getCollection();
       setProducts(fetchedProducts);
     };
 
     fetchProducts();
   }, []);
 
+  // Agregar filter de categorias para admin
   useEffect(() => {}, []);
-
-  console.log(products);
 
   return (
     <>
@@ -44,7 +43,7 @@ const AdminCollections = () => {
                   currentPrice={product.currentPrice}
                   actualPrice={product.actualPrice}
                   type={product.type}
-                  url={product.url}
+                  slug={product.slug}
                   imageTop={product.images[0].src}
                   imageBottom={product.images[1].src}
                   numberOfVariants={product.numberOfVariants}
