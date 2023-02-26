@@ -7,13 +7,13 @@ import AdminProduct from './AdminProduct';
 
 const AdminEditProduct = () => {
   const { getProduct } = useAdmin();
-  const { id: slugId } = useParams();
+  const { productId: paramsId } = useParams();
 
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const product = await getProduct(slugId);
+      const product = await getProduct(paramsId);
 
       setProduct(product);
     };
@@ -25,6 +25,8 @@ const AdminEditProduct = () => {
     <>
       {product && (
         <AdminProduct
+          isEditPage={paramsId}
+          currentInventoryLevels={product.currentInventoryLevels}
           productImages={product.images}
           productModel={product.model}
           productType={product.type}

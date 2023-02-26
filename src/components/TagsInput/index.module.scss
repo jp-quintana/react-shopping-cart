@@ -21,7 +21,7 @@
     .tag {
       text-transform: uppercase;
       background-color: $c-var;
-      padding: 0.1rem 1rem;
+      padding: 0.5rem 1rem;
       border-radius: 0.6rem;
       font-size: 1.4rem;
       color: $c-secondary;
@@ -31,6 +31,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      line-height: 1;
 
 
       .delete {

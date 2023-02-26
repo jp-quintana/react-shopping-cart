@@ -4,6 +4,7 @@ import {
   FaFileUpload,
   FaFileImage,
   FaTimesCircle,
+  FaTimes,
   FaEllipsisH,
 } from 'react-icons/fa';
 
@@ -176,7 +177,7 @@ const DragDropFileInput = ({
                       }
                       className={styles.delete}
                     >
-                      <FaTimesCircle />
+                      <FaTimes />
                     </i>
                   </li>
                 ))}

@@ -12,6 +12,8 @@ import Button from 'components/Button';
 import styles from './index.module.scss';
 
 const AdminProduct = ({
+  isEditPage,
+  currentInventoryLevels,
   productImages,
   productModel,
   productType,
@@ -23,7 +25,7 @@ const AdminProduct = ({
   productVariants,
   productSizes,
 }) => {
-  const { uploadFiles, createProduct } = useAdmin();
+  const { uploadFiles, createProduct, editProduct } = useAdmin();
 
   const [images, setImages] = useState(productImages || []);
 
@@ -200,7 +202,12 @@ const AdminProduct = ({
     let productData = { ...productInput };
     productData.sizes = sizes;
     productData.tags = tags;
-    await createProduct({ productData, variants });
+
+    if (isEditPage) {
+      await editProduct({ productData, variants, currentInventoryLevels });
+    } else {
+      await createProduct({ productData, variants });
+    }
   };
 
   const createButtonIsDisabled =
@@ -215,7 +222,11 @@ const AdminProduct = ({
   } else if (variants.length === 0) {
     createButtonContent = `No variants selected`;
   } else {
-    createButtonContent = `Create`;
+    if (isEditPage) {
+      createButtonContent = `Update`;
+    } else {
+      createButtonContent = `Create`;
+    }
   }
 
   console.log(variants);
@@ -224,7 +235,7 @@ const AdminProduct = ({
     <>
       <section>
         <div className={`${styles.container} main-container`}>
-          <h1>Add Product</h1>
+          <h1>{isEditPage ? 'Edit' : 'Add'} Product</h1>
           <ProductForm
             productInput={productInput}
             images={images}

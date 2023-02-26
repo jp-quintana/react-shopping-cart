@@ -29,7 +29,6 @@ export const useAdmin = () => {
   };
 
   const uploadFiles = async (directory, { currentFiles, newFiles }) => {
-    const batch = writeBatch(db);
     const updatedFiles = [...currentFiles];
 
     for (const newFile of newFiles) {
@@ -53,6 +52,72 @@ export const useAdmin = () => {
     }
 
     return updatedFiles;
+  };
+
+  const getProduct = async (productId) => {
+    const productRef = doc(db, 'products', productId);
+    const docSnap = await getDoc(productRef);
+
+    const product = { id: docSnap.id, ...docSnap.data() };
+
+    let images = [];
+
+    for (const variant of product.variants) {
+      images = [...images, ...variant.images];
+    }
+
+    let inventory = [];
+
+    const inventoryRef = collection(db, 'inventory');
+
+    const qInv = query(inventoryRef, where('productId', '==', product.id));
+    const inventorySnapshot = await getDocs(qInv);
+
+    inventorySnapshot.forEach((doc) => {
+      inventory.push({ id: doc.id, ...doc.data() });
+    });
+
+    const currentInventoryLevels = [];
+
+    for (let i = 0; i < product.variants.length; i++) {
+      let variantInventory = {};
+      for (const item of product.variants[i].inventoryLevels) {
+        const skuInventoryLevel = inventory.find((sku) => sku.id === item.sku);
+
+        const value = skuInventoryLevel.value;
+        const stock = skuInventoryLevel.stock;
+
+        variantInventory = { ...variantInventory, [value]: stock };
+        currentInventoryLevels.push({ ...item, ...skuInventoryLevel });
+      }
+
+      product.variants[i].inventory = variantInventory;
+      delete product.variants[i].inventoryLevels;
+    }
+
+    const sizesInput = {
+      s: false,
+      m: false,
+      l: false,
+      xl: false,
+      xxl: false,
+    };
+
+    const selectedSizes = Object.keys(product.variants[0].inventory);
+
+    console.log(selectedSizes);
+
+    for (const value of selectedSizes) {
+      sizesInput[value] = true;
+    }
+
+    product.images = images;
+    product.sizesInput = sizesInput;
+    product.sizes = selectedSizes;
+    product.currentInventoryLevels = currentInventoryLevels;
+    product.baseSku = currentInventoryLevels[0].id.split('-')[0];
+
+    return product;
   };
 
   const createProduct = async ({ productData, variants }) => {
@@ -143,73 +208,104 @@ export const useAdmin = () => {
     await setDoc(productRef, product);
   };
 
-  const getProduct = async (productId) => {
-    const productRef = doc(db, 'products', productId);
-    const docSnap = await getDoc(productRef);
+  const editProduct = async ({
+    productData,
+    variants,
+    currentInventoryLevels,
+  }) => {
+    const formattedModel = productData.model
+      .replace(/\s+/g, ' ')
+      .trim()
+      .toLowerCase();
+    const formattedType = productData.type
+      .replace(/\s+/g, ' ')
+      .trim()
+      .toLowerCase();
+    const formattedDescription = productData.description
+      .replace(/\s+/g, ' ')
+      .trim()
+      .toLowerCase();
 
-    const product = { id: docSnap.id, ...docSnap.data() };
+    const {
+      sku: productBaseSku,
+      sizes: selectedSizes,
+      ...productProps
+    } = productData;
 
-    let images = [];
+    const productId = uuid();
 
-    for (const variant of product.variants) {
-      images = [...images, ...variant.images];
-    }
-
-    let inventory = [];
-
-    const inventoryRef = collection(db, 'inventory');
-
-    const qInv = query(inventoryRef, where('productId', '==', product.id));
-    const inventorySnapshot = await getDocs(qInv);
-
-    inventorySnapshot.forEach((doc) => {
-      inventory.push({ id: doc.id, ...doc.data() });
-    });
-
-    const currentInventoryLevels = [];
-
-    for (let i = 0; i < product.variants.length; i++) {
-      let variantInventory = {};
-      for (const item of product.variants[i].inventoryLevels) {
-        const skuInventoryLevel = inventory.find((sku) => sku.id === item.sku);
-
-        const value = skuInventoryLevel.value;
-        const stock = skuInventoryLevel.stock;
-
-        variantInventory = { ...variantInventory, [value]: stock };
-        currentInventoryLevels.push({ ...item, ...skuInventoryLevel });
-      }
-
-      product.variants[i].inventory = variantInventory;
-      delete product.variants[i].inventoryLevels;
-    }
-
-    const sizesInput = {
-      s: false,
-      m: false,
-      l: false,
-      xl: false,
-      xxl: false,
+    let product = {
+      ...productProps,
+      model: formattedModel,
+      type: formattedType,
+      description: formattedDescription,
+      variantSlugs: [],
+      variants: [],
     };
 
-    const selectedSizes = Object.keys(product.variants[0].inventory);
+    const batch = writeBatch(db);
 
-    console.log(selectedSizes);
+    for (let variant of variants) {
+      let variantSlug = `${product.type} ${product.model}`;
+      if (variant.colorDisplay) {
+        variantSlug += ` ${variant.colorDisplay}`;
+      } else {
+        variantSlug += ` ${variant.color}`;
+      }
 
-    for (const value of selectedSizes) {
-      sizesInput[value] = true;
+      const formattedVariantSlug = variantSlug
+        .replaceAll(' ', '-')
+        .toLowerCase();
+
+      product.variantSlugs.push(formattedVariantSlug);
+
+      const colorSplit = variant.color.split(' ');
+      let skuColor;
+
+      if (colorSplit.length > 1) {
+        skuColor = colorSplit[0].substr(0, 1) + colorSplit[1].substr(0, 2);
+      } else {
+        skuColor = variant.color.substr(0, 3);
+      }
+
+      const { inventory: variantInventory, ...variantContent } = variant;
+
+      variantContent.slug = formattedVariantSlug;
+
+      variantContent.inventoryLevels = [];
+
+      for (const size of selectedSizes) {
+        const sku =
+          `${productBaseSku}-${skuColor}-${skuSizeCode[size]}`.toUpperCase();
+
+        variantContent.inventoryLevels.push({ sku });
+
+        const skuInventory = {
+          productId,
+          stock: variantInventory[size],
+          value: size,
+        };
+
+        const skuInventoryRef = doc(db, 'inventory', sku);
+
+        batch.set(skuInventoryRef, skuInventory);
+      }
+      product.variants.push(variantContent);
     }
 
-    product.images = images;
-    product.sizesInput = sizesInput;
-    product.sizes = selectedSizes;
-    product.currentInventoryLevels = currentInventoryLevels;
-    product.baseSku = currentInventoryLevels[0].id.split('-')[0];
+    await batch.commit();
 
-    console.log(product);
+    const productRef = doc(db, 'products', productId);
 
-    return product;
+    await setDoc(productRef, product);
   };
 
-  return { uploadFiles, createProduct, getProduct, isLoading, error };
+  return {
+    uploadFiles,
+    createProduct,
+    editProduct,
+    getProduct,
+    isLoading,
+    error,
+  };
 };

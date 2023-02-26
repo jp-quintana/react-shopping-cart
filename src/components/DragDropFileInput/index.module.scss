@@ -87,12 +87,16 @@
     i {
       font-size: 2.5rem;
       position: absolute;
-      top: .5rem;
-      right: .5rem;
+      top: 0.5rem;
+      right: 0.5rem;
       color: #fff;
     }
 
     .delete {
+      background-color: #3d3d3d;
+      border-radius: 100rem;
+      padding: 0.4rem;
+      font-size: 1.5rem;
       &:hover {
         cursor: pointer;
       }
