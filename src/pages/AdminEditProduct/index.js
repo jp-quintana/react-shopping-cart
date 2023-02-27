@@ -5,8 +5,10 @@ import { useAdmin } from 'hooks/useAdmin';
 
 import AdminProduct from './AdminProduct';
 
+import Loader from 'components/Loader';
+
 const AdminEditProduct = () => {
-  const { getProduct } = useAdmin();
+  const { getProduct, isLoading } = useAdmin();
   const { productId: paramsId } = useParams();
 
   const [product, setProduct] = useState(null);
@@ -23,10 +25,12 @@ const AdminEditProduct = () => {
 
   return (
     <>
+      {isLoading && <Loader />}
       {product && (
         <AdminProduct
           isEditPage={paramsId}
           currentInventoryLevels={product.currentInventoryLevels}
+          productId={product.id}
           productImages={product.images}
           productModel={product.model}
           productType={product.type}

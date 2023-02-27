@@ -29,183 +29,208 @@ export const useAdmin = () => {
   };
 
   const uploadFiles = async (directory, { currentFiles, newFiles }) => {
-    const updatedFiles = [...currentFiles];
+    setError(null);
+    try {
+      const updatedFiles = [...currentFiles];
 
-    for (const newFile of newFiles) {
-      const isImage = !!newFile.type.match(`image.*`);
+      for (const newFile of newFiles) {
+        const isImage = !!newFile.type.match(`image.*`);
 
-      if (isImage) {
-        const checkForExistingImage = currentFiles.find(
-          (image) => image.name === newFile.name
-        );
+        if (isImage) {
+          const checkForExistingImage = currentFiles.find(
+            (image) => image.name === newFile.name
+          );
 
-        const id = uuid();
-        const uploadPath = `${directory}/${id}/${newFile.name}`;
-        const storageRef = ref(storage, uploadPath);
-        await uploadBytes(storageRef, newFile);
-        const fileURL = await getDownloadURL(storageRef);
+          const id = uuid();
+          const uploadPath = `${directory}/${id}/${newFile.name}`;
+          const storageRef = ref(storage, uploadPath);
+          await uploadBytes(storageRef, newFile);
+          const fileURL = await getDownloadURL(storageRef);
 
-        if (!checkForExistingImage) {
-          updatedFiles.push({ id, name: newFile.name, src: fileURL });
+          if (!checkForExistingImage) {
+            updatedFiles.push({ id, name: newFile.name, src: fileURL });
+          }
         }
       }
-    }
 
-    return updatedFiles;
+      return updatedFiles;
+    } catch (err) {
+      setError(err);
+    }
   };
 
   const getProduct = async (productId) => {
-    const productRef = doc(db, 'products', productId);
-    const docSnap = await getDoc(productRef);
+    setError(null);
+    setIsLoading(true);
 
-    const product = { id: docSnap.id, ...docSnap.data() };
+    try {
+      const productRef = doc(db, 'products', productId);
+      const docSnap = await getDoc(productRef);
 
-    let images = [];
+      const product = { id: docSnap.id, ...docSnap.data() };
 
-    for (const variant of product.variants) {
-      images = [...images, ...variant.images];
-    }
+      let images = [];
 
-    let inventory = [];
-
-    const inventoryRef = collection(db, 'inventory');
-
-    const qInv = query(inventoryRef, where('productId', '==', product.id));
-    const inventorySnapshot = await getDocs(qInv);
-
-    inventorySnapshot.forEach((doc) => {
-      inventory.push({ id: doc.id, ...doc.data() });
-    });
-
-    const currentInventoryLevels = [];
-
-    for (let i = 0; i < product.variants.length; i++) {
-      let variantInventory = {};
-      for (const item of product.variants[i].inventoryLevels) {
-        const skuInventoryLevel = inventory.find((sku) => sku.id === item.sku);
-
-        const value = skuInventoryLevel.value;
-        const stock = skuInventoryLevel.stock;
-
-        variantInventory = { ...variantInventory, [value]: stock };
-        currentInventoryLevels.push({ ...item, ...skuInventoryLevel });
+      for (const variant of product.variants) {
+        images = [...images, ...variant.images];
       }
 
-      product.variants[i].inventory = variantInventory;
-      delete product.variants[i].inventoryLevels;
+      let inventory = [];
+
+      const inventoryRef = collection(db, 'inventory');
+
+      const qInv = query(inventoryRef, where('productId', '==', product.id));
+      const inventorySnapshot = await getDocs(qInv);
+
+      inventorySnapshot.forEach((doc) => {
+        inventory.push({ id: doc.id, ...doc.data() });
+      });
+
+      const currentInventoryLevels = [];
+
+      for (let i = 0; i < product.variants.length; i++) {
+        let variantInventory = {};
+        for (const item of product.variants[i].inventoryLevels) {
+          const skuInventoryLevel = inventory.find(
+            (sku) => sku.id === item.sku
+          );
+
+          const value = skuInventoryLevel.value;
+          const stock = skuInventoryLevel.stock;
+
+          variantInventory = { ...variantInventory, [value]: stock };
+          currentInventoryLevels.push({ ...item, ...skuInventoryLevel });
+        }
+
+        product.variants[i].inventory = variantInventory;
+        delete product.variants[i].inventoryLevels;
+      }
+
+      const sizesInput = {
+        s: false,
+        m: false,
+        l: false,
+        xl: false,
+        xxl: false,
+      };
+
+      const selectedSizes = Object.keys(product.variants[0].inventory);
+
+      for (const value of selectedSizes) {
+        sizesInput[value] = true;
+      }
+
+      product.images = images;
+      product.sizesInput = sizesInput;
+      product.sizes = selectedSizes;
+      product.currentInventoryLevels = currentInventoryLevels;
+      product.baseSku = currentInventoryLevels[0].id.split('-')[0];
+
+      setIsLoading(false);
+
+      return product;
+    } catch (err) {
+      setError(err);
+      setIsLoading(false);
     }
-
-    const sizesInput = {
-      s: false,
-      m: false,
-      l: false,
-      xl: false,
-      xxl: false,
-    };
-
-    const selectedSizes = Object.keys(product.variants[0].inventory);
-
-    console.log(selectedSizes);
-
-    for (const value of selectedSizes) {
-      sizesInput[value] = true;
-    }
-
-    product.images = images;
-    product.sizesInput = sizesInput;
-    product.sizes = selectedSizes;
-    product.currentInventoryLevels = currentInventoryLevels;
-    product.baseSku = currentInventoryLevels[0].id.split('-')[0];
-
-    return product;
   };
 
   const createProduct = async ({ productData, variants }) => {
-    const formattedModel = productData.model
-      .replace(/\s+/g, ' ')
-      .trim()
-      .toLowerCase();
-    const formattedType = productData.type
-      .replace(/\s+/g, ' ')
-      .trim()
-      .toLowerCase();
-    const formattedDescription = productData.description
-      .replace(/\s+/g, ' ')
-      .trim()
-      .toLowerCase();
+    setError(null);
+    setIsLoading(true);
 
-    const {
-      sku: productBaseSku,
-      sizes: selectedSizes,
-      ...productProps
-    } = productData;
-
-    const productId = uuid();
-
-    let product = {
-      ...productProps,
-      model: formattedModel,
-      type: formattedType,
-      description: formattedDescription,
-      variantSlugs: [],
-      variants: [],
-    };
-
-    const batch = writeBatch(db);
-
-    for (let variant of variants) {
-      let variantSlug = `${product.type} ${product.model}`;
-      if (variant.colorDisplay) {
-        variantSlug += ` ${variant.colorDisplay}`;
-      } else {
-        variantSlug += ` ${variant.color}`;
-      }
-
-      const formattedVariantSlug = variantSlug
-        .replaceAll(' ', '-')
+    try {
+      const formattedModel = productData.model
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase();
+      const formattedType = productData.type
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase();
+      const formattedDescription = productData.description
+        .replace(/\s+/g, ' ')
+        .trim()
         .toLowerCase();
 
-      product.variantSlugs.push(formattedVariantSlug);
+      const {
+        sku: productBaseSku,
+        sizes: selectedSizes,
+        ...productProps
+      } = productData;
 
-      const colorSplit = variant.color.split(' ');
-      let skuColor;
+      const productId = uuid();
 
-      if (colorSplit.length > 1) {
-        skuColor = colorSplit[0].substr(0, 1) + colorSplit[1].substr(0, 2);
-      } else {
-        skuColor = variant.color.substr(0, 3);
+      let product = {
+        ...productProps,
+        model: formattedModel,
+        type: formattedType,
+        description: formattedDescription,
+        variantSlugs: [],
+        variants: [],
+      };
+
+      const batch = writeBatch(db);
+
+      for (let variant of variants) {
+        let variantSlug = `${product.type} ${product.model}`;
+        if (variant.colorDisplay) {
+          variantSlug += ` ${variant.colorDisplay}`;
+        } else {
+          variantSlug += ` ${variant.color}`;
+        }
+
+        const formattedVariantSlug = variantSlug
+          .replaceAll(' ', '-')
+          .toLowerCase();
+
+        product.variantSlugs.push(formattedVariantSlug);
+
+        const colorSplit = variant.color.split(' ');
+        let skuColor;
+
+        if (colorSplit.length > 1) {
+          skuColor = colorSplit[0].substr(0, 1) + colorSplit[1].substr(0, 2);
+        } else {
+          skuColor = variant.color.substr(0, 3);
+        }
+
+        const { inventory: variantInventory, ...variantContent } = variant;
+
+        variantContent.slug = formattedVariantSlug;
+
+        variantContent.inventoryLevels = [];
+
+        for (const size of selectedSizes) {
+          const sku =
+            `${productBaseSku}-${skuColor}-${skuSizeCode[size]}`.toUpperCase();
+
+          variantContent.inventoryLevels.push({ sku });
+
+          const skuInventory = {
+            productId,
+            stock: variantInventory[size] || 0,
+            value: size,
+          };
+
+          const skuInventoryRef = doc(db, 'inventory', sku);
+
+          batch.set(skuInventoryRef, skuInventory);
+        }
+        product.variants.push(variantContent);
       }
 
-      const { inventory: variantInventory, ...variantContent } = variant;
+      await batch.commit();
 
-      variantContent.slug = formattedVariantSlug;
+      const productRef = doc(db, 'products', productId);
 
-      variantContent.inventoryLevels = [];
+      await setDoc(productRef, product);
 
-      for (const size of selectedSizes) {
-        const sku =
-          `${productBaseSku}-${skuColor}-${skuSizeCode[size]}`.toUpperCase();
-
-        variantContent.inventoryLevels.push({ sku });
-
-        const skuInventory = {
-          productId,
-          stock: variantInventory[size],
-          value: size,
-        };
-
-        const skuInventoryRef = doc(db, 'inventory', sku);
-
-        batch.set(skuInventoryRef, skuInventory);
-      }
-      product.variants.push(variantContent);
+      setIsLoading(false);
+    } catch (err) {
+      setError(err);
+      setIsLoading(false);
     }
-
-    await batch.commit();
-
-    const productRef = doc(db, 'products', productId);
-
-    await setDoc(productRef, product);
   };
 
   const editProduct = async ({
@@ -213,91 +238,114 @@ export const useAdmin = () => {
     variants,
     currentInventoryLevels,
   }) => {
-    const formattedModel = productData.model
-      .replace(/\s+/g, ' ')
-      .trim()
-      .toLowerCase();
-    const formattedType = productData.type
-      .replace(/\s+/g, ' ')
-      .trim()
-      .toLowerCase();
-    const formattedDescription = productData.description
-      .replace(/\s+/g, ' ')
-      .trim()
-      .toLowerCase();
+    setError(null);
+    setIsLoading(true);
 
-    const {
-      sku: productBaseSku,
-      sizes: selectedSizes,
-      ...productProps
-    } = productData;
-
-    const productId = uuid();
-
-    let product = {
-      ...productProps,
-      model: formattedModel,
-      type: formattedType,
-      description: formattedDescription,
-      variantSlugs: [],
-      variants: [],
-    };
-
-    const batch = writeBatch(db);
-
-    for (let variant of variants) {
-      let variantSlug = `${product.type} ${product.model}`;
-      if (variant.colorDisplay) {
-        variantSlug += ` ${variant.colorDisplay}`;
-      } else {
-        variantSlug += ` ${variant.color}`;
-      }
-
-      const formattedVariantSlug = variantSlug
-        .replaceAll(' ', '-')
+    try {
+      const formattedModel = productData.model
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase();
+      const formattedType = productData.type
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase();
+      const formattedDescription = productData.description
+        .replace(/\s+/g, ' ')
+        .trim()
         .toLowerCase();
 
-      product.variantSlugs.push(formattedVariantSlug);
+      const {
+        sku: productBaseSku,
+        sizes: selectedSizes,
+        ...productProps
+      } = productData;
 
-      const colorSplit = variant.color.split(' ');
-      let skuColor;
+      let product = {
+        ...productProps,
+        model: formattedModel,
+        type: formattedType,
+        description: formattedDescription,
+        variantSlugs: [],
+        variants: [],
+      };
 
-      if (colorSplit.length > 1) {
-        skuColor = colorSplit[0].substr(0, 1) + colorSplit[1].substr(0, 2);
-      } else {
-        skuColor = variant.color.substr(0, 3);
+      const currentProductSkus = currentInventoryLevels.map(
+        (variant) => variant.sku
+      );
+      const newProductSkus = [];
+
+      const batch = writeBatch(db);
+
+      for (let variant of variants) {
+        let variantSlug = `${product.type} ${product.model}`;
+        if (variant.colorDisplay) {
+          variantSlug += ` ${variant.colorDisplay}`;
+        } else {
+          variantSlug += ` ${variant.color}`;
+        }
+
+        const formattedVariantSlug = variantSlug
+          .replaceAll(' ', '-')
+          .toLowerCase();
+
+        product.variantSlugs.push(formattedVariantSlug);
+
+        const colorSplit = variant.color.split(' ');
+        let skuColor;
+
+        if (colorSplit.length > 1) {
+          skuColor = colorSplit[0].substr(0, 1) + colorSplit[1].substr(0, 2);
+        } else {
+          skuColor = variant.color.substr(0, 3);
+        }
+
+        const { inventory: variantInventory, ...variantContent } = variant;
+
+        variantContent.slug = formattedVariantSlug;
+
+        variantContent.inventoryLevels = [];
+
+        for (const size of selectedSizes) {
+          const sku =
+            `${productBaseSku}-${skuColor}-${skuSizeCode[size]}`.toUpperCase();
+
+          variantContent.inventoryLevels.push({ sku });
+          newProductSkus.push(sku);
+
+          const skuInventory = {
+            productId: product.id,
+            stock: variantInventory[size] || 0,
+            value: size,
+          };
+
+          const skuInventoryRef = doc(db, 'inventory', sku);
+
+          batch.set(skuInventoryRef, skuInventory);
+        }
+        product.variants.push(variantContent);
       }
 
-      const { inventory: variantInventory, ...variantContent } = variant;
+      const skusToBeDeleted = currentProductSkus.filter(
+        (sku) => !newProductSkus.includes(sku)
+      );
 
-      variantContent.slug = formattedVariantSlug;
-
-      variantContent.inventoryLevels = [];
-
-      for (const size of selectedSizes) {
-        const sku =
-          `${productBaseSku}-${skuColor}-${skuSizeCode[size]}`.toUpperCase();
-
-        variantContent.inventoryLevels.push({ sku });
-
-        const skuInventory = {
-          productId,
-          stock: variantInventory[size],
-          value: size,
-        };
-
-        const skuInventoryRef = doc(db, 'inventory', sku);
-
-        batch.set(skuInventoryRef, skuInventory);
+      if (skusToBeDeleted.length > 0) {
+        for (const sku of skusToBeDeleted) {
+          const skuInventoryRef = doc(db, 'inventory', sku);
+          batch.delete(skuInventoryRef);
+        }
       }
-      product.variants.push(variantContent);
+
+      await batch.commit();
+
+      const productRef = doc(db, 'products', product.id);
+
+      await setDoc(productRef, product);
+    } catch (err) {
+      setError(err);
+      setIsLoading(false);
     }
-
-    await batch.commit();
-
-    const productRef = doc(db, 'products', productId);
-
-    await setDoc(productRef, product);
   };
 
   return {

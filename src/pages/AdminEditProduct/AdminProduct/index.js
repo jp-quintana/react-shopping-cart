@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import { v4 as uuid } from 'uuid';
 
 import { useAdmin } from 'hooks/useAdmin';
@@ -8,12 +10,14 @@ import ProductForm from './ProductForm';
 import Variants from './Variants';
 
 import Button from 'components/Button';
+import Loader from 'components/Loader';
 
 import styles from './index.module.scss';
 
 const AdminProduct = ({
   isEditPage,
   currentInventoryLevels,
+  productId,
   productImages,
   productModel,
   productType,
@@ -25,7 +29,11 @@ const AdminProduct = ({
   productVariants,
   productSizes,
 }) => {
-  const { uploadFiles, createProduct, editProduct } = useAdmin();
+  const navigate = useNavigate();
+  const [navigation, setNavigation] = useState(false);
+
+  const { uploadFiles, createProduct, editProduct, isLoading, error } =
+    useAdmin();
 
   const [images, setImages] = useState(productImages || []);
 
@@ -204,11 +212,22 @@ const AdminProduct = ({
     productData.tags = tags;
 
     if (isEditPage) {
+      productData.id = productId;
       await editProduct({ productData, variants, currentInventoryLevels });
     } else {
       await createProduct({ productData, variants });
     }
+
+    setNavigation(true);
   };
+
+  useEffect(() => {
+    if (navigation && !error) {
+      navigate('/admin/products');
+    } else {
+      setNavigation(false);
+    }
+  }, [navigation]);
 
   const createButtonIsDisabled =
     isEditingVariants || sizes.length === 0 || variants.length === 0;
@@ -229,10 +248,9 @@ const AdminProduct = ({
     }
   }
 
-  console.log(variants);
-
   return (
     <>
+      {isLoading && <Loader />}
       <section>
         <div className={`${styles.container} main-container`}>
           <h1>{isEditPage ? 'Edit' : 'Add'} Product</h1>

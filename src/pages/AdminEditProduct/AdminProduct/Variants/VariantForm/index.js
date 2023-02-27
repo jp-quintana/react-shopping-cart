@@ -114,7 +114,7 @@ const VariantForm = ({
   const createVariantTitleInventory = () => {
     let text = ' - Inventory: ( ';
     for (const size of sizes) {
-      text += `${size.toUpperCase()}: ${variant.inventory[size]} `;
+      text += `${size.toUpperCase()}: ${variant.inventory[size] || 0} `;
     }
     return (text += ')');
   };
@@ -388,7 +388,11 @@ const VariantForm = ({
                           type="number"
                           min="0"
                           step="1"
-                          value={inventoryInput[size].toString()}
+                          value={
+                            inventoryInput[size]
+                              ? inventoryInput[size].toString()
+                              : '0'
+                          }
                           onChange={(e) =>
                             setInventoryInput((prevState) => ({
                               ...prevState,
