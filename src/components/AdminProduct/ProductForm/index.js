@@ -4,6 +4,7 @@ import TagsInput from 'components/TagsInput';
 import styles from './index.module.scss';
 
 const ProductForm = ({
+  isEditPage,
   images,
   productInput,
   tags,
@@ -40,6 +41,11 @@ const ProductForm = ({
               handleFileInput={handleImagesInput}
               handleDeleteFile={handleDeleteImage}
               needsConfirmOnDelete={true}
+              additionalConfirmText={
+                isEditPage
+                  ? 'These changes will only be saved if you click on update button at the end of form!'
+                  : 'File will be deleted once you press confirm!'
+              }
               previewImages={true}
             />
           </div>

@@ -12,7 +12,12 @@ import {
   query,
   where,
 } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from 'firebase/storage';
 
 import { db, storage } from '../firebase/config';
 
@@ -57,6 +62,13 @@ export const useAdmin = () => {
     } catch (err) {
       setError(err);
     }
+  };
+
+  const deleteFile = (directory, file) => {
+    const uploadPath = `${directory}/${file.id}/${file.name}`;
+    const storageRef = ref(storage, uploadPath);
+
+    deleteObject(storageRef);
   };
 
   const getProduct = async (productId) => {
@@ -237,11 +249,19 @@ export const useAdmin = () => {
     productData,
     variants,
     currentInventoryLevels,
+    imagesMarkedForRemoval,
   }) => {
     setError(null);
     setIsLoading(true);
 
     try {
+      for (const image of imagesMarkedForRemoval) {
+        const uploadPath = `product-images/${image.id}/${image.name}`;
+        const storageRef = ref(storage, uploadPath);
+
+        deleteObject(storageRef);
+      }
+
       const formattedModel = productData.model
         .replace(/\s+/g, ' ')
         .trim()
@@ -350,6 +370,7 @@ export const useAdmin = () => {
 
   return {
     uploadFiles,
+    deleteFile,
     createProduct,
     editProduct,
     getProduct,

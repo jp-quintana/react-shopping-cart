@@ -32,8 +32,14 @@ const AdminProduct = ({
   const navigate = useNavigate();
   const [navigation, setNavigation] = useState(false);
 
-  const { uploadFiles, createProduct, editProduct, isLoading, error } =
-    useAdmin();
+  const {
+    uploadFiles,
+    deleteFile,
+    createProduct,
+    editProduct,
+    isLoading,
+    error,
+  } = useAdmin();
 
   const [images, setImages] = useState(productImages || []);
 
@@ -70,6 +76,8 @@ const AdminProduct = ({
     }
   }, [editCount]);
 
+  const [imagesMarkedForRemoval, setImagesMarkedForRemoval] = useState([]);
+
   const handleImagesInput = async (e) => {
     let inputFiles;
 
@@ -89,6 +97,17 @@ const AdminProduct = ({
 
   const handleDeleteImage = (fileName) => {
     const updatedImages = images.filter((image) => image.name !== fileName);
+    const imageMarkedForRemoval = images.find(
+      (image) => image.name === fileName
+    );
+
+    if (!isEditPage) {
+      deleteFile('product-images', imageMarkedForRemoval);
+    } else {
+      const updatedImagesMarkedForRemoval = [...imagesMarkedForRemoval];
+      updatedImagesMarkedForRemoval.push(imageMarkedForRemoval);
+      setImagesMarkedForRemoval(updatedImagesMarkedForRemoval);
+    }
 
     const updatedVariants = [...variants];
 
@@ -213,7 +232,12 @@ const AdminProduct = ({
 
     if (isEditPage) {
       productData.id = productId;
-      await editProduct({ productData, variants, currentInventoryLevels });
+      await editProduct({
+        productData,
+        variants,
+        currentInventoryLevels,
+        imagesMarkedForRemoval,
+      });
     } else {
       await createProduct({ productData, variants });
     }
@@ -255,6 +279,7 @@ const AdminProduct = ({
         <div className={`${styles.container} main-container`}>
           <h1>{isEditPage ? 'Edit' : 'Add'} Product</h1>
           <ProductForm
+            isEditPage={isEditPage}
             productInput={productInput}
             images={images}
             tags={tags}

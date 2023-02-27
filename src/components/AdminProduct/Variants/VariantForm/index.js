@@ -136,7 +136,10 @@ const VariantForm = ({
   console.log(variant.inventory);
   return (
     <>
-      <CenterModal modalClassName={styles.confirm_modal}>
+      <CenterModal
+        toggleModal={closeConfirm}
+        modalClassName={styles.confirm_modal}
+      >
         {isConfirmOpen && (
           <ConfirmMessage
             isConfirmOpen={isConfirmOpen}

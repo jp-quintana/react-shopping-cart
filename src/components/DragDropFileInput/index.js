@@ -27,6 +27,7 @@ const DragDropFileInput = ({
   previewFiles,
   previewImages,
   needsConfirmOnDelete,
+  additionalConfirmText,
 }) => {
   const icon = {
     image: <FaFileImage />,
@@ -66,10 +67,15 @@ const DragDropFileInput = ({
     setFileToBeDeleted(null);
   };
 
+  // TODO: CHEQUEAR SI PREVIEW FILES FUNCIONA
+
   return (
     <>
       {needsConfirmOnDelete && (
-        <CenterModal modalClassName={styles.confirm_modal}>
+        <CenterModal
+          toggleModal={closeConfirm}
+          modalClassName={styles.confirm_modal}
+        >
           {isConfirmOpen && (
             <ConfirmMessage
               isConfirmOpen={isConfirmOpen}
@@ -77,7 +83,7 @@ const DragDropFileInput = ({
               handleCancel={closeConfirm}
               text={`Are you sure you want to delete this ${
                 title.split('s')[0] || 'file'
-              }? This image will also be removed from any variant currently using it.`}
+              }? This image will also be removed from any variant currently using it. ${additionalConfirmText}`}
             />
           )}
         </CenterModal>
