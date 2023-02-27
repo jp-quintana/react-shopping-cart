@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { useAdmin } from 'hooks/useAdmin';
 
-import AdminProduct from './AdminProduct';
+import AdminProduct from 'components/AdminProduct';
 
 import Loader from 'components/Loader';
 
