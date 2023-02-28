@@ -11,6 +11,8 @@ import Variants from './Variants';
 
 import Button from 'components/Button';
 import Loader from 'components/Loader';
+import CenterModal from 'components/CenterModal';
+import ConfirmMessage from 'components/ConfirmMessage';
 
 import styles from './index.module.scss';
 
@@ -37,6 +39,7 @@ const AdminProduct = ({
     deleteFile,
     createProduct,
     editProduct,
+    deleteProduct,
     isLoading,
     error,
   } = useAdmin();
@@ -254,6 +257,18 @@ const AdminProduct = ({
     }
   }, [navigation]);
 
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+
+  const handleDeleteOnConfirm = async () => {
+    setIsConfirmOpen(false);
+    await deleteProduct(productId);
+    setNavigation(true);
+  };
+
+  const closeConfirm = () => {
+    setIsConfirmOpen(false);
+  };
+
   const createButtonIsDisabled =
     isEditingVariants || sizes.length === 0 || variants.length === 0;
 
@@ -275,6 +290,17 @@ const AdminProduct = ({
 
   return (
     <>
+      <CenterModal
+        toggleModal={closeConfirm}
+        modalClassName={styles.confirm_modal}
+      >
+        {isConfirmOpen && (
+          <ConfirmMessage
+            text="Are you sure you want to delete this product? There is no way to undo this."
+            handleConfirm={handleDeleteOnConfirm}
+          />
+        )}
+      </CenterModal>
       {isLoading && <Loader />}
       <section>
         <div className={`${styles.container} main-container`}>
@@ -306,14 +332,24 @@ const AdminProduct = ({
             handleDeleteVariant={handleDeleteVariant}
             handleVariantEditSubmit={handleVariantEditSubmit}
           />
-          <div className={styles.button_wrapper}>
+          <div className={styles.buttons_wrapper}>
             <Button
               type="submit"
               form="productForm"
               disabled={createButtonIsDisabled}
+              className={styles.submit}
             >
               {createButtonContent}
             </Button>
+            {isEditPage && (
+              <Button
+                onClick={() => setIsConfirmOpen(true)}
+                type="button"
+                className={styles.delete}
+              >
+                Delete Product
+              </Button>
+            )}
           </div>
         </div>
       </section>

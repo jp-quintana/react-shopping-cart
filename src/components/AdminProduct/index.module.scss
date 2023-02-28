@@ -1,5 +1,13 @@
 @import 'App.scss';
 
+.confirm_modal {
+  padding-right: 3rem;
+  padding-left: 3rem;
+
+  width: auto !important;
+  height: auto !important;
+}
+
 .container {
   padding-bottom: 3rem;
   padding-top: 10rem;
@@ -16,24 +24,35 @@
     margin-bottom: 3rem;
   }
 
-  .button_wrapper {
+  .buttons_wrapper {
     margin-top: 5rem;
-    text-align: center;
-    
-    button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+
+    .submit,
+    .delete {
       width: 70%;
       padding: 2rem;
       text-transform: uppercase;
       font-size: 2.5rem;
       text-align: center;
-      background: $back-detail;
       color: #fff;
       border-radius: 1rem;
+    }
+
+    .submit {
+      background: $back-detail;
 
       &:disabled {
         color: #3d3d3d;
-        background: #bdc3c7 ;
+        background: #bdc3c7;
       }
+    }
+
+    .delete {
+      background: rgba(243, 121, 120, 0.95);
     }
   }
 }

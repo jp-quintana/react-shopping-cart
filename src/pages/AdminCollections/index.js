@@ -13,7 +13,7 @@ import styles from './index.module.scss';
 
 const AdminCollections = () => {
   const { getCollection } = useCollection();
-  const { deleteVariant } = useAdmin();
+  const { deleteVariant, isLoading } = useAdmin();
 
   const [variants, setVariants] = useState(null);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
@@ -37,10 +37,10 @@ const AdminCollections = () => {
   };
 
   const handleDeleteOnConfirm = async () => {
+    setIsConfirmOpen(false);
     await deleteVariant(productToBeDeleted);
 
     setVariants(null);
-    setIsConfirmOpen(false);
   };
 
   const closeConfirm = () => {
@@ -53,7 +53,10 @@ const AdminCollections = () => {
 
   return (
     <>
-      <CenterModal toggleModal={closeConfirm}>
+      <CenterModal
+        toggleModal={closeConfirm}
+        modalClassName={styles.confirm_modal}
+      >
         {isConfirmOpen && (
           <ConfirmMessage
             isConfirmOpen={isConfirmOpen}
@@ -63,7 +66,7 @@ const AdminCollections = () => {
           />
         )}
       </CenterModal>
-      {!variants && <Loader />}
+      {(!variants || isLoading) && <Loader />}
       {variants && (
         <section>
           <div className={`${styles.container} main-container`}>

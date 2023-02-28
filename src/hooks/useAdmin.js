@@ -464,26 +464,41 @@ export const useAdmin = () => {
     }
   };
 
-  const deleteProduct = async (productIdAndImages) => {
+  const deleteProduct = async (productId) => {
     setError(null);
     setIsLoading(true);
 
     try {
-      const { productId, images, inventoryLevels } = productIdAndImages;
+      const productRef = doc(db, 'products', productId);
 
-      console.log(images);
+      const docSnap = await getDoc(productRef);
 
-      // for (const image of images) {
-      //   const uploadPath = `product-images/${image.id}/${image.name}`;
-      //   const storageRef = ref(storage, uploadPath);
+      let product = { id: docSnap.id, ...docSnap.data() };
 
-      //   deleteObject(storageRef);
-      // }
+      const batch = writeBatch(db);
 
-      // const productRef = doc(db, 'products', productId);
-      // await deleteDoc(productRef);
+      for (const variant of product.variants) {
+        for (const image of variant.images) {
+          const uploadPath = `product-images/${image.id}/${image.name}`;
+          const storageRef = ref(storage, uploadPath);
+
+          deleteObject(storageRef);
+        }
+
+        for (const item of variant.inventoryLevels) {
+          const skuInventoryRef = doc(db, 'inventory', item.sku);
+
+          batch.delete(skuInventoryRef);
+        }
+      }
+
+      await batch.commit();
+
+      await deleteDoc(productRef);
+
       setIsLoading(false);
     } catch (err) {
+      console.log(err);
       setError(err);
       setIsLoading(false);
     }
