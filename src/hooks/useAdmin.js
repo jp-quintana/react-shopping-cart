@@ -8,6 +8,7 @@ import {
   getDoc,
   getDocs,
   setDoc,
+  deleteDoc,
   collection,
   query,
   where,
@@ -147,7 +148,7 @@ export const useAdmin = () => {
     }
   };
 
-  const createProduct = async ({ productData, variants }) => {
+  const createProduct = async ({ productData, variants, images }) => {
     setError(null);
     setIsLoading(true);
 
@@ -182,9 +183,13 @@ export const useAdmin = () => {
         variants: [],
       };
 
+      let currentImagesInUse = [];
+
       const batch = writeBatch(db);
 
       for (let variant of variants) {
+        currentImagesInUse = [...currentImagesInUse, ...variant.images];
+
         let variantSlug = `${product.type} ${product.model}`;
         if (variant.colorDisplay) {
           variantSlug += ` ${variant.colorDisplay}`;
@@ -232,6 +237,23 @@ export const useAdmin = () => {
         product.variants.push(variantContent);
       }
 
+      const currentImagesInUseNames = currentImagesInUse.map(
+        (image) => image.name
+      );
+
+      const imagesToBeDeleted = images.filter(
+        (image) => !currentImagesInUseNames.includes(image.name)
+      );
+
+      if (imagesToBeDeleted.length > 0) {
+        for (const image of imagesToBeDeleted) {
+          const uploadPath = `product-images/${image.id}/${image.name}`;
+          const storageRef = ref(storage, uploadPath);
+
+          deleteObject(storageRef);
+        }
+      }
+
       await batch.commit();
 
       const productRef = doc(db, 'products', productId);
@@ -249,6 +271,7 @@ export const useAdmin = () => {
     productData,
     variants,
     currentInventoryLevels,
+    images,
     imagesMarkedForRemoval,
   }) => {
     setError(null);
@@ -290,6 +313,8 @@ export const useAdmin = () => {
         variants: [],
       };
 
+      let currentImagesInUse = [];
+
       const currentProductSkus = currentInventoryLevels.map(
         (variant) => variant.sku
       );
@@ -298,6 +323,8 @@ export const useAdmin = () => {
       const batch = writeBatch(db);
 
       for (let variant of variants) {
+        currentImagesInUse = [...currentImagesInUse, ...variant.images];
+
         let variantSlug = `${product.type} ${product.model}`;
         if (variant.colorDisplay) {
           variantSlug += ` ${variant.colorDisplay}`;
@@ -346,6 +373,23 @@ export const useAdmin = () => {
         product.variants.push(variantContent);
       }
 
+      const currentImagesInUseNames = currentImagesInUse.map(
+        (image) => image.name
+      );
+
+      const imagesToBeDeleted = images.filter(
+        (image) => !currentImagesInUseNames.includes(image.name)
+      );
+
+      if (imagesToBeDeleted.length > 0) {
+        for (const image of imagesToBeDeleted) {
+          const uploadPath = `product-images/${image.id}/${image.name}`;
+          const storageRef = ref(storage, uploadPath);
+
+          deleteObject(storageRef);
+        }
+      }
+
       const skusToBeDeleted = currentProductSkus.filter(
         (sku) => !newProductSkus.includes(sku)
       );
@@ -363,6 +407,83 @@ export const useAdmin = () => {
 
       await setDoc(productRef, product);
     } catch (err) {
+      console.log(err);
+      setError(err);
+      setIsLoading(false);
+    }
+  };
+
+  const deleteVariant = async ({ productId, variantId }) => {
+    setError(null);
+    setIsLoading(true);
+
+    try {
+      const productRef = doc(db, 'products', productId);
+
+      const docSnap = await getDoc(productRef);
+
+      let product = { id: docSnap.id, ...docSnap.data() };
+
+      const variantToBeDeleted = product.variants.find(
+        (variant) => variant.id === variantId
+      );
+
+      for (const image of variantToBeDeleted.images) {
+        const uploadPath = `product-images/${image.id}/${image.name}`;
+        const storageRef = ref(storage, uploadPath);
+
+        deleteObject(storageRef);
+      }
+
+      const batch = writeBatch(db);
+
+      for (const item of variantToBeDeleted.inventoryLevels) {
+        const skuInventoryRef = doc(db, 'inventory', item.sku);
+
+        batch.delete(skuInventoryRef);
+      }
+      await batch.commit();
+
+      const updatedVariants = product.variants.filter(
+        (variant) => variant.id !== variantId
+      );
+
+      product.variants = [...updatedVariants];
+
+      if (product.variants.length > 0) {
+        await setDoc(productRef, product);
+      } else {
+        await deleteDoc(productRef);
+      }
+
+      setIsLoading(false);
+    } catch (err) {
+      console.log(err);
+      setError(err);
+      setIsLoading(false);
+    }
+  };
+
+  const deleteProduct = async (productIdAndImages) => {
+    setError(null);
+    setIsLoading(true);
+
+    try {
+      const { productId, images, inventoryLevels } = productIdAndImages;
+
+      console.log(images);
+
+      // for (const image of images) {
+      //   const uploadPath = `product-images/${image.id}/${image.name}`;
+      //   const storageRef = ref(storage, uploadPath);
+
+      //   deleteObject(storageRef);
+      // }
+
+      // const productRef = doc(db, 'products', productId);
+      // await deleteDoc(productRef);
+      setIsLoading(false);
+    } catch (err) {
       setError(err);
       setIsLoading(false);
     }
@@ -373,6 +494,8 @@ export const useAdmin = () => {
     deleteFile,
     createProduct,
     editProduct,
+    deleteVariant,
+    deleteProduct,
     getProduct,
     isLoading,
     error,

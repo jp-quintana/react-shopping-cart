@@ -9,6 +9,7 @@ import styles from './index.module.scss';
 
 const ProductCard = ({
   productId,
+  variantId,
   model,
   color,
   colorDisplay,
@@ -19,12 +20,11 @@ const ProductCard = ({
   imageTop,
   imageBottom,
   numberOfVariants,
+  handleDeleteStart,
 }) => {
   const location = useLocation();
 
   const isAdmin = location.pathname.split('/')[1] === 'admin';
-
-  // TODO: Corregir slug del edit button
 
   return (
     <>
@@ -32,9 +32,9 @@ const ProductCard = ({
         <Card className={styles.card}>
           <Link to={`/productos/${slug}`} className={styles.link}>
             <div className={styles.image_wrapper}>
-              <img src={imageTop} alt="" className={styles.image_top}></img>
+              <img src={imageTop.src} alt="" className={styles.image_top}></img>
               <img
-                src={imageBottom}
+                src={imageBottom.src}
                 alt=""
                 className={styles.image_bottom}
               ></img>
@@ -58,7 +58,16 @@ const ProductCard = ({
             <Button className={styles.edit} to={`/admin/products/${productId}`}>
               Edit
             </Button>
-            <Button className={styles.delete} type="button">
+            <Button
+              onClick={() =>
+                handleDeleteStart({
+                  productId,
+                  variantId,
+                })
+              }
+              className={styles.delete}
+              type="button"
+            >
               Delete
             </Button>
           </div>

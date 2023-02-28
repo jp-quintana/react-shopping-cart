@@ -7,54 +7,50 @@ import Loader from 'components/Loader';
 
 import ProductCard from 'components/ProductCard';
 
-// import { DUMMY_COLLECTIONS_PRODUCTS as products } from './data';
-
 import styles from './index.module.scss';
 
 const Collections = () => {
   const navigate = useNavigate();
-  const { id: urlId } = useParams();
+  const { id: slugId } = useParams();
 
   const { getCollection } = useCollection();
 
-  const [products, setProducts] = useState(null);
+  const [variants, setVariants] = useState(null);
   const [collection, setCollection] = useState(null);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const fetchedProducts = await getCollection();
-      setProducts(fetchedProducts);
+    const fetchVariants = async () => {
+      const fetchedVariants = await getCollection();
+      setVariants(fetchedVariants);
     };
 
-    fetchProducts();
+    fetchVariants();
   }, []);
 
   useEffect(() => {
-    if (products) {
-      let selectedProducts;
-      if (urlId === 'productos') {
-        selectedProducts = products;
+    if (variants) {
+      let selectedVariants;
+      if (slugId === 'productos') {
+        selectedVariants = variants;
       } else if (
-        urlId === 'remeras' ||
-        urlId === 'buzos' ||
-        urlId === 'accesorios'
+        slugId === 'remeras' ||
+        slugId === 'buzos' ||
+        slugId === 'accesorios'
       ) {
-        selectedProducts = products.filter(
-          (product) => product.collection === urlId
+        selectedVariants = variants.filter(
+          (variant) => variant.collection === slugId
         );
       } else {
-        selectedProducts = null;
+        selectedVariants = null;
       }
 
-      if (selectedProducts) {
-        setCollection(selectedProducts);
+      if (selectedVariants) {
+        setCollection(selectedVariants);
       } else {
         navigate('/');
       }
     }
-  }, [products, urlId]);
-
-  console.log(products);
+  }, [variants, slugId]);
 
   return (
     <>
@@ -62,19 +58,19 @@ const Collections = () => {
       {collection && (
         <section>
           <div className={`${styles.container} main-container`}>
-            {collection.map((product) => (
+            {collection.map((productVariant) => (
               <ProductCard
-                key={product.variantId}
-                model={product.model}
-                color={product.color}
-                colorDisplay={product.colorDisplay}
-                currentPrice={product.currentPrice}
-                actualPrice={product.actualPrice}
-                type={product.type}
-                slug={product.slug}
-                imageTop={product.images[0].src}
-                imageBottom={product.images[1].src}
-                numberOfVariants={product.numberOfVariants}
+                key={productVariant.variantId}
+                model={productVariant.model}
+                color={productVariant.color}
+                colorDisplay={productVariant.colorDisplay}
+                currentPrice={productVariant.currentPrice}
+                actualPrice={productVariant.actualPrice}
+                type={productVariant.type}
+                slug={productVariant.slug}
+                imageTop={productVariant.images[0]}
+                imageBottom={productVariant.images[1]}
+                numberOfVariants={productVariant.numberOfVariants}
               />
             ))}
           </div>

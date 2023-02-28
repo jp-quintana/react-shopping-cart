@@ -236,10 +236,11 @@ const AdminProduct = ({
         productData,
         variants,
         currentInventoryLevels,
+        images,
         imagesMarkedForRemoval,
       });
     } else {
-      await createProduct({ productData, variants });
+      await createProduct({ productData, variants, images });
     }
 
     setNavigation(true);
