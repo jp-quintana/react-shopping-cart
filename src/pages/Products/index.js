@@ -36,6 +36,7 @@ const Products = () => {
   const handleAddToCart = async () => {
     await addItem({
       productId: selectedProduct.id,
+      variantId: selectedVariant.id,
       id: selectedSku,
       size: selectedSize,
       model: selectedProduct.model,

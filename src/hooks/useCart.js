@@ -81,6 +81,11 @@ export const useCart = () => {
       }
 
       const updatedTotalAmount = totalCartAmount(updatedItems);
+      const updatedItemsDb = updatedItems.map((item) => ({
+        sku: item.id,
+        productId: item.productId,
+        variantId: item.variantId,
+      }));
 
       const cartRef = doc(db, 'carts', user.uid);
 
@@ -92,7 +97,7 @@ export const useCart = () => {
         });
       } else {
         await setDoc(cartRef, {
-          items: updatedItems,
+          items: updatedItemsDb,
           totalAmount: updatedTotalAmount,
         });
 

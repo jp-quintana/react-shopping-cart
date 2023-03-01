@@ -7,6 +7,8 @@ import { useAuthContext } from 'hooks/useAuthContext';
 
 import CartContext from './cart-context';
 
+// TODO: Delete total amount
+
 const initialState = {
   items: [],
   totalAmount: 0,
@@ -55,10 +57,54 @@ const CartProvider = ({ children }) => {
           const cartDoc = await getDoc(cartRef);
 
           if (cartDoc.exists()) {
-            const cartData = { ...cartDoc.data() };
+            const cartDb = { ...cartDoc.data() };
+            const cart = [];
+            const productIds = [];
+            const products = [];
+            for (const item of cartDb.items) {
+              console.log(item);
+              const inventoryRef = doc(db, 'inventory', item.sku);
+              const inventoryDoc = await getDoc(inventoryRef);
+
+              if (inventoryDoc.exists()) {
+                const inventoryData = { ...inventoryDoc.data() };
+
+                if (!productIds.includes(item.productId)) {
+                  productIds.push(item.productId);
+                  const productRef = doc(db, 'products', item.productId);
+                  const productDoc = await getDoc(productRef);
+                  const productData = {
+                    id: productDoc.id,
+                    ...productDoc.data(),
+                  };
+                  products.push(productData);
+                }
+
+                const product = products.find(
+                  (product) => (product.id = item.productId)
+                );
+                const variant = product.variants.find(
+                  (variant) => (variant.id = item.variantId)
+                );
+
+                cart.push({
+                  amount: item.amount,
+                  color: variant.color,
+                  description: product.description,
+                  model: product.model,
+                  price: variant.currentPrice,
+                  productId: item.productId,
+                  thumbanil: variant.images[0].src,
+                  type: product.type,
+                  slug: variant.slug,
+                  id: item.sku,
+                  size: inventoryData.size,
+                });
+              }
+            }
             dispatch({
               type: 'UPDATE_CART',
-              payload: { ...cartData },
+              payload: { items: [...cart], totalAmount: cartDb.totalAmount },
             });
           } else {
             dispatch({
