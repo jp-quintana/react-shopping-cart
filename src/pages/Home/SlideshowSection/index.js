@@ -32,16 +32,18 @@ const SlideshowSection = () => {
   return (
     <section className={styles.section}>
       <div className={`${styles.container} main-container`}>
-        <p className={styles.section_text}>Comprá lo</p>
-        <h1 className={styles.section_title}>Ultimo</h1>
+        <p className={styles.section_text}>Shop the</p>
+        <h1 className={styles.section_title}>Latest</h1>
         <div className={styles.wrapper}>
           {showContent && (
             <div className={styles.content_wrapper}>
-              <p className={styles.content_title}>Capsula #01</p>
+              <p className={styles.content_title}>Drop #01</p>
               <p className={styles.content_title}>De gira</p>
-              <p className={styles.content_subtitle}>Remeras, buzos y gorras</p>
+              <p className={styles.content_subtitle}>
+                T-shirts, hoodies & more
+              </p>
               <Button className={styles.button} to="/categorias/productos">
-                Ver productos
+                Buy products
               </Button>
             </div>
           )}
