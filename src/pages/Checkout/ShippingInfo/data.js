@@ -58,9 +58,10 @@ export const reactSelectStyles = {
     borderRadius: '1rem',
     cursor: 'pointer',
     boxShadow: 'none',
-    border: isFocused ? '1px solid #fff' : '1px solid #515255',
+    border: '1px solid #515255',
+    outline: isFocused ? '5px auto -webkit-focus-ring-color' : '',
     '&:hover': {
-      border: isFocused ? '1px solid #fff' : '1px solid #515255',
+      border: '1px solid #515255',
     },
   }),
 };

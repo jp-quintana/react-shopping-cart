@@ -16,7 +16,7 @@ const Order = ({ id, items, date }) => {
   };
   return (
     <>
-      <CenterModal toggleModal={toggleOrderModal}>
+      <CenterModal modalClassName={styles.modal} toggleModal={toggleOrderModal}>
         {isOpen && (
           <OrderContent
             toggleOrderModal={toggleOrderModal}

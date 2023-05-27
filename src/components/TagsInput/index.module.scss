@@ -1,0 +1,52 @@
+@import 'App.scss';
+
+.tags_input {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 1rem;
+  gap: 1rem;
+  border: 1px solid #3d3d3d;
+  border-radius: 1rem;
+
+  &:focus-within {
+    outline: 5px auto -webkit-focus-ring-color;
+  }
+
+  ul {
+    display: flex;
+    gap: 1rem;
+
+    .tag {
+      text-transform: uppercase;
+      background-color: $c-var;
+      padding: 0.5rem 1rem;
+      border-radius: 0.6rem;
+      font-size: 1.4rem;
+      color: $c-secondary;
+      font-family: $font-f-secondary;
+      font-weight: $font-w-700;
+      letter-spacing: $ls-secondary;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      line-height: 1;
+
+
+      .delete {
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  input {
+    border: none;
+    flex-grow: 1;
+    &:focus {
+      outline: transparent;
+    }
+  }
+}

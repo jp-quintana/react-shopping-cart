@@ -15,9 +15,9 @@ const CartItem = ({
   color,
   size,
   price,
-  url,
+  slug,
   amount,
-  _thumbnail,
+  thumbnail,
   item,
   toggleCartModal,
   addItem,
@@ -45,14 +45,12 @@ const CartItem = ({
     }
   };
 
-  const thumbnail = require(`assets/${_thumbnail}`);
-
-  const clearProduct = urlId === url && '/productos';
+  const clearProduct = urlId === slug && '/productos';
 
   return (
     <Card className={styles.card}>
       <Link
-        to={`/productos/${url}`}
+        to={`/productos/${slug}`}
         state={clearProduct}
         onClick={toggleCartModal ? toggleCartModal : ''}
       >
@@ -60,7 +58,7 @@ const CartItem = ({
           <div className={styles.info_wrapper}>
             <p className={styles.title}>{`${type} ${model}`}</p>
             <p className={styles.color}>{color}</p>
-            <p className={styles.size}>{size}</p>
+            <p className={styles.size}>{size.toUpperCase()}</p>
             <p className={styles.price}>${formatNumber(price)}</p>
           </div>
           <img className={styles.image} src={thumbnail} alt="" />

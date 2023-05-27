@@ -28,7 +28,7 @@ const ProductSize = ({ id, value, stock, selectedSize }) => {
       className={sizeStyles}
       onClick={addEventHandler ? handleSelectSize : undefined}
     >
-      {value}
+      {value.toUpperCase()}
     </div>
   );
 };

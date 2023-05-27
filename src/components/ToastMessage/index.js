@@ -16,11 +16,10 @@ const ToastMessage = ({ toggleToast, content, className }) => {
   }, [content]);
 
   if (content.addToCartSuccess) {
-    const thumbnail = require(`assets/${content._thumbnail}`);
     return (
       <div className={`${styles.addToCart} ${styles.success}`}>
         <div className={styles.content_wrapper}>
-          <img className={styles.image} src={thumbnail} alt="" />
+          <img className={styles.image} src={content.thumbnail} alt="" />
           <div>
             <p className={styles.title}>Producto agregado al carrito.</p>
             <p className={styles.details}>

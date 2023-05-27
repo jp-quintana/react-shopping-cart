@@ -29,11 +29,7 @@ const OrderSummary = () => {
         {items.map((item) => (
           <div key={item.id} className={styles.item_container}>
             <div className={styles.image_wrapper}>
-              <img
-                className={styles.image}
-                src={require(`assets/${item.thumbnail}`)}
-                alt=""
-              />
+              <img className={styles.image} src={item.thumbnail} alt="" />
               <div className={styles.amount}>
                 <div>{item.amount}</div>
               </div>
@@ -42,7 +38,7 @@ const OrderSummary = () => {
               <p className={styles.name}>
                 {item.type} {item.model} - {item.color}
               </p>
-              <p className={styles.size}>{item.size}</p>
+              <p className={styles.size}>{item.size.toUpperCase()}</p>
             </div>
             <p className={styles.price}>$ {formatNumber(item.price)}</p>
           </div>

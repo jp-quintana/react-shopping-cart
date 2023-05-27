@@ -5,7 +5,7 @@ export const useProduct = () => {
 
   const selectVariant = (variantId) => {
     const variant = selectedProduct.variants.find(
-      (variant) => variant.variantId === variantId
+      (variant) => variant.id === variantId
     );
 
     dispatch({ type: 'SELECT_VARIANT', payload: variant });
