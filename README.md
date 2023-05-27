@@ -6,7 +6,7 @@ This app is a clone of https://alphaleteathletics.com.
 
 ## NOTE
 
-Last stable commit: ad726d674cb00ef07a6ca1ddb83559b7642def49. Currently redesigning whole Firebase db and refactoring project code. The mentioned commit is current version deployed.
+Last stable commit: ad726d674cb00ef07a6ca1ddb83559b7642def49. Currently redesigning whole Firebase db, refactoring app code & migrating project to Vite. The mentioned commit is current version deployed.
 
 ## App Preview
 
