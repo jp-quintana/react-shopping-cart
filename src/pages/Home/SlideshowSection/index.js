@@ -43,7 +43,7 @@ const SlideshowSection = () => {
                 T-shirts, hoodies & more
               </p>
               <Button className={styles.button} to="/categorias/productos">
-                Buy products
+                Shop now
               </Button>
             </div>
           )}

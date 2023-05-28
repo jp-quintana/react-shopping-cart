@@ -10,27 +10,33 @@ const Footer = () => {
       <div className={styles.container}>
         <div className={styles.sitemap}>
           <div className={styles.nav_wrapper}>
-            <h4 className={styles.nav_title}>Ayuda</h4>
+            <h4 className={styles.nav_title}>Help</h4>
             <ul>
               <li>
-                <Link to="/">Contacto</Link>
+                <Link to="/">Help Center</Link>
               </li>
               <li>
-                <Link to="/">Pagos & envíos</Link>
+                <Link to="/">Contact Us</Link>
               </li>
               <li>
-                <Link to="/">Órdenes</Link>
+                <Link to="/">Shipping Info</Link>
               </li>
               <li>
-                <Link to="/">Retornos</Link>
+                <Link to="/">Track My Order</Link>
+              </li>
+              <li>
+                <Link to="/">Returns & Exchanges</Link>
               </li>
             </ul>
           </div>
           <div className={styles.nav_wrapper}>
-            <h4 className={styles.nav_title}>Info</h4>
+            <h4 className={styles.nav_title}>More</h4>
             <ul>
               <li>
-                <Link to="">Sobre nosotros</Link>
+                <Link to="">About Us</Link>
+              </li>
+              <li>
+                <Link to="">Carreers</Link>
               </li>
             </ul>
           </div>

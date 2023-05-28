@@ -68,22 +68,37 @@ const Navbar = ({ toggleSideNav, toggleCartModal }) => {
         <ul className={styles.info_list}>
           <li>
             <Link className={styles.link} to="/">
-              Info
+              Help Center
             </Link>
           </li>
           <li>
             <Link className={styles.link} to="/">
-              Envios
+              Contact Us
             </Link>
           </li>
           <li>
             <Link className={styles.link} to="/">
-              Devoluciones
+              Shipping Info
             </Link>
           </li>
           <li>
             <Link className={styles.link} to="/">
-              Sobre Nosotros
+              Track My Order
+            </Link>
+          </li>
+          <li>
+            <Link className={styles.link} to="/">
+              Return & Exchanges
+            </Link>
+          </li>
+          <li>
+            <Link className={styles.link} to="/">
+              About Us
+            </Link>
+          </li>
+          <li>
+            <Link className={styles.link} to="/">
+              Carreers
             </Link>
           </li>
         </ul>
@@ -97,7 +112,7 @@ const Navbar = ({ toggleSideNav, toggleCartModal }) => {
         )}
         {isVerified && (
           <Link to="/cuenta" className={`${styles.link} ${styles.login_link}`}>
-            Mi Cuenta
+            My Account
           </Link>
         )}
         {isAdmin && (
@@ -112,18 +127,21 @@ const Navbar = ({ toggleSideNav, toggleCartModal }) => {
         </Link>
         <ul className={styles.links}>
           <li>
-            <NavLink className={styles.link} to="/categorias/remeras">
-              Remeras
+            <NavLink className={styles.link} to="/collections/t-shirts">
+              T-shirts
             </NavLink>
           </li>
           <li>
-            <NavLink className={styles.link} to="/categorias/buzos">
-              Buzos
+            <NavLink
+              className={styles.link}
+              to="/collections/hoodies-sweatshirts"
+            >
+              Hoodies
             </NavLink>
           </li>
           <li>
-            <NavLink className={styles.link} to="/categorias/accesorios">
-              Accesorios
+            <NavLink className={styles.link} to="/collections/accessories">
+              Accessories
             </NavLink>
           </li>
         </ul>
