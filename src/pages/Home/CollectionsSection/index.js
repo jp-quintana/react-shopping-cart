@@ -8,7 +8,7 @@ const CollectionsSection = () => {
   return (
     <section className={styles.section}>
       <div className={`${styles.container} main-container`}>
-        <h2 className={styles.title}>Categorias</h2>
+        <h2 className={styles.title}>Collections</h2>
         <div className={styles.grid_container}>
           {collections.map((collection) => (
             <CollectionCard

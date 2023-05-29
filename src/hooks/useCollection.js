@@ -58,6 +58,8 @@ export const useCollection = () => {
         products.push({ id: doc.id, ...doc.data() });
       });
 
+      console.log(products);
+
       for (const product of products) {
         for (const variant of product.variants) {
           variants.push({
