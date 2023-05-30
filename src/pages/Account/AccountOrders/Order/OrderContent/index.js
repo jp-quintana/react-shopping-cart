@@ -15,7 +15,7 @@ const OrderContent = ({ toggleOrderModal, id, items, date }) => {
   return (
     <div className={styles.content_container}>
       <div className={styles.modal_header}>
-        <h3>Orden #{id}</h3>
+        <h3>Order #{id}</h3>
         <p className={styles.date}>{formatDate(date)}</p>
       </div>
       <div className={styles.list_wrapper}>
@@ -44,7 +44,7 @@ const OrderContent = ({ toggleOrderModal, id, items, date }) => {
           {addAllItemsAmount(items) > 1 ? 'Items' : 'Item'}
         </p>
         <Button className={styles.button} onClick={toggleOrderModal}>
-          Volver a mi cuenta
+          Back to account
         </Button>
       </div>
     </div>

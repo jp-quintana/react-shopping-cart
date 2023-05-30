@@ -89,11 +89,11 @@ const CartProvider = ({ children }) => {
                   model: product.model,
                   price: variant.currentPrice,
                   productId: item.productId,
-                  thumbanil: variant.images[0].src,
+                  thumbnail: variant.images[0].src,
                   type: product.type,
                   slug: variant.slug,
                   id: item.sku,
-                  size: inventoryData.size,
+                  size: inventoryData.value,
                 });
               }
             }

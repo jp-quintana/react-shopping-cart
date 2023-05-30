@@ -23,10 +23,7 @@ const ShippingInfo = () => {
   const [isDisabled, setIsDisabled] = useState(false);
   const [newAddress, setNewAddress] = useState({});
 
-  const options = [
-    ...addresses,
-    { label: 'Agregar Dirección Nueva', value: 'new' },
-  ];
+  const options = [...addresses, { label: 'Add new address', value: 'new' }];
 
   let defaultOption;
   let initialIsNew = false;
@@ -38,7 +35,7 @@ const ShippingInfo = () => {
 
     if (!defaultOption) {
       defaultOption = {
-        label: 'Agregar Dirección Nueva',
+        label: 'Add new address',
         value: 'new',
       };
       initialIsNew = true;
@@ -275,7 +272,7 @@ const ShippingInfo = () => {
       {!isLoading && (
         <form className={styles.info_form} onSubmit={handleSubmit}>
           <div className={styles.contact_info_wrapper}>
-            <p className={styles.title}>Información de Contacto</p>
+            <p className={styles.title}>Contact Information</p>
             <div className={styles.float_container}>
               <label htmlFor="email" className={emailStyles.label}>
                 Email
@@ -293,7 +290,7 @@ const ShippingInfo = () => {
             </div>
           </div>
           <div className={styles.shipping_address_wrapper}>
-            <p className={styles.title}>Dirección de Envío</p>
+            <p className={styles.title}>Shipping address</p>
             <Dropdown
               styles={reactSelectStyles}
               options={options}
@@ -308,7 +305,7 @@ const ShippingInfo = () => {
                 }`}
               >
                 <label htmlFor="name" className={nameStyles.label}>
-                  Nombre
+                  Name
                 </label>
                 <input
                   id="name"
@@ -318,7 +315,7 @@ const ShippingInfo = () => {
                   value={userInput.name}
                   className={nameStyles.input}
                   required
-                  placeholder="Nombre"
+                  placeholder="Name"
                   disabled={isDisabled}
                 />
               </div>
@@ -328,7 +325,7 @@ const ShippingInfo = () => {
                 }`}
               >
                 <label htmlFor="lastName" className={lastNameStyles.label}>
-                  Apellido
+                  Last Name
                 </label>
                 <input
                   id="lastName"
@@ -338,7 +335,7 @@ const ShippingInfo = () => {
                   value={userInput.lastName}
                   className={lastNameStyles.input}
                   required
-                  placeholder="Apellido"
+                  placeholder="Last Name"
                   disabled={isDisabled}
                 />
               </div>
@@ -349,7 +346,7 @@ const ShippingInfo = () => {
               }`}
             >
               <label htmlFor="address" className={addressStyles.label}>
-                Dirección
+                Address
               </label>
               <input
                 id="address"
@@ -359,7 +356,7 @@ const ShippingInfo = () => {
                 value={userInput.address}
                 className={addressStyles.input}
                 required
-                placeholder="Dirección"
+                placeholder="Address"
                 disabled={isDisabled}
               />
             </div>
@@ -370,7 +367,7 @@ const ShippingInfo = () => {
                 }`}
               >
                 <label htmlFor="city" className={cityStyles.label}>
-                  Ciudad
+                  City
                 </label>
                 <input
                   id="city"
@@ -380,7 +377,7 @@ const ShippingInfo = () => {
                   value={userInput.city}
                   className={cityStyles.input}
                   required
-                  placeholder="Ciudad"
+                  placeholder="City"
                   disabled={isDisabled}
                 />
               </div>
@@ -390,7 +387,7 @@ const ShippingInfo = () => {
                 }`}
               >
                 <label htmlFor="zipCode" className={zipCodeStyles.label}>
-                  Código Postal
+                  Zip Code
                 </label>
                 <input
                   id="zipCode"
@@ -400,7 +397,7 @@ const ShippingInfo = () => {
                   value={userInput.zipCode}
                   className={zipCodeStyles.input}
                   required
-                  placeholder="Código Postal"
+                  placeholder="Zip Code"
                   disabled={isDisabled}
                 />
               </div>
@@ -410,7 +407,7 @@ const ShippingInfo = () => {
                 }`}
               >
                 <label htmlFor="province" className={provinceStyles.label}>
-                  Provincia
+                  State
                 </label>
                 <input
                   id="province"
@@ -420,7 +417,7 @@ const ShippingInfo = () => {
                   value={userInput.province}
                   className={provinceStyles.input}
                   required
-                  placeholder="Provincia"
+                  placeholder="State"
                   disabled={isDisabled}
                 />
               </div>
@@ -431,7 +428,7 @@ const ShippingInfo = () => {
               }`}
             >
               <label htmlFor="phoneNumber" className={phoneNumberStyles.label}>
-                Teléfono
+                Phone
               </label>
               <input
                 id="phoneNumber"
@@ -441,7 +438,7 @@ const ShippingInfo = () => {
                 value={userInput.phoneNumber}
                 className={phoneNumberStyles.input}
                 required
-                placeholder="Teléfono"
+                placeholder="Phone"
                 disabled={isDisabled}
               />
             </div>
@@ -451,10 +448,10 @@ const ShippingInfo = () => {
               <span>
                 <BiChevronLeft />
               </span>
-              Volver a carrito
+              Back to cart
             </Link>
             <button className={styles.button} type="submit">
-              Continuar a envío
+              Continue to shipping
             </button>
           </div>
         </form>

@@ -45,13 +45,13 @@ const CartContent = ({ toggleCartModal }) => {
           )}
         </Toast>
         <div className={styles.empty}>
-          <p className={styles.no_products}>No hay productos en el carrito</p>
+          <p className={styles.no_products}>Show your bag some love!</p>
           <Button
             className={`${styles.button} ${styles.empty_button}`}
             to="/categorias/productos"
             onClick={toggleCartModal}
           >
-            Agrega productos
+            Shop now
           </Button>
         </div>
       </>
@@ -100,10 +100,10 @@ const CartContent = ({ toggleCartModal }) => {
             <div className={styles.buttons_wrapper}>
               <Button
                 className={`${styles.button} ${styles.cart_button}`}
-                to="/carrito"
+                to="/cart"
                 onClick={toggleCartModal}
               >
-                Carrito{' '}
+                Your bag{' '}
                 <span>
                   <CgShoppingBag />
                 </span>

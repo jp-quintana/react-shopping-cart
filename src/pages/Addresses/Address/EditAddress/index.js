@@ -75,32 +75,32 @@ const EditAddress = ({
       )}
       {!isLoading && (
         <form id="form" className={styles.form} onSubmit={handleSubmit}>
-          <h2 className={styles.title}>Editar Direccion</h2>
+          <h2 className={styles.title}>Edit address</h2>
           <div className={styles.form_inputs_wrapper}>
             <label className={styles.label}>
-              <span>Nombre:</span>
+              <span>Name:</span>
               <input
                 className={styles.input}
                 type="text"
-                placeholder="Nombre"
+                placeholder="Name"
                 required
                 ref={nameInput}
                 defaultValue={name}
               />
             </label>
             <label className={styles.label}>
-              <span>Apellido:</span>
+              <span>Last Name:</span>
               <input
                 className={styles.input}
                 type="text"
-                placeholder="Apellido"
+                placeholder="Last Name"
                 required
                 ref={lastNameInput}
                 defaultValue={lastName}
               />
             </label>
             <label className={styles.label}>
-              <span>Teléfono:</span>
+              <span>Phone:</span>
               <input
                 className={styles.input}
                 type="tel"
@@ -110,42 +110,46 @@ const EditAddress = ({
               />
             </label>
             <label className={styles.label}>
-              <span>Dirección:</span>
+              <span>Address:</span>
               <input
                 className={styles.input}
                 type="text"
+                placeholder="Address"
                 required
                 ref={addressInput}
                 defaultValue={address}
               />
             </label>
             <label className={styles.label}>
-              <span>Ciudad/Localidad:</span>
+              <span>City:</span>
               <input
                 className={styles.input}
                 type="text"
+                placeholder="City"
                 required
                 ref={cityInput}
                 defaultValue={city}
               />
             </label>
             <label className={styles.label}>
-              <span>Código Postal:</span>
+              <span>Zip Code:</span>
               <input
                 className={styles.input}
                 type="text"
+                placeholder="Zip Code"
                 inputMode="numeric"
                 required
                 ref={zipCodeInput}
                 defaultValue={zipCode}
               />
             </label>
-
+            {/* // TODO: update province to state */}
             <label className={styles.label}>
-              <span>Provincia:</span>
+              <span>State:</span>
               <input
                 className={styles.input}
                 type="text"
+                placeholder="State"
                 required
                 ref={provinceInput}
                 defaultValue={province}
@@ -159,12 +163,12 @@ const EditAddress = ({
                 onChange={handleCheckboxInput}
                 disabled={isMain}
               />
-              <div>Direccion predeterminada</div>
+              <div>Primary address</div>
             </label>
           </div>
           <div className={styles.button_wrapper}>
             <button form="form" className={styles.button} type="submit">
-              Editar
+              Edit
             </button>
           </div>
         </form>

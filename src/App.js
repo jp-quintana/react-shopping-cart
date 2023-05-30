@@ -45,14 +45,14 @@ const App = () => {
             <Route index element={<Home />} />
             <Route path="collections/:id" element={<Collections />} />
             <Route
-              path="productos/:id"
+              path="products/:id"
               element={
                 <ProductProvider>
                   <Products />
                 </ProductProvider>
               }
             />
-            <Route path="carrito" element={<Cart />} />
+            <Route path="cart" element={<Cart />} />
 
             <Route element={<ProtectedRoutes needAuth={true} />}>
               <Route
@@ -63,13 +63,13 @@ const App = () => {
                   </CheckoutProvider>
                 }
               />
-              <Route path="cuenta" element={<Account />} />
-              <Route path="cuenta/direcciones" element={<Addresses />} />
+              <Route path="account" element={<Account />} />
+              <Route path="account/addresses" element={<Addresses />} />
             </Route>
 
             <Route element={<ProtectedRoutes needAuth={false} />}>
-              <Route path="cuenta/login" element={<Login />} />
-              <Route path="cuenta/signup" element={<SignUp />} />
+              <Route path="account/login" element={<Login />} />
+              <Route path="account/signup" element={<SignUp />} />
             </Route>
 
             <Route element={<ProtectedRoutes needAdmin={true} />}>

@@ -6,7 +6,7 @@ const CheckoutContext = createContext({
   email: null,
   id: null,
   shippingAddress: {},
-  shippingOption: { standard: true, express: false },
+  shippingOption: { standard: true, expidited: false },
 });
 
 export default CheckoutContext;

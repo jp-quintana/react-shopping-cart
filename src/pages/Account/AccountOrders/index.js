@@ -6,11 +6,11 @@ const AccountOrders = ({ orders }) => {
   return (
     <div className={styles.orders_wrapper}>
       {orders.length === 0 && (
-        <h2 className={styles.no_orders}>Todavía no creaste una orden!</h2>
+        <h2 className={styles.no_orders}>No placed orders yet</h2>
       )}
       {orders.length > 0 && (
         <>
-          <h2 className={styles.title}>Mis Ordenes</h2>
+          <h2 className={styles.title}>Your orders</h2>
           <div className={styles.orders_list}>
             {orders.map((order) => (
               <Order

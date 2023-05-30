@@ -65,12 +65,12 @@ export const useCheckout = () => {
     if (option === 'standard') {
       selectedOption = {
         standard: true,
-        express: false,
+        expidited: false,
       };
     } else {
       selectedOption = {
         standard: false,
-        express: true,
+        expidited: true,
       };
     }
 

@@ -53,19 +53,19 @@ const Login = () => {
             <div className={styles.container}>
               <div className={`${styles.wrapper} main-container`}>
                 <form onSubmit={handleSubmit} className={styles.form}>
-                  <h2 className={styles.title}>Ingresa a tu cuenta</h2>
+                  <h2 className={styles.title}>Log into your account</h2>
                   <label className={styles.label}>
                     <span>Email:</span>
                     <input
                       className={styles.input}
                       type="email"
-                      placeholder="tunombre@email.com"
+                      placeholder="yourname@email.com"
                       required
                       ref={emailInput}
                     />
                   </label>
                   <label className={styles.label}>
-                    <span>Contraseña:</span>
+                    <span>Password:</span>
                     <input
                       className={styles.input}
                       type="password"
@@ -74,13 +74,13 @@ const Login = () => {
                     />
                   </label>
                   <button className={styles.button} type="submit">
-                    Iniciar Sesión
+                    Login
                   </button>
                 </form>
                 <p className={styles.no_account}>
-                  ¿No tenés cuenta?{' '}
-                  <Link to="/cuenta/signup" state={routerState}>
-                    Crear cuenta
+                  New to Flaakko?{' '}
+                  <Link to="/account/signup" state={routerState}>
+                    Create account
                   </Link>
                 </p>
               </div>

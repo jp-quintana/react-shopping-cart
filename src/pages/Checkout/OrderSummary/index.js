@@ -15,10 +15,10 @@ const OrderSummary = () => {
 
   if (shippingOption.standard) {
     shipping_price = 750;
-    shipping_option = '(estandard)';
+    shipping_option = '(standard)';
   } else {
     shipping_price = 1500;
-    shipping_option = '(rápido)';
+    shipping_option = '(expidited)';
   }
   const subtotal = addAllItemsPriceNumber(items);
   const total = +subtotal + shipping_price;
@@ -51,7 +51,7 @@ const OrderSummary = () => {
         </div>
         <div>
           <p>
-            Envío <i>{shipping_option}</i>
+            Shipping <i>{shipping_option}</i>
           </p>
           <p className={styles.subtotal_price}>
             $ {formatNumber(shipping_price)}

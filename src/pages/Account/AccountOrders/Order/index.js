@@ -27,7 +27,7 @@ const Order = ({ id, items, date }) => {
         )}
       </CenterModal>
       <div className={styles.card} onClick={toggleOrderModal}>
-        <h3>Orden #{id}</h3>
+        <h3>Order #{id}</h3>
         <p className={styles.date}>{formatDate(date)}</p>
       </div>
     </>

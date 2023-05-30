@@ -62,32 +62,32 @@ const EditProfile = ({ toggleEditProfile, name, lastName, phoneNumber }) => {
       )}
       {!isLoading && (
         <form id="form" className={styles.form} onSubmit={handleSubmit}>
-          <h2 className={styles.title}>Editar datos</h2>
+          <h2 className={styles.title}>Edit info</h2>
           <div className={styles.form_inputs_wrapper}>
             <label className={styles.label}>
-              <span>Nombre:</span>
+              <span>Name:</span>
               <input
                 className={styles.input}
                 type="text"
-                placeholder="Nombre"
+                placeholder="Name"
                 required
                 ref={nameInput}
                 defaultValue={name}
               />
             </label>
             <label className={styles.label}>
-              <span>Apellido:</span>
+              <span>Last Name:</span>
               <input
                 className={styles.input}
                 type="text"
-                placeholder="Apellido"
+                placeholder="Last Name"
                 required
                 ref={lastNameInput}
                 defaultValue={lastName}
               />
             </label>
             <label className={styles.label}>
-              <span>Teléfono:</span>
+              <span>Phone:</span>
               <input
                 className={styles.input}
                 type="tel"
@@ -98,7 +98,7 @@ const EditProfile = ({ toggleEditProfile, name, lastName, phoneNumber }) => {
           </div>
           <div className={styles.button_wrapper}>
             <button form="form" className={styles.button} type="submit">
-              Editar
+              Edit
             </button>
           </div>
         </form>

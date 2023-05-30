@@ -50,7 +50,7 @@ const Navbar = ({ toggleSideNav, toggleCartModal }) => {
   }, []);
 
   const handleToggleCartModal = () => {
-    if (pathname !== '/carrito') {
+    if (pathname !== '/cart') {
       toggleCartModal();
     }
   };
@@ -104,14 +104,14 @@ const Navbar = ({ toggleSideNav, toggleCartModal }) => {
         </ul>
         {!isVerified && (
           <Link
-            to="/cuenta/login"
+            to="/account/login"
             className={`${styles.link} ${styles.login_link}`}
           >
             Login
           </Link>
         )}
         {isVerified && (
-          <Link to="/cuenta" className={`${styles.link} ${styles.login_link}`}>
+          <Link to="/account" className={`${styles.link} ${styles.login_link}`}>
             My Account
           </Link>
         )}

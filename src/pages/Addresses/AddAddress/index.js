@@ -75,30 +75,30 @@ const AddAddress = ({ toggleAddAddressModal }) => {
       )}
       {!isLoading && (
         <form id="form" className={styles.form} onSubmit={handleSubmit}>
-          <h2 className={styles.title}>Agregar Dirección:</h2>
+          <h2 className={styles.title}>Add Address:</h2>
           <div className={styles.form_inputs_wrapper}>
             <label className={styles.label}>
-              <span>Nombre:</span>
+              <span>Name:</span>
               <input
                 className={styles.input}
                 type="text"
-                placeholder="Nombre"
+                placeholder="Name"
                 required
                 ref={nameInput}
               />
             </label>
             <label className={styles.label}>
-              <span>Apellido:</span>
+              <span>Last Name:</span>
               <input
                 className={styles.input}
                 type="text"
-                placeholder="Apellido"
+                placeholder="Last Name"
                 required
                 ref={lastNameInput}
               />
             </label>
             <label className={styles.label}>
-              <span>Teléfono:</span>
+              <span>Phone:</span>
               <input
                 className={styles.input}
                 type="tel"
@@ -107,28 +107,31 @@ const AddAddress = ({ toggleAddAddressModal }) => {
               />
             </label>
             <label className={styles.label}>
-              <span>Dirección:</span>
+              <span>Address:</span>
               <input
                 className={styles.input}
                 type="text"
+                placeholder="Address"
                 required
                 ref={addressInput}
               />
             </label>
             <label className={styles.label}>
-              <span>Ciudad/Localidad:</span>
+              <span>City:</span>
               <input
                 className={styles.input}
                 type="text"
+                placeholder="City"
                 required
                 ref={cityInput}
               />
             </label>
             <label className={styles.label}>
-              <span>Código Postal:</span>
+              <span>Zip Code:</span>
               <input
                 className={styles.input}
                 type="text"
+                placeholder="Zip Code"
                 inputMode="nuAddAddressModalmeric"
                 required
                 ref={zipCodeInput}
@@ -136,10 +139,11 @@ const AddAddress = ({ toggleAddAddressModal }) => {
             </label>
 
             <label className={styles.label}>
-              <span>Provincia</span>
+              <span>State</span>
               <input
                 className={styles.input}
                 type="text"
+                placeholder="State"
                 required
                 ref={provinceInput}
               />
@@ -150,12 +154,12 @@ const AddAddress = ({ toggleAddAddressModal }) => {
                 type="checkbox"
                 onChange={handleCheckboxInput}
               />
-              <div>Direccion predeterminada</div>
+              <div>Primary Address</div>
             </label>
           </div>
           <div className={styles.button_wrapper}>
             <button form="form" className={styles.button} type="submit">
-              Agregar
+              Add
             </button>
           </div>
         </form>

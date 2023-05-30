@@ -13,7 +13,7 @@ const initialState = {
   email: null,
   id: null,
   shippingAddress: {},
-  shippingOption: { standard: true, express: false },
+  shippingOption: { standard: true, expidited: false },
 };
 
 const checkoutReducer = (state, action) => {
@@ -100,7 +100,7 @@ const CheckoutProvider = ({ children }) => {
         await setDoc(checkoutSessionRef, {
           email,
           shippingAddress: {},
-          shippingOption: { standard: true, express: false },
+          shippingOption: { standard: true, expidited: false },
           paymentInfo: {},
         });
 

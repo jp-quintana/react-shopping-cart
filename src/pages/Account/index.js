@@ -67,7 +67,7 @@ const Account = () => {
           <section>
             <div className={`${styles.container} main-container`}>
               <div className={styles.welcome_wrapper}>
-                <p className={styles.greeting}>Hola, {name}!</p>
+                <p className={styles.greeting}>Welcome back, {name}!</p>
                 <Button className={styles.logout_button} onClick={handleLogout}>
                   Logout
                 </Button>

@@ -33,7 +33,7 @@ const AccountProfile = ({ name, email, lastName, phoneNumber }) => {
 
       <div className={styles.profile_container}>
         <div className={styles.profile_wrapper}>
-          <h3 className={styles.profile_title}>Mis datos</h3>
+          <h3 className={styles.profile_title}>Your Info</h3>
           <ul className={styles.profile_data}>
             <li>
               <BiUser className={styles.profile_icon} />
@@ -45,11 +45,11 @@ const AccountProfile = ({ name, email, lastName, phoneNumber }) => {
             </li>
             <li>
               <BiPhone className={styles.profile_icon} />
-              {phoneNumber ? phoneNumber : 'Todavía no agregaste un teléfono'}
+              {phoneNumber ? phoneNumber : 'No phone added yet'}
             </li>
           </ul>
           <button className={styles.edit_button} onClick={toggleEditProfile}>
-            Editar Datos
+            Edit Info
           </button>
         </div>
       </div>

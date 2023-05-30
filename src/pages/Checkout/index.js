@@ -20,10 +20,10 @@ import logo from 'assets/images/checkout-logo-nav.png';
 import styles from './index.module.scss';
 
 const progressionSteps = [
-  { id: 'cart', label: 'Carrito', url: '/carrito' },
+  { id: 'cart', label: 'Cart', url: '/cart' },
   { id: 'info', label: 'Info' },
-  { id: 'shipping', label: 'Envío' },
-  { id: 'payment', label: 'Pago' },
+  { id: 'shipping', label: 'Shipping' },
+  { id: 'payment', label: 'Payment' },
 ];
 
 const Checkout = () => {
@@ -31,7 +31,7 @@ const Checkout = () => {
   const { items } = useCartContext();
   const {
     checkInventory,
-    isLoading: isInventoryLoading,
+    isLoading: z,
     error: inventoryError,
   } = useInventory();
 
