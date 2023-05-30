@@ -33,6 +33,12 @@
   display: flex;
   justify-content: flex-end;
 
+  .info_link {
+    border: none;
+    outline: none;
+    background: inherit;
+  }
+
   .info_link,
   .login_link {
     padding: 0 0.3rem 0.2rem;

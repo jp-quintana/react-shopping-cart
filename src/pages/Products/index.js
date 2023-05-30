@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
+import { Pagination } from 'swiper';
 
 import { useProductContext } from 'hooks/useProductContext';
 // import { useCartContext } from 'hooks/useCartContext';
@@ -129,6 +130,10 @@ const Products = () => {
                         loop={true}
                         centeredSlides={true}
                         grabCursor={true}
+                        pagination={{
+                          clickable: true,
+                        }}
+                        modules={[Pagination]}
                         sliderClassName={styles.slider}
                         slideClassName={styles.slide}
                         imageClassName={styles.image}

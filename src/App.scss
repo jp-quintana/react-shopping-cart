@@ -39,10 +39,6 @@
       format('svg'); /* iOS 4.1- */
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 $font-f-primary: 'Monument Extended', sans-serif;
 $font-f-secondary: 'Inter', sans-serif;
 $font-f-hero: 'Monument Extended Ultrabold', sans-serif;
@@ -148,6 +144,7 @@ input[type='password'] {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 a:hover {

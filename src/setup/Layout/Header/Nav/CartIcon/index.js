@@ -32,13 +32,15 @@ const CartIcon = () => {
     };
   }, [totalAmount]);
 
+  console.log(totalAmount);
+
   return (
-    <span className={iconStyles}>
+    <div className={iconStyles}>
       <CgShoppingBag />
       <div className={amountStyles}>
         <div>{totalAmount}</div>
       </div>
-    </span>
+    </div>
   );
 };
 
