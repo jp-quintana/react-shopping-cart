@@ -30,7 +30,7 @@ const ProductCard = ({
     <>
       <div className={styles.card_wrapper}>
         <Card className={styles.card}>
-          <Link to={`/productos/${slug}`} className={styles.link}>
+          <Link to={`/products/${slug}`} className={styles.link}>
             <div className={styles.image_wrapper}>
               <img src={imageTop.src} alt="" className={styles.image_top}></img>
               <img

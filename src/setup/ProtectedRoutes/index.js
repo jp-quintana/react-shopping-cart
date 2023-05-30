@@ -24,7 +24,7 @@ const ProtectedRoutes = ({ needAuth, needAdmin }) => {
     }
 
     if (!isVerified) {
-      return <Navigate to="/cuenta/login" state={pathname} />;
+      return <Navigate to="/account/login" state={pathname} />;
     }
   }
 

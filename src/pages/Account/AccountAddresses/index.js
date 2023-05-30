@@ -14,18 +14,16 @@ const AccountAddresses = () => {
   return (
     <div className={styles.addresses_container}>
       <div className={styles.addresses_wrapper}>
-        <h3 className={styles.addresses_titles}>Mis Direcciones</h3>
+        <h3 className={styles.addresses_titles}>Your addresses</h3>
         <div className={styles.addresses_list}>
           {addresses.length === 0 && (
-            <p className={styles.no_addresses}>
-              Todavía no agregaste una dirección
-            </p>
+            <p className={styles.no_addresses}>No addresses added yet</p>
           )}
 
           {addresses.length > 0 && (
             <>
               <div className={styles.address_wrapper}>
-                <h3 className={styles.title}>Direccion predeterminada</h3>
+                <h3 className={styles.title}>Primary address</h3>
 
                 <h4 className={styles.name}>
                   {defaultAddress.name} {defaultAddress.lastName}
@@ -41,7 +39,7 @@ const AccountAddresses = () => {
               {otherAddresses.map((address) => (
                 <div className={styles.address_wrapper} key={address.id}>
                   <h3 className={styles.title}>
-                    Direccion {address.displayOrder}
+                    Address {address.displayOrder}
                   </h3>
 
                   <h4 className={styles.name}>
@@ -59,8 +57,8 @@ const AccountAddresses = () => {
             </>
           )}
         </div>
-        <Button className={styles.edit_button} to="/cuenta/direcciones">
-          Editar Direcciones
+        <Button className={styles.edit_button} to="/account/addresses">
+          Edit addresses
         </Button>
       </div>
     </div>

@@ -57,25 +57,25 @@ const SignUp = () => {
             <div className={styles.container}>
               <div className={`${styles.wrapper} main-container`}>
                 <form onSubmit={handleSubmit} className={styles.form}>
-                  <h2 className={styles.title}>Crear cuenta</h2>
+                  <h2 className={styles.title}>Create Account</h2>
                   <label className={styles.label}>
-                    <span>Nombre:</span>
+                    <span>Name:</span>
                     <input
                       defaultValue={defaultValue ? defaultValue.name : ''}
                       className={styles.input}
                       type="text"
-                      placeholder="Nombre"
+                      placeholder="Name"
                       required
                       ref={nameInput}
                     />
                   </label>
                   <label className={styles.label}>
-                    <span>Apellido:</span>
+                    <span>Last Name:</span>
                     <input
                       defaultValue={defaultValue ? defaultValue.lastName : ''}
                       className={styles.input}
                       type="text"
-                      placeholder="Apellido"
+                      placeholder="Last Name"
                       required
                       ref={lastNameInput}
                     />
@@ -85,13 +85,13 @@ const SignUp = () => {
                     <input
                       className={styles.input}
                       type="email"
-                      placeholder="tunombre@email.com"
+                      placeholder="yourname@email.com"
                       required
                       ref={emailInput}
                     />
                   </label>
                   <label className={styles.label}>
-                    <span>Contraseña:</span>
+                    <span>Password:</span>
                     <input
                       className={styles.input}
                       type="password"
@@ -100,13 +100,13 @@ const SignUp = () => {
                     />
                   </label>
                   <button className={styles.button} type="submit">
-                    Crear Cuenta
+                    Create Account
                   </button>
                 </form>
                 <p className={styles.login}>
-                  ¿Ya tenés cuenta?{' '}
-                  <Link to="/cuenta/login" state={routerState}>
-                    Ingresá
+                  Already have an account?{' '}
+                  <Link to="/account/login" state={routerState}>
+                    Login
                   </Link>
                 </p>
               </div>

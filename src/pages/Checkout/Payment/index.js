@@ -117,7 +117,7 @@ const Payment = ({ handlePreviousStep }) => {
         <>
           <CheckoutSummary />
           <form id="form" onSubmit={handleSubmit} className={styles.form}>
-            <h2 className={styles.title}>Forma de Pago</h2>
+            <h2 className={styles.title}>Payment Method</h2>
             <div className={styles.payment_options_wrapper}>
               <div>
                 <label className={styles.payment_option}>
@@ -132,7 +132,7 @@ const Payment = ({ handlePreviousStep }) => {
                         : styles.radio_unselected
                     }
                   />
-                  <span>Tarjeta de crédito</span>
+                  <span>Credit card</span>
                 </label>
               </div>
               {paymentOption === 'creditCard' && (
@@ -142,7 +142,7 @@ const Payment = ({ handlePreviousStep }) => {
                       htmlFor="cardNumber"
                       className={cardNumberStyles.label}
                     >
-                      Número de la tarjeta
+                      Card number
                     </label>
                     <input
                       id="cardNumber"
@@ -155,21 +155,21 @@ const Payment = ({ handlePreviousStep }) => {
                       value={formatCardNumber(userInput.cardNumber)}
                       type="text"
                       inputMode="numeric"
-                      placeholder="Número de la tarjeta"
+                      placeholder="Card number"
                       className={cardNumberStyles.input}
                       required
                     />
                   </div>
                   <div className={styles.float_container}>
                     <label htmlFor="name" className={nameStyles.label}>
-                      Nombre en la tarjeta
+                      Name on card
                     </label>
                     <input
                       id="name"
                       onChange={handleNameInput}
                       value={userInput.name}
                       type="text"
-                      placeholder="Nombre en la tarjeta"
+                      placeholder="Name on card"
                       className={nameStyles.input}
                       autoComplete="off"
                       required
@@ -182,7 +182,7 @@ const Payment = ({ handlePreviousStep }) => {
                         className={expiryDateStyles.label}
                         autoComplete="off"
                       >
-                        Expiración (MM/AA)
+                        Expiration Date (MM/YY)
                       </label>
                       <input
                         id="expiryDate"
@@ -194,7 +194,7 @@ const Payment = ({ handlePreviousStep }) => {
                         }}
                         value={formatExpiryDate(userInput.expiryDate)}
                         type="text"
-                        placeholder="Expiración (MM/AA)"
+                        placeholder="Expiration Date (MM/YY)"
                         className={expiryDateStyles.input}
                         autoComplete="off"
                         required
@@ -205,7 +205,7 @@ const Payment = ({ handlePreviousStep }) => {
                         htmlFor="securityCode"
                         className={securityCodeStyles.label}
                       >
-                        Código de Seguridad
+                        Security code
                       </label>
                       <input
                         id="securityCode"
@@ -217,7 +217,7 @@ const Payment = ({ handlePreviousStep }) => {
                         }}
                         value={formatCvv(userInput.securityCode)}
                         type="password"
-                        placeholder="Código de Seguridad"
+                        placeholder="Security code"
                         className={securityCodeStyles.input}
                         autoComplete="off"
                         required
@@ -234,10 +234,10 @@ const Payment = ({ handlePreviousStep }) => {
               <span>
                 <BiChevronLeft />
               </span>
-              Volver a envío
+              Back to shipping
             </p>
             <button form="form" type="submit" className={styles.button}>
-              Pagar ahora
+              Pay now
             </button>
           </div>
         </>

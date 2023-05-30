@@ -25,8 +25,6 @@ const NewsletterSection = () => {
 
     const email = emailInputRef.current.value;
 
-    // console.log(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+.[A-Za-z]+$/.test(email));
-
     await subscribeToNewsletter({ email });
   };
 
@@ -55,7 +53,7 @@ const NewsletterSection = () => {
       </Toast>
       <section className={styles.section}>
         <div className={`${styles.container} main-container`}>
-          <h3 className={styles.title}>Subscribite a nuestra newsletter</h3>
+          <h3 className={styles.title}>Sign up for our newsletter</h3>
           <div>
             <form
               className={styles.form}
@@ -66,13 +64,13 @@ const NewsletterSection = () => {
                 <>
                   <input
                     className={styles.input}
-                    placeholder="Tu Dirección de Email"
+                    placeholder="Your email address"
                     type="email"
                     ref={emailInputRef}
                     required
                   />
                   <Button type="submit" className={styles.button}>
-                    Enviar
+                    Sign up
                   </Button>
                 </>
               )}

@@ -50,7 +50,7 @@ const CartItem = ({
   return (
     <Card className={styles.card}>
       <Link
-        to={`/productos/${slug}`}
+        to={`/products/${slug}`}
         state={clearProduct}
         onClick={toggleCartModal ? toggleCartModal : ''}
       >

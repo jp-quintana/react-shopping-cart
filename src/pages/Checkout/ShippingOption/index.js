@@ -31,7 +31,7 @@ const ShippingOption = () => {
       {!isLoading && (
         <>
           <CheckoutSummary />
-          <h2>Tipo de Envio</h2>
+          <h2>Shipping Method</h2>
           <form
             id="form"
             onSubmit={handleSubmit}
@@ -50,7 +50,7 @@ const ShippingOption = () => {
                       : styles.radio_unselected
                   }
                 />
-                <span>Envio estandard (3 - 5 días)</span>
+                <span>Standard Shipping (3 - 5 Bus. Days)</span>
               </label>
               <p>$750</p>
             </div>
@@ -58,16 +58,16 @@ const ShippingOption = () => {
               <label>
                 <input
                   type="radio"
-                  value="express"
-                  checked={shippingOption.express}
+                  value="expidited"
+                  checked={shippingOption.expidited}
                   onChange={(e) => selectShippingOption(e.target.value)}
                   className={
-                    shippingOption.express
+                    shippingOption.expidited
                       ? styles.radio_selected
                       : styles.radio_unselected
                   }
                 />
-                <span>Envio rápido (2 - 3 días)</span>
+                <span>Expidited (2 - 3 Bus. Days)</span>
               </label>
               <p>$1500</p>
             </div>
@@ -77,10 +77,10 @@ const ShippingOption = () => {
               <span>
                 <BiChevronLeft />
               </span>
-              Volver a info
+              Back to information
             </p>
             <button form="form" type="submit" className={styles.button}>
-              Continuar a pago
+              Continue to payment
             </button>
           </div>
         </>

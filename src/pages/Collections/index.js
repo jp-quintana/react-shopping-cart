@@ -30,12 +30,12 @@ const Collections = () => {
   useEffect(() => {
     if (variants) {
       let selectedVariants;
-      if (slugId === 'productos') {
+      if (slugId === 'products') {
         selectedVariants = variants;
       } else if (
-        slugId === 'remeras' ||
-        slugId === 'buzos' ||
-        slugId === 'accesorios'
+        slugId === 't-shirts' ||
+        slugId === 'hoodies-sweatshirts' ||
+        slugId === 'accessories'
       ) {
         selectedVariants = variants.filter(
           (variant) => variant.collection === slugId

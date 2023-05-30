@@ -35,7 +35,7 @@ const SideNav = ({ toggleSideNav }) => {
           <h2>Productos</h2>
           <li>
             <Link
-              to="/categorias/remeras"
+              to="/collections/t-shirts"
               onClick={toggleSideNav}
               className={styles.link}
             >
@@ -44,7 +44,7 @@ const SideNav = ({ toggleSideNav }) => {
           </li>
           <li>
             <Link
-              to="/categorias/buzos"
+              to="/collections/hoodies-sweatshirts"
               onClick={toggleSideNav}
               className={styles.link}
             >
@@ -53,7 +53,7 @@ const SideNav = ({ toggleSideNav }) => {
           </li>
           <li>
             <Link
-              to="/categorias/accesorios"
+              to="/collections/accessories"
               onClick={toggleSideNav}
               className={styles.link}
             >

@@ -80,8 +80,8 @@ const Products = () => {
 
   const buttonContent =
     selectedSize.length === 0
-      ? 'SELECCIONAR TALLE'
-      : `AGREGAR ${selectedSize.toUpperCase()} AL CARRITO`;
+      ? 'SELECT SIZE'
+      : `ADD ${selectedSize.toUpperCase()} TO BAG`;
 
   const buttonStyles = `
     ${selectedSize.length === 0 ? styles.button_disabled : styles.button}
@@ -191,7 +191,7 @@ const Products = () => {
                       </div>
 
                       <div className={styles.sizes_container}>
-                        <p className={styles.pick_size}>Seleccioná tu talle </p>
+                        <p className={styles.pick_size}>Select Size</p>
 
                         <div className={styles.sizes_wrapper}>
                           {selectedVariant.inventoryLevels.map((size) => (
@@ -297,7 +297,7 @@ const Products = () => {
                     </div>
 
                     <div className={styles.sizes_container}>
-                      <p className={styles.pick_size}>Seleccioná tu talle </p>
+                      <p className={styles.pick_size}>Select Size </p>
 
                       <div className={styles.sizes_wrapper}>
                         {selectedVariant.inventoryLevels.map((size) => (

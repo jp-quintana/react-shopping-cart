@@ -84,14 +84,14 @@ const Cart = () => {
           </div>
           <aside className={styles.sidebar}>
             <form className={styles.support}>
-              <p className={styles.support_title}>Código de descuento</p>
+              <p className={styles.support_title}>Support Code</p>
               <input
                 className={styles.support_input}
                 type="text"
-                placeholder="Ingresá tu código"
+                placeholder="Enter code"
               />
               <button className={`${styles.support_button} disabled-link`}>
-                Agregar
+                Add
               </button>
             </form>
           </aside>
@@ -99,12 +99,14 @@ const Cart = () => {
       </>
     ) : (
       <div className={styles.no_products_wrapper}>
-        <p className={styles.no_products}>No hay productos en el carrito</p>
+        <p className={styles.no_products}>Show your bag some love!</p>
         <Button className={styles.products_button} to="/categorias/productos">
-          Agrega productos
+          Shop now
         </Button>
       </div>
     );
+
+  console.log(items);
 
   return (
     <>
@@ -118,7 +120,7 @@ const Cart = () => {
           </Toast>
           <section>
             <div className={`${styles.container} main-container`}>
-              <h1 className={styles.title}>Tu carrito</h1>
+              <h1 className={styles.title}>Your bag</h1>
               {content}
             </div>
           </section>
