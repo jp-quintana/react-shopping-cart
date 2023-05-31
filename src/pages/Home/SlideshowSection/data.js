@@ -8,42 +8,30 @@ import Slide6 from 'assets/images/productos-remera-de-gira-blanca-2.jpg';
 
 export const BIG_SCREEN_SLIDES = [
   {
-    image: Slide1,
+    src: Slide1,
     id: 1,
-    is_active: true,
-    url: '/categorias/productos',
   },
   {
-    image: Slide2,
+    src: Slide2,
     id: 2,
-    is_active: false,
-    url: '/categorias/productos',
   },
   {
-    image: Slide3,
+    src: Slide3,
     id: 3,
-    is_active: false,
-    url: '/categorias/productos',
   },
 ];
 
 export const SMALL_SCREEN_SLIDES = [
   {
-    image: Slide4,
+    src: Slide4,
     id: 1,
-    is_active: true,
-    url: '/categorias/productos',
   },
   {
-    image: Slide5,
+    src: Slide5,
     id: 2,
-    is_active: false,
-    url: '/categorias/productos',
   },
   {
-    image: Slide6,
+    src: Slide6,
     id: 3,
-    is_active: false,
-    url: '/categorias/productos',
   },
 ];

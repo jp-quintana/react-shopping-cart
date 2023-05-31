@@ -4,8 +4,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-import { Pagination, Navigation } from 'swiper';
-
 import 'swiper/css';
 
 const Slider = ({
@@ -16,6 +14,9 @@ const Slider = ({
   loop,
   centeredSlides,
   grabCursor,
+  autoplay,
+  pagination,
+  modules,
   sliderClassName,
   slideClassName,
   imageClassName,
@@ -29,10 +30,9 @@ const Slider = ({
         loop={loop}
         centeredSlides={centeredSlides}
         grabCursor={grabCursor}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Pagination, Navigation]}
+        autoplay={autoplay}
+        pagination={pagination}
+        modules={modules}
         className={sliderClassName}
       >
         {slides.map((slide) => (

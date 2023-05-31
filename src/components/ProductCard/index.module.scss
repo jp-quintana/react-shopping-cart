@@ -27,6 +27,7 @@
       .image_top,
       .image_bottom {
         max-height: 50rem;
+        display: block;
 
         @media (min-width: 768px) {
           max-height: none;
@@ -116,7 +117,7 @@
     .delete {
       background: rgba(243, 121, 120, 0.95);
     }
-    
+
     .edit,
     .delete {
       border-radius: 1rem;

@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
+import { Autoplay, Pagination } from 'swiper';
+
 import Button from 'components/Button';
-import Slideshow from 'components/Slideshow';
+import Slider from 'components/Slider';
 
 import {
   BIG_SCREEN_SLIDES as bigScreenSlides,
@@ -18,7 +20,6 @@ const SlideshowSection = () => {
     query: '(min-width: 900px)',
   });
 
-  // TODO: AGREGAR EFECTO CUANDO APARECE EL CONTENIDO
   useEffect(() => {
     setShowContent(false);
 
@@ -42,14 +43,50 @@ const SlideshowSection = () => {
               <p className={styles.content_subtitle}>
                 T-shirts, hoodies & more
               </p>
-              <Button className={styles.button} to="/categorias/productos">
+              <Button className={styles.button} to="/collections/products">
                 Shop now
               </Button>
             </div>
           )}
-          {isBigScreen && <Slideshow slides={bigScreenSlides} />}
+          {isBigScreen && (
+            <Slider
+              slides={bigScreenSlides}
+              slidesPerView={1}
+              spaceBetween={0}
+              loop={true}
+              centeredSlides={true}
+              grabCursor={true}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Autoplay, Pagination]}
+              sliderClassName={styles.slider}
+              imageClassName={styles.big_image}
+            />
+          )}
           {!isBigScreen && (
-            <Slideshow slides={smallScreenSlides} className={styles.image} />
+            <Slider
+              slides={smallScreenSlides}
+              slidesPerView={1}
+              spaceBetween={0}
+              loop={true}
+              centeredSlides={true}
+              grabCursor={true}
+              autoplay={{
+                delay: 2500,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Autoplay, Pagination]}
+              sliderClassName={styles.slider}
+              imageClassName={styles.small_image}
+            />
           )}
         </div>
       </div>

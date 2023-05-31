@@ -100,7 +100,7 @@ const Cart = () => {
     ) : (
       <div className={styles.no_products_wrapper}>
         <p className={styles.no_products}>Show your bag some love!</p>
-        <Button className={styles.products_button} to="/categorias/productos">
+        <Button className={styles.products_button} to="/collections/products">
           Shop now
         </Button>
       </div>

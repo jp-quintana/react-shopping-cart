@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Autoplay, Pagination } from 'swiper';
 
 import {
   FaExclamationTriangle,
@@ -15,7 +16,7 @@ import {
 import { useAuthContext } from 'hooks/useAuthContext';
 import { useKeyDown } from 'hooks/useKeyDown';
 
-import Slideshow from 'components/Slideshow';
+import Slider from 'components/Slider';
 
 import { SLIDES as slides } from './data';
 
@@ -65,7 +66,7 @@ const SideNav = ({ toggleSideNav }) => {
           <h2>Colecciones</h2>
           <li>
             <Link
-              to="/categorias/productos"
+              to="/collections/products"
               onClick={toggleSideNav}
               className={styles.link}
             >
@@ -75,7 +76,24 @@ const SideNav = ({ toggleSideNav }) => {
         </ul>
       </div>
       <div className={styles.products_container}>
-        <Slideshow slides={slides} />
+        <Slider
+          slides={slides}
+          slidesPerView={1}
+          spaceBetween={0}
+          loop={true}
+          centeredSlides={true}
+          grabCursor={true}
+          autoplay={{
+            delay: 2500,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Autoplay, Pagination]}
+          sliderClassName={styles.slider}
+          imageClassName={styles.image}
+        />
       </div>
       <div className={styles.info_container}>
         {isVerified && (

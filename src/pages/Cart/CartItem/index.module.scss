@@ -110,7 +110,8 @@
     display: flex;
     align-items: center;
     .delete_icon {
-      display: inline-block;
+      display: flex;
+      align-items: center;
       padding: 1rem;
       border-radius: 999rem;
 
@@ -138,6 +139,8 @@
     .plus_icon {
       padding: 1rem 2rem;
       border-radius: 2rem;
+      display: flex;
+      align-items: center;
       &:hover {
         background-color: #cfcfcf;
       }
