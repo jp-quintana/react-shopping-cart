@@ -63,7 +63,7 @@ const SlideshowSection = () => {
               pagination={{
                 clickable: true,
               }}
-              modules={[Pagination]}
+              modules={[Autoplay, Pagination]}
               sliderClassName={styles.slider}
               imageClassName={styles.big_image}
             />

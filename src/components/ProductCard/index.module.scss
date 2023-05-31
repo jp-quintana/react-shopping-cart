@@ -27,6 +27,7 @@
       .image_top,
       .image_bottom {
         max-height: 50rem;
+        display: block;
 
         @media (min-width: 768px) {
           max-height: none;

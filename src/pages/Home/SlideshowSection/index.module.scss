@@ -35,7 +35,7 @@
     }
 
     .content_wrapper {
-      width: 100%;
+      user-select: none;
       padding: 2rem;
       position: absolute;
       z-index: 2;

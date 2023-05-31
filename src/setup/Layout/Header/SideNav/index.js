@@ -66,7 +66,7 @@ const SideNav = ({ toggleSideNav }) => {
           <h2>Colecciones</h2>
           <li>
             <Link
-              to="/categorias/productos"
+              to="/collections/products"
               onClick={toggleSideNav}
               className={styles.link}
             >

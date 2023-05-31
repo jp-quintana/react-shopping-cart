@@ -99,6 +99,8 @@
 
   & a {
     font-size: 2.6rem;
+    display: flex;
+    align-items: center;
 
     @media (min-width: 900px) {
       font-size: 3rem;

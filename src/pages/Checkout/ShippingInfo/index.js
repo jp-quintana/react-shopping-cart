@@ -444,7 +444,7 @@ const ShippingInfo = () => {
             </div>
           </div>
           <div className={styles.form_controls}>
-            <Link className={styles.back_link} to="/carrito">
+            <Link className={styles.back_link} to="/cart">
               <span>
                 <BiChevronLeft />
               </span>

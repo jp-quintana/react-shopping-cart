@@ -48,7 +48,7 @@ const CartContent = ({ toggleCartModal }) => {
           <p className={styles.no_products}>Show your bag some love!</p>
           <Button
             className={`${styles.button} ${styles.empty_button}`}
-            to="/categorias/productos"
+            to="/collections/products"
             onClick={toggleCartModal}
           >
             Shop now

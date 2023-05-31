@@ -120,6 +120,8 @@
 
   span {
     font-size: 1.6rem;
+    display: flex;
+    align-items: center;
 
     @media (min-width: 360px) {
       font-size: 1.8rem;
