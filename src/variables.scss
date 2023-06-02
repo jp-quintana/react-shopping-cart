@@ -1,0 +1,85 @@
+// @import url('https://db.onlinewebfonts.com/c/55d433372d270829c51e2577a78ef12d?family=Monument+Extended');
+// @import url('https://db.onlinewebfonts.com/c/a4745f4b1d04fa025c6a05d891ed0126?family=Monument+Extended+Ultrabold');
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+@font-face {
+  font-family: 'Monument Extended';
+  src: url('https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.eot'); /* IE9*/
+  src: url('https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.eot?#iefix')
+      format('embedded-opentype'),
+    /* IE6-IE8 */
+      url('https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.woff2')
+      format('woff2'),
+    /* chrome firefox */
+      url('https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.woff')
+      format('woff'),
+    /* chrome firefox */
+      url('https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.ttf')
+      format('truetype'),
+    /* chrome firefox opera Safari, Android, iOS 4.2+*/
+      url('https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.svg#Monument Extended')
+      format('svg'); /* iOS 4.1- */
+}
+@font-face {
+  font-family: 'Monument Extended Ultrabold';
+  src: url('https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.eot'); /* IE9*/
+  src: url('https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.eot?#iefix')
+      format('embedded-opentype'),
+    /* IE6-IE8 */
+      url('https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.woff2')
+      format('woff2'),
+    /* chrome firefox */
+      url('https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.woff')
+      format('woff'),
+    /* chrome firefox */
+      url('https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.ttf')
+      format('truetype'),
+    /* chrome firefox opera Safari, Android, iOS 4.2+*/
+      url('https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.svg#Monument Extended Ultrabold')
+      format('svg'); /* iOS 4.1- */
+}
+
+$font-f-primary: 'Monument Extended', sans-serif;
+$font-f-secondary: 'Inter', sans-serif;
+$font-f-hero: 'Monument Extended Ultrabold', sans-serif;
+
+$font-w-400: 400;
+$font-w-700: 700;
+$font-w-900: 900;
+
+$c-primary: #000;
+$c-secondary: #fff;
+$c-var: #3d3d3d;
+$c-detail: #8c52ff;
+$c-link-primary: #3d3d3d;
+$c-link-hover: #000;
+
+$back-c-primary: #fff;
+$back-detail: radial-gradient(
+  circle at 12.8% 28%,
+  rgb(206, 155, 243) 0%,
+  #8c52ff 90%
+);
+
+$back-c-button-primary: #3d3d3d;
+$back-c-button-secondary: #fff;
+$back-c-button-hover: #000;
+$back-c-button-checkout: #48e471;
+$back-c-button-checkout-hover: #74eb93;
+$back-c-var-hover: hsla(0, 0%, 5%, 0.2);
+
+$border-c-button-checkout: #48e471;
+$border-c-button-checkout-hover: #74eb93;
+$border-c-var: hsla(0, 0%, 5%, 0.2);
+
+$border-modal: 1px solid $border-c-var;
+
+$ls-primary: 0.05rem;
+$ls-secondary: -0.05rem;
+$ls-link: 0.1rem;
+$ls-button: 0.12rem;
+
+$z-nav: 5;
+$z-backdrop: 20;
+$z-modal: 25;
+$z-modal-n: 30;

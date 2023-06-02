@@ -1,5 +1,3 @@
-@import 'App.scss';
-
 .modal {
   position: fixed;
   right: 50%;
@@ -8,7 +6,7 @@
   height: 85%;
   width: 98%;
   background-color: white;
-  padding: 3rem 0; 
+  padding: 3rem 0;
   // TODO: REMOVER CUANDO SE SAQUE TAILWIND
   z-index: $z-modal !important;
   border: $border-modal;

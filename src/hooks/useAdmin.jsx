@@ -20,7 +20,7 @@ import {
   deleteObject,
 } from 'firebase/storage';
 
-import { db, storage } from '../firebase/config';
+import { db, storage } from 'db/config';
 
 export const useAdmin = () => {
   const [isLoading, setIsLoading] = useState(false);

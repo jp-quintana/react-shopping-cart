@@ -1,10 +1,7 @@
-@import 'App.scss';
-
 .section {
   width: 90%;
   margin: 0 auto;
   margin-top: 3rem;
- 
 
   .label,
   .add_variant_button {
@@ -30,8 +27,8 @@
     align-items: center;
     font-size: 1.6rem;
     color: #fff;
-    padding: .5rem 2rem;
-    border-radius: .6rem;
+    padding: 0.5rem 2rem;
+    border-radius: 0.6rem;
     background: #3d3d3d;
     margin-top: 2rem;
   }

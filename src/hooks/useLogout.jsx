@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { signOut } from 'firebase/auth';
 
-import { auth } from '../firebase/config';
+import { auth } from 'db/config';
 
 import { useAuthContext } from './useAuthContext';
 import { useCartContext } from './useCartContext';

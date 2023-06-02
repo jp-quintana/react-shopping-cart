@@ -5,8 +5,8 @@ import { v4 as uuid } from 'uuid';
 import { EmailAuthProvider, linkWithCredential } from 'firebase/auth';
 import { doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
 
-import { auth } from '../firebase/config';
-import { db } from '../firebase/config';
+import { auth } from 'db/config';
+import { db } from 'db/config';
 
 import { useAuthContext } from './useAuthContext';
 import { useCartContext } from './useCartContext';
