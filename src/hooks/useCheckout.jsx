@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
-import { db } from '../firebase/config';
+import { db } from 'db/config';
 
 import { useCheckoutContext } from './useCheckoutContext';
 import { useAuthContext } from './useAuthContext';

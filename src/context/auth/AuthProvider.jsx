@@ -3,8 +3,8 @@ import { useReducer, useEffect } from 'react';
 import { onAuthStateChanged, signInAnonymously } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 
-import { auth } from '../../firebase/config';
-import { db } from '../../firebase/config';
+import { auth } from 'db/config';
+import { db } from 'db/config';
 
 import AuthContext from './auth-context';
 

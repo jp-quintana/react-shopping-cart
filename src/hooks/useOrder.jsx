@@ -13,7 +13,7 @@ import {
   increment,
 } from 'firebase/firestore';
 
-import { db } from '../firebase/config';
+import { db } from 'db/config';
 
 import { useAuthContext } from './useAuthContext';
 import { useCartContext } from './useCartContext';

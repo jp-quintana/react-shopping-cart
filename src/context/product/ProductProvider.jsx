@@ -3,7 +3,7 @@ import { useReducer, useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '../../firebase/config';
+import { db } from 'db/config';
 
 import ProductContext from './product-context';
 

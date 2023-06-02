@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { collection, query, where, getDocs, addDoc } from 'firebase/firestore';
 
-import { db } from '../firebase/config';
+import { db } from 'db/config';
 
 export const useNewsletter = () => {
   const newsletterRef = collection(db, 'newsletter');

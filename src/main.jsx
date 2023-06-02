@@ -1,15 +1,14 @@
-// import React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
+
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import AuthProvider from 'context/auth/AuthProvider';
 import CartProvider from 'context/cart/CartProvider';
 
-import App from './App';
+import App from './App.jsx';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
-root.render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
   <Router>
     <AuthProvider>

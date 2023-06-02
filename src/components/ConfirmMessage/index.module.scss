@@ -1,10 +1,8 @@
-@import 'App.scss';
-
 .container {
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  
+
   p {
     text-align: center;
   }
@@ -22,10 +20,10 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 3rem;
-    
-    button { 
-      padding: .5rem 2rem;
-      border-radius: .6rem;
+
+    button {
+      padding: 0.5rem 2rem;
+      border-radius: 0.6rem;
       background-color: #3d3d3d;
       color: white;
     }

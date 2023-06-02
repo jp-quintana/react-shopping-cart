@@ -1,5 +1,3 @@
-@import 'App.scss';
-
 .container {
   height: 100%;
   display: flex;
@@ -54,7 +52,7 @@
     text-align: right;
 
     button {
-      padding: .5rem 2rem;
+      padding: 0.5rem 2rem;
       border-radius: 0.6rem;
       background: $back-detail;
       color: #fff;

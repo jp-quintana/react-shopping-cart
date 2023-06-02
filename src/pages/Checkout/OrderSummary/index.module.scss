@@ -1,5 +1,3 @@
-@import 'App.scss';
-
 .list_wrapper {
   // TODO: chequear este padding
   width: 100%;
@@ -81,7 +79,6 @@
       letter-spacing: $ls-secondary;
     }
   }
-
 }
 
 .total_wrapper {
@@ -93,7 +90,7 @@
     color: $c-secondary;
     font-weight: $font-w-700;
     font-family: $font-f-secondary;
-      letter-spacing: $ls-secondary;
+    letter-spacing: $ls-secondary;
   }
 
   .total_price {
@@ -104,7 +101,5 @@
 .subtotal_price,
 .total_price {
   margin-left: auto;
-  font-weight: $font-w-700
+  font-weight: $font-w-700;
 }
-
-

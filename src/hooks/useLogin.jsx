@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
 
-import { auth } from '../firebase/config';
-import { db } from '../firebase/config';
+import { auth } from 'db/config';
+import { db } from 'db/config';
 
 import { useAuthContext } from './useAuthContext';
 import { useCartContext } from './useCartContext';

@@ -11,7 +11,7 @@ import { useCheckout } from 'hooks/useCheckout';
 import Loader from 'components/Loader';
 import Dropdown from 'components/Dropdown';
 
-import { reactSelectStyles } from './data.js';
+import { reactSelectStyles } from './data';
 
 import styles from './index.module.scss';
 

@@ -1,5 +1,4 @@
 // TODO: REMOVE TAILWIND PARA SACAR LOS IMPORTANTS
-@import 'App.scss';
 
 .tooltip {
   text-transform: none;
@@ -18,8 +17,8 @@
   font-family: $font-f-secondary !important;
   font-weight: $font-w-400 !important;
   letter-spacing: $ls-secondary !important;
-  border-radius: .6rem !important;
-  padding: .5rem !important;
+  border-radius: 0.6rem !important;
+  padding: 0.5rem !important;
 
   &::after {
     content: ' ';
