@@ -1,7 +1,7 @@
-import HeroSection from './HeroSection';
-import SlideshowSection from './SlideshowSection';
-import CollectionsSection from './CollectionsSection';
-import NewsletterSection from './NewsletterSection';
+import HeroSection from 'components/home/HeroSection';
+import SlideshowSection from 'components/home/SlideshowSection';
+import CollectionsSection from 'components/home/CollectionsSection';
+import NewsletterSection from 'components/home/NewsletterSection';
 
 export const Home = () => {
   return (
