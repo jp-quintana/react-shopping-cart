@@ -6,8 +6,8 @@ import { useProductContext } from 'hooks/useProductContext';
 // import { useCartContext } from 'hooks/useCartContext';
 import { useCart } from 'hooks/useCart';
 
-import ProductVariant from './ProductVariant';
-import ProductSize from './ProductSize';
+import ProductVariant from 'components/products/ProductVariant';
+import ProductSize from 'components/products/ProductSize';
 
 import Button from 'components/Button';
 import Loader from 'components/Loader';

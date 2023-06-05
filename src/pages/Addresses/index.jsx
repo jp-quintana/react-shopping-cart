@@ -7,8 +7,8 @@ import { BiChevronLeft, BiPlus } from 'react-icons/bi';
 import { useAuthContext } from 'hooks/useAuthContext';
 import { useAddress } from 'hooks/useAddress';
 
-import AddAddress from './AddAddress';
-import Address from './Address';
+import AddAddress from 'components/addresses/AddAddress';
+import Address from 'components/addresses/Address';
 
 import Button from 'components/Button';
 import Loader from 'components/Loader';

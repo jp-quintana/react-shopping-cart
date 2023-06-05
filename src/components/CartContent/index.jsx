@@ -6,7 +6,7 @@ import { useCartContext } from 'hooks/useCartContext';
 import { useCart } from 'hooks/useCart';
 import { useKeyDown } from 'hooks/useKeyDown';
 
-import CartItem from 'pages/Cart/CartItem';
+import CartItem from 'components/common/CartItem';
 
 import Button from 'components/Button';
 import Toast from 'components/Toast';

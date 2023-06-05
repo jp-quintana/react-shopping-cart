@@ -4,7 +4,7 @@ import { useCartContext } from 'hooks/useCartContext';
 import { useCart } from 'hooks/useCart';
 import { useInventory } from 'hooks/useInventory';
 
-import CartItem from './CartItem';
+import CartItem from 'components/common/CartItem';
 
 import Button from 'components/Button';
 import Card from 'components/Card';

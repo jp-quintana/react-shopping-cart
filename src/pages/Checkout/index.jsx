@@ -5,11 +5,11 @@ import { useCheckoutContext } from 'hooks/useCheckoutContext';
 import { useCartContext } from 'hooks/useCartContext';
 import { useInventory } from 'hooks/useInventory';
 
-import CheckoutProgression from './CheckoutProgression';
-import ShippingInfo from './ShippingInfo';
-import ShippingOption from './ShippingOption';
-import Payment from './Payment';
-import OrderSummary from './OrderSummary';
+import CheckoutProgression from 'components/checkout/CheckoutProgression';
+import ShippingInfo from 'components/checkout/ShippingInfo';
+import ShippingOption from 'components/checkout/ShippingOption';
+import Payment from 'components/checkout/Payment';
+import OrderSummary from 'components/checkout/OrderSummary';
 
 import Loader from 'components/Loader';
 import Toast from 'components/Toast';

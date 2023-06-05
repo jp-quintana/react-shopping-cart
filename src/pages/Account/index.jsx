@@ -4,9 +4,9 @@ import { useAuthContext } from 'hooks/useAuthContext';
 import { useOrder } from 'hooks/useOrder';
 import { useLogout } from 'hooks/useLogout';
 
-import AccountOrders from './AccountOrders';
-import AccountProfile from './AccountProfile';
-import AccountAddresses from './AccountAddresses';
+import AccountOrders from 'components/account/AccountOrders';
+import AccountProfile from 'components/account/AccountProfile';
+import AccountAddresses from 'components/account/AccountAddresses';
 
 import Button from 'components/Button';
 import Loader from 'components/Loader';
