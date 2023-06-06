@@ -1,13 +1,12 @@
 .container {
-    width: 100%;
-    height: 100vh;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-  
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
   .video_background {
     position: absolute;
     top: 0;
@@ -16,22 +15,43 @@
     left: 0;
     width: 100%;
     height: 100%;
-  }
-  
-  .video {
-    width: 100%;
-    height: 100%;
-    -o-object-fit: cover;
-    object-fit: cover;
-  }
-  
-  .content {
-    z-index: 1;
-    max-width: 80%;
 
-    @media (min-width: 900px) {
-      margin-top: 8rem;
-      max-width: 60%;
+    .video {
+      width: 100%;
+      height: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
     }
   }
-  
+
+  .content {
+    z-index: 1;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(100% - 8rem);
+
+    // TODO: update both media queries
+    @media (max-width: 900px) {
+      height: calc(100% - 8rem);
+    }
+
+    .logo_wrapper {
+      display: flex;
+      justify-content: center;
+
+      .logo {
+        @media (max-width: 1920px) {
+          width: 70%;
+        }
+
+        @media (max-width: 2560px) {
+          width: 80%;
+        }
+      }
+    }
+  }
+}

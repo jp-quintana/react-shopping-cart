@@ -1,7 +1,6 @@
 import HeroSection from 'components/pages/home/HeroSection';
 import SlideshowSection from 'components/pages/home/SlideshowSection';
 import CollectionsSection from 'components/pages/home/CollectionsSection';
-import NewsletterSection from 'components/pages/home/NewsletterSection';
 
 export const Home = () => {
   return (
@@ -9,7 +8,6 @@ export const Home = () => {
       <HeroSection />
       <SlideshowSection />
       <CollectionsSection />
-      <NewsletterSection />
     </>
   );
 };

@@ -13,7 +13,9 @@ const HeroSection = () => {
           </video>
         </div>
         <div className={styles.content}>
-          <img src={LogoHero} alt="Hero Logo" className={styles.logo} />
+          <div className={styles.logo_wrapper}>
+            <img src={LogoHero} alt="Hero Logo" className={styles.logo} />
+          </div>
         </div>
       </div>
     </section>

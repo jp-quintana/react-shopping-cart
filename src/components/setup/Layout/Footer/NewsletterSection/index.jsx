@@ -52,35 +52,33 @@ const NewsletterSection = () => {
         )}
       </Toast>
       <section className={styles.section}>
-        <div className={`${styles.container} main-container`}>
-          <h3 className={styles.title}>Sign up for our newsletter</h3>
-          <div>
-            <form
-              className={styles.form}
-              onSubmit={handleSubmit}
-              ref={scrollToRef}
-            >
-              {!success && (
-                <>
-                  <input
-                    className={styles.input}
-                    placeholder="Your email address"
-                    type="email"
-                    ref={emailInputRef}
-                    required
-                  />
-                  <Button type="submit" className={styles.button}>
-                    Sign up
-                  </Button>
-                </>
-              )}
-              {success && (
-                <Button type="button" className={styles.success} disabled>
-                  {success.content}
+        <div className={styles.container}>
+          <h3 className={styles.title}>Sign up for the FLAAKKO newsletter</h3>
+          <form
+            className={styles.form}
+            onSubmit={handleSubmit}
+            ref={scrollToRef}
+          >
+            {!success && (
+              <>
+                <input
+                  className={styles.input}
+                  placeholder="Your email address"
+                  type="email"
+                  ref={emailInputRef}
+                  required
+                />
+                <Button type="submit" className={styles.button}>
+                  Sign up
                 </Button>
-              )}
-            </form>
-          </div>
+              </>
+            )}
+            {success && (
+              <Button type="button" className={styles.success} disabled>
+                {success.content}
+              </Button>
+            )}
+          </form>
         </div>
       </section>
     </>
