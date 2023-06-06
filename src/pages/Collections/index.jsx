@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { useCollection } from 'hooks/useCollection';
 
-import Loader from 'components/Loader';
+import Loader from 'components/common/Loader';
 
 import ProductCard from 'components/common/ProductCard';
 

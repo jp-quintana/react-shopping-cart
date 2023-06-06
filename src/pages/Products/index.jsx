@@ -6,14 +6,14 @@ import { useProductContext } from 'hooks/useProductContext';
 // import { useCartContext } from 'hooks/useCartContext';
 import { useCart } from 'hooks/useCart';
 
-import ProductVariant from 'components/products/ProductVariant';
-import ProductSize from 'components/products/ProductSize';
+import ProductVariant from 'components/pages/products/ProductVariant';
+import ProductSize from 'components/pages/products/ProductSize';
 
-import Button from 'components/Button';
-import Loader from 'components/Loader';
-import Slider from 'components/Slider';
-import Toast from 'components/Toast';
-import ToastMessage from 'components/ToastMessage';
+import Button from 'components/common/Button';
+import Loader from 'components/common/Loader';
+import Slider from 'components/common/Slider';
+import Toast from 'components/common/Toast';
+import ToastMessage from 'components/common/ToastMessage';
 
 import { formatNumber } from 'helpers/format';
 

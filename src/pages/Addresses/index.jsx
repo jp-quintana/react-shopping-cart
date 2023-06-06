@@ -7,14 +7,14 @@ import { BiChevronLeft, BiPlus } from 'react-icons/bi';
 import { useAuthContext } from 'hooks/useAuthContext';
 import { useAddress } from 'hooks/useAddress';
 
-import AddAddress from 'components/addresses/AddAddress';
-import Address from 'components/addresses/Address';
+import AddAddress from 'components/pages/addresses/AddAddress';
+import Address from 'components/pages/addresses/Address';
 
-import Button from 'components/Button';
-import Loader from 'components/Loader';
-import Toast from 'components/Toast';
-import ToastMessage from 'components/ToastMessage';
-import CenterModal from 'components/CenterModal';
+import Button from 'components/common/Button';
+import Loader from 'components/common/Loader';
+import Toast from 'components/common/Toast';
+import ToastMessage from 'components/common/ToastMessage';
+import CenterModal from 'components/common/CenterModal';
 
 import styles from './index.module.scss';
 

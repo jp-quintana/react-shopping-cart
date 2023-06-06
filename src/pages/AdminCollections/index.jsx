@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import { useCollection } from 'hooks/useCollection';
 import { useAdmin } from 'hooks/useAdmin';
 
-import Loader from 'components/Loader';
-import CenterModal from 'components/CenterModal';
-import ConfirmMessage from 'components/ConfirmMessage';
+import Loader from 'components/common/Loader';
+import CenterModal from 'components/common/CenterModal';
+import ConfirmMessage from 'components/common/ConfirmMessage';
 
 import ProductCard from 'components/common/ProductCard';
 

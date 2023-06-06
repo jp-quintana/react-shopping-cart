@@ -1,4 +1,4 @@
-import AdminProduct from 'components/AdminProduct';
+import AdminProduct from 'components/common/AdminProduct';
 
 const AdminAddProduct = () => {
   return (

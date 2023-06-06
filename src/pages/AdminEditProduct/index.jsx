@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 
 import { useAdmin } from 'hooks/useAdmin';
 
-import AdminProduct from 'components/AdminProduct';
+import AdminProduct from 'components/common/AdminProduct';
 
-import Loader from 'components/Loader';
+import Loader from 'components/common/Loader';
 
 const AdminEditProduct = () => {
   const { getProduct, isLoading } = useAdmin();

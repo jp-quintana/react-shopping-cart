@@ -4,14 +4,14 @@ import { useAuthContext } from 'hooks/useAuthContext';
 import { useOrder } from 'hooks/useOrder';
 import { useLogout } from 'hooks/useLogout';
 
-import AccountOrders from 'components/account/AccountOrders';
-import AccountProfile from 'components/account/AccountProfile';
-import AccountAddresses from 'components/account/AccountAddresses';
+import AccountOrders from 'components/pages/account/AccountOrders';
+import AccountProfile from 'components/pages/account/AccountProfile';
+import AccountAddresses from 'components/pages/account/AccountAddresses';
 
-import Button from 'components/Button';
-import Loader from 'components/Loader';
-import Toast from 'components/Toast';
-import ToastMessage from 'components/ToastMessage';
+import Button from 'components/common/Button';
+import Loader from 'components/common/Loader';
+import Toast from 'components/common/Toast';
+import ToastMessage from 'components/common/ToastMessage';
 
 import styles from './index.module.scss';
 

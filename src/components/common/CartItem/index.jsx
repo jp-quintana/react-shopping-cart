@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 
-import Card from 'components/Card';
+import Card from 'components/common/Card';
 
 import { formatNumber } from 'helpers/format';
 import { addItemPrice } from 'helpers/item';

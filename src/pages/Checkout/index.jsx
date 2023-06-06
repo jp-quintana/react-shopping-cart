@@ -5,15 +5,15 @@ import { useCheckoutContext } from 'hooks/useCheckoutContext';
 import { useCartContext } from 'hooks/useCartContext';
 import { useInventory } from 'hooks/useInventory';
 
-import CheckoutProgression from 'components/checkout/CheckoutProgression';
-import ShippingInfo from 'components/checkout/ShippingInfo';
-import ShippingOption from 'components/checkout/ShippingOption';
-import Payment from 'components/checkout/Payment';
-import OrderSummary from 'components/checkout/OrderSummary';
+import CheckoutProgression from 'components/pages/checkout/CheckoutProgression';
+import ShippingInfo from 'components/pages/checkout/ShippingInfo';
+import ShippingOption from 'components/pages/checkout/ShippingOption';
+import Payment from 'components/pages/checkout/Payment';
+import OrderSummary from 'components/pages/checkout/OrderSummary';
 
-import Loader from 'components/Loader';
-import Toast from 'components/Toast';
-import ToastMessage from 'components/ToastMessage';
+import Loader from 'components/common/Loader';
+import Toast from 'components/common/Toast';
+import ToastMessage from 'components/common/ToastMessage';
 
 import logo from 'assets/images/checkout-logo-nav.png';
 

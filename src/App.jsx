@@ -6,8 +6,8 @@ import { useCartContext } from 'hooks/useCartContext';
 import ProductProvider from 'context/product/ProductProvider';
 import CheckoutProvider from 'context/checkout/CheckoutProvider';
 
-import Layout from './setup/Layout';
-import ProtectedRoutes from './setup/ProtectedRoutes';
+import Layout from 'components/setup/Layout';
+import ProtectedRoutes from 'components/setup/ProtectedRoutes';
 
 import Home from './pages/Home';
 import Admin from './pages/Admin';
@@ -23,7 +23,7 @@ import Products from './pages/Products';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
 
-import Loader from './components/Loader';
+import Loader from './components/common/Loader';
 
 import './App.scss';
 
