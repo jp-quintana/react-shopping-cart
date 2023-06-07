@@ -13,6 +13,7 @@
     text-align: right;
     text-transform: uppercase;
     margin-bottom: 1rem;
+    letter-spacing: $ls-primary;
 
     @media (max-width: 1024px) {
       font-size: 1.5rem;
@@ -40,8 +41,6 @@
     }
 
     .button {
-      // white-space: nowrap;
-      // overflow: hidden;
       flex-shrink: 0;
       padding: 0 2rem;
       font-size: 1.2rem;

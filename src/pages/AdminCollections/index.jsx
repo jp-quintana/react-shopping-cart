@@ -7,7 +7,7 @@ import Loader from 'components/common/Loader';
 import CenterModal from 'components/common/CenterModal';
 import ConfirmMessage from 'components/common/ConfirmMessage';
 
-import ProductCard from 'components/common/ProductCard';
+import ProductCard from 'components/pages/collections/ProductCard';
 
 import styles from './index.module.scss';
 

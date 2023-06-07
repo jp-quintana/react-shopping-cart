@@ -8,7 +8,7 @@ import ToastMessage from 'components/common/ToastMessage';
 
 import styles from './index.module.scss';
 
-const NewsletterSection = () => {
+const Newsletter = () => {
   const { subscribeToNewsletter, success, error } = useNewsletter();
 
   const emailInputRef = useRef();
@@ -85,4 +85,4 @@ const NewsletterSection = () => {
   );
 };
 
-export default NewsletterSection;
+export default Newsletter;

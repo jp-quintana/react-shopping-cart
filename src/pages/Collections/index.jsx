@@ -5,7 +5,7 @@ import { useCollection } from 'hooks/useCollection';
 
 import Loader from 'components/common/Loader';
 
-import ProductCard from 'components/common/ProductCard';
+import ProductCard from 'components/pages/collections/ProductCard';
 
 import styles from './index.module.scss';
 

@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Link, useLocation } from 'react-router-dom';
 
 import Card from 'components/common/Card';
@@ -12,7 +14,6 @@ const ProductCard = ({
   variantId,
   model,
   color,
-  colorDisplay,
   currentPrice,
   actualPrice,
   type,
@@ -23,8 +24,9 @@ const ProductCard = ({
   handleDeleteStart,
 }) => {
   const location = useLocation();
-
   const isAdmin = location.pathname.split('/')[1] === 'admin';
+
+  const [imageIsLoading, setImageIsLoading] = useState(true);
 
   return (
     <>
