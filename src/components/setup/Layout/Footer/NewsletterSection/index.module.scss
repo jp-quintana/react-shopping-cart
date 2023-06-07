@@ -42,6 +42,7 @@
     .button {
       // white-space: nowrap;
       // overflow: hidden;
+      flex-shrink: 0;
       padding: 0 2rem;
       font-size: 1.2rem;
       border-radius: 1rem;
