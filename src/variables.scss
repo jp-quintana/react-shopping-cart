@@ -55,12 +55,13 @@ $c-link-primary: #3d3d3d;
 $c-link-hover: #000;
 
 $back-c-primary: #fff;
-$back-detail: radial-gradient(
+$back-c-grey: #3d3d3d;
+$back-c-detail: radial-gradient(
   circle at 12.8% 28%,
   rgb(206, 155, 243) 0%,
   #8c52ff 90%
 );
-$back-highlight: #b8b8b8;
+$back-c-highlight: hsla(0, 0%, 5%, 0.2);
 
 $back-c-button-primary: #3d3d3d;
 $back-c-button-secondary: #fff;

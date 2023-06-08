@@ -34,7 +34,7 @@
     width: 100%;
     height: calc(100% - 8rem);
 
-    // TODO: update both media queries
+    // TODO: update all max-width
     @media (max-width: 900px) {
       height: calc(100% - 8rem);
     }

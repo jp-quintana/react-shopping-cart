@@ -7,7 +7,7 @@
 }
 
 .dragging {
-  background: $back-detail;
+  background: $back-c-detail;
 }
 
 .dropzone {
@@ -22,7 +22,7 @@
 
   &:hover {
     cursor: pointer;
-    background: $back-detail;
+    background: $back-c-detail;
   }
 
   i {

@@ -36,7 +36,7 @@
         cursor: move;
 
         &:first-child {
-          background: $back-detail;
+          background: $back-c-detail;
         }
 
         i {
@@ -54,7 +54,7 @@
     button {
       padding: 0.5rem 2rem;
       border-radius: 0.6rem;
-      background: $back-detail;
+      background: $back-c-detail;
       color: #fff;
       font-family: $font-f-secondary;
       font-weight: $font-w-700;

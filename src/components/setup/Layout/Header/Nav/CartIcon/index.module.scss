@@ -3,8 +3,9 @@
   border-radius: 999rem;
   display: flex;
   align-items: center;
+
   &:hover {
-    background-color: hsla(0, 0%, 5%, 0.2);
+    background-color: $back-c-highlight;
   }
 }
 
@@ -24,7 +25,7 @@
   letter-spacing: $ls-secondary;
   font-weight: 700;
   color: #fff;
-  background: $back-detail;
+  background: $back-c-detail;
 }
 
 .no_items {

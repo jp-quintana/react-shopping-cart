@@ -1,8 +1,8 @@
 .container {
-  padding-top: 2.5rem;
+  padding-top: 1.5rem;
 
-  @media (max-width: 768px) {
-    padding-top: 1.5rem;
+  @media (min-width: 768px) {
+    padding-top: 2.5rem;
   }
 
   .title {
@@ -12,18 +12,17 @@
   }
 
   .grid_container {
-    display: grid;
-    grid-template-areas:
-      'remeras buzos'
-      'accesorios buzos';
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 
-    @media (max-width: 768px) {
-      grid-template-areas: none;
-      grid-template-columns: none;
-      flex-direction: column;
-      gap: 2rem;
+    @media (min-width: 768px) {
+      display: grid;
+      grid-template-areas:
+        'remeras buzos'
+        'accesorios buzos';
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4rem;
     }
   }
 }

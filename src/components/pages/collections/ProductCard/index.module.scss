@@ -1,56 +1,45 @@
-.card_wrapper {
-  .card {
-    transition: all 0.2s ease-in;
+.container {
+  display: flex;
+  flex-direction: column;
 
+  .card {
     &:hover {
       transform: scale(1.01);
     }
-  }
 
-  .link {
-    display: flex;
-    flex-direction: column;
+    .link {
+      display: flex;
+      flex-direction: column;
 
-    &:hover {
-      color: inherit;
-    }
-
-    .image_wrapper {
-      position: relative;
-      max-width: 100%;
-
-      @media (min-width: 768px) {
+      &:hover {
+        color: inherit;
       }
 
-      .image_top,
-      .image_bottom {
-        max-height: 50rem;
-        display: block;
+      .image_wrapper {
+        width: 100%;
+        height: 100%;
+        border: 1px solid hsla(0, 0%, 5%, 0.1);
 
-        @media (min-width: 768px) {
-          max-height: none;
+        .placeholder_image {
+          padding-top: 141.42150538%;
+          background: $back-c-grey;
+          display: block;
+          border-radius: 3rem;
         }
-      }
 
-      .image_top:hover {
-        animation: slideshow 5s infinite;
-      }
-
-      @keyframes slideshow {
-        0%,
-        100% {
-          opacity: 100%;
-        }
-        30%,
-        70% {
+        .image_primary {
+          max-height: 50rem;
+          display: block;
           opacity: 0;
-        }
-      }
+          transition: opacity 0.6s ease-in-out;
+          &.loaded {
+            opacity: 1;
+          }
 
-      .image_bottom {
-        z-index: -1;
-        position: absolute;
-        top: 0;
+          @media (min-width: 768px) {
+            max-height: none;
+          }
+        }
       }
     }
   }
@@ -109,7 +98,7 @@
     gap: 1rem;
 
     .edit {
-      background: $back-detail;
+      background: $back-c-detail;
     }
 
     .delete {

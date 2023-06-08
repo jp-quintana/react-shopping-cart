@@ -35,7 +35,7 @@ const SlideshowSection = () => {
       <div className={`${styles.container} main-container`}>
         <p className={styles.section_text}>Shop the</p>
         <h1 className={styles.section_title}>Latest</h1>
-        <div className={styles.section_wrapper}>
+        <div className={styles.content_container}>
           {showContent && (
             <div className={styles.content_wrapper}>
               <p className={styles.content_title}>Drop #01</p>

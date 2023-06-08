@@ -5,7 +5,7 @@ import styles from './index.module.scss';
 
 const CollectionCard = ({ id, image, title, text, url }) => {
   const wrapperStyles =
-    +id % 2 === 0
+    title === 'hoodies'
       ? `${styles.content_wrapper} ${styles.content_wrapper_alt}`
       : styles.content_wrapper;
 

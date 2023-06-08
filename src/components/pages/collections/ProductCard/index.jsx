@@ -30,15 +30,18 @@ const ProductCard = ({
 
   return (
     <>
-      <div className={styles.card_wrapper}>
-        <Card className={styles.card}>
+      <div className={styles.container}>
+        <Card
+          className={styles.card}
+        >
           <Link to={`/products/${slug}`} className={styles.link}>
             <div className={styles.image_wrapper}>
-              <img src={imageTop.src} alt="" className={styles.image_top}></img>
+              {imageIsLoading && <div className={styles.placeholder_image} />}
               <img
-                src={imageBottom.src}
+                src={imageTop.src}
+                onLoad={() => setImageIsLoading(false)}
                 alt=""
-                className={styles.image_bottom}
+                className={`${styles.image_primary} ${!imageIsLoading ? styles.loaded : undefined}`}
               ></img>
             </div>
           </Link>

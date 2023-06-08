@@ -19,7 +19,7 @@
     text-transform: uppercase;
   }
 
-  .section_wrapper {
+  .content_container {
     position: relative;
     min-height: 50rem;
 
@@ -82,17 +82,17 @@
         letter-spacing: $ls-secondary;
         color: $c-secondary;
         font-size: 1.3rem;
-        text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.15);
-        font-size: 1.5rem;
-        margin-bottom: 0.9rem;
-
-        @media (max-width: 900px) {
-          text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.7);
-          margin-bottom: 0.8rem;
-        }
-
-        @media (max-width: 1200px) {
+        margin-bottom: 0.8rem;
+        text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.7);
+        
+        @media (min-width: 900px) {
+          font-size: 1.5rem;
           text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.5);
+          margin-bottom: 0.9rem;
+        }
+        
+        @media (min-width: 1200px) {
+          text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.15);
         }
       }
 
