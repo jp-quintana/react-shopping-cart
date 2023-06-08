@@ -16,39 +16,7 @@
       }
 
       .image_container {
-        position: relative;
         padding-top: 141.42150538%;
-
-        .image_placeholder {
-          border-radius: 3rem;
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          right: 0;
-          left: 0;
-          opacity: 1;
-          transition: opacity background-color 0.1s ease-in-out;
-
-          &.hide {
-            opacity: 0;
-            background-color: #fff;
-          }
-        }
-
-        .image_primary {
-          position: absolute;
-          top: 0;
-          transition: opacity 0.2s ease-in-out;
-          opacity: 0;
-
-          &.show {
-            opacity: 1;
-          }
-
-          @media (min-width: 768px) {
-            max-height: none;
-          }
-        }
       }
     }
   }
@@ -121,7 +89,6 @@
     }
   }
 
-  .image_placeholder,
   .title_placeholder,
   .color_placeholder,
   .price_placeholder {

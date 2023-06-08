@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import Card from 'components/common/Card';
 import Button from 'components/common/Button';
+import Image from 'components/common/Image';
 
 import { formatNumber } from 'helpers/format';
 
@@ -26,49 +27,30 @@ const ProductCard = ({
   const location = useLocation();
   const isAdmin = location.pathname.split('/')[1] === 'admin';
 
-  const [imageIsLoading, setImageIsLoading] = useState(true);
-  const [showImagePlaceholder, setImageShowPlaceholder] = useState(true);
-
-  const clearImagePlaceholder = () => {
-    setImageShowPlaceholder(false);
-    setTimeout(() => {
-      return setImageIsLoading(false);
-    }, 100);
-  };
+  const [showDetailsPlaceholder, setDetailsShowPlaceholder] = useState(true);
 
   return (
     <>
       <div className={styles.container}>
         <Card className={styles.card}>
           <Link to={`/products/${slug}`} className={styles.link}>
-            <div className={styles.image_container}>
-              {imageIsLoading && (
-                <div
-                  className={`${styles.image_placeholder} ${
-                    showImagePlaceholder ? undefined : styles.hide
-                  }`}
-                />
-              )}
-              <img
-                src={imageTop.src}
-                onLoad={clearImagePlaceholder}
-                alt=""
-                className={`${styles.image_primary} ${
-                  !imageIsLoading ? styles.show : undefined
-                }`}
-              ></img>
-            </div>
+            <Image
+              src={imageTop.src}
+              alt=""
+              clearPlaceholders={() => setDetailsShowPlaceholder(false)}
+              containerClassName={styles.image_container}
+            />
           </Link>
         </Card>
         <ul className={styles.info_wrapper}>
-          {showImagePlaceholder && (
+          {showDetailsPlaceholder && (
             <>
               <li className={styles.title_placeholder} />
               <li className={styles.color_placeholder} />
               <li className={styles.price_placeholder} />
             </>
           )}
-          {!showImagePlaceholder && (
+          {!showDetailsPlaceholder && (
             <>
               <li className={styles.title}>
                 {type} {model}
