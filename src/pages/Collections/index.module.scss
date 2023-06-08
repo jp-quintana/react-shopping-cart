@@ -3,12 +3,9 @@
   padding-top: 10rem;
   display: grid;
   justify-content: center;
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
 
-  @media (min-width: 600px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
   @media (min-width: 768px) {
     grid-template-columns: repeat(3, 1fr);
   }
