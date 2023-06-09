@@ -427,15 +427,13 @@
     }
   }
 
-  .images_wrapper {
+  .images {
     display: flex;
     flex-direction: column;
     gap: 2rem;
 
-    .images {
-      border-radius: 3rem;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-        0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    .image_container {
+      padding-top: 141.42017391%;
     }
   }
 }

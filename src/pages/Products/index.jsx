@@ -12,6 +12,8 @@ import ProductSize from 'components/pages/products/ProductSize';
 import Button from 'components/common/Button';
 import Loader from 'components/common/Loader';
 import Slider from 'components/common/Slider';
+import Card from 'components/common/Card';
+import Image from 'components/common/Image';
 import Toast from 'components/common/Toast';
 import ToastMessage from 'components/common/ToastMessage';
 
@@ -269,14 +271,16 @@ const Products = () => {
                     </div>
                   </div>
 
-                  <div className={styles.images_wrapper}>
+                  <div className={styles.images}>
                     {selectedVariant.images.map((image) => (
-                      <img
-                        className={styles.images}
-                        key={image.id}
-                        src={image.src}
-                        alt=""
-                      />
+                      <Card key={image.id}>
+                        <Image
+                          containerClassName={styles.image_container}
+                          imageClassName={styles.image}
+                          src={image.src}
+                          alt=""
+                        />
+                      </Card>
                     ))}
                   </div>
 
