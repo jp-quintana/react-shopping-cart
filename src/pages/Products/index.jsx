@@ -3,7 +3,6 @@ import { useMediaQuery } from 'react-responsive';
 import { Pagination } from 'swiper';
 
 import { useProductContext } from 'hooks/useProductContext';
-// import { useCartContext } from 'hooks/useCartContext';
 import { useCart } from 'hooks/useCart';
 
 import ProductVariant from 'components/pages/products/ProductVariant';
@@ -12,8 +11,7 @@ import ProductSize from 'components/pages/products/ProductSize';
 import Button from 'components/common/Button';
 import Loader from 'components/common/Loader';
 import Slider from 'components/common/Slider';
-import Card from 'components/common/Card';
-import Image from 'components/common/Image';
+import ImageContainer from 'components/common/ImageContainer';
 import Toast from 'components/common/Toast';
 import ToastMessage from 'components/common/ToastMessage';
 
@@ -112,8 +110,8 @@ const Products = () => {
             <>
               <section>
                 <div className={styles.container_s}>
-                  <div className={styles.swiper_container}>
-                    <div className={styles.swiper_wrapper}>
+                  <div className={styles.slider_container}>
+                    <div className={styles.slider_wrapper}>
                       <Slider
                         slides={selectedVariant.images}
                         bp={{
@@ -138,6 +136,7 @@ const Products = () => {
                         modules={[Pagination]}
                         sliderClassName={styles.slider}
                         slideClassName={styles.slide}
+                        imageContainerClassName={styles.image_container}
                         imageClassName={styles.image}
                       />
                     </div>
@@ -273,14 +272,14 @@ const Products = () => {
 
                   <div className={styles.images}>
                     {selectedVariant.images.map((image) => (
-                      <Card key={image.id}>
-                        <Image
+                      <div key={image.id} className={styles.card}>
+                        <ImageContainer
                           containerClassName={styles.image_container}
                           imageClassName={styles.image}
                           src={image.src}
                           alt=""
                         />
-                      </Card>
+                      </div>
                     ))}
                   </div>
 

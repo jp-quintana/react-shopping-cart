@@ -1,6 +1,6 @@
 import { useProduct } from 'hooks/useProduct';
 
-import Image from 'components/common/Image';
+import ImageContainer from 'components/common/ImageContainer';
 
 import styles from './index.module.scss';
 
@@ -23,12 +23,23 @@ const ProductVariant = ({ id, thumbnail, selectedVariantId }) => {
     selectedVariantId === id ? styles.thumbnail_selected : styles.thumbnail;
 
   return (
-    <img
-      className={variantStyles}
+    <div
       onClick={shouldAddEventHandler ? handleSelectVariant : undefined}
-      src={thumbnail}
-      alt=""
-    />
+      className={styles.card}
+    >
+      <ImageContainer
+        src={thumbnail}
+        alt=""
+        containerClassName={styles.image_container}
+        imageClassName={variantStyles}
+      />
+    </div>
+    // <img
+    //   className={variantStyles}
+    //   onClick={shouldAddEventHandler ? handleSelectVariant : undefined}
+    //   src={thumbnail}
+    //   alt=""
+    // />
   );
 };
 

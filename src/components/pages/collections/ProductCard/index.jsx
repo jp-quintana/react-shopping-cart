@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import Button from 'components/common/Button';
-import Image from 'components/common/Image';
+import ImageContainer from 'components/common/ImageContainer';
 
 import { formatNumber } from 'helpers/format';
 
@@ -33,7 +33,7 @@ const ProductCard = ({
       <div className={styles.container}>
         <div className={styles.card}>
           <Link to={`/products/${slug}`} className={styles.link}>
-            <Image
+            <ImageContainer
               src={imageTop.src}
               alt=""
               clearPlaceholders={() => setDetailsShowPlaceholder(false)}

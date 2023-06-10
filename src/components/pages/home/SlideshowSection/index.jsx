@@ -65,6 +65,7 @@ const SlideshowSection = () => {
               }}
               modules={[Autoplay, Pagination]}
               sliderClassName={styles.slider}
+              imageContainerClassName={styles.big_image_container}
               imageClassName={styles.big_image}
             />
           )}
@@ -85,6 +86,7 @@ const SlideshowSection = () => {
               }}
               modules={[Autoplay, Pagination]}
               sliderClassName={styles.slider}
+              imageContainerClassName={styles.small_image_container}
               imageClassName={styles.small_image}
             />
           )}

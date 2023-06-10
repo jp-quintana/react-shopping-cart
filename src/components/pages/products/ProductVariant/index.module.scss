@@ -1,24 +1,32 @@
-.thumbnail {
-  &:hover {
-    cursor: pointer;
-  }
-
-  &:active {
-    transform: scale(0.9);
-  }
-}
-
-.thumbnail_selected {
-  filter: grayscale(100%);
-}
-
-.thumbnail,
-.thumbnail_selected {
-  max-height: 12rem;
+.card {
+  overflow: hidden;
   border-radius: 1rem;
-  
-  -moz-transition: all 0.1s ease-in;
-  -o-transition: all 0.1s ease-in;
-  -webkit-transition: all 0.1s ease-in;
-  transition: all 0.1s ease-in;
+
+  .image_container {
+    padding-top: 141.43170426065%;
+  }
+
+  .thumbnail {
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+
+  .thumbnail_selected {
+    filter: grayscale(100%);
+  }
+
+  .thumbnail,
+  .thumbnail_selected {
+    max-height: 12rem;
+
+    -moz-transition: all 0.1s ease-in;
+    -o-transition: all 0.1s ease-in;
+    -webkit-transition: all 0.1s ease-in;
+    transition: all 0.1s ease-in;
+  }
 }

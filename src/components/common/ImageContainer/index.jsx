@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 
 import styles from './index.module.scss';
 
-const Image = ({
+const ImageContainer = ({
   src,
   alt,
   clearPlaceholders,
@@ -48,4 +48,4 @@ const Image = ({
   );
 };
 
-export default Image;
+export default ImageContainer;
