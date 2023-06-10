@@ -1,5 +1,7 @@
 import { useProduct } from 'hooks/useProduct';
 
+import Image from 'components/common/Image';
+
 import styles from './index.module.scss';
 
 const ProductVariant = ({ id, thumbnail, selectedVariantId }) => {

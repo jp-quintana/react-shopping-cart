@@ -2,8 +2,6 @@ import { Link, useParams } from 'react-router-dom';
 
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 
-import Card from 'components/common/Card';
-
 import { formatNumber } from 'helpers/format';
 import { addItemPrice } from 'helpers/item';
 
@@ -48,7 +46,7 @@ const CartItem = ({
   const clearProduct = urlId === slug && '/productos';
 
   return (
-    <Card className={styles.card}>
+    <div className={styles.card}>
       <Link
         to={`/products/${slug}`}
         state={clearProduct}
@@ -82,7 +80,7 @@ const CartItem = ({
         </div>
         <div className={styles.total}>${addItemPrice({ price, amount })}</div>
       </div>
-    </Card>
+    </div>
   );
 };
 

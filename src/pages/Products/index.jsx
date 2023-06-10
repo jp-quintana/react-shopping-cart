@@ -181,7 +181,7 @@ const Products = () => {
                         <p className={styles.number_of_colors}>
                           {selectedProduct.variants.length}{' '}
                           {selectedProduct.variants.length > 1
-                            ? 'Colores'
+                            ? 'Colors'
                             : 'Color'}{' '}
                           <span>| {selectedVariant.color}</span>
                         </p>
@@ -289,7 +289,7 @@ const Products = () => {
                       <p className={styles.number_of_colors}>
                         {selectedProduct.variants.length}{' '}
                         {selectedProduct.variants.length > 1
-                          ? 'Colores'
+                          ? 'Colors'
                           : 'Color'}{' '}
                         <span>| {selectedVariant.color}</span>
                       </p>

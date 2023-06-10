@@ -1,4 +1,3 @@
-import Card from 'components/common/Card';
 import Button from 'components/common/Button';
 
 import styles from './index.module.scss';
@@ -10,7 +9,7 @@ const CollectionCard = ({ id, image, title, text, url }) => {
       : styles.content_wrapper;
 
   return (
-    <Card className={styles.card}>
+    <div className={styles.card}>
       <div className={wrapperStyles}>
         <p className={styles.content_title}>{title}</p>
         <p className={styles.content_subtitle}>{text}</p>
@@ -19,7 +18,7 @@ const CollectionCard = ({ id, image, title, text, url }) => {
         </Button>
       </div>
       <img className={styles.image} src={image} alt="" />
-    </Card>
+    </div>
   );
 };
 

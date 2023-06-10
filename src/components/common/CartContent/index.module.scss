@@ -179,11 +179,6 @@
   border-radius: 1rem;
   text-transform: uppercase;
 
-  -moz-transition: all 0.1s ease-in;
-  -o-transition: all 0.1s ease-in;
-  -webkit-transition: all 0.1s ease-in;
-  transition: all 0.1s ease-in;
-
   &:active {
     transform: scale(0.9);
   }

@@ -1,6 +1,15 @@
 .card {
+  border-radius: 3rem;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 8px 10px -6px rgba(0, 0, 0, 0.1);
   position: relative;
   max-height: 50rem;
+
+  -moz-transition: transform 0.2s ease-in-out;
+  -o-transition: transform 0.2s ease-in-out;
+  -webkit-transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
 
   &:hover {
     transform: scale(1.01);
@@ -56,11 +65,11 @@
       font-weight: $font-w-700;
       margin-bottom: 0.5rem;
       text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.6);
-      
+
       @media (min-width: 480px) {
         text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.5);
       }
-      
+
       @media (min-width: 1200px) {
         text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.3);
       }
@@ -74,7 +83,6 @@
       color: $c-secondary;
       margin-bottom: 0.8rem;
       text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.7);
-
 
       @media (min-width: 900px) {
         text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.5);
@@ -90,21 +98,16 @@
 
     .button {
       font-family: $font-f-primary;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.2);
       text-transform: uppercase;
       letter-spacing: $ls-button;
       color: $c-secondary;
-      padding: 0.6rem 1.1rem;
       border-radius: 999rem;
       background-color: rgba(61, 61, 61, 0.8);
       box-shadow: 0 0 2rem hsla(0, 0%, 5%, 0.6);
       display: inline-block;
-
-      @media (min-width: 768px) {
-        font-size: 1.2rem;
-        padding: 0.8rem 1.3rem;
-      }
+      padding: 0.8rem 1.3rem;
 
       @media (min-width: 1200px) {
         font-size: 1.4rem;
@@ -114,7 +117,6 @@
       &:hover {
         transform: translate(0, -4%);
         background-color: $back-c-button-hover;
-        transition: all ease 0.2s;
       }
     }
   }
@@ -128,4 +130,5 @@
   height: 100%;
   width: 100%;
   object-fit: cover;
+  display: block;
 }

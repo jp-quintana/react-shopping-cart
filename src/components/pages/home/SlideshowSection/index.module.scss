@@ -1,8 +1,8 @@
 .container {
-  padding: 5rem 0 2.5rem 0;
+  padding: 3rem 0 1.5rem 0;
 
-  @media (max-width: 768px) {
-    padding: 3rem 0 1.5rem 0;
+  @media (min-width: 768px) {
+    padding: 5rem 0 2.5rem 0;
   }
 
   .section_text {
@@ -21,39 +21,44 @@
 
   .content_container {
     position: relative;
-    min-height: 50rem;
+    min-height: 40rem;
+
+    -webkit-transition: transform ease 0.2s;
+    -moz-transition: transform ease 0.2s;
+    -o-transition: transform ease 0.2s;
+    -ms-transition: transform ease 0.2s;
+    transition: transform ease 0.2s;
 
     &:hover {
-      transition: all ease 0.2s;
       transform: scale(1.01);
     }
 
-    @media (max-width: 480px) {
-      min-height: 40rem;
+    @media (min-width: 480px) {
+      min-height: 50rem;
     }
 
     .content_wrapper {
       user-select: none;
-      padding: 4rem;
+      padding: 2rem;
       position: absolute;
       z-index: 2;
       bottom: 0;
       left: 0;
 
-      @media (max-width: 480px) {
-        padding: 2rem;
-      }
-
-      @media (max-width: 768px) {
+      @media (min-width: 480px) {
         padding: 2.5rem;
       }
 
-      @media (max-width: 900px) {
+      @media (min-width: 768px) {
         padding: 3rem;
       }
 
-      @media (max-width: 1200px) {
+      @media (min-width: 900px) {
         padding: 3.5rem;
+      }
+
+      @media (min-width: 1200px) {
+        padding: 4rem;
       }
 
       .content_title {
@@ -64,15 +69,15 @@
         letter-spacing: 0.2rem;
         font-weight: $font-w-700;
         margin-bottom: 0.5rem;
-        text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.15);
+        text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.6);
         font-size: clamp(2.2rem, 3vw, 3.5rem);
 
-        @media (max-width: 480px) {
-          text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.6);
+        @media (min-width: 480px) {
+          text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.5);
         }
 
-        @media (max-width: 768px) {
-          text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.5);
+        @media (min-width: 768px) {
+          text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.15);
         }
       }
 
@@ -84,13 +89,13 @@
         font-size: 1.3rem;
         margin-bottom: 0.8rem;
         text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.7);
-        
+
         @media (min-width: 900px) {
           font-size: 1.5rem;
           text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.5);
           margin-bottom: 0.9rem;
         }
-        
+
         @media (min-width: 1200px) {
           text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.15);
         }
@@ -101,21 +106,16 @@
         text-shadow: 0.8rem 0.8rem 1.2rem rgba(0, 0, 0, 0.2);
         text-transform: uppercase;
         color: $c-secondary;
-        padding: 1rem 1.5rem;
         border-radius: 999rem;
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         background-color: rgba(61, 61, 61, 0.8);
         box-shadow: 0 0 2rem hsla(0, 0%, 5%, 0.6);
         display: inline-block;
+        padding: 0.8rem 1.3rem;
 
-        @media (max-width: 768px) {
-          font-size: 1.1rem;
-          padding: 0.6rem 1.1rem;
-        }
-
-        @media (max-width: 1200px) {
-          font-size: 1.2rem;
-          padding: 0.8rem 1.3rem;
+        @media (min-width: 1200px) {
+          padding: 1rem 1.5rem;
+          font-size: 1.4rem;
         }
 
         &:hover {

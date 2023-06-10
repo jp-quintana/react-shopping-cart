@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import { Link, useLocation } from 'react-router-dom';
 
-import Card from 'components/common/Card';
 import Button from 'components/common/Button';
 import Image from 'components/common/Image';
 
@@ -32,7 +31,7 @@ const ProductCard = ({
   return (
     <>
       <div className={styles.container}>
-        <Card className={styles.card}>
+        <div className={styles.card}>
           <Link to={`/products/${slug}`} className={styles.link}>
             <Image
               src={imageTop.src}
@@ -41,7 +40,7 @@ const ProductCard = ({
               containerClassName={styles.image_container}
             />
           </Link>
-        </Card>
+        </div>
         <ul className={styles.info_wrapper}>
           {showDetailsPlaceholder && (
             <>

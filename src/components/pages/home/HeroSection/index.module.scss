@@ -34,21 +34,14 @@
     width: 100%;
     height: calc(100% - 8rem);
 
-    // TODO: update all max-width
-    @media (max-width: 900px) {
-      height: calc(100% - 8rem);
-    }
-
     .logo_wrapper {
       display: flex;
       justify-content: center;
 
       .logo {
-        @media (max-width: 1920px) {
-          width: 70%;
-        }
+        width: 70%;
 
-        @media (max-width: 2560px) {
+        @media (min-width: 1920px) {
           width: 80%;
         }
       }

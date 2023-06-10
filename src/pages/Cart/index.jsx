@@ -7,7 +7,6 @@ import { useInventory } from 'hooks/useInventory';
 import CartItem from 'components/common/CartItem';
 
 import Button from 'components/common/Button';
-import Card from 'components/common/Card';
 import Loader from 'components/common/Loader';
 import Toast from 'components/common/Toast';
 import ToastMessage from 'components/common/ToastMessage';
@@ -53,14 +52,14 @@ const Cart = () => {
   let content =
     items.length > 0 ? (
       <>
-        <Card className={styles.checkout_wrapper}>
+        <div className={styles.checkout_wrapper}>
           <p className={styles.total}>
             Total: <span>${addAllItemsPrice(items)}</span>
           </p>
           <Button to="/checkout" className={styles.checkout_button}>
             Checkout
           </Button>
-        </Card>
+        </div>
         <div className={styles.content_wrapper}>
           <div className={styles.list_wrapper}>
             {items.map((item) => (
