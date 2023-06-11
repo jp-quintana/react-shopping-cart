@@ -143,7 +143,7 @@ const EditAddress = ({
                 defaultValue={zipCode}
               />
             </label>
-            {/* // TODO: update province to state */}
+            {/* // TODO: update province to state  */}
             <label className={styles.label}>
               <span>State:</span>
               <input

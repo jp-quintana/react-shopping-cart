@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom';
 
-import Backdrop from 'components/common/Backdrop';
-import ImageContainer from 'components/common/ImageContainer';
+import Backdrop from '../Backdrop';
+import ImageContainer from '../ImageContainer';
 
 import styles from './index.module.scss';
 
@@ -13,6 +13,8 @@ const Loader = ({
   wrapperClassName,
   loaderClassName,
 }) => {
+  // TODO: update this whole component
+
   const backdropElement = document.getElementById('backdrop');
   const overlaysElement = document.getElementById('overlays');
 
@@ -38,11 +40,19 @@ const Loader = ({
       )}
       {createPortal(
         <div className={`${styles.loader_wrapper} ${wrapperClassName}`}>
-          <img
+          {/* <img
             className={`${styles.loader} ${loaderClassName}`}
             src={LoaderImage}
             alt=""
-          />
+          /> */}
+          <div className={styles.loader}>
+            <ImageContainer
+              src={LoaderImage}
+              alt=""
+              containerClassName={styles.image_container}
+              imageClassName={`${styles.image} ${loaderClassName}`}
+            />
+          </div>
         </div>,
         overlaysElement
       )}

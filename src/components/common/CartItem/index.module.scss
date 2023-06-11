@@ -27,6 +27,7 @@
     .info_wrapper {
       display: flex;
       flex-direction: column;
+
       .title,
       .price {
         font-size: 1.5rem;
@@ -61,36 +62,19 @@
       }
     }
 
-    .image {
-      // max-width: 30%;
-      // width: 100%;
+    .image_card {
+      flex-shrink: 1;
       border-radius: 1rem;
-      align-self: center;
-      max-height: 12rem;
+      overflow: hidden;
+      width: 100%;
+      max-width: 25%;
 
-      // @media (min-width: 360px) {
-      //   max-width: 25%;
-      // }
+      .image_container {
+        padding-top: 141.426180034%;
+      }
 
-      // @media (min-width: 480px) {
-      //   max-width: 20%;
-      // }
-
-      // @media (min-width: 600px) {
-      //   max-width: 18%;
-      // }
-
-      // @media (min-width: 768px) {
-      //   max-width: 15%;
-      // }
-
-      // @media (min-width: 900px) {
-      //   max-width: 20%;
-      // }
-
-      // @media (min-width: 1200px) {
-      //   max-width: 25%;
-      // }
+      .image {
+      }
     }
   }
 

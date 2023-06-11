@@ -2,6 +2,8 @@ import { Link, useParams } from 'react-router-dom';
 
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 
+import ImageContainer from '../ImageContainer';
+
 import { formatNumber } from 'helpers/format';
 import { addItemPrice } from 'helpers/item';
 
@@ -59,7 +61,15 @@ const CartItem = ({
             <p className={styles.size}>{size.toUpperCase()}</p>
             <p className={styles.price}>${formatNumber(price)}</p>
           </div>
-          <img className={styles.image} src={thumbnail} alt="" />
+          {/* <img className={styles.image} src={thumbnail} alt="" /> */}
+          <div className={styles.image_card}>
+            <ImageContainer
+              src={thumbnail}
+              alt=""
+              containerClassName={styles.image_container}
+              imageClassName={styles.image}
+            />
+          </div>
         </div>
       </Link>
 
