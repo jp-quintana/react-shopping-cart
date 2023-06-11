@@ -137,6 +137,7 @@ const Products = () => {
                         sliderClassName={styles.slider}
                         slideClassName={styles.slide}
                         imageContainerClassName={styles.image_container}
+                        imageFillClassName={styles.image_fill}
                         imageClassName={styles.image}
                       />
                     </div>
@@ -272,14 +273,13 @@ const Products = () => {
 
                   <div className={styles.images}>
                     {selectedVariant.images.map((image) => (
-                      <div key={image.id} className={styles.card}>
-                        <ImageContainer
-                          containerClassName={styles.image_container}
-                          imageClassName={styles.image}
-                          src={image.src}
-                          alt=""
-                        />
-                      </div>
+                      <ImageContainer
+                        key={image.id}
+                        src={image.src}
+                        alt=""
+                        containerClassName={styles.image_container}
+                        fillClassName={styles.image_fill}
+                      />
                     ))}
                   </div>
 

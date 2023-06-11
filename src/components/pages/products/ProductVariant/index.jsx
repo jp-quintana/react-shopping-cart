@@ -23,17 +23,14 @@ const ProductVariant = ({ id, thumbnail, selectedVariantId }) => {
     selectedVariantId === id ? styles.thumbnail_selected : styles.thumbnail;
 
   return (
-    <div
+    <ImageContainer
+      src={thumbnail}
+      alt=""
       onClick={shouldAddEventHandler ? handleSelectVariant : undefined}
-      className={styles.card}
-    >
-      <ImageContainer
-        src={thumbnail}
-        alt=""
-        containerClassName={styles.image_container}
-        imageClassName={variantStyles}
-      />
-    </div>
+      containerClassName={styles.image_container}
+      fillClassName={styles.image_fill}
+      imageClassName={variantStyles}
+    />
     // <img
     //   className={variantStyles}
     //   onClick={shouldAddEventHandler ? handleSelectVariant : undefined}

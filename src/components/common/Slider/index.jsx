@@ -22,6 +22,7 @@ const Slider = ({
   sliderClassName,
   slideClassName,
   imageContainerClassName,
+  imageFillClassName,
   imagePlaceholderClassName,
   imageClassName,
 }) => {
@@ -43,8 +44,10 @@ const Slider = ({
           <SwiperSlide key={slide.id} className={slideClassName}>
             <ImageContainer
               src={slide.src}
-              alt=""
+              to={slide.url}
+              alt={slide.alt || ''}
               containerClassName={imageContainerClassName}
+              fillClassName={imageFillClassName}
               placeholderClassName={imagePlaceholderClassName}
               imageClassName={imageClassName}
             />

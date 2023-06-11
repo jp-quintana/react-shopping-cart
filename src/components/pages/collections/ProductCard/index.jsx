@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import Button from 'components/common/Button';
 import ImageContainer from 'components/common/ImageContainer';
@@ -31,16 +31,14 @@ const ProductCard = ({
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.card}>
-          <Link to={`/products/${slug}`} className={styles.link}>
-            <ImageContainer
-              src={imageTop.src}
-              alt=""
-              clearPlaceholders={() => setDetailsShowPlaceholder(false)}
-              containerClassName={styles.image_container}
-            />
-          </Link>
-        </div>
+        <ImageContainer
+          src={imageTop.src}
+          to={`/products/${slug}`}
+          alt=""
+          clearPlaceholders={() => setDetailsShowPlaceholder(false)}
+          containerClassName={styles.image_container}
+          fillClassName={styles.image_fill}
+        />
         <ul className={styles.info_wrapper}>
           {showDetailsPlaceholder && (
             <>

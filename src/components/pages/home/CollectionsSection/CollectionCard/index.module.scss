@@ -4,7 +4,6 @@
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 8px 10px -6px rgba(0, 0, 0, 0.1);
   position: relative;
-  max-height: 50rem;
 
   -moz-transition: transform 0.2s ease-in-out;
   -o-transition: transform 0.2s ease-in-out;
@@ -17,16 +16,13 @@
 
   @media (min-width: 768px) {
     &:nth-child(1) {
-      grid-area: remeras;
-      max-height: 55rem;
+      grid-area: item-1;
     }
     &:nth-child(2) {
-      grid-area: buzos;
-      max-height: none;
+      grid-area: item-2;
     }
     &:nth-child(3) {
-      grid-area: accesorios;
-      max-height: 55rem;
+      grid-area: item-3;
     }
   }
 
@@ -120,15 +116,36 @@
       }
     }
   }
-}
 
-.content_wrapper_alt {
-  text-align: right;
-}
+  .content_wrapper_alt {
+    text-align: right;
+  }
 
-.image {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  display: block;
+  .image_container {
+    height: 100%;
+    width: 100%;
+
+    .image_fill {
+      &:nth-child(1),
+      :nth-child(3) {
+        padding-top: 100%;
+      }
+
+      &:nth-child(2) {
+        padding-top: 206.6115702479%;
+      }
+
+      .image {
+        &:nth-child(1),
+        :nth-child(3) {
+          display: block;
+        }
+
+        &:nth-child(2) {
+          object-fit: cover;
+          height: 100% !important;
+        }
+      }
+    }
+  }
 }

@@ -6,31 +6,26 @@
   height: 100vh;
 }
 
-.loader {
+.image_container {
   z-index: 999;
   border-radius: 999rem;
-  overflow: hidden;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 8px 10px -6px rgba(0, 0, 0, 0.1);
   width: 20rem;
-}
 
-.image_container {
-  padding-top: 100%;
-}
+  .image_fill {
+    padding-top: 100%;
 
-.image {
-  display: block;
+    .image {
+      animation: spin 2s ease infinite;
 
-  animation: spin 2s ease infinite;
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
 
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-
-    100% {
-      transform: rotate(360deg);
+        100% {
+          transform: rotate(360deg);
+        }
+      }
     }
   }
 }

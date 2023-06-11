@@ -62,14 +62,13 @@ const CartItem = ({
             <p className={styles.price}>${formatNumber(price)}</p>
           </div>
           {/* <img className={styles.image} src={thumbnail} alt="" /> */}
-          <div className={styles.image_card}>
-            <ImageContainer
-              src={thumbnail}
-              alt=""
-              containerClassName={styles.image_container}
-              imageClassName={styles.image}
-            />
-          </div>
+          <ImageContainer
+            src={thumbnail}
+            alt=""
+            containerClassName={styles.image_container}
+            fillClassName={styles.image_fill}
+            imageClassName={styles.image}
+          />
         </div>
       </Link>
 

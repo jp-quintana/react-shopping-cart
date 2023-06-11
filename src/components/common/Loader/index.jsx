@@ -45,14 +45,13 @@ const Loader = ({
             src={LoaderImage}
             alt=""
           /> */}
-          <div className={styles.loader}>
-            <ImageContainer
-              src={LoaderImage}
-              alt=""
-              containerClassName={styles.image_container}
-              imageClassName={`${styles.image} ${loaderClassName}`}
-            />
-          </div>
+          <ImageContainer
+            src={LoaderImage}
+            alt=""
+            containerClassName={styles.image_container}
+            fillClassName={styles.image_fill}
+            imageClassName={`${styles.image} ${loaderClassName}`}
+          />
         </div>,
         overlaysElement
       )}

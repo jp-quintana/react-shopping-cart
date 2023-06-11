@@ -39,15 +39,12 @@
 
     .content_wrapper {
       user-select: none;
-      padding: 2rem;
+      padding: 2.5rem;
+
       position: absolute;
       z-index: 2;
       bottom: 0;
       left: 0;
-
-      @media (min-width: 480px) {
-        padding: 2.5rem;
-      }
 
       @media (min-width: 768px) {
         padding: 3rem;
@@ -126,28 +123,27 @@
     }
 
     .slider {
-      border-radius: 3rem;
       overflow: hidden;
+      border-radius: 3rem;
       box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
         0 8px 10px -6px rgba(0, 0, 0, 0.1);
 
-      .big_image_container {
+      .big_image_fill {
         padding-top: 66.66624%;
+        .big_image {
+          display: block;
+        }
       }
 
-      .big_image {
-        display: block;
-      }
-
-      .small_image_container {
+      .small_image_fill {
         padding-top: 50rem;
-      }
 
-      .small_image {
-        object-fit: cover;
-        height: 50rem;
-        width: 100%;
-        display: block;
+        .small_image {
+          object-fit: cover;
+          height: 50rem;
+          width: 100%;
+          display: block;
+        }
       }
     }
   }

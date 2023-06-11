@@ -19,9 +19,10 @@
     @media (min-width: 768px) {
       display: grid;
       grid-template-areas:
-        'remeras buzos'
-        'accesorios buzos';
+        'item-1 item-2'
+        'item-3 item-2';
       grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 1fr);
       gap: 4rem;
     }
   }

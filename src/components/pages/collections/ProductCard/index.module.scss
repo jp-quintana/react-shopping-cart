@@ -2,33 +2,23 @@
   display: flex;
   flex-direction: column;
 
-  .card {
+  .image_container {
     border-radius: 1.5rem;
-    overflow: hidden;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-      0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    display: block;
 
-    -webkit-transition: transform ease-in-out 0.2s;
-    -moz-transition: transform ease-in-out 0.2s;
-    -o-transition: transform ease-in-out 0.2s;
-    -ms-transition: transform ease-in-out 0.2s;
-    transition: transform ease-in-out 0.2s;
+    -webkit-transition: transform ease 0.2s;
+    -moz-transition: transform ease 0.2s;
+    -o-transition: transform ease 0.2s;
+    -ms-transition: transform ease 0.2s;
+    transition: transform ease 0.2s;
 
     &:hover {
       transform: scale(1.01);
+      color: inherit;
     }
 
-    .link {
-      display: flex;
-      flex-direction: column;
-
-      &:hover {
-        color: inherit;
-      }
-
-      .image_container {
-        padding-top: 141.42150538%;
-      }
+    .image_fill {
+      padding-top: 141.42150538%;
     }
   }
 

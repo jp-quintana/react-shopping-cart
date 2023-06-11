@@ -62,18 +62,13 @@
       }
     }
 
-    .image_card {
-      flex-shrink: 1;
+    .image_container {
       border-radius: 1rem;
-      overflow: hidden;
       width: 100%;
       max-width: 25%;
 
-      .image_container {
+      .image_fill {
         padding-top: 141.426180034%;
-      }
-
-      .image {
       }
     }
   }

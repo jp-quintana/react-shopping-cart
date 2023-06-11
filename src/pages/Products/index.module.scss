@@ -15,16 +15,11 @@
     .slider_wrapper {
       overflow: hidden;
 
-      .slide {
+      .image_container {
         border-radius: 2rem;
-        overflow: hidden;
 
-        .image_container {
+        .image_fill {
           padding-top: 141.4400805639%;
-        }
-
-        .image {
-          // display: block;
         }
       }
     }
@@ -431,19 +426,10 @@
     flex-direction: column;
     gap: 2rem;
 
-    .card {
+    .image_container {
       border-radius: 2.5rem;
-      overflow: hidden;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-        0 8px 10px -6px rgba(0, 0, 0, 0.1);
 
-      -webkit-transition: all ease 0.2s;
-      -moz-transition: all ease 0.2s;
-      -o-transition: all ease 0.2s;
-      -ms-transition: all ease 0.2s;
-      transition: all ease 0.2s;
-
-      .image_container {
+      .image_fill {
         padding-top: 141.42017391%;
       }
     }
