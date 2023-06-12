@@ -45,21 +45,21 @@
 
   .info_link:hover + .info_list {
     visibility: visible;
-    bottom: -5.55rem;
+    bottom: -10.9rem;
     opacity: 1;
 
     @media (min-width: 768px) {
-      bottom: -5.25rem;
+      bottom: -10.65rem;
     }
   }
 
   .info_list:hover {
     visibility: visible;
-    bottom: -5.55rem;
+    bottom: -10.9rem;
     opacity: 1;
 
     @media (min-width: 768px) {
-      bottom: -5.25rem;
+      bottom: -10.65rem;
     }
   }
 
@@ -71,16 +71,21 @@
     border-bottom-left-radius: 1rem;
     position: absolute;
     visibility: hidden;
-    bottom: -6.25rem;
+    bottom: -13rem;
     display: flex;
     flex-direction: column;
     z-index: $z-modal;
     opacity: 0;
     transition: all 0.1s ease-in-out;
 
-    .link {
-      font-size: 1.1rem;
-      line-height: normal;
+    li {
+      line-height: 1.5;
+
+      .link {
+        font-size: 1.1rem;
+        line-height: normal;
+        // margin-bottom: 0.5rem;
+      }
     }
   }
 
@@ -88,7 +93,6 @@
     font-family: $font-f-secondary;
     font-weight: $font-w-700;
     letter-spacing: $ls-secondary;
-
     font-size: 1.3rem;
     color: $c-link-primary;
     line-height: none;
@@ -103,14 +107,14 @@
   .link::after {
     content: '';
     position: absolute;
-    width: 100%;
+    width: 101%;
     transform: scaleX(0);
     height: 2px;
     bottom: -0.15rem;
     left: 0rem;
     background-color: #000;
     transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
+    transition: transform 0.25s ease-in-out;
   }
 
   .link:hover::after {
@@ -221,7 +225,7 @@
     left: -0.5rem;
     background-color: #000;
     transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
+    transition: transform 0.25s ease-in-out;
   }
 
   .link:hover::after {
