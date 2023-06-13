@@ -79,6 +79,7 @@ const ImageContainer = ({
           className={`${styles.image} ${imageClassName} ${
             !imageIsLoading ? styles.show : undefined
           }`}
+          loading="lazy"
         ></img>
       </div>
     </div>
