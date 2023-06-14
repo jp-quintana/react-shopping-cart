@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 import Nav from './Nav';
-import SideNav from './SideNav';
+import SideNav from './NavDrawerContent';
 
-import SideModal from 'components/common/SideModal';
+// import SideModal from 'components/common/SideModal';/
 
 import styles from './index.module.scss';
 
@@ -27,13 +27,13 @@ const Header = ({ toggleCartModal }) => {
 
   return (
     <header>
-      <SideModal
+      {/* <SideModal
         toggleModal={toggleSideNav}
         backdropClassName={styles.backdrop}
         modalClassName={styles.side_nav}
       >
         {isOpen && <SideNav toggleSideNav={toggleSideNav} />}
-      </SideModal>
+      </SideModal> */}
       <Nav toggleSideNav={toggleSideNav} toggleCartModal={toggleCartModal} />
     </header>
   );

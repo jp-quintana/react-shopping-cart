@@ -6,7 +6,6 @@ import Header from './Header';
 import Footer from './Footer';
 
 import CartContent from 'components/common/CartContent';
-import SideModal from 'components/common/SideModal';
 import CartModal from 'components/common/CartModal';
 
 const Layout = () => {
@@ -23,15 +22,9 @@ const Layout = () => {
 
   return (
     <div id="layout">
-      {/* <SideModal toggleModal={toggleCartModal}>
-        {isOpen && <CartContent toggleCartModal={toggleCartModal} />}
-      </SideModal> */}
       <CartModal close={() => setIsOpen(false)}>
         {isOpen && <CartContent toggleCartModal={toggleCartModal} />}
       </CartModal>
-      {/* <CartModal show={isOpen} close={() => setIsOpen(false)}>
-        <CartContent toggleCartModal={toggleCartModal} />
-      </CartModal> */}
       {!isCheckout && <Header toggleCartModal={toggleCartModal} />}
       <main>
         <Outlet />

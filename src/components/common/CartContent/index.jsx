@@ -16,6 +16,8 @@ import { addAllItemsPrice } from 'helpers/item';
 
 import styles from './index.module.scss';
 
+// TODO: Update component, check useKeyDown, etc...
+
 const CartContent = ({ toggleCartModal }) => {
   const { items, totalAmount } = useCartContext();
   const { addItem, removeItem, deleteItem, isLoading, error } = useCart();

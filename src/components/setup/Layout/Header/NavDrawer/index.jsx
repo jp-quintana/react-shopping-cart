@@ -2,34 +2,30 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
 
-import Backdrop from '../Backdrop';
+import { useKeyDown } from 'hooks/useKeyDown';
+
+import Backdrop from 'common/Backdrop';
 
 import styles from './index.module.scss';
 
-const CartModal = ({
+const NavDrawer = ({
   children,
   close,
   backdropClassName,
   containerClassName,
   wrapperClassName,
 }) => {
+  useKeyDown(() => {
+    toggleSideNav();
+  }, ['Escape']);
+
   const overlayElement = document.getElementById('overlay');
 
-  const isBigScreen = useMediaQuery({
-    query: '(min-width: 900px)',
-  });
-
-  const variants = isBigScreen
-    ? {
-        initial: { x: '50vw', opacity: 0 },
-        visible: { x: 0, opacity: 1 },
-        exit: { x: '50vw', opacity: 0 },
-      }
-    : {
-        initial: { y: '50vh', opacity: 0 },
-        visible: { y: 0, opacity: 1 },
-        exit: { y: '50vh', opacity: 0 },
-      };
+  const variants = {
+    initial: { x: '50vw', opacity: 0 },
+    visible: { x: 0, opacity: 1 },
+    exit: { x: '50vw', opacity: 0 },
+  };
 
   return (
     <AnimatePresence>
@@ -46,17 +42,17 @@ const CartModal = ({
                 className={`${styles.modal_container} ${containerClassName}`}
               >
                 <div className={`${styles.modal_wrapper} ${wrapperClassName}`}>
-                  <motion.aside
-                    key="cart-modal"
+                  <motion.div
+                    key="nav-drawer"
                     variants={variants}
                     initial="initial"
                     animate="visible"
                     exit="exit"
                     transition={{ duration: 0.2 }}
-                    className={styles.cart_modal}
+                    className={styles.nav_drawer}
                   >
                     {children}
-                  </motion.aside>
+                  </motion.div>
                 </div>
               </div>
             </>,
@@ -68,4 +64,4 @@ const CartModal = ({
   );
 };
 
-export default CartModal;
+export default NavDrawer;

@@ -181,4 +181,4 @@ const SideNav = ({ toggleSideNav }) => {
   );
 };
 
-export default SideNav;
+export default NavDrawer;
