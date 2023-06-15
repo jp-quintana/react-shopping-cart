@@ -47,6 +47,7 @@
     }
 
     .button {
+      font-family: $font-f-primary;
       margin-top: 3rem;
       padding: 1rem 2rem;
       font-size: 1.6rem;
@@ -72,6 +73,9 @@
 
       &:active {
         transform: scale(0.9);
+      }
+      &:hover {
+        cursor: pointer;
       }
     }
 

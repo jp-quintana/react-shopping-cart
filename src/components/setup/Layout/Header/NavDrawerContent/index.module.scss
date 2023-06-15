@@ -52,6 +52,7 @@
     font-size: 1.7rem;
     font-family: $font-f-secondary;
     font-weight: $font-w-900;
+    line-height: 1.5;
     letter-spacing: -0.05rem;
     margin-bottom: 0.5rem;
     letter-spacing: $ls-secondary;
@@ -61,7 +62,7 @@
     font-family: $font-f-secondary;
     font-weight: $font-w-700;
     letter-spacing: $ls-secondary;
-
+    line-height: 1.5;
     font-size: 1.6rem;
     color: $c-link-primary;
     line-height: none;
@@ -108,6 +109,11 @@
   padding: 2rem 0;
 
   .links_list {
+    @media (min-width: 600px) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      align-items: center;
+    }
     .link {
       font-family: $font-f-secondary;
       font-weight: $font-w-700;
@@ -130,6 +136,12 @@
         background-color: hsla(0, 0%, 5%, 0.2);
         color: $c-link-hover;
       }
+
+      i {
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+      }
     }
   }
 }
@@ -137,10 +149,28 @@
 .socials_container {
   border-top: 1px solid hsla(0, 0%, 5%, 0.2);
   margin-top: auto;
-  padding: 2rem 0;
+  padding: 1.5rem 0;
   display: flex;
-  justify-content: center;
-  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 2rem;
+
+  a {
+    color: #3d3d3d;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+
+    -moz-transition: all 0.1s ease-in;
+    -o-transition: all 0.1s ease-in;
+    -webkit-transition: all 0.1s ease-in;
+    transition: all 0.1s ease-in;
+
+    &:hover {
+      background: $back-c-highlight;
+    }
+  }
 }
 
 .slider {
@@ -149,7 +179,11 @@
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 8px 10px -6px rgba(0, 0, 0, 0.1);
 
-  .image {
-    display: block;
+  .image_fill {
+    padding-top: 66.6659430122%;
+
+    .image {
+      display: block;
+    }
   }
 }

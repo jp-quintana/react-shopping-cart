@@ -2,11 +2,8 @@ import { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 import Nav from './Nav';
-import SideNav from './NavDrawerContent';
-
-// import SideModal from 'components/common/SideModal';/
-
-import styles from './index.module.scss';
+import NavDrawer from './NavDrawer';
+import NavDrawerContent from './NavDrawerContent';
 
 const Header = ({ toggleCartModal }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,13 +24,9 @@ const Header = ({ toggleCartModal }) => {
 
   return (
     <header>
-      {/* <SideModal
-        toggleModal={toggleSideNav}
-        backdropClassName={styles.backdrop}
-        modalClassName={styles.side_nav}
-      >
-        {isOpen && <SideNav toggleSideNav={toggleSideNav} />}
-      </SideModal> */}
+      <NavDrawer close={() => setIsOpen(false)}>
+        {isOpen && <NavDrawerContent toggleSideNav={toggleSideNav} />}
+      </NavDrawer>
       <Nav toggleSideNav={toggleSideNav} toggleCartModal={toggleCartModal} />
     </header>
   );

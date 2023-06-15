@@ -10,11 +10,15 @@ import {
   FaInfoCircle,
   FaInstagram,
   FaTwitterSquare,
-  FaSpotify,
+  FaMapMarkerAlt,
+  FaTag,
+  FaBriefcase,
+  FaFacebookF,
+  FaTiktok,
+  FaYoutube,
 } from 'react-icons/fa';
 
 import { useAuthContext } from 'hooks/useAuthContext';
-import { useKeyDown } from 'hooks/useKeyDown';
 
 import Slider from 'components/common/Slider';
 
@@ -22,25 +26,21 @@ import { SLIDES as slides } from './data';
 
 import styles from './index.module.scss';
 
-const SideNav = ({ toggleSideNav }) => {
+const NavDrawerContent = ({ toggleSideNav }) => {
   const { isAdmin, isVerified, name } = useAuthContext();
-
-  useKeyDown(() => {
-    toggleSideNav();
-  }, ['Escape']);
 
   return (
     <div className={styles.container}>
       <div className={styles.links_container}>
         <ul className={styles.links_list}>
-          <h2>Productos</h2>
+          <h2>Products</h2>
           <li>
             <Link
               to="/collections/t-shirts"
               onClick={toggleSideNav}
               className={styles.link}
             >
-              Remeras
+              T-Shirts
             </Link>
           </li>
           <li>
@@ -49,7 +49,7 @@ const SideNav = ({ toggleSideNav }) => {
               onClick={toggleSideNav}
               className={styles.link}
             >
-              Buzos
+              Hoodies
             </Link>
           </li>
           <li>
@@ -58,19 +58,19 @@ const SideNav = ({ toggleSideNav }) => {
               onClick={toggleSideNav}
               className={styles.link}
             >
-              Accesorios
+              Accessories
             </Link>
           </li>
         </ul>
         <ul className={styles.links_list}>
-          <h2>Colecciones</h2>
+          <h2>Drops</h2>
           <li>
             <Link
               to="/collections/products"
               onClick={toggleSideNav}
               className={styles.link}
             >
-              Capsula #001
+              #001
             </Link>
           </li>
         </ul>
@@ -92,13 +92,12 @@ const SideNav = ({ toggleSideNav }) => {
           }}
           modules={[Autoplay, Pagination]}
           sliderClassName={styles.slider}
+          imageFillClassName={styles.image_fill}
           imageClassName={styles.image}
         />
       </div>
       <div className={styles.info_container}>
-        {isVerified && (
-          <h2 className={styles.title}>Bienvenido devuelta, {name}!</h2>
-        )}
+        {isVerified && <h2 className={styles.title}>Welcome back, {name}!</h2>}
         <ul className={styles.links_list}>
           {isAdmin && (
             <li>
@@ -112,14 +111,14 @@ const SideNav = ({ toggleSideNav }) => {
           )}
           <li>
             <Link
-              to={isVerified ? '/cuenta' : '/login'}
+              to={isVerified ? '/account' : '/login'}
               onClick={toggleSideNav}
               className={styles.link}
             >
               <i>
                 <FaUserCircle />
               </i>
-              {isVerified ? 'Mi cuenta' : 'Login'}
+              {isVerified ? 'My account' : 'Login'}
             </Link>
           </li>
           <li>
@@ -127,7 +126,7 @@ const SideNav = ({ toggleSideNav }) => {
               <i>
                 <FaQuestionCircle />
               </i>
-              Info
+              Help Center
             </Link>
           </li>
           <li>
@@ -135,7 +134,31 @@ const SideNav = ({ toggleSideNav }) => {
               <i>
                 <FaShippingFast />
               </i>
-              Envios
+              Shipping Info
+            </Link>
+          </li>
+          <li>
+            <Link to="/" onClick={toggleSideNav} className={styles.link}>
+              <i>
+                <FaMapMarkerAlt />
+              </i>
+              Track Your Order
+            </Link>
+          </li>
+          <li>
+            <Link to="/" onClick={toggleSideNav} className={styles.link}>
+              <i>
+                <FaTag />
+              </i>
+              Discounts
+            </Link>
+          </li>
+          <li>
+            <Link to="/" onClick={toggleSideNav} className={styles.link}>
+              <i>
+                <FaBriefcase />
+              </i>
+              Careers
             </Link>
           </li>
           <li>
@@ -143,7 +166,7 @@ const SideNav = ({ toggleSideNav }) => {
               <i>
                 <FaSyncAlt />
               </i>
-              Devoluciones
+              Returns and Exchange
             </Link>
           </li>
           <li>
@@ -151,34 +174,30 @@ const SideNav = ({ toggleSideNav }) => {
               <i>
                 <FaInfoCircle />
               </i>
-              Sobre Nosotros
+              About Us
             </Link>
           </li>
         </ul>
       </div>
       <div className={styles.socials_container}>
-        <a
-          href="https://www.instagram.com/hit.hot.ar/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <i>
-            <FaInstagram />
-          </i>
+        <a href="https://www.instagram.com" target="_blank" rel="noreferrer">
+          <FaInstagram />
+        </a>
+        <a href="https://tiktok.com" target="_blank" rel="noreferrer">
+          <FaTiktok />
         </a>
         <a href="https://twitter.com" target="_blank" rel="noreferrer">
-          <i>
-            <FaTwitterSquare />
-          </i>
+          <FaTwitterSquare />
         </a>
-        <a href="https://spotify.com" target="_blank" rel="noreferrer">
-          <i>
-            <FaSpotify />
-          </i>
+        <a href="https://facebook.com" target="_blank" rel="noreferrer">
+          <FaFacebookF />
+        </a>
+        <a href="https://youtube.com" target="_blank" rel="noreferrer">
+          <FaYoutube />
         </a>
       </div>
     </div>
   );
 };
 
-export default NavDrawer;
+export default NavDrawerContent;
