@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
 import { useAddress } from 'hooks/useAddress';
-import { useKeyDown } from 'hooks/useKeyDown';
 
 import Loader from 'components/common/Loader';
 
@@ -63,10 +62,6 @@ const EditAddress = ({
       setToggle(false);
     }
   }, [toggle]);
-
-  useKeyDown(() => {
-    toggleEditAddressModal();
-  }, ['Escape']);
 
   return (
     <>

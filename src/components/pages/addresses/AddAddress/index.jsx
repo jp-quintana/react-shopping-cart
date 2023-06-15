@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 
 import { useAddress } from 'hooks/useAddress';
-import { useKeyDown } from 'hooks/useKeyDown';
 
 import Loader from 'components/common/Loader';
+import Button from 'components/common/Button';
 import Toast from 'components/common/Toast';
 import ToastMessage from 'components/common/ToastMessage';
 
@@ -58,10 +58,6 @@ const AddAddress = ({ toggleAddAddressModal }) => {
   const toggleToast = () => {
     setToastMessage(null);
   };
-
-  useKeyDown(() => {
-    toggleAddAddressModal();
-  }, ['Escape']);
 
   return (
     <>
@@ -158,9 +154,9 @@ const AddAddress = ({ toggleAddAddressModal }) => {
             </label>
           </div>
           <div className={styles.button_wrapper}>
-            <button form="form" className={styles.button} type="submit">
+            <Button form="form" className={styles.button} type="submit">
               Add
-            </button>
+            </Button>
           </div>
         </form>
       )}

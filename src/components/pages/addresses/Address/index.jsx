@@ -33,10 +33,7 @@ const Address = ({
 
   return (
     <>
-      <CenterModal
-        modalClassName={styles.modal}
-        toggleModal={toggleEditAddressModal}
-      >
+      <CenterModal modalClassName={styles.modal} close={() => setIsOpen(false)}>
         {isOpen && (
           <EditAddress
             toggleEditAddressModal={toggleEditAddressModal}

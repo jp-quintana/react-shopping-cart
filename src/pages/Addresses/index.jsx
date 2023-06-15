@@ -48,10 +48,7 @@ const Addresses = () => {
           <ToastMessage toggleToast={toggleToast} content={toastMessage} />
         )}
       </Toast>
-      <CenterModal
-        modalClassName={styles.modal}
-        toggleModal={toggleAddAddressModal}
-      >
+      <CenterModal close={() => setIsOpen(false)} modalClassName={styles.modal}>
         {isOpen && <AddAddress toggleAddAddressModal={toggleAddAddressModal} />}
       </CenterModal>
       <section>

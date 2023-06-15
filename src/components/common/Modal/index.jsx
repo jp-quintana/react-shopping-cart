@@ -4,14 +4,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import { useKeyDown } from 'hooks/useKeyDown';
 
+import Backdrop from '../Backdrop';
+
 import styles from './index.module.scss';
 
 // TODO: use this component
 const Modal = ({
   children,
   close,
-  backdropKey,
-  modalKey,
+  key,
   variants,
   transition,
   backdropClassName,
@@ -31,14 +32,7 @@ const Modal = ({
         <>
           {createPortal(
             <>
-              <motion.div
-                key={backdropKey}
-                className={`${styles.backdrop} ${backdropClassName}`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.1 }}
-                exit={{ opacity: 0 }}
-              />
+              <Backdrop backdropClassName={backdropClassName} />
               <div
                 onClick={close}
                 className={`${styles.modal_container} ${containerClassName}`}
@@ -46,7 +40,7 @@ const Modal = ({
                 <div className={`${styles.modal_wrapper} ${wrapperClassName}`}>
                   <motion.div
                     onClick={(e) => e.stopPropagation()}
-                    key={modalKey}
+                    key={key}
                     variants={variants}
                     initial="initial"
                     animate="visible"
