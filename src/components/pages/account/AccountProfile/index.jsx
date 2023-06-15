@@ -21,6 +21,7 @@ const AccountProfile = ({ name, email, lastName, phoneNumber }) => {
       <CenterModal modalClassName={styles.modal} close={() => setIsOpen(false)}>
         {isOpen && (
           <EditProfile
+            close={() => setIsOpen(false)}
             name={name}
             lastName={lastName}
             phoneNumber={phoneNumber}

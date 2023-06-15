@@ -9,7 +9,7 @@ import ToastMessage from 'components/common/ToastMessage';
 
 import styles from './index.module.scss';
 
-const EditProfile = ({ toggleEditProfile, name, lastName, phoneNumber }) => {
+const EditProfile = ({ close, name, lastName, phoneNumber }) => {
   const { editProfile, isLoading, error } = useProfile();
 
   const [notification, setNotification] = useState(false);
@@ -37,7 +37,7 @@ const EditProfile = ({ toggleEditProfile, name, lastName, phoneNumber }) => {
         setToastMessage({ error, details: error.details });
         setNotification(false);
       } else {
-        toggleEditProfile();
+        close();
       }
     }
   }, [notification]);
@@ -53,9 +53,7 @@ const EditProfile = ({ toggleEditProfile, name, lastName, phoneNumber }) => {
           <ToastMessage toggleToast={toggleToast} content={toastMessage} />
         )}
       </Toast>
-      {isLoading && (
-        <Loader noPortal={true} wrapperClassName={styles.loader_wrapper} />
-      )}
+      {isLoading && <Loader />}
       {!isLoading && (
         <form id="form" className={styles.form} onSubmit={handleSubmit}>
           <h2 className={styles.title}>Edit info</h2>

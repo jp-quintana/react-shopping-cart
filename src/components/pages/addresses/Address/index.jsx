@@ -23,10 +23,6 @@ const Address = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleEditAddressModal = () => {
-    setIsOpen((prevState) => !prevState);
-  };
-
   const handleDelete = async () => {
     await onDelete(id);
   };
@@ -36,7 +32,7 @@ const Address = ({
       <CenterModal modalClassName={styles.modal} close={() => setIsOpen(false)}>
         {isOpen && (
           <EditAddress
-            toggleEditAddressModal={toggleEditAddressModal}
+            close={() => setIsOpen((prevState) => !prevState)}
             name={name}
             lastName={lastName}
             phoneNumber={phoneNumber}
@@ -65,7 +61,7 @@ const Address = ({
             <li>{province}</li>
           </ul>
           <div className={styles.controls}>
-            <div className={styles.edit} onClick={toggleEditAddressModal}>
+            <div className={styles.edit} onClick={() => setIsOpen(true)}>
               Edit
             </div>
             <div className={styles.delete}>

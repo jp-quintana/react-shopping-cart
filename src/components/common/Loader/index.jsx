@@ -10,13 +10,12 @@ import LoaderImage from 'assets/images/loader.png';
 const Loader = ({
   noPortal,
   backdropClassName,
-  wrapperClassName,
+  containerClassName,
   loaderClassName,
 }) => {
   // TODO: update this whole component
 
-  const backdropElement = document.getElementById('backdrop');
-  const overlaysElement = document.getElementById('overlays');
+  const overlayElement = document.getElementById('overlay');
 
   if (noPortal) {
     return (
@@ -35,25 +34,26 @@ const Loader = ({
   return (
     <>
       {createPortal(
-        <Backdrop className={backdropClassName} />,
-        backdropElement
-      )}
-      {createPortal(
-        <div className={`${styles.loader_wrapper} ${wrapperClassName}`}>
-          {/* <img
+        <>
+          <Backdrop
+            backdropClassName={`${styles.backdrop} ${backdropClassName}`}
+          />
+          <div className={`${styles.loader_container} ${containerClassName}`}>
+            {/* <img
             className={`${styles.loader} ${loaderClassName}`}
             src={LoaderImage}
             alt=""
           /> */}
-          <ImageContainer
-            src={LoaderImage}
-            alt=""
-            containerClassName={styles.image_container}
-            fillClassName={styles.image_fill}
-            imageClassName={`${styles.image} ${loaderClassName}`}
-          />
-        </div>,
-        overlaysElement
+            <ImageContainer
+              src={LoaderImage}
+              alt=""
+              containerClassName={styles.image_container}
+              fillClassName={styles.image_fill}
+              imageClassName={`${styles.image} ${loaderClassName}`}
+            />
+          </div>
+        </>,
+        overlayElement
       )}
     </>
   );

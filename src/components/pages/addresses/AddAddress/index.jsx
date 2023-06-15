@@ -9,7 +9,7 @@ import ToastMessage from 'components/common/ToastMessage';
 
 import styles from './index.module.scss';
 
-const AddAddress = ({ toggleAddAddressModal }) => {
+const AddAddress = ({ close }) => {
   const { createAddress, isLoading, error } = useAddress();
 
   const [isChecked, setIsChecked] = useState(false);
@@ -50,7 +50,7 @@ const AddAddress = ({ toggleAddAddressModal }) => {
         setToastMessage({ error, details: error.details });
         setNotification(false);
       } else {
-        toggleAddAddressModal();
+        close();
       }
     }
   }, [notification]);
@@ -66,9 +66,7 @@ const AddAddress = ({ toggleAddAddressModal }) => {
           <ToastMessage toggleToast={toggleToast} content={toastMessage} />
         )}
       </Toast>
-      {isLoading && (
-        <Loader noPortal={true} wrapperClassName={styles.loader_wrapper} />
-      )}
+      {isLoading && <Loader />}
       {!isLoading && (
         <form id="form" className={styles.form} onSubmit={handleSubmit}>
           <h2 className={styles.title}>Add Address:</h2>

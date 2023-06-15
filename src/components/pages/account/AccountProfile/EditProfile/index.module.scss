@@ -1,7 +1,3 @@
-.loader_wrapper {
-  height: 100% !important;
-}
-
 .form {
   height: 100%;
   display: flex;
@@ -63,8 +59,7 @@
     border: solid 0.2rem $back-c-button-primary;
     border-radius: 1rem;
     width: 100%;
-    // override tailwind css
-    background: $back-c-button-primary !important;
+    background: $back-c-button-primary;
     color: white;
     text-transform: uppercase;
     letter-spacing: $ls-button;

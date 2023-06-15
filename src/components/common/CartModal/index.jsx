@@ -44,7 +44,9 @@ const CartModal = ({
         <>
           {createPortal(
             <>
-              <Backdrop className={`${styles.backdrop} ${backdropClassName}`} />
+              <Backdrop
+                backdropClassName={`${styles.backdrop} ${backdropClassName}`}
+              />
               <div
                 onClick={close}
                 className={`${styles.modal_container} ${containerClassName}`}

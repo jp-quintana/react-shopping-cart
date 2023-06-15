@@ -2,12 +2,13 @@ import { useState, useEffect, useRef } from 'react';
 
 import { useAddress } from 'hooks/useAddress';
 
+import Button from 'components/common/Button';
 import Loader from 'components/common/Loader';
 
 import styles from './index.module.scss';
 
 const EditAddress = ({
-  toggleEditAddressModal,
+  close,
   name,
   lastName,
   phoneNumber,
@@ -57,7 +58,7 @@ const EditAddress = ({
 
   useEffect(() => {
     if (toggle && !error) {
-      toggleEditAddressModal();
+      close();
     } else {
       setToggle(false);
     }
@@ -65,9 +66,7 @@ const EditAddress = ({
 
   return (
     <>
-      {isLoading && (
-        <Loader noPortal={true} wrapperClassName={styles.loader_wrapper} />
-      )}
+      {isLoading && <Loader />}
       {!isLoading && (
         <form id="form" className={styles.form} onSubmit={handleSubmit}>
           <h2 className={styles.title}>Edit address</h2>
@@ -162,9 +161,9 @@ const EditAddress = ({
             </label>
           </div>
           <div className={styles.button_wrapper}>
-            <button form="form" className={styles.button} type="submit">
+            <Button form="form" className={styles.button} type="submit">
               Edit
-            </button>
+            </Button>
           </div>
         </form>
       )}

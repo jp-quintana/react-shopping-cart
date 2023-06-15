@@ -35,7 +35,7 @@ const NavDrawer = ({
             <>
               <Backdrop
                 close={close}
-                className={`${styles.backdrop} ${backdropClassName}`}
+                backdropClassName={`${styles.backdrop} ${backdropClassName}`}
               />
               <div
                 onClick={close}

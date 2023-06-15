@@ -27,10 +27,6 @@ const Addresses = () => {
 
   const otherAddresses = addresses.filter((address) => !address.isMain);
 
-  const toggleAddAddressModal = () => {
-    setIsOpen((prevState) => !prevState);
-  };
-
   useEffect(() => {
     if (error) {
       setToastMessage({ error, details: error.details });
@@ -41,6 +37,8 @@ const Addresses = () => {
     setToastMessage(null);
   };
 
+  console.log('addresses', isLoading);
+
   return (
     <>
       <Toast>
@@ -49,7 +47,7 @@ const Addresses = () => {
         )}
       </Toast>
       <CenterModal close={() => setIsOpen(false)} modalClassName={styles.modal}>
-        {isOpen && <AddAddress toggleAddAddressModal={toggleAddAddressModal} />}
+        {isOpen && <AddAddress close={() => setIsOpen(false)} />}
       </CenterModal>
       <section>
         <div className={`${styles.container} main-container`}>
@@ -63,7 +61,7 @@ const Addresses = () => {
             <p className={styles.title}>Your addresses</p>
             <Button
               className={styles.add_button}
-              onClick={toggleAddAddressModal}
+              onClick={() => setIsOpen(true)}
             >
               <span>
                 <BiPlus />
@@ -73,56 +71,47 @@ const Addresses = () => {
           </div>
 
           <div className={styles.addresses_container}>
-            {isLoading && (
-              <Loader
-                wrapperClassName={styles.loader_wrapper}
-                noPortal={true}
-              />
-            )}
-            {!isLoading && (
-              <>
-                {addresses.length === 0 && (
-                  <h2 className={styles.no_addresses}>
-                    No addresses added yet
-                  </h2>
-                )}
+            {isLoading && <Loader />}
+            <>
+              {addresses.length === 0 && (
+                <h2 className={styles.no_addresses}>No addresses added yet</h2>
+              )}
 
-                {addresses.length > 0 && (
-                  <div className={styles.addresses_list}>
-                    {defaultAddress && (
-                      <Address
-                        name={defaultAddress.name}
-                        lastName={defaultAddress.lastName}
-                        phoneNumber={defaultAddress.phoneNumber}
-                        address={defaultAddress.address}
-                        zipCode={defaultAddress.zipCode}
-                        city={defaultAddress.city}
-                        province={defaultAddress.province}
-                        id={defaultAddress.id}
-                        isMain={defaultAddress.isMain}
-                        onDelete={deleteAddress}
-                      />
-                    )}
-                    {otherAddresses.map((address) => (
-                      <Address
-                        key={address.id}
-                        name={address.name}
-                        lastName={address.lastName}
-                        phoneNumber={address.phoneNumber}
-                        address={address.address}
-                        zipCode={address.zipCode}
-                        city={address.city}
-                        province={address.province}
-                        id={address.id}
-                        isMain={address.isMain}
-                        displayOrder={address.displayOrder}
-                        onDelete={deleteAddress}
-                      />
-                    ))}
-                  </div>
-                )}
-              </>
-            )}
+              {addresses.length > 0 && (
+                <div className={styles.addresses_list}>
+                  {defaultAddress && (
+                    <Address
+                      name={defaultAddress.name}
+                      lastName={defaultAddress.lastName}
+                      phoneNumber={defaultAddress.phoneNumber}
+                      address={defaultAddress.address}
+                      zipCode={defaultAddress.zipCode}
+                      city={defaultAddress.city}
+                      province={defaultAddress.province}
+                      id={defaultAddress.id}
+                      isMain={defaultAddress.isMain}
+                      onDelete={deleteAddress}
+                    />
+                  )}
+                  {otherAddresses.map((address) => (
+                    <Address
+                      key={address.id}
+                      name={address.name}
+                      lastName={address.lastName}
+                      phoneNumber={address.phoneNumber}
+                      address={address.address}
+                      zipCode={address.zipCode}
+                      city={address.city}
+                      province={address.province}
+                      id={address.id}
+                      isMain={address.isMain}
+                      displayOrder={address.displayOrder}
+                      onDelete={deleteAddress}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
           </div>
         </div>
       </section>
