@@ -5,6 +5,7 @@ import { BiUser, BiEnvelope, BiPhone } from 'react-icons/bi';
 import EditProfile from './EditProfile';
 
 import CenterModal from 'components/common/CenterModal';
+import Button from 'components/common/Button';
 
 import styles from './index.module.scss';
 
@@ -17,13 +18,9 @@ const AccountProfile = ({ name, email, lastName, phoneNumber }) => {
 
   return (
     <>
-      <CenterModal
-        modalClassName={styles.modal}
-        toggleModal={toggleEditProfile}
-      >
+      <CenterModal modalClassName={styles.modal} close={() => setIsOpen(false)}>
         {isOpen && (
           <EditProfile
-            toggleEditProfile={toggleEditProfile}
             name={name}
             lastName={lastName}
             phoneNumber={phoneNumber}
@@ -48,9 +45,9 @@ const AccountProfile = ({ name, email, lastName, phoneNumber }) => {
               {phoneNumber ? phoneNumber : 'No phone added yet'}
             </li>
           </ul>
-          <button className={styles.edit_button} onClick={toggleEditProfile}>
+          <Button className={styles.edit_button} onClick={toggleEditProfile}>
             Edit Info
-          </button>
+          </Button>
         </div>
       </div>
     </>

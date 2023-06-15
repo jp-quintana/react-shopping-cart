@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 
-import { Link } from 'react-router-dom';
-
 import { BiChevronLeft, BiPlus } from 'react-icons/bi';
 
 import { useAuthContext } from 'hooks/useAuthContext';
@@ -58,12 +56,12 @@ const Addresses = () => {
       </CenterModal>
       <section>
         <div className={`${styles.container} main-container`}>
-          <Link className={styles.back_button} to="/account">
+          <Button className={styles.back_button} to="/account">
             <span>
               <BiChevronLeft />
             </span>
             Back to account
-          </Link>
+          </Button>
           <div className={styles.header_wrapper}>
             <p className={styles.title}>Your addresses</p>
             <Button

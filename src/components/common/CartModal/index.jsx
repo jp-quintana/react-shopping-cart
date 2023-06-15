@@ -2,6 +2,8 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
 
+import { useKeyDown } from 'hooks/useKeyDown';
+
 import Backdrop from '../Backdrop';
 
 import styles from './index.module.scss';
@@ -12,7 +14,12 @@ const CartModal = ({
   backdropClassName,
   containerClassName,
   wrapperClassName,
+  modalClassName,
 }) => {
+  useKeyDown(() => {
+    close();
+  }, ['Escape']);
+
   const overlayElement = document.getElementById('overlay');
 
   const isBigScreen = useMediaQuery({
@@ -37,23 +44,21 @@ const CartModal = ({
         <>
           {createPortal(
             <>
-              <Backdrop
-                close={close}
-                className={`${styles.backdrop} ${backdropClassName}`}
-              />
+              <Backdrop className={`${styles.backdrop} ${backdropClassName}`} />
               <div
                 onClick={close}
                 className={`${styles.modal_container} ${containerClassName}`}
               >
                 <div className={`${styles.modal_wrapper} ${wrapperClassName}`}>
                   <motion.aside
+                    onClick={(e) => e.stopPropagation()}
                     key="cart-modal"
                     variants={variants}
                     initial="initial"
                     animate="visible"
                     exit="exit"
                     transition={{ duration: 0.2 }}
-                    className={styles.cart_modal}
+                    className={`${styles.cart_modal} ${modalClassName}`}
                   >
                     {children}
                   </motion.aside>

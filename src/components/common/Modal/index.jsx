@@ -1,15 +1,19 @@
 import { createPortal } from 'react-dom';
+
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { useKeyDown } from 'hooks/useKeyDown';
 
-import Backdrop from 'components/common/Backdrop';
-
 import styles from './index.module.scss';
 
-const NavDrawer = ({
+// TODO: use this component
+const Modal = ({
   children,
   close,
+  backdropKey,
+  modalKey,
+  variants,
+  transition,
   backdropClassName,
   containerClassName,
   wrapperClassName,
@@ -21,21 +25,19 @@ const NavDrawer = ({
 
   const overlayElement = document.getElementById('overlay');
 
-  const variants = {
-    initial: { y: '50vh', opacity: 0 },
-    visible: { y: 0, opacity: 1 },
-    exit: { y: '50vh', opacity: 0 },
-  };
-
   return (
     <AnimatePresence>
       {children && (
         <>
           {createPortal(
             <>
-              <Backdrop
-                close={close}
+              <motion.div
+                key={backdropKey}
                 className={`${styles.backdrop} ${backdropClassName}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.1 }}
+                exit={{ opacity: 0 }}
               />
               <div
                 onClick={close}
@@ -44,13 +46,13 @@ const NavDrawer = ({
                 <div className={`${styles.modal_wrapper} ${wrapperClassName}`}>
                   <motion.div
                     onClick={(e) => e.stopPropagation()}
-                    key="nav-drawer"
+                    key={modalKey}
                     variants={variants}
                     initial="initial"
                     animate="visible"
                     exit="exit"
-                    transition={{ duration: 0.2 }}
-                    className={`${styles.nav_drawer} ${modalClassName}`}
+                    transition={transition}
+                    className={`${styles.modal} ${modalClassName}`}
                   >
                     {children}
                   </motion.div>
@@ -65,4 +67,4 @@ const NavDrawer = ({
   );
 };
 
-export default NavDrawer;
+export default Modal;

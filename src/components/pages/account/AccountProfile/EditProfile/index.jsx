@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 
 import { useProfile } from 'hooks/useProfile';
-import { useKeyDown } from 'hooks/useKeyDown';
 
 import Loader from 'components/common/Loader';
+import Button from 'components/common/Button';
 import Toast from 'components/common/Toast';
 import ToastMessage from 'components/common/ToastMessage';
 
@@ -45,10 +45,6 @@ const EditProfile = ({ toggleEditProfile, name, lastName, phoneNumber }) => {
   const toggleToast = () => {
     setToastMessage(null);
   };
-
-  useKeyDown(() => {
-    toggleEditProfile();
-  }, ['Escape']);
 
   return (
     <>
@@ -97,9 +93,9 @@ const EditProfile = ({ toggleEditProfile, name, lastName, phoneNumber }) => {
             </label>
           </div>
           <div className={styles.button_wrapper}>
-            <button form="form" className={styles.button} type="submit">
+            <Button form="form" className={styles.button} type="submit">
               Edit
-            </button>
+            </Button>
           </div>
         </form>
       )}

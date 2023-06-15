@@ -4,7 +4,6 @@ import { CgShoppingBag, CgCheckO } from 'react-icons/cg';
 
 import { useCartContext } from 'hooks/useCartContext';
 import { useCart } from 'hooks/useCart';
-import { useKeyDown } from 'hooks/useKeyDown';
 
 import CartItem from '../CartItem';
 
@@ -33,10 +32,6 @@ const CartContent = ({ toggleCartModal }) => {
   const toggleToast = () => {
     setToastMessage(null);
   };
-
-  useKeyDown(() => {
-    toggleCartModal();
-  }, ['Escape']);
 
   if (items.length === 0) {
     return (
