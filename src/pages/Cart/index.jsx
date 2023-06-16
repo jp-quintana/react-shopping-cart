@@ -89,9 +89,9 @@ const Cart = () => {
                 type="text"
                 placeholder="Enter code"
               />
-              <button className={`${styles.support_button} disabled-link`}>
+              <Button className={`${styles.support_button} disabled-link`}>
                 Add
-              </button>
+              </Button>
             </form>
           </aside>
         </div>

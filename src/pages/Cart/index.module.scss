@@ -141,24 +141,31 @@
     flex-direction: column;
     gap: 3.5rem;
 
-    @media (min-width: 768px) {
+    @media (min-width: 1024px) {
       display: grid;
-      grid-template-columns: 2fr 1fr;
+      grid-template-columns: 3fr 1fr;
       gap: 4rem;
     }
 
     .list_wrapper {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr;
       gap: 3rem;
       padding-bottom: 4rem;
       border-bottom: 0.2rem solid #cfcfcf;
 
       @media (min-width: 768px) {
-        padding-right: 4rem;
-        border-right: 0.2rem solid #cfcfcf;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5rem;
+      }
+
+      @media (min-width: 1024px) {
         padding-bottom: 0;
         border-bottom: none;
+        display: grid;
+        padding-right: 4rem;
+        border-right: 0.2rem solid #cfcfcf;
+        gap: 4rem;
       }
     }
 

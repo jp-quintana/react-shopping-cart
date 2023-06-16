@@ -9,6 +9,7 @@ import { useOrder } from 'hooks/useOrder';
 
 import CheckoutSummary from '../CheckoutSummary';
 
+import Button from 'components/common/Button';
 import Loader from 'components/common/Loader';
 
 import { formatCardNumber, formatExpiryDate, formatCvv } from 'helpers/format';
@@ -109,138 +110,138 @@ const Payment = ({ handlePreviousStep }) => {
   };
 
   return (
-    <div>
-      {isLoading && (
-        <Loader wrapperClassName={styles.loader_wrapper} noPortal={true} />
-      )}
+    <div className={styles.container}>
+      {isLoading && <Loader noPortal={true} />}
       {!isLoading && (
-        <>
-          <CheckoutSummary />
-          <form id="form" onSubmit={handleSubmit} className={styles.form}>
-            <h2 className={styles.title}>Payment Method</h2>
-            <div className={styles.payment_options_wrapper}>
-              <div>
-                <label className={styles.payment_option}>
-                  <input
-                    type="radio"
-                    value="creditCard"
-                    checked={paymentOption === 'creditCard'}
-                    onChange={(e) => setPaymentOption(e.target.value)}
-                    className={
-                      paymentOption === 'creditCard'
-                        ? styles.radio_selected
-                        : styles.radio_unselected
-                    }
-                  />
-                  <span>Credit card</span>
-                </label>
-              </div>
-              {paymentOption === 'creditCard' && (
-                <div className={styles.inputs_wrapper}>
-                  <div className={styles.float_container}>
-                    <label
-                      htmlFor="cardNumber"
-                      className={cardNumberStyles.label}
-                    >
-                      Card number
-                    </label>
+        <div className={styles.wrapper}>
+          <>
+            <CheckoutSummary />
+            <form id="form" onSubmit={handleSubmit} className={styles.form}>
+              <h2 className={styles.title}>Payment Method</h2>
+              <div className={styles.payment_options_wrapper}>
+                <div>
+                  <label className={styles.payment_option}>
                     <input
-                      id="cardNumber"
-                      onChange={handleCardNumberInput}
-                      onKeyPress={(e) => {
-                        if (!/[0-9]/.test(e.key)) {
-                          e.preventDefault();
-                        }
-                      }}
-                      value={formatCardNumber(userInput.cardNumber)}
-                      type="text"
-                      inputMode="numeric"
-                      placeholder="Card number"
-                      className={cardNumberStyles.input}
-                      required
+                      type="radio"
+                      value="creditCard"
+                      checked={paymentOption === 'creditCard'}
+                      onChange={(e) => setPaymentOption(e.target.value)}
+                      className={
+                        paymentOption === 'creditCard'
+                          ? styles.radio_selected
+                          : styles.radio_unselected
+                      }
                     />
-                  </div>
-                  <div className={styles.float_container}>
-                    <label htmlFor="name" className={nameStyles.label}>
-                      Name on card
-                    </label>
-                    <input
-                      id="name"
-                      onChange={handleNameInput}
-                      value={userInput.name}
-                      type="text"
-                      placeholder="Name on card"
-                      className={nameStyles.input}
-                      autoComplete="off"
-                      required
-                    />
-                  </div>
-                  <div className={styles.card_security}>
-                    <div className={styles.float_container}>
-                      <label
-                        htmlFor="expiryDate"
-                        className={expiryDateStyles.label}
-                        autoComplete="off"
-                      >
-                        Expiration Date (MM/YY)
-                      </label>
-                      <input
-                        id="expiryDate"
-                        onChange={handleExpiryDateInput}
-                        onKeyPress={(e) => {
-                          if (!/[0-9]/.test(e.key)) {
-                            e.preventDefault();
-                          }
-                        }}
-                        value={formatExpiryDate(userInput.expiryDate)}
-                        type="text"
-                        placeholder="Expiration Date (MM/YY)"
-                        className={expiryDateStyles.input}
-                        autoComplete="off"
-                        required
-                      />
-                    </div>
-                    <div className={styles.float_container}>
-                      <label
-                        htmlFor="securityCode"
-                        className={securityCodeStyles.label}
-                      >
-                        Security code
-                      </label>
-                      <input
-                        id="securityCode"
-                        onChange={handleSecurityCodeInput}
-                        onKeyPress={(e) => {
-                          if (!/[0-9]/.test(e.key)) {
-                            e.preventDefault();
-                          }
-                        }}
-                        value={formatCvv(userInput.securityCode)}
-                        type="password"
-                        placeholder="Security code"
-                        className={securityCodeStyles.input}
-                        autoComplete="off"
-                        required
-                      />
-                    </div>
-                  </div>
+                    <span>Credit card</span>
+                  </label>
                 </div>
-              )}
+                {paymentOption === 'creditCard' && (
+                  <div className={styles.inputs_wrapper}>
+                    <div className={styles.float_container}>
+                      <label
+                        htmlFor="cardNumber"
+                        className={cardNumberStyles.label}
+                      >
+                        Card number
+                      </label>
+                      <input
+                        id="cardNumber"
+                        onChange={handleCardNumberInput}
+                        onKeyPress={(e) => {
+                          if (!/[0-9]/.test(e.key)) {
+                            e.preventDefault();
+                          }
+                        }}
+                        value={formatCardNumber(userInput.cardNumber)}
+                        type="text"
+                        inputMode="numeric"
+                        placeholder="Card number"
+                        className={cardNumberStyles.input}
+                        required
+                      />
+                    </div>
+                    <div className={styles.float_container}>
+                      <label htmlFor="name" className={nameStyles.label}>
+                        Name on card
+                      </label>
+                      <input
+                        id="name"
+                        onChange={handleNameInput}
+                        value={userInput.name}
+                        type="text"
+                        placeholder="Name on card"
+                        className={nameStyles.input}
+                        autoComplete="off"
+                        required
+                      />
+                    </div>
+                    <div className={styles.card_security}>
+                      <div className={styles.float_container}>
+                        <label
+                          htmlFor="expiryDate"
+                          className={expiryDateStyles.label}
+                          autoComplete="off"
+                        >
+                          Expiration Date (MM/YY)
+                        </label>
+                        <input
+                          id="expiryDate"
+                          onChange={handleExpiryDateInput}
+                          onKeyPress={(e) => {
+                            if (!/[0-9]/.test(e.key)) {
+                              e.preventDefault();
+                            }
+                          }}
+                          value={formatExpiryDate(userInput.expiryDate)}
+                          type="text"
+                          placeholder="Expiration Date (MM/YY)"
+                          className={expiryDateStyles.input}
+                          autoComplete="off"
+                          required
+                        />
+                      </div>
+                      <div className={styles.float_container}>
+                        <label
+                          htmlFor="securityCode"
+                          className={securityCodeStyles.label}
+                        >
+                          Security code
+                        </label>
+                        <input
+                          id="securityCode"
+                          onChange={handleSecurityCodeInput}
+                          onKeyPress={(e) => {
+                            if (!/[0-9]/.test(e.key)) {
+                              e.preventDefault();
+                            }
+                          }}
+                          value={formatCvv(userInput.securityCode)}
+                          type="password"
+                          placeholder="Security code"
+                          className={securityCodeStyles.input}
+                          autoComplete="off"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+              {/* TODO: BILLING ADDRESS */}
+            </form>
+            <div className={styles.form_controls}>
+              <p onClick={selectPreviousStep} className={styles.back}>
+                <span>
+                  <BiChevronLeft />
+                </span>
+                Back to shipping
+              </p>
+              <Button form="form" type="submit" className={styles.button}>
+                Pay now
+              </Button>
             </div>
-            {/* TODO: BILLING ADDRESS */}
-          </form>
-          <div className={styles.form_controls}>
-            <p onClick={selectPreviousStep} className={styles.back}>
-              <span>
-                <BiChevronLeft />
-              </span>
-              Back to shipping
-            </p>
-            <button form="form" type="submit" className={styles.button}>
-              Pay now
-            </button>
-          </div>
-        </>
+          </>
+        </div>
       )}
     </div>
   );

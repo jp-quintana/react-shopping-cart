@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 
-import { Link } from 'react-router-dom';
-
 import { BiChevronLeft } from 'react-icons/bi';
 
 import { useAuthContext } from 'hooks/useAuthContext';
 import { useCheckoutContext } from 'hooks/useCheckoutContext';
 import { useCheckout } from 'hooks/useCheckout';
 
+import Button from 'components/common/Button';
 import Loader from 'components/common/Loader';
 import Dropdown from 'components/common/Dropdown';
 
@@ -266,195 +265,198 @@ const ShippingInfo = () => {
 
   return (
     <div className={styles.info_container}>
-      {isLoading && (
-        <Loader wrapperClassName={styles.loader_wrapper} noPortal={true} />
-      )}
+      {isLoading && <Loader noPortal={true} />}
       {!isLoading && (
-        <form className={styles.info_form} onSubmit={handleSubmit}>
-          <div className={styles.contact_info_wrapper}>
-            <p className={styles.title}>Contact Information</p>
-            <div className={styles.float_container}>
-              <label htmlFor="email" className={emailStyles.label}>
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                autoComplete="off"
-                onChange={handleEmailInput}
-                value={userInput.email}
-                className={emailStyles.input}
-                required
-                placeholder="Email"
+        <div className={styles.info_wrapper}>
+          <form className={styles.info_form} onSubmit={handleSubmit}>
+            <div className={styles.contact_info_wrapper}>
+              <p className={styles.title}>Contact Information</p>
+              <div className={styles.float_container}>
+                <label htmlFor="email" className={emailStyles.label}>
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  autoComplete="off"
+                  onChange={handleEmailInput}
+                  value={userInput.email}
+                  className={emailStyles.input}
+                  required
+                  placeholder="Email"
+                />
+              </div>
+            </div>
+            <div className={styles.shipping_address_wrapper}>
+              <p className={styles.title}>Shipping address</p>
+              <Dropdown
+                styles={reactSelectStyles}
+                options={options}
+                isSearchable={false}
+                onChange={handleSelectAddress}
+                defaultValue={defaultOption}
               />
-            </div>
-          </div>
-          <div className={styles.shipping_address_wrapper}>
-            <p className={styles.title}>Shipping address</p>
-            <Dropdown
-              styles={reactSelectStyles}
-              options={options}
-              isSearchable={false}
-              onChange={handleSelectAddress}
-              defaultValue={defaultOption}
-            />
-            <div className={styles.name_wrapper}>
-              <div
-                className={`${styles.float_container} ${
-                  isDisabled ? styles.disabled : ''
-                }`}
-              >
-                <label htmlFor="name" className={nameStyles.label}>
-                  Name
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  autoComplete="off"
-                  onChange={handleNameInput}
-                  value={userInput.name}
-                  className={nameStyles.input}
-                  required
-                  placeholder="Name"
-                  disabled={isDisabled}
-                />
+              <div className={styles.name_wrapper}>
+                <div
+                  className={`${styles.float_container} ${
+                    isDisabled ? styles.disabled : ''
+                  }`}
+                >
+                  <label htmlFor="name" className={nameStyles.label}>
+                    Name
+                  </label>
+                  <input
+                    id="name"
+                    type="text"
+                    autoComplete="off"
+                    onChange={handleNameInput}
+                    value={userInput.name}
+                    className={nameStyles.input}
+                    required
+                    placeholder="Name"
+                    disabled={isDisabled}
+                  />
+                </div>
+                <div
+                  className={`${styles.float_container} ${
+                    isDisabled ? styles.disabled : ''
+                  }`}
+                >
+                  <label htmlFor="lastName" className={lastNameStyles.label}>
+                    Last Name
+                  </label>
+                  <input
+                    id="lastName"
+                    type="text"
+                    autoComplete="off"
+                    onChange={handleLastNameInput}
+                    value={userInput.lastName}
+                    className={lastNameStyles.input}
+                    required
+                    placeholder="Last Name"
+                    disabled={isDisabled}
+                  />
+                </div>
               </div>
               <div
                 className={`${styles.float_container} ${
                   isDisabled ? styles.disabled : ''
                 }`}
               >
-                <label htmlFor="lastName" className={lastNameStyles.label}>
-                  Last Name
+                <label htmlFor="address" className={addressStyles.label}>
+                  Address
                 </label>
                 <input
-                  id="lastName"
+                  id="address"
                   type="text"
                   autoComplete="off"
-                  onChange={handleLastNameInput}
-                  value={userInput.lastName}
-                  className={lastNameStyles.input}
+                  onChange={handleAddressInput}
+                  value={userInput.address}
+                  className={addressStyles.input}
                   required
-                  placeholder="Last Name"
+                  placeholder="Address"
                   disabled={isDisabled}
                 />
               </div>
-            </div>
-            <div
-              className={`${styles.float_container} ${
-                isDisabled ? styles.disabled : ''
-              }`}
-            >
-              <label htmlFor="address" className={addressStyles.label}>
-                Address
-              </label>
-              <input
-                id="address"
-                type="text"
-                autoComplete="off"
-                onChange={handleAddressInput}
-                value={userInput.address}
-                className={addressStyles.input}
-                required
-                placeholder="Address"
-                disabled={isDisabled}
-              />
-            </div>
-            <div className={styles.zip_wrapper}>
+              <div className={styles.zip_wrapper}>
+                <div
+                  className={`${styles.float_container} ${
+                    isDisabled ? styles.disabled : ''
+                  }`}
+                >
+                  <label htmlFor="city" className={cityStyles.label}>
+                    City
+                  </label>
+                  <input
+                    id="city"
+                    type="text"
+                    autoComplete="off"
+                    onChange={handleCityInput}
+                    value={userInput.city}
+                    className={cityStyles.input}
+                    required
+                    placeholder="City"
+                    disabled={isDisabled}
+                  />
+                </div>
+                <div
+                  className={`${styles.float_container} ${
+                    isDisabled ? styles.disabled : ''
+                  }`}
+                >
+                  <label htmlFor="zipCode" className={zipCodeStyles.label}>
+                    Zip Code
+                  </label>
+                  <input
+                    id="zipCode"
+                    type="text"
+                    autoComplete="off"
+                    onChange={handleZipCodeInput}
+                    value={userInput.zipCode}
+                    className={zipCodeStyles.input}
+                    required
+                    placeholder="Zip Code"
+                    disabled={isDisabled}
+                  />
+                </div>
+                <div
+                  className={`${styles.float_container} ${
+                    isDisabled ? styles.disabled : ''
+                  }`}
+                >
+                  <label htmlFor="province" className={provinceStyles.label}>
+                    State
+                  </label>
+                  <input
+                    id="province"
+                    type="text"
+                    autoComplete="off"
+                    onChange={handleProvinceInput}
+                    value={userInput.province}
+                    className={provinceStyles.input}
+                    required
+                    placeholder="State"
+                    disabled={isDisabled}
+                  />
+                </div>
+              </div>
               <div
                 className={`${styles.float_container} ${
                   isDisabled ? styles.disabled : ''
                 }`}
               >
-                <label htmlFor="city" className={cityStyles.label}>
-                  City
+                <label
+                  htmlFor="phoneNumber"
+                  className={phoneNumberStyles.label}
+                >
+                  Phone
                 </label>
                 <input
-                  id="city"
-                  type="text"
+                  id="phoneNumber"
+                  type="tel"
                   autoComplete="off"
-                  onChange={handleCityInput}
-                  value={userInput.city}
-                  className={cityStyles.input}
+                  onChange={handlePhoneNumberInput}
+                  value={userInput.phoneNumber}
+                  className={phoneNumberStyles.input}
                   required
-                  placeholder="City"
-                  disabled={isDisabled}
-                />
-              </div>
-              <div
-                className={`${styles.float_container} ${
-                  isDisabled ? styles.disabled : ''
-                }`}
-              >
-                <label htmlFor="zipCode" className={zipCodeStyles.label}>
-                  Zip Code
-                </label>
-                <input
-                  id="zipCode"
-                  type="text"
-                  autoComplete="off"
-                  onChange={handleZipCodeInput}
-                  value={userInput.zipCode}
-                  className={zipCodeStyles.input}
-                  required
-                  placeholder="Zip Code"
-                  disabled={isDisabled}
-                />
-              </div>
-              <div
-                className={`${styles.float_container} ${
-                  isDisabled ? styles.disabled : ''
-                }`}
-              >
-                <label htmlFor="province" className={provinceStyles.label}>
-                  State
-                </label>
-                <input
-                  id="province"
-                  type="text"
-                  autoComplete="off"
-                  onChange={handleProvinceInput}
-                  value={userInput.province}
-                  className={provinceStyles.input}
-                  required
-                  placeholder="State"
+                  placeholder="Phone"
                   disabled={isDisabled}
                 />
               </div>
             </div>
-            <div
-              className={`${styles.float_container} ${
-                isDisabled ? styles.disabled : ''
-              }`}
-            >
-              <label htmlFor="phoneNumber" className={phoneNumberStyles.label}>
-                Phone
-              </label>
-              <input
-                id="phoneNumber"
-                type="tel"
-                autoComplete="off"
-                onChange={handlePhoneNumberInput}
-                value={userInput.phoneNumber}
-                className={phoneNumberStyles.input}
-                required
-                placeholder="Phone"
-                disabled={isDisabled}
-              />
+            <div className={styles.form_controls}>
+              <Button className={styles.back_link} to="/cart">
+                <span>
+                  <BiChevronLeft />
+                </span>
+                Back to cart
+              </Button>
+              <Button className={styles.button} type="submit">
+                Continue to shipping
+              </Button>
             </div>
-          </div>
-          <div className={styles.form_controls}>
-            <Link className={styles.back_link} to="/cart">
-              <span>
-                <BiChevronLeft />
-              </span>
-              Back to cart
-            </Link>
-            <button className={styles.button} type="submit">
-              Continue to shipping
-            </button>
-          </div>
-        </form>
+          </form>
+        </div>
       )}
     </div>
   );

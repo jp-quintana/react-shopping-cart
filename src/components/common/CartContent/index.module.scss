@@ -127,6 +127,7 @@
           border: 2px solid $border-c-button-checkout;
           background-color: $back-c-button-secondary;
           color: $c-primary;
+          line-height: 1.5;
 
           &:hover {
             background-color: $back-c-var-hover;
@@ -137,6 +138,7 @@
           border: 2px solid $border-c-button-checkout;
           background-color: $back-c-button-checkout;
           color: $c-primary;
+          line-height: 1.5;
 
           &:hover {
             background-color: $back-c-button-checkout-hover;

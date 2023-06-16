@@ -20,11 +20,13 @@ const Loader = ({
   if (noPortal) {
     return (
       <>
-        <div className={`${styles.loader_wrapper} ${wrapperClassName}`}>
-          <img
-            className={`${styles.loader} ${loaderClassName}`}
+        <div className={`${styles.loader_np_container} ${containerClassName}`}>
+          <ImageContainer
             src={LoaderImage}
             alt=""
+            containerClassName={styles.image_container}
+            fillClassName={styles.image_fill}
+            imageClassName={`${styles.image} ${loaderClassName}`}
           />
         </div>
       </>
@@ -39,11 +41,6 @@ const Loader = ({
             backdropClassName={`${styles.backdrop} ${backdropClassName}`}
           />
           <div className={`${styles.loader_container} ${containerClassName}`}>
-            {/* <img
-            className={`${styles.loader} ${loaderClassName}`}
-            src={LoaderImage}
-            alt=""
-          /> */}
             <ImageContainer
               src={LoaderImage}
               alt=""

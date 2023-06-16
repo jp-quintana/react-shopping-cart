@@ -12,11 +12,12 @@
   background-color: rgba(0, 0, 0, 0.8);
   position: relative;
   min-height: 100vh;
+  height: 100%;
   width: 100%;
 
   .logo {
     width: 15rem;
-    
+
     @media (min-width: 1200px) {
       width: 20rem;
     }

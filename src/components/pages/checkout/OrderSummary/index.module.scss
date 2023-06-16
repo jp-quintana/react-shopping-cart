@@ -17,14 +17,16 @@
     align-items: center;
     gap: 2rem;
 
-    .image_wrapper {
+    .image {
       position: relative;
+      width: 7.5rem;
 
-      .image {
-        max-height: 12rem;
+      .image_container {
         border-radius: 1rem;
-        overflow-x: hidden;
-        align-self: center;
+
+        .image_fill {
+          padding-top: 141.437333333%;
+        }
       }
 
       .amount {

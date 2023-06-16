@@ -12,6 +12,14 @@
   justify-content: center;
 }
 
+.loader_np_container {
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
 .image_container {
   z-index: 999;
   border-radius: 999rem;
