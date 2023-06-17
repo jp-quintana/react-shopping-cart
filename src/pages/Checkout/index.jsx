@@ -75,36 +75,40 @@ const Checkout = () => {
           <ToastMessage toggleToast={toggleToast} content={toastMessage} />
         )}
       </Toast>
-      <div className={styles.background}>
-        <section className={styles.layout}>
-          <>
-            {!checkoutIsReady && <Loader noPortal={true} />}
-            {checkoutIsReady && (
-              <>
-                <div className={`${styles.header} main-container`}>
-                  <Link to="/">
-                    <img className={styles.logo} src={logo} alt="" />
-                  </Link>
-                </div>
-                <div className={`${styles.content_wrapper} main-container`}>
-                  <div className={styles.info_container}>
-                    <div className={styles.info_header}>
-                      <Link to="/">
-                        <img className={styles.logo} src={logo} alt="" />
-                      </Link>
-                    </div>
-                    <CheckoutProgression steps={progressionSteps} />
-                    {formContent}
+      <div className={styles.background} />
+      <section className={styles.layout}>
+        <>
+          {!checkoutIsReady && (
+            <Loader
+              containerClassName={styles.loader_container}
+              noPortal={true}
+            />
+          )}
+          {checkoutIsReady && (
+            <>
+              <div className={`${styles.header} main-container`}>
+                <Link to="/">
+                  <img className={styles.logo} src={logo} alt="" />
+                </Link>
+              </div>
+              <div className={`${styles.content_wrapper} main-container`}>
+                <div className={styles.info_container}>
+                  <div className={styles.info_header}>
+                    <Link to="/">
+                      <img className={styles.logo} src={logo} alt="" />
+                    </Link>
                   </div>
-                  <div className={styles.order_summary_container}>
-                    <OrderSummary />
-                  </div>
+                  <CheckoutProgression steps={progressionSteps} />
+                  {formContent}
                 </div>
-              </>
-            )}
-          </>
-        </section>
-      </div>
+                <div className={styles.order_summary_container}>
+                  <OrderSummary />
+                </div>
+              </div>
+            </>
+          )}
+        </>
+      </section>
     </>
   );
 };

@@ -111,7 +111,9 @@ const Payment = ({ handlePreviousStep }) => {
 
   return (
     <div className={styles.container}>
-      {isLoading && <Loader noPortal={true} />}
+      {isLoading && (
+        <Loader containerClassName={styles.loader_container} noPortal={true} />
+      )}
       {!isLoading && (
         <div className={styles.wrapper}>
           <>

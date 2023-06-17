@@ -45,6 +45,7 @@
   font-weight: $font-w-700;
   line-height: normal;
   background-color: rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
 
 .item_completed {
@@ -57,6 +58,7 @@
   border-radius: 1rem;
   box-shadow: 0 0 2rem #48e471;
   background-color: #48e471;
+  text-align: center;
 }
 
 .item_selected {

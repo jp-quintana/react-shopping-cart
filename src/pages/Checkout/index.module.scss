@@ -5,6 +5,7 @@
   background-image: url('../../assets/images/checkout-background.jpg');
   background-size: cover;
   background-position: center top;
+  overflow: hidden;
 }
 
 .layout {
@@ -12,8 +13,12 @@
   background-color: rgba(0, 0, 0, 0.8);
   position: relative;
   min-height: 100vh;
-  height: 100%;
   width: 100%;
+  overflow: hidden;
+
+  .loader_container {
+    height: 100vh;
+  }
 
   .logo {
     width: 15rem;
@@ -33,19 +38,20 @@
   }
 
   .content_wrapper {
+    height: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: column-reverse;
 
     @media (min-width: 1200px) {
       display: grid;
-      // TODO: chequear esto
       grid-template-columns: 5.3fr 4fr;
       min-height: 100vh;
     }
 
     .info_container {
       padding-bottom: 4rem;
+      height: 100%;
 
       @media (min-width: 1200px) {
         padding: 10rem 6rem 10rem 0rem;
@@ -63,6 +69,7 @@
     }
 
     .order_summary_container {
+      height: 100%;
       padding-top: 3rem;
       border-bottom: 1px solid #414246;
       padding-bottom: 3rem;
