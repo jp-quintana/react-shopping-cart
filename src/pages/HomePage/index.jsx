@@ -2,7 +2,7 @@ import HeroSection from 'components/pages/home/HeroSection';
 import SlideshowSection from 'components/pages/home/SlideshowSection';
 import CollectionsSection from 'components/pages/home/CollectionsSection';
 
-export const Home = () => {
+export const HomePage = () => {
   return (
     <>
       <HeroSection />
@@ -12,4 +12,4 @@ export const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

@@ -15,7 +15,7 @@ import ToastMessage from 'components/common/ToastMessage';
 
 import styles from './index.module.scss';
 
-const Account = () => {
+const AccountPage = () => {
   const { name, lastName, email, phoneNumber } = useAuthContext();
 
   const { getOrders, error } = useOrder();
@@ -92,4 +92,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default AccountPage;

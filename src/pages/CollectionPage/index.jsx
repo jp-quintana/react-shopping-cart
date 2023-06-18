@@ -9,7 +9,7 @@ import ProductCard from 'components/pages/collections/ProductCard';
 
 import styles from './index.module.scss';
 
-const Collections = () => {
+const CollectionPage = () => {
   const navigate = useNavigate();
   const { id: slugId } = useParams();
 
@@ -80,4 +80,4 @@ const Collections = () => {
   );
 };
 
-export default Collections;
+export default CollectionPage;

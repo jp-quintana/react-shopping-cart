@@ -16,7 +16,7 @@ import CenterModal from 'components/common/CenterModal';
 
 import styles from './index.module.scss';
 
-const Addresses = () => {
+const AddressesPage = () => {
   const { addresses } = useAuthContext();
   const { deleteAddress, isLoading, error } = useAddress();
 
@@ -119,4 +119,4 @@ const Addresses = () => {
   );
 };
 
-export default Addresses;
+export default AddressesPage;

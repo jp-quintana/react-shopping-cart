@@ -26,7 +26,7 @@ const progressionSteps = [
   { id: 'payment', label: 'Payment' },
 ];
 
-const Checkout = () => {
+const CheckoutPage = () => {
   const { checkoutIsReady, currentStep } = useCheckoutContext();
   const { items } = useCartContext();
   const {
@@ -113,4 +113,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default CheckoutPage;

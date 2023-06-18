@@ -19,7 +19,7 @@ import { formatNumber } from 'helpers/format';
 
 import styles from './index.module.scss';
 
-const Products = () => {
+const ProductPage = () => {
   const {
     productIsReady,
     selectedProduct,
@@ -345,4 +345,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default ProductPage;

@@ -15,7 +15,7 @@ import { addAllItemsPrice } from 'helpers/item';
 
 import styles from './index.module.scss';
 
-const Cart = () => {
+const CartPage = () => {
   const { items } = useCartContext();
   const { addItem, removeItem, deleteItem, isLoading, error } = useCart();
   const {
@@ -129,4 +129,4 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default CartPage;

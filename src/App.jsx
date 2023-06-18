@@ -9,19 +9,19 @@ import CheckoutProvider from 'context/checkout/CheckoutProvider';
 import Layout from 'components/setup/Layout';
 import ProtectedRoutes from 'components/setup/ProtectedRoutes';
 
-import Home from './pages/Home';
+import HomePage from './pages/HomePage';
 import Admin from './pages/Admin';
 import AdminCollections from './pages/AdminCollections';
 import AdminAddProduct from './pages/AdminAddProduct';
 import AdminEditProduct from './pages/AdminEditProduct';
-import Account from './pages/Account';
-import Addresses from './pages/Addresses';
-import Login from 'pages/Login';
-import SignUp from 'pages/SignUp';
-import Collections from './pages/Collections';
-import Products from './pages/Products';
-import Cart from './pages/Cart';
-import Checkout from './pages/Checkout';
+import AccountPage from './pages/AccountPage';
+import AddressesPage from './pages/AddressesPage';
+import LoginPage from 'pages/LoginPage';
+import SignUpPage from 'pages/SignUpPage';
+import CollectionPage from './pages/CollectionPage';
+import ProductPage from './pages/ProductPage';
+import CartPage from './pages/CartPage';
+import CheckoutPage from './pages/CheckoutPage';
 
 import Loader from './components/common/Loader';
 
@@ -42,37 +42,37 @@ const App = () => {
       {authIsReady && cartIsReady && (
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="collections/:id" element={<Collections />} />
+            <Route index element={<HomePage />} />
+            <Route path="collections/:id" element={<CollectionPage />} />
             <Route
               path="products/:id"
               element={
                 <ProductProvider>
-                  <Products />
+                  <ProductPage />
                 </ProductProvider>
               }
             />
-            <Route path="cart" element={<Cart />} />
+            <Route path="cart" element={<CartPage />} />
 
             <Route element={<ProtectedRoutes needAuth={true} />}>
               <Route
                 path="checkout"
                 element={
                   <CheckoutProvider>
-                    <Checkout />
+                    <CheckoutPage />
                   </CheckoutProvider>
                 }
               />
-              <Route path="account" element={<Account />} />
-              <Route path="account/addresses" element={<Addresses />} />
+              <Route path="account" element={<AccountPage />} />
+              <Route path="account/addresses" element={<AddressesPage />} />
             </Route>
 
             <Route element={<ProtectedRoutes needAuth={false} />}>
-              <Route path="account/login" element={<Login />} />
-              <Route path="account/signup" element={<SignUp />} />
+              <Route path="account/login" element={<LoginPage />} />
+              <Route path="account/signup" element={<SignUpPage />} />
             </Route>
 
-            <Route element={<ProtectedRoutes needAdmin={true} />}>
+            {/* <Route element={<ProtectedRoutes needAdmin={true} />}>
               <Route path="admin" element={<Admin />} />
               <Route path="admin/products" element={<AdminCollections />} />
               <Route path="admin/products/add" element={<AdminAddProduct />} />
@@ -80,7 +80,7 @@ const App = () => {
                 path="admin/products/:productId"
                 element={<AdminEditProduct />}
               />
-            </Route>
+            </Route> */}
 
             <Route path="*" element={<Navigate to="/" />} />
           </Route>

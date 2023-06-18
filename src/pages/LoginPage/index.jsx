@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import { useSignUp } from 'hooks/useSignUp';
+import { useLogin } from 'hooks/useLogin';
 
 import Loader from 'components/common/Loader';
 import Toast from 'components/common/Toast';
@@ -9,24 +9,20 @@ import ToastMessage from 'components/common/ToastMessage';
 
 import styles from './index.module.scss';
 
-const SignUp = () => {
+const LoginPage = () => {
   const { state: routerState } = useLocation();
 
-  const { signUp, isLoading, error, defaultValue } = useSignUp();
+  const { login, isLoading, error } = useLogin();
 
   const [toastMessage, setToastMessage] = useState(null);
 
-  const nameInput = useRef();
-  const lastNameInput = useRef();
   const emailInput = useRef();
   const passwordInput = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await signUp({
-      name: nameInput.current.value,
-      lastName: lastNameInput.current.value,
+    await login({
       email: emailInput.current.value,
       password: passwordInput.current.value,
     });
@@ -57,29 +53,7 @@ const SignUp = () => {
             <div className={styles.container}>
               <div className={`${styles.wrapper} main-container`}>
                 <form onSubmit={handleSubmit} className={styles.form}>
-                  <h2 className={styles.title}>Create Account</h2>
-                  <label className={styles.label}>
-                    <span>Name:</span>
-                    <input
-                      defaultValue={defaultValue ? defaultValue.name : ''}
-                      className={styles.input}
-                      type="text"
-                      placeholder="Name"
-                      required
-                      ref={nameInput}
-                    />
-                  </label>
-                  <label className={styles.label}>
-                    <span>Last Name:</span>
-                    <input
-                      defaultValue={defaultValue ? defaultValue.lastName : ''}
-                      className={styles.input}
-                      type="text"
-                      placeholder="Last Name"
-                      required
-                      ref={lastNameInput}
-                    />
-                  </label>
+                  <h2 className={styles.title}>Log into your account</h2>
                   <label className={styles.label}>
                     <span>Email:</span>
                     <input
@@ -100,13 +74,13 @@ const SignUp = () => {
                     />
                   </label>
                   <button className={styles.button} type="submit">
-                    Create Account
+                    Login
                   </button>
                 </form>
-                <p className={styles.login}>
-                  Already have an account?{' '}
-                  <Link to="/account/login" state={routerState}>
-                    Login
+                <p className={styles.no_account}>
+                  New to Flaakko?{' '}
+                  <Link to="/account/signup" state={routerState}>
+                    Create account
                   </Link>
                 </p>
               </div>
@@ -118,4 +92,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default LoginPage;
