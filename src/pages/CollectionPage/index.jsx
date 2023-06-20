@@ -20,7 +20,7 @@ const CollectionPage = () => {
 
   useEffect(() => {
     const fetchVariants = async () => {
-      const fetchedVariants = await getCollection();
+      const fetchedVariants = await getCollection({});
       setVariants(fetchedVariants);
     };
 
