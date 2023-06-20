@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { v4 as uuid } from 'uuid';
 
 import {
   collection,
@@ -96,11 +97,12 @@ export const useCollection = () => {
 
   const productsTestRef = collection(db, 'productsTest');
 
-  const getCollection = async ({ collectionName = 't-shirts' }) => {
+  const getCollection = async ({ collectionName = 'hoodies' }) => {
     setError(null);
     setIsLoading(true);
 
     try {
+      // TODO: define order
       const productsQuery = query(
         productsTestRef,
         where('collection', '==', collectionName)
@@ -108,31 +110,53 @@ export const useCollection = () => {
 
       const productsSnapshot = await getDocs(productsQuery);
 
-      const productPromises = productsSnapshot.docs.map(async (productDoc) => {
-        const productData = productDoc.data();
+      const productsPromises = productsSnapshot.docs.map(async (productDoc) => {
+        const productData = {
+          productId: productDoc.id,
+          ...productDoc.data(),
+        };
 
-        const variantsRef = collection(productDoc.ref, 'variantsTest');
+        // const variantsRef = collection(productDoc.ref, 'variantsTest');
 
-        const variantsQuery = query(
-          variantsRef,
-          where('productId', '==', productDoc.id),
-          orderBy('order')
-        );
-        const variantsSnapshot = await getDocs(variantsQuery);
+        // const variantsQuery = query(
+        //   variantsRef,
+        //   // where('productId', '==', productDoc.id),
+        //   orderBy('order')
+        // );
 
-        const variantsData = variantsSnapshot.docs.map((variantDoc) =>
-          variantDoc.data()
+        // const variantsSnapshot = await getDocs(variantsQuery);
+
+        // const variantsData = variantsSnapshot.docs.map((variantDoc) => ({
+        //   variantId: variantDoc.id,
+        //   ...variantDoc.data(),
+        // }));
+
+        const imagesRef = collection(productDoc.ref, 'productImagesTest');
+
+        const imagesSnapshot = await getDocs(imagesRef);
+
+        const variants = [];
+
+        imagesSnapshot.forEach((imageDoc) =>
+          variants.push({
+            id: uuid(),
+            ...productData,
+            ...imageDoc.data(),
+            color: imageDoc.id.split('_')[1],
+            // inventory: variantsData.map(
+            //   (variant) => variant.color === imageDoc.id.split('_')[1]
+            // ),
+          })
         );
 
         return {
-          product: productData,
-          variants: variantsData,
+          variants,
         };
       });
 
-      const products = await Promise.all(productPromises);
+      const products = await Promise.all(productsPromises);
 
-      console.log(products);
+      return products;
     } catch (err) {
       console.log(err);
       setError(err);
