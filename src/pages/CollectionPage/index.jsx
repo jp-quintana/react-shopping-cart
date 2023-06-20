@@ -9,70 +9,60 @@ import ProductCard from 'components/pages/collections/ProductCard';
 
 import styles from './index.module.scss';
 
+const validSlugs = [
+  'products',
+  't-shirts',
+  'hoodies-sweatshirts',
+  'accessories',
+];
+
 const CollectionPage = () => {
   const navigate = useNavigate();
   const { id: slugId } = useParams();
 
   const { getCollection } = useCollection();
 
-  const [variants, setVariants] = useState(null);
-  const [collection, setCollection] = useState(null);
+  const [products, setProducts] = useState(null);
+
+  console.log(slugId);
 
   useEffect(() => {
-    const fetchVariants = async () => {
-      const fetchedVariants = await getCollection({});
-      setVariants(fetchedVariants);
+    setProducts(null);
+    if (!validSlugs.includes(slugId)) {
+      navigate('/');
+    }
+
+    const fetchProducts = async () => {
+      const fetchedProducts = await getCollection({ collectionName: slugId });
+      setProducts(fetchedProducts);
     };
 
-    fetchVariants();
-  }, []);
+    fetchProducts();
+  }, [slugId]);
 
-  useEffect(() => {
-    if (variants) {
-      let selectedVariants;
-      if (slugId === 'products') {
-        selectedVariants = variants;
-      } else if (
-        slugId === 't-shirts' ||
-        slugId === 'hoodies-sweatshirts' ||
-        slugId === 'accessories'
-      ) {
-        selectedVariants = variants.filter(
-          (variant) => variant.collection === slugId
-        );
-      } else {
-        selectedVariants = null;
-      }
-
-      if (selectedVariants) {
-        setCollection(selectedVariants);
-      } else {
-        navigate('/');
-      }
-    }
-  }, [variants, slugId]);
+  console.log(products);
 
   return (
     <>
-      {!collection && <Loader />}
-      {collection && (
+      {!products && <Loader />}
+      {products && (
         <section>
           <div className={`${styles.container} main-container`}>
-            {collection.map((productVariant) => (
-              <ProductCard
-                key={productVariant.variantId}
-                model={productVariant.model}
-                color={productVariant.color}
-                colorDisplay={productVariant.colorDisplay}
-                currentPrice={productVariant.currentPrice}
-                actualPrice={productVariant.actualPrice}
-                type={productVariant.type}
-                slug={productVariant.slug}
-                imageTop={productVariant.images[0]}
-                imageBottom={productVariant.images[1]}
-                numberOfVariants={productVariant.numberOfVariants}
-              />
-            ))}
+            {products.map((product) =>
+              product.variants.map((variant) => (
+                <ProductCard
+                  key={variant.id}
+                  model={variant.model}
+                  color={variant.color}
+                  currentPrice={variant.currentPrice}
+                  actualPrice={variant.acutalPrice}
+                  type={variant.type}
+                  slug={variant.slug + '-' + variant.color}
+                  image={variant.images[0]}
+                  numberOfVariants={variant.numberOfVariants}
+                />
+              ))
+            )}
           </div>
         </section>
       )}

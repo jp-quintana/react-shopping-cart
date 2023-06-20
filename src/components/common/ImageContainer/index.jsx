@@ -25,7 +25,6 @@ const ImageContainer = ({
       placeholdersCleared.current = true;
       clearPlaceholders();
     }
-
     setImageShowPlaceholder(false);
     setTimeout(() => {
       return setImageIsLoading(false);

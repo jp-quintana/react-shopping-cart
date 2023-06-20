@@ -143,6 +143,7 @@ export const useCollection = () => {
             ...productData,
             ...imageDoc.data(),
             color: imageDoc.id.split('_')[1],
+            numberOfVariants: imagesSnapshot.size,
             // inventory: variantsData.map(
             //   (variant) => variant.color === imageDoc.id.split('_')[1]
             // ),
@@ -156,6 +157,7 @@ export const useCollection = () => {
 
       const products = await Promise.all(productsPromises);
 
+      setIsLoading(false);
       return products;
     } catch (err) {
       console.log(err);

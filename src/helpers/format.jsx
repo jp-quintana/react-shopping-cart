@@ -1,5 +1,16 @@
 export const formatNumber = (number) => {
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  // return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return number + '.00';
+};
+
+export const formatDiscount = ({ currentPrice, actualPrice }) => {
+  const discountPercentage = Math.round(
+    (currentPrice / actualPrice - 1) * -100
+  );
+  const roundedDiscountPercentage = Math.round(discountPercentage / 5) * 5;
+  return '-' + roundedDiscountPercentage + '%';
+
+  // return '-' + Math.round((currentPrice / actualPrice - 1) * -100) + '%';
 };
 
 export const formatCardNumber = (value) => {

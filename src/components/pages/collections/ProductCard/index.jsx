@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import Button from 'components/common/Button';
 import ImageContainer from 'components/common/ImageContainer';
 
-import { formatNumber } from 'helpers/format';
+import { formatNumber, formatDiscount } from 'helpers/format';
 
 import styles from './index.module.scss';
 
@@ -18,8 +18,7 @@ const ProductCard = ({
   actualPrice,
   type,
   slug,
-  imageTop,
-  imageBottom,
+  image,
   numberOfVariants,
   handleDeleteStart,
 }) => {
@@ -31,8 +30,13 @@ const ProductCard = ({
   return (
     <>
       <div className={styles.container}>
+        {!showDetailsPlaceholder && currentPrice < actualPrice && (
+          <span className={styles.discount}>
+            {formatDiscount({ currentPrice, actualPrice })}
+          </span>
+        )}
         <ImageContainer
-          src={imageTop.src}
+          src={image.src}
           to={`/products/${slug}`}
           alt=""
           clearPlaceholders={() => setDetailsShowPlaceholder(false)}
@@ -53,12 +57,25 @@ const ProductCard = ({
                 {type} {model}
               </li>
               <li className={styles.color}>
-                {color}
+                <span className={styles.text}>{color}</span>
                 {numberOfVariants > 1 && (
-                  <span>{`${numberOfVariants} colores`}</span>
+                  <span
+                    className={styles.tag}
+                  >{`${numberOfVariants} colors`}</span>
                 )}
               </li>
-              <li className={styles.price}>${formatNumber(currentPrice)}</li>
+              {currentPrice < actualPrice ? (
+                <li className={styles.price}>
+                  <span className={styles.discounted_price}>
+                    ${formatNumber(currentPrice)}
+                  </span>
+                  <span className={styles.crossed_price}>
+                    ${formatNumber(actualPrice)}
+                  </span>
+                </li>
+              ) : (
+                <li className={styles.price}>${formatNumber(currentPrice)}</li>
+              )}
             </>
           )}
         </ul>
