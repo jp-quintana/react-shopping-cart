@@ -5,8 +5,8 @@ import { Pagination } from 'swiper';
 import { useProductContext } from 'hooks/useProductContext';
 import { useCart } from 'hooks/useCart';
 
-import ProductVariant from 'components/pages/products/ProductVariant';
-import ProductSize from 'components/pages/products/ProductSize';
+import ProductColors from 'components/pages/product/ProductColors';
+import ProductSize from 'components/pages/product/ProductSize';
 
 import Button from 'components/common/Button';
 import Loader from 'components/common/Loader';
@@ -25,8 +25,7 @@ const ProductPage = () => {
     selectedProduct,
     selectedVariant,
     selectedSize,
-    selectedSku,
-    // selectedStock,
+    selectedVariantId,
   } = useProductContext();
 
   const { addItem, isLoading, error } = useCart();
@@ -37,14 +36,14 @@ const ProductPage = () => {
   const handleAddToCart = async () => {
     await addItem({
       productId: selectedProduct.id,
-      variantId: selectedVariant.id,
-      id: selectedSku,
+      variantId: selectedVariantId,
+      id: selectedVariantId,
       size: selectedSize,
       model: selectedProduct.model,
       type: selectedProduct.type,
-      description: selectedProduct.description,
+      // description: selectedProduct.description,
       color: selectedVariant.color,
-      price: selectedVariant.currentPrice,
+      price: selectedProduct.currentPrice,
       slug: selectedVariant.slug,
       thumbnail: selectedVariant.images[0].src,
     });
@@ -93,8 +92,6 @@ const ProductPage = () => {
   const isBigScreen = useMediaQuery({
     query: '(min-width: 1024px)',
   });
-
-  // TODO: HACER QUE EL TEXT EN LOS COSTADOS SE DESPLACE APENAS HAY EVENTO DE SCROLL
 
   return (
     <>
@@ -150,7 +147,7 @@ const ProductPage = () => {
                             {selectedProduct.model}
                           </h1>
                           <p className={styles.price}>
-                            ${formatNumber(selectedVariant.currentPrice)}
+                            ${formatNumber(selectedProduct.currentPrice)}
                           </p>
                         </div>
                         <p className={styles.description}>
@@ -187,11 +184,11 @@ const ProductPage = () => {
                         </p>
                         <div className={styles.variants_wrapper}>
                           {selectedProduct.variants.map((variant) => (
-                            <ProductVariant
-                              key={variant.id}
-                              id={variant.id}
+                            <ProductColors
+                              key={variant.color}
+                              id={variant.color}
                               thumbnail={variant.images[0].src}
-                              selectedVariantId={selectedVariant.id}
+                              selectedColor={selectedVariant.color}
                             />
                           ))}
                         </div>
@@ -201,12 +198,12 @@ const ProductPage = () => {
                         <p className={styles.pick_size}>Select Size</p>
 
                         <div className={styles.sizes_wrapper}>
-                          {selectedVariant.inventoryLevels.map((size) => (
+                          {selectedVariant.sizes.map((size) => (
                             <ProductSize
-                              key={size.sku}
-                              id={size.sku}
+                              key={size.variantId}
+                              id={size.variantId}
                               value={size.value}
-                              stock={size.stock}
+                              quantity={size.quantity}
                               selectedSize={selectedSize}
                             />
                           ))}
@@ -251,9 +248,9 @@ const ProductPage = () => {
                       <p className={styles.color}>{selectedVariant.color}</p>
                       {selectedProduct.tags && (
                         <div className={styles.tags_wrapper}>
-                          {selectedProduct.tags.map((tag, index) => (
+                          {selectedProduct.tags.map((tag) => (
                             <span
-                              key={index}
+                              key={tag.content}
                               className={
                                 tag.content === 'nuevo'
                                   ? styles.tag_alt
@@ -266,7 +263,7 @@ const ProductPage = () => {
                         </div>
                       )}
                       <p className={styles.price}>
-                        ${formatNumber(selectedVariant.currentPrice)}
+                        ${formatNumber(selectedProduct.currentPrice)}
                       </p>
                     </div>
                   </div>
@@ -294,26 +291,26 @@ const ProductPage = () => {
                       </p>
                       <div className={styles.variants_wrapper}>
                         {selectedProduct.variants.map((variant) => (
-                          <ProductVariant
-                            key={variant.id}
-                            id={variant.id}
+                          <ProductColors
+                            key={variant.color}
+                            id={variant.color}
                             thumbnail={variant.images[0].src}
-                            selectedVariantId={selectedVariant.id}
+                            selectedColor={selectedVariant.color}
                           />
                         ))}
                       </div>
                     </div>
 
                     <div className={styles.sizes_container}>
-                      <p className={styles.pick_size}>Select Size </p>
+                      <p className={styles.pick_size}>Select Size</p>
 
                       <div className={styles.sizes_wrapper}>
-                        {selectedVariant.inventoryLevels.map((size) => (
+                        {selectedVariant.sizes.map((size) => (
                           <ProductSize
-                            key={size.sku}
-                            id={size.sku}
+                            key={size.variantId}
+                            id={size.variantId}
                             value={size.value}
-                            stock={size.stock}
+                            quantity={size.quantity}
                             selectedSize={selectedSize}
                           />
                         ))}

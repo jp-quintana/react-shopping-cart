@@ -4,23 +4,23 @@ import ImageContainer from 'components/common/ImageContainer';
 
 import styles from './index.module.scss';
 
-const ProductVariant = ({ id, thumbnail, selectedVariantId }) => {
+const ProductColors = ({ id, thumbnail, selectedColor }) => {
   const { selectVariant } = useProduct();
 
   let shouldAddEventHandler = false;
-  if (selectedVariantId !== id) {
+  if (selectedColor !== id) {
     shouldAddEventHandler = true;
   }
 
   const handleSelectVariant = () => {
-    if (id === selectedVariantId) {
+    if (id === selectedColor) {
       return;
     }
     selectVariant(id);
   };
 
   let variantStyles =
-    selectedVariantId === id ? styles.thumbnail_selected : styles.thumbnail;
+    selectedColor === id ? styles.thumbnail_selected : styles.thumbnail;
 
   return (
     <ImageContainer
@@ -31,13 +31,7 @@ const ProductVariant = ({ id, thumbnail, selectedVariantId }) => {
       fillClassName={styles.image_fill}
       imageClassName={variantStyles}
     />
-    // <img
-    //   className={variantStyles}
-    //   onClick={shouldAddEventHandler ? handleSelectVariant : undefined}
-    //   src={thumbnail}
-    //   alt=""
-    // />
   );
 };
 
-export default ProductVariant;
+export default ProductColors;

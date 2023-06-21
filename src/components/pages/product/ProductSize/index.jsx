@@ -2,11 +2,11 @@ import { useProduct } from 'hooks/useProduct';
 
 import styles from './index.module.scss';
 
-const ProductSize = ({ id, value, stock, selectedSize }) => {
+const ProductSize = ({ id, value, quantity, selectedSize }) => {
   const { selectSize } = useProduct();
 
   let addEventHandler = false;
-  if (stock > 0 && value !== selectedSize) {
+  if (quantity > 0 && value !== selectedSize) {
     addEventHandler = true;
   }
 
@@ -14,13 +14,13 @@ const ProductSize = ({ id, value, stock, selectedSize }) => {
     if (value === selectedSize) {
       return;
     }
-    selectSize({ id, value, stock });
+    selectSize({ id, value, quantity });
   };
 
   let sizeStyles = `
     ${styles.size} 
     ${value === selectedSize && styles.fill} 
-    ${stock <= 0 && styles.no_stock}
+    ${quantity <= 0 && styles.no_quantity}
   `;
 
   return (

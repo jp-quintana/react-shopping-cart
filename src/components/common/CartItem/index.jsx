@@ -45,6 +45,7 @@ const CartItem = ({
     }
   };
 
+  // TODO: update this. Search for "pending..." in vs search
   const clearProduct = urlId === slug && '/productos';
 
   return (

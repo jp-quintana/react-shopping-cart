@@ -2,7 +2,7 @@ import { useReducer, useEffect } from 'react';
 
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where, orderBy } from 'firebase/firestore';
 import { db } from 'db/config';
 
 import ProductContext from './product-context';
@@ -11,43 +11,46 @@ const initialState = {
   productIsReady: false,
   selectedProduct: null,
   selectedVariant: null,
-  selectedSku: '',
+  selectedVariantId: '',
   selectedSize: '',
-  // selectedStock: 0,
 };
 
 const productReducer = (state, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+
+  switch (type) {
     case 'CLEAR_PRODUCT': {
       return {
         ...initialState,
       };
     }
+
     case 'SET_PRODUCT': {
       return {
         ...state,
         productIsReady: true,
-        selectedProduct: action.payload.product,
-        selectedVariant: action.payload.variant,
+        selectedProduct: payload.product,
+        selectedVariant: payload.variant,
       };
     }
+
     case 'SELECT_VARIANT': {
       return {
         ...state,
-        selectedVariant: action.payload,
-        selectedSku: '',
+        selectedVariant: payload,
+        selectedVariantId: '',
         selectedSize: '',
-        // selectedStock: 0,
       };
     }
+
     case 'SELECT_SIZE': {
       return {
         ...state,
-        selectedSku: action.payload.id,
-        selectedSize: action.payload.value,
-        // selectedStock: action.payload.stock,
+        selectedVariantId: payload.id,
+        selectedSize: payload.value,
       };
     }
+
     default: {
       return state;
     }
@@ -55,54 +58,84 @@ const productReducer = (state, action) => {
 };
 
 const ProductProvider = ({ children }) => {
-  const { id: urlId } = useParams();
+  const { id: slugId } = useParams();
   const { state: locationState } = useLocation();
   const navigate = useNavigate();
 
   const [state, dispatch] = useReducer(productReducer, initialState);
 
   const getProduct = async () => {
-    if (state.productIsReady) {
-      dispatch({ type: 'CLEAR_PRODUCT' });
+    // if (state.productIsReady) {
+    //   dispatch({ type: 'CLEAR_PRODUCT' });
+    // }
+
+    try {
+      const slugArr = slugId.split('-');
+      const selectedColor = slugArr.pop();
+      const formattedSlug = slugArr.join('-');
+
+      const productsRef = collection(db, 'productsTest');
+      const productQuery = query(
+        productsRef,
+        where('slug', '==', formattedSlug)
+      );
+
+      const productsSnapshot = await getDocs(productQuery);
+
+      const productDoc = productsSnapshot.docs[0];
+
+      const productData = {
+        productId: productDoc.id,
+        ...productDoc.data(),
+      };
+
+      const variantsRef = collection(productDoc.ref, 'variantsTest');
+
+      const variantsQuery = query(variantsRef, orderBy('order'));
+
+      const variantsSnapshot = await getDocs(variantsQuery);
+
+      const variantsData = variantsSnapshot.docs.map((variantDoc) => ({
+        variantId: variantDoc.id,
+        ...variantDoc.data(),
+      }));
+
+      const imagesRef = collection(productDoc.ref, 'productImagesTest');
+
+      const imagesSnapshot = await getDocs(imagesRef);
+
+      const productVariants = [];
+
+      imagesSnapshot.forEach((imageDoc) =>
+        productVariants.push({
+          ...imageDoc.data(),
+          color: imageDoc.id.split('_')[1],
+          sizes: variantsData.map((variant) => {
+            if (variant.color === imageDoc.id.split('_')[1]) {
+              return {
+                value: variant.size,
+                quantity: variant.quantity,
+                variantId: variant.variantId,
+              };
+            }
+          }),
+        })
+      );
+
+      return {
+        product: {
+          ...productData,
+          variants: [...productVariants],
+        },
+        variant: productVariants.find(
+          (variant) => variant.color === selectedColor
+        ),
+      };
+    } catch (err) {
+      console.log(err);
+      // setError(err);
+      // setIsLoading(false);
     }
-
-    const productsRef = collection(db, 'products');
-    const qProd = query(
-      productsRef,
-      where('variantSlugs', 'array-contains', urlId)
-    );
-
-    let product;
-
-    const productsSnapshot = await getDocs(qProd);
-    productsSnapshot.forEach((doc) => {
-      product = { id: doc.id, ...doc.data() };
-    });
-
-    let inventory = [];
-
-    const inventoryRef = collection(db, 'inventory');
-
-    const qInv = query(inventoryRef, where('productId', '==', product.id));
-    const inventorySnapshot = await getDocs(qInv);
-
-    inventorySnapshot.forEach((doc) => {
-      inventory.push({ id: doc.id, ...doc.data() });
-    });
-
-    for (let i = 0; i < product.variants.length; i++) {
-      const variantInventoryLevels = [];
-      for (const item of product.variants[i].inventoryLevels) {
-        const skuInventoryLevel = inventory.find((sku) => sku.id === item.sku);
-
-        variantInventoryLevels.push({ ...item, ...skuInventoryLevel });
-      }
-      product.variants[i].inventoryLevels = [...variantInventoryLevels];
-    }
-
-    const variant = product.variants.find((variant) => variant.slug === urlId);
-
-    return { product, variant };
   };
 
   useEffect(() => {
@@ -113,10 +146,10 @@ const ProductProvider = ({ children }) => {
     };
 
     fetchProduct();
-  }, [urlId]);
+  }, [slugId]);
 
   // TODO: se puede reemplazar con un link condicional en el cart modal (dentro de cartItem). Solo agregarle link al item si el slugId del params no coincide con el slug del product.
-
+  // TODO: update this. Search for "pending..." in vs search
   useEffect(() => {
     if (locationState === '/productos') {
       const fetchProduct = async () => {

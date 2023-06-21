@@ -5,7 +5,7 @@ import { useCollection } from 'hooks/useCollection';
 
 import Loader from 'components/common/Loader';
 
-import ProductCard from 'components/pages/collections/ProductCard';
+import ProductCard from 'components/pages/collection/ProductCard';
 
 import styles from './index.module.scss';
 
@@ -39,8 +39,6 @@ const CollectionPage = () => {
 
     fetchProducts();
   }, [slugId]);
-
-  console.log(products);
 
   return (
     <>
