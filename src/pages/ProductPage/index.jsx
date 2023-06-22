@@ -7,6 +7,7 @@ import { useCart } from 'hooks/useCart';
 
 import ProductColors from 'components/pages/product/ProductColors';
 import ProductSize from 'components/pages/product/ProductSize';
+import ProductTags from 'components/pages/product/ProductTags';
 
 import Button from 'components/common/Button';
 import Loader from 'components/common/Loader';
@@ -146,9 +147,6 @@ const ProductPage = () => {
                           <h1 className={styles.name}>
                             {selectedProduct.model}
                           </h1>
-                          <p className={styles.price}>
-                            ${formatNumber(selectedProduct.currentPrice)}
-                          </p>
                         </div>
                         <p className={styles.description}>
                           {selectedProduct.description}
@@ -169,6 +167,21 @@ const ProductPage = () => {
                               </span>
                             ))}
                           </div>
+                        )}
+                      </div>
+                      <div className={styles.price_wrapper}>
+                        {selectedProduct.currentPrice <
+                        selectedProduct.actualPrice ? (
+                          <>
+                            <span className={styles.discounted_price}>
+                              ${formatNumber(selectedProduct.currentPrice)}
+                            </span>
+                            <span className={styles.crossed_price}>
+                              ${formatNumber(selectedProduct.actualPrice)}
+                            </span>
+                          </>
+                        ) : (
+                          formatNumber(selectedProduct.currentPrice)
                         )}
                       </div>
                     </div>
@@ -246,25 +259,29 @@ const ProductPage = () => {
                         {selectedProduct.description}
                       </p>
                       <p className={styles.color}>{selectedVariant.color}</p>
-                      {selectedProduct.tags && (
-                        <div className={styles.tags_wrapper}>
-                          {selectedProduct.tags.map((tag) => (
-                            <span
-                              key={tag.content}
-                              className={
-                                tag.content === 'nuevo'
-                                  ? styles.tag_alt
-                                  : styles.tag
-                              }
-                            >
-                              {tag.content}
-                            </span>
-                          ))}
-                        </div>
+                      {(selectedProduct.tags ||
+                        selectedProduct.currentPrice <
+                          selectedProduct.actualPrice) && (
+                        <ProductTags
+                          currentPrice={selectedProduct.currentPrice}
+                          actualPrice={selectedProduct.actualPrice}
+                        />
                       )}
-                      <p className={styles.price}>
-                        ${formatNumber(selectedProduct.currentPrice)}
-                      </p>
+                      <div className={styles.price_wrapper}>
+                        {selectedProduct.currentPrice <
+                        selectedProduct.actualPrice ? (
+                          <>
+                            <span className={styles.discounted_price}>
+                              ${formatNumber(selectedProduct.currentPrice)}
+                            </span>
+                            <span className={styles.crossed_price}>
+                              ${formatNumber(selectedProduct.actualPrice)}
+                            </span>
+                          </>
+                        ) : (
+                          formatNumber(selectedProduct.currentPrice)
+                        )}
+                      </div>
                     </div>
                   </div>
 

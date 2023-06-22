@@ -53,7 +53,7 @@ const CollectionPage = () => {
                   model={variant.model}
                   color={variant.color}
                   currentPrice={variant.currentPrice}
-                  actualPrice={variant.acutalPrice}
+                  actualPrice={variant.actualPrice}
                   type={variant.type}
                   slug={variant.slug + '-' + variant.color}
                   image={variant.images[0]}

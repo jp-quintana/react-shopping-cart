@@ -27,6 +27,8 @@ const ProductCard = ({
 
   const [showDetailsPlaceholder, setDetailsShowPlaceholder] = useState(true);
 
+  console.log(currentPrice, actualPrice);
+
   return (
     <>
       <div className={styles.container}>
@@ -64,18 +66,20 @@ const ProductCard = ({
                   >{`${numberOfVariants} colors`}</span>
                 )}
               </li>
-              {currentPrice < actualPrice ? (
-                <li className={styles.price}>
-                  <span className={styles.discounted_price}>
-                    ${formatNumber(currentPrice)}
-                  </span>
-                  <span className={styles.crossed_price}>
-                    ${formatNumber(actualPrice)}
-                  </span>
-                </li>
-              ) : (
-                <li className={styles.price}>${formatNumber(currentPrice)}</li>
-              )}
+              <li className={styles.price}>
+                {currentPrice < actualPrice ? (
+                  <>
+                    <span className={styles.discounted_price}>
+                      ${formatNumber(currentPrice)}
+                    </span>
+                    <span className={styles.crossed_price}>
+                      ${formatNumber(actualPrice)}
+                    </span>
+                  </>
+                ) : (
+                  formatNumber(currentPrice)
+                )}
+              </li>
             </>
           )}
         </ul>

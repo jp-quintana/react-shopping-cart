@@ -42,23 +42,15 @@
       padding-bottom: 2.5rem;
       width: 100%;
       line-height: 1.5;
+      display: flex;
 
       .name_wrapper {
-        display: flex;
-        align-items: center;
-
         .name {
           font-family: $font-f-hero;
           text-transform: uppercase;
           letter-spacing: $ls-primary;
           font-size: 2.4rem;
           line-height: normal;
-        }
-        .price {
-          margin-left: auto;
-          font-family: $font-f-secondary;
-          font-weight: $font-w-900;
-          letter-spacing: $ls-secondary;
         }
       }
 
@@ -79,30 +71,23 @@
         text-transform: capitalize;
       }
 
-      .tags_wrapper {
+      .price_wrapper {
         display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-
-      .tag_alt {
-        background-color: $c-var;
-      }
-
-      .tag {
-        background: $back-c-detail;
-      }
-
-      .tag,
-      .tag_alt {
-        text-transform: uppercase;
-        padding: 0.1rem 1rem;
-        border-radius: 0.6rem;
-        font-size: 1rem;
-        color: $c-secondary;
+        flex-direction: column;
+        margin-left: auto;
         font-family: $font-f-secondary;
-        font-weight: $font-w-700;
+        font-weight: $font-w-900;
         letter-spacing: $ls-secondary;
+
+        .discounted_price {
+          color: $c-discount;
+        }
+
+        .crossed_price {
+          text-decoration: line-through;
+          font-size: 1rem;
+          text-align: right;
+        }
       }
     }
 
@@ -287,37 +272,20 @@
       text-transform: capitalize;
     }
 
-    .tags_wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .tag_alt {
-      background-color: $c-var;
-    }
-
-    .tag {
-      background: $back-c-detail;
-    }
-
-    .tag,
-    .tag_alt {
-      text-transform: uppercase;
-      padding: 0.1rem 1rem;
-      border-radius: 0.6rem;
-      font-size: 1rem;
-      color: $c-secondary;
-      font-family: $font-f-secondary;
-      font-weight: $font-w-700;
-      letter-spacing: $ls-secondary;
-    }
-
-    .price {
+    .price_wrapper {
       margin-top: 1.5rem;
       font-family: $font-f-secondary;
       font-weight: $font-w-900;
       letter-spacing: $ls-secondary;
+
+      .discounted_price {
+        color: $c-discount;
+      }
+
+      .crossed_price {
+        text-decoration: line-through;
+        margin-left: 0.5rem;
+      }
     }
   }
 
