@@ -16,7 +16,7 @@ export const useCollection = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const productsRef = collection(db, 'products');
+  const productsRef = collection(db, 'productsTest2');
 
   // const getCollection = async () => {
   //   setError(null);
@@ -95,16 +95,13 @@ export const useCollection = () => {
   //   }
   // };
 
-  const productsTestRef = collection(db, 'productsTest');
-
   const getCollection = async ({ collectionName = 'hoodies' }) => {
     setError(null);
     setIsLoading(true);
 
     try {
-      // TODO: define order
       const productsQuery = query(
-        productsTestRef,
+        productsRef,
         where('collection', '==', collectionName)
       );
 
@@ -116,49 +113,41 @@ export const useCollection = () => {
           ...productDoc.data(),
         };
 
-        // const variantsRef = collection(productDoc.ref, 'variantsTest');
+        const variantsSkusRef = collection(productDoc.ref, 'variantSkusTest2');
 
-        // const variantsQuery = query(
-        //   variantsRef,
-        //   // where('productId', '==', productDoc.id),
-        //   orderBy('order')
-        // );
+        const variantsSkusSnapshot = await getDocs(variantsSkusRef);
 
-        // const variantsSnapshot = await getDocs(variantsQuery);
+        const variantsSkus = [];
 
-        // const variantsData = variantsSnapshot.docs.map((variantDoc) => ({
-        //   variantId: variantDoc.id,
-        //   ...variantDoc.data(),
-        // }));
-
-        const imagesRef = collection(productDoc.ref, 'productImagesTest');
-
-        const imagesSnapshot = await getDocs(imagesRef);
-
-        const variants = [];
-
-        imagesSnapshot.forEach((imageDoc) =>
-          variants.push({
-            id: uuid(),
-            ...productData,
-            ...imageDoc.data(),
-            color: imageDoc.id.split('_')[1],
-            numberOfVariants: imagesSnapshot.size,
-            // inventory: variantsData.map(
-            //   (variant) => variant.color === imageDoc.id.split('_')[1]
-            // ),
+        variantsSkusSnapshot.forEach((variantsSkuDoc) =>
+          variantsSkus.push({
+            variantSkuId: variantsSkuDoc.id,
+            ...variantsSkuDoc.data(),
           })
         );
 
-        return {
-          variants,
-        };
+        const variantsRef = collection(productDoc.ref, 'variantsTest2');
+
+        const variantsSnapshot = await getDocs(variantsRef);
+
+        const productVariants = [];
+
+        variantsSnapshot.forEach((variantDoc) =>
+          productVariants.push({
+            id: uuid(),
+            variantId: variantDoc.id,
+            ...productData,
+            ...variantDoc.data(),
+            skus: variantsSkus.filter((sku) => sku.variantId === variantDoc.id),
+          })
+        );
+
+        return productVariants;
       });
 
       const products = await Promise.all(productsPromises);
 
-      setIsLoading(false);
-      return products;
+      return [].concat(...products);
     } catch (err) {
       console.log(err);
       setError(err);

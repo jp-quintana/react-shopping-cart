@@ -22,45 +22,45 @@ const CollectionPage = () => {
 
   const { getCollection } = useCollection();
 
-  const [products, setProducts] = useState(null);
-
-  console.log(slugId);
+  const [productVariants, setProductVariants] = useState(null);
 
   useEffect(() => {
-    setProducts(null);
+    setProductVariants(null);
     if (!validSlugs.includes(slugId)) {
       navigate('/');
     }
 
-    const fetchProducts = async () => {
-      const fetchedProducts = await getCollection({ collectionName: slugId });
-      setProducts(fetchedProducts);
+    const fetchProductVariants = async () => {
+      const productVariants = await getCollection({
+        collectionName: slugId,
+      });
+      setProductVariants(productVariants);
     };
 
-    fetchProducts();
+    fetchProductVariants();
   }, [slugId]);
+
+  console.log(productVariants);
 
   return (
     <>
-      {!products && <Loader />}
-      {products && (
+      {!productVariants && <Loader />}
+      {productVariants && (
         <section>
           <div className={`${styles.container} main-container`}>
-            {products.map((product) =>
-              product.variants.map((variant) => (
-                <ProductCard
-                  key={variant.id}
-                  model={variant.model}
-                  color={variant.color}
-                  currentPrice={variant.currentPrice}
-                  actualPrice={variant.actualPrice}
-                  type={variant.type}
-                  slug={variant.slug + '-' + variant.color}
-                  image={variant.images[0]}
-                  numberOfVariants={variant.numberOfVariants}
-                />
-              ))
-            )}
+            {productVariants.map((productVariant) => (
+              <ProductCard
+                key={productVariant.id}
+                model={productVariant.model}
+                color={productVariant.color}
+                currentPrice={productVariant.variantPrice}
+                actualPrice={productVariant.price}
+                type={productVariant.type}
+                slug={productVariant.slug + '-' + productVariant.color}
+                image={productVariant.images[0]}
+                numberOfproductVariants={productVariant.numberOfVariants}
+              />
+            ))}
           </div>
         </section>
       )}
