@@ -5,7 +5,7 @@ import Nav from './Nav';
 import NavDrawer from './NavDrawer';
 import NavDrawerContent from './NavDrawerContent';
 
-const Header = ({ toggleCartModal }) => {
+const Header = ({ openCartModal }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSideNav = () => {
@@ -27,7 +27,7 @@ const Header = ({ toggleCartModal }) => {
       <NavDrawer close={() => setIsOpen(false)}>
         {isOpen && <NavDrawerContent toggleSideNav={toggleSideNav} />}
       </NavDrawer>
-      <Nav toggleSideNav={toggleSideNav} toggleCartModal={toggleCartModal} />
+      <Nav toggleSideNav={toggleSideNav} openCartModal={openCartModal} />
     </header>
   );
 };

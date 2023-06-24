@@ -14,7 +14,7 @@ import LogoNav from 'assets/images/logo-nav.png';
 
 import styles from './index.module.scss';
 
-const Navbar = ({ toggleSideNav, toggleCartModal }) => {
+const Navbar = ({ toggleSideNav, openCartModal }) => {
   const { pathname } = useLocation();
 
   const { isVerified, isAdmin } = useAuthContext();
@@ -49,9 +49,9 @@ const Navbar = ({ toggleSideNav, toggleCartModal }) => {
     return () => window.removeEventListener('scroll', resizeHeaderOnScroll);
   }, []);
 
-  const handleToggleCartModal = () => {
+  const handleOpenCartModal = () => {
     if (pathname !== '/cart') {
-      toggleCartModal();
+      openCartModal();
     }
   };
 
@@ -149,7 +149,7 @@ const Navbar = ({ toggleSideNav, toggleCartModal }) => {
           <li className={`${styles.search_icon} disabled-link`}>
             <CgSearch />
           </li>
-          <li className={styles.cart_icon} onClick={handleToggleCartModal}>
+          <li className={styles.cart_icon} onClick={handleOpenCartModal}>
             <CartIcon />
           </li>
           <li className={styles.mobile_icon}>

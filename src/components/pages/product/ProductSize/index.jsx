@@ -4,7 +4,6 @@ import styles from './index.module.scss';
 
 const ProductSize = ({ skuId, value, quantity, selectedSize }) => {
   const { selectSize } = useProduct();
-
   let addEventHandler = false;
   if (quantity > 0 && value !== selectedSize) {
     addEventHandler = true;
@@ -18,9 +17,9 @@ const ProductSize = ({ skuId, value, quantity, selectedSize }) => {
   };
 
   let sizeStyles = `
-    ${styles.size} 
-    ${value === selectedSize && styles.fill} 
-    ${quantity <= 0 && styles.no_quantity}
+  ${styles.size} 
+  ${value === selectedSize && styles.fill} 
+  ${quantity <= 0 && styles.no_stock}
   `;
 
   return (

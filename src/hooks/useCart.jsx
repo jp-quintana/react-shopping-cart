@@ -132,98 +132,6 @@ export const useCart = () => {
     }
   };
 
-  // const removeItem = async (itemToRemove) => {
-  //   setError(null);
-  //   setIsLoading(true);
-  //   try {
-  //     const itemInCartIndex = items.findIndex(
-  //       (item) => item.id === itemToRemove.id
-  //     );
-  //     const itemInCart = items[itemInCartIndex];
-
-  //     let updatedItems = [...items];
-
-  //     const { stock } = await getCurrentStock(itemToRemove.id);
-
-  //     let noStock;
-  //     let stockWasUpdated;
-
-  //     if (itemInCart.amount === 1) {
-  //       updatedItems = items.filter((item) => item.id !== itemInCart.id);
-  //     } else {
-  //       if (stock <= 0) {
-  //         updatedItems = updatedItems.filter(
-  //           (item) => item.id !== itemInCart.id
-  //         );
-  //         noStock = true;
-  //       } else if (stock < itemInCart.amount) {
-  //         const updatedItem = {
-  //           ...itemInCart,
-  //           amount: stock,
-  //         };
-
-  //         updatedItems[itemInCartIndex] = updatedItem;
-
-  //         stockWasUpdated = true;
-  //       } else {
-  //         const updatedItem = { ...itemInCart, amount: itemInCart.amount - 1 };
-  //         updatedItems[itemInCartIndex] = updatedItem;
-  //       }
-  //     }
-
-  //     const updatedTotalAmount = totalCartAmount(updatedItems);
-
-  //     const cartRef = doc(db, 'carts', user.uid);
-
-  //     if (updatedTotalAmount === 0) {
-  //       await deleteDoc(cartRef);
-
-  //       dispatch({
-  //         type: 'DELETE_CART',
-  //       });
-  //     } else {
-  //       await setDoc(cartRef, {
-  //         items: updatedItems,
-  //         totalAmount: updatedTotalAmount,
-  //       });
-
-  //       dispatch({
-  //         type: 'UPDATE_CART',
-  //         payload: {
-  //           items: updatedItems,
-  //           totalAmount: updatedTotalAmount,
-  //         },
-  //       });
-  //     }
-
-  //     if (noStock) {
-  //       throw Error(
-  //         'No hay más stock de este producto. Las cantidades en el carrito fueron actualizadas.',
-  //         { cause: 'custom' }
-  //       );
-  //     }
-
-  //     if (stockWasUpdated) {
-  //       throw Error(
-  //         'Hay menos unidades disponibles que las cantidades en el carrito. Las cantidades en el carrito fueron actualizadas.',
-  //         {
-  //           cause: 'custom',
-  //         }
-  //       );
-  //     }
-
-  //     setIsLoading(false);
-  //   } catch (err) {
-  //     console.error(err);
-  //     if (err.cause === 'custom') {
-  //       setError({ details: err.message });
-  //     } else {
-  //       setError(err);
-  //     }
-  //     setIsLoading(false);
-  //   }
-  // };
-
   const removeItem = async (productId, skuId) => {
     setError(null);
     setIsLoading(true);
@@ -268,8 +176,6 @@ export const useCart = () => {
         }
       }
 
-      console.log('aca', updatedItems);
-
       const cartTotalItemQuantity = addAllItemsQuantity(updatedItems);
 
       const cartRef = doc(db, 'carts', user.uid);
@@ -281,8 +187,15 @@ export const useCart = () => {
           type: 'DELETE_CART',
         });
       } else {
+        const updatedItemsDb = updatedItems.map((item) => ({
+          skuId: item.skuId,
+          productId: item.productId,
+          variantId: item.variantId,
+          quantity: item.quantity,
+        }));
+
         await setDoc(cartRef, {
-          items: updatedItems,
+          items: updatedItemsDb,
         });
 
         dispatch({
@@ -307,40 +220,49 @@ export const useCart = () => {
     }
   };
 
-  const deleteItem = async (itemToDelete) => {
+  const deleteItem = async (skuId) => {
     setError(null);
     setIsLoading(true);
     try {
-      const updatedTotalAmount = totalAmount - itemToDelete.amount;
+      const itemInCartIndex = items.findIndex((item) => item.skuId === skuId);
+      const itemInCart = items[itemInCartIndex];
 
-      const updatedItems = items.filter((item) => item.id !== itemToDelete.id);
+      const updatedItems = items.filter(
+        (item) => item.skuId !== itemInCart.skuId
+      );
 
       const cartRef = doc(db, 'carts', user.uid);
 
-      if (updatedTotalAmount === 0) {
+      const cartTotalItemQuantity = addAllItemsQuantity(updatedItems);
+
+      if (cartTotalItemQuantity === 0) {
         await deleteDoc(cartRef);
 
         dispatch({
           type: 'DELETE_CART',
         });
       } else {
+        const updatedItemsDb = updatedItems.map((item) => ({
+          skuId: item.skuId,
+          productId: item.productId,
+          variantId: item.variantId,
+          quantity: item.quantity,
+        }));
+
         await setDoc(cartRef, {
-          items: updatedItems,
-          totalAmount: updatedTotalAmount,
+          items: updatedItemsDb,
         });
 
         dispatch({
           type: 'UPDATE_CART',
-          payload: {
-            items: updatedItems,
-            totalAmount: updatedTotalAmount,
-          },
+          payload: updatedItems,
         });
       }
 
       setIsLoading(false);
     } catch (err) {
       console.error(err);
+      setError({ details: err.message });
       setIsLoading(false);
     }
   };

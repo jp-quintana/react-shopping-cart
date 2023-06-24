@@ -23,9 +23,9 @@ const Layout = () => {
   return (
     <div id="layout">
       <CartModal close={() => setIsOpen(false)}>
-        {isOpen && <CartContent toggleCartModal={toggleCartModal} />}
+        {isOpen && <CartContent closeCartModal={() => setIsOpen(false)} />}
       </CartModal>
-      {!isCheckout && <Header toggleCartModal={toggleCartModal} />}
+      {!isCheckout && <Header openCartModal={() => setIsOpen(true)} />}
       <main>
         <Outlet />
       </main>

@@ -21,7 +21,7 @@ const CartItem = ({
   slug,
   quantity,
   image,
-  toggleCartModal,
+  closeCartModal,
   addItem,
   removeItem,
   deleteItem,
@@ -54,7 +54,7 @@ const CartItem = ({
 
   const handleDeleteItem = () => {
     if (!isLoading) {
-      deleteItem(item);
+      deleteItem(skuId);
     }
   };
 
@@ -66,7 +66,7 @@ const CartItem = ({
       <Link
         to={`/products/${slug}`}
         state={clearProduct}
-        onClick={toggleCartModal ? toggleCartModal : ''}
+        onClick={closeCartModal}
       >
         <div className={styles.info_container}>
           <div className={styles.info_wrapper}>
@@ -75,7 +75,6 @@ const CartItem = ({
             <p className={styles.size}>{size.toUpperCase()}</p>
             <p className={styles.price}>${formatPrice(price)}</p>
           </div>
-          {/* <img className={styles.image} src={image} alt="" /> */}
           <ImageContainer
             src={image}
             alt=""

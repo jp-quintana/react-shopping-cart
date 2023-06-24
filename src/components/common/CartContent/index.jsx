@@ -17,7 +17,7 @@ import styles from './index.module.scss';
 
 // TODO: Update component, check useKeyDown, etc...
 
-const CartContent = ({ toggleCartModal }) => {
+const CartContent = ({ closeCartModal }) => {
   const { items } = useCartContext();
   const { addItem, removeItem, deleteItem, isLoading, error } = useCart();
 
@@ -48,7 +48,7 @@ const CartContent = ({ toggleCartModal }) => {
           <Button
             className={`${styles.button} ${styles.empty_button}`}
             to="/collections/products"
-            onClick={toggleCartModal}
+            onClick={closeCartModal}
           >
             Shop now
           </Button>
@@ -70,7 +70,7 @@ const CartContent = ({ toggleCartModal }) => {
             <div className={styles.list}>
               {items.map((item) => (
                 <CartItem
-                  toggleCartModal={toggleCartModal}
+                  closeCartModal={closeCartModal}
                   key={item.skuId}
                   productId={item.productId}
                   variantId={item.variantId}
@@ -102,7 +102,7 @@ const CartContent = ({ toggleCartModal }) => {
               <Button
                 className={`${styles.button} ${styles.cart_button}`}
                 to="/cart"
-                onClick={toggleCartModal}
+                onClick={closeCartModal}
               >
                 Your bag{' '}
                 <span>
@@ -112,7 +112,7 @@ const CartContent = ({ toggleCartModal }) => {
               <Button
                 className={`${styles.button} ${styles.checkout_button}`}
                 to="/checkout"
-                onClick={toggleCartModal}
+                onClick={closeCartModal}
               >
                 Checkout{' '}
                 <span>
