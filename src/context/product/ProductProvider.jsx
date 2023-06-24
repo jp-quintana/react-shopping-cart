@@ -11,7 +11,7 @@ const initialState = {
   productIsReady: false,
   selectedProduct: null,
   selectedVariant: null,
-  selectedVariantId: '',
+  selectedSkuId: '',
   selectedSize: '',
 };
 
@@ -38,7 +38,7 @@ const productReducer = (state, action) => {
       return {
         ...state,
         selectedVariant: payload,
-        selectedVariantId: '',
+        selectedSkuId: '',
         selectedSize: '',
       };
     }
@@ -46,7 +46,7 @@ const productReducer = (state, action) => {
     case 'SELECT_SIZE': {
       return {
         ...state,
-        selectedVariantId: payload.id,
+        selectedSkuId: payload.skuId,
         selectedSize: payload.value,
       };
     }
@@ -85,16 +85,18 @@ const ProductProvider = ({ children }) => {
         ...productDoc.data(),
       };
 
-      const skusRef = collection(productDoc.ref, 'variantSkusTest2');
+      const variantsSkusRef = collection(productDoc.ref, 'variantSkusTest2');
 
-      const skusQuery = query(skusRef, orderBy('order'));
+      const variantsSkusQuery = query(variantsSkusRef, orderBy('order'));
 
-      const skusSnapshot = await getDocs(skusQuery);
+      const variantsSkusSnapshot = await getDocs(variantsSkusQuery);
 
-      const skusData = skusSnapshot.docs.map((skuDoc) => ({
-        skuId: skuDoc.id,
-        ...skuDoc.data(),
-      }));
+      const variantsSkusData = variantsSkusSnapshot.docs.map(
+        (variantsSkuDoc) => ({
+          skuId: variantsSkuDoc.id,
+          ...variantsSkuDoc.data(),
+        })
+      );
 
       const variantsRef = collection(productDoc.ref, 'variantsTest2');
 
@@ -105,19 +107,26 @@ const ProductProvider = ({ children }) => {
       variantsSnapshot.forEach((variantDoc) =>
         variants.push({
           ...variantDoc.data(),
-          skus: skusData.map((sku) => {
-            if (sku.skuId === variantDoc.id) {
+          variantId: variantDoc.id,
+          sizes: variantsSkusData.map((sku) => {
+            if (sku.variantId === variantDoc.id) {
               return {
+                skuId: sku.skuId,
                 value: sku.size,
                 quantity: sku.quantity,
-                variantId: sku.variantId,
               };
             }
           }),
         })
       );
 
-      console.log(variants);
+      console.log('aca', {
+        product: {
+          ...productData,
+          variants,
+        },
+        variant: variants.find((variant) => variant.color === selectedColor),
+      });
 
       return {
         product: {

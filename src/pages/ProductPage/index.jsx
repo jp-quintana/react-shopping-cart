@@ -26,7 +26,7 @@ const ProductPage = () => {
     selectedProduct,
     selectedVariant,
     selectedSize,
-    selectedVariantId,
+    selectedSkuId,
   } = useProductContext();
 
   const { addItem, isLoading, error } = useCart();
@@ -35,20 +35,32 @@ const ProductPage = () => {
   const [toastMessage, setToastMessage] = useState(null);
 
   const handleAddToCart = async () => {
+    // console.log('aca', {
+    //   productId: selectedProduct.productId,
+    //   variantId: selectedVariant.variantId,
+    //   skuId: selectedSkuId,
+    //   id: selectedSkuId,
+    //   size: selectedSize,
+    //   model: selectedProduct.model,
+    //   type: selectedProduct.type,
+    //   color: selectedVariant.color,
+    //   price: selectedVariant.variantPrice,
+    //   slug: selectedProduct.slug + '-' + selectedVariant.color,
+    //   image: selectedVariant.images[0].src,
+    // });
     await addItem({
-      productId: selectedProduct.id,
-      variantId: selectedVariantId,
-      id: selectedVariantId,
+      productId: selectedProduct.productId,
+      variantId: selectedVariant.variantId,
+      skuId: selectedSkuId,
+      id: selectedSkuId,
       size: selectedSize,
       model: selectedProduct.model,
       type: selectedProduct.type,
-      // description: selectedProduct.description,
       color: selectedVariant.color,
-      price: selectedProduct.currentPrice,
-      slug: selectedVariant.slug,
-      thumbnail: selectedVariant.images[0].src,
+      price: selectedVariant.variantPrice,
+      slug: selectedProduct.slug + '-' + selectedVariant.color,
+      image: selectedVariant.images[0].src,
     });
-
     setNotification(true);
   };
 
@@ -152,32 +164,24 @@ const ProductPage = () => {
                           {selectedProduct.description}
                         </p>
                         <p className={styles.color}>{selectedVariant.color}</p>
-                        {selectedProduct.tags && (
-                          <div className={styles.tags_wrapper}>
-                            {selectedProduct.tags.map((tag, index) => (
-                              <span
-                                key={index}
-                                className={
-                                  tag.content === 'nuevo'
-                                    ? styles.tag_alt
-                                    : styles.tag
-                                }
-                              >
-                                {tag.content}
-                              </span>
-                            ))}
-                          </div>
+                        {(selectedProduct.tags ||
+                          selectedVariant.variantPrice <
+                            selectedProduct.price) && (
+                          <ProductTags
+                            currentPrice={selectedVariant.variantPrice}
+                            actualPrice={selectedProduct.price}
+                          />
                         )}
                       </div>
                       <div className={styles.price_wrapper}>
-                        {selectedProduct.currentPrice <
-                        selectedProduct.actualPrice ? (
+                        {selectedVariant.variantPrice <
+                        selectedProduct.price ? (
                           <>
                             <span className={styles.discounted_price}>
-                              ${formatNumber(selectedProduct.currentPrice)}
+                              ${formatNumber(selectedVariant.variantPrice)}
                             </span>
                             <span className={styles.crossed_price}>
-                              ${formatNumber(selectedProduct.actualPrice)}
+                              ${formatNumber(selectedProduct.price)}
                             </span>
                           </>
                         ) : (
@@ -213,8 +217,8 @@ const ProductPage = () => {
                         <div className={styles.sizes_wrapper}>
                           {selectedVariant.sizes.map((size) => (
                             <ProductSize
-                              key={size.variantId}
-                              id={size.variantId}
+                              key={size.skuId}
+                              skuId={size.skuId}
                               value={size.value}
                               quantity={size.quantity}
                               selectedSize={selectedSize}
@@ -260,22 +264,22 @@ const ProductPage = () => {
                       </p>
                       <p className={styles.color}>{selectedVariant.color}</p>
                       {(selectedProduct.tags ||
-                        selectedProduct.currentPrice <
-                          selectedProduct.actualPrice) && (
+                        selectedVariant.variantPrice <
+                          selectedProduct.price) && (
                         <ProductTags
-                          currentPrice={selectedProduct.currentPrice}
-                          actualPrice={selectedProduct.actualPrice}
+                          currentPrice={selectedVariant.variantPrice}
+                          actualPrice={selectedProduct.price}
                         />
                       )}
                       <div className={styles.price_wrapper}>
-                        {selectedProduct.currentPrice <
-                        selectedProduct.actualPrice ? (
+                        {selectedVariant.variantPrice <
+                        selectedProduct.price ? (
                           <>
                             <span className={styles.discounted_price}>
-                              ${formatNumber(selectedProduct.currentPrice)}
+                              ${formatNumber(selectedVariant.variantPrice)}
                             </span>
                             <span className={styles.crossed_price}>
-                              ${formatNumber(selectedProduct.actualPrice)}
+                              ${formatNumber(selectedProduct.price)}
                             </span>
                           </>
                         ) : (
@@ -324,8 +328,8 @@ const ProductPage = () => {
                       <div className={styles.sizes_wrapper}>
                         {selectedVariant.sizes.map((size) => (
                           <ProductSize
-                            key={size.variantId}
-                            id={size.variantId}
+                            key={size.skuId}
+                            skuId={size.skuId}
                             value={size.value}
                             quantity={size.quantity}
                             selectedSize={selectedSize}

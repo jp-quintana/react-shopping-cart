@@ -16,7 +16,8 @@ const initialState = {
 };
 
 const cartReducer = (state, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case 'CART_IS_READY': {
       return {
         ...state,
@@ -25,8 +26,7 @@ const cartReducer = (state, action) => {
     }
     case 'UPDATE_CART': {
       return {
-        items: action.payload.items,
-        totalAmount: action.payload.totalAmount,
+        items: payload,
         cartIsReady: true,
       };
     }
