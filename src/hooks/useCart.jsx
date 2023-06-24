@@ -86,7 +86,7 @@ export const useCart = () => {
         }
       }
 
-      console.log('aca');
+      console.log(updatedItems);
 
       const cartTotalItemQuantity = addAllItemsQuantity(updatedItems);
 
@@ -261,12 +261,14 @@ export const useCart = () => {
         } else {
           const updatedItem = {
             ...itemInCart,
-            amount: itemInCart.quantity - 1,
+            quantity: itemInCart.quantity - 1,
           };
 
           updatedItems[itemInCartIndex] = updatedItem;
         }
       }
+
+      console.log('aca', updatedItems);
 
       const cartTotalItemQuantity = addAllItemsQuantity(updatedItems);
 
@@ -285,9 +287,7 @@ export const useCart = () => {
 
         dispatch({
           type: 'UPDATE_CART',
-          payload: {
-            items: updatedItems,
-          },
+          payload: updatedItems,
         });
       }
 
