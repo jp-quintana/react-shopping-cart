@@ -16,7 +16,7 @@ import ImageContainer from 'components/common/ImageContainer';
 import Toast from 'components/common/Toast';
 import ToastMessage from 'components/common/ToastMessage';
 
-import { formatNumber } from 'helpers/format';
+import { formatPrice } from 'helpers/format';
 
 import styles from './index.module.scss';
 
@@ -35,24 +35,10 @@ const ProductPage = () => {
   const [toastMessage, setToastMessage] = useState(null);
 
   const handleAddToCart = async () => {
-    // console.log('aca', {
-    //   productId: selectedProduct.productId,
-    //   variantId: selectedVariant.variantId,
-    //   skuId: selectedSkuId,
-    //   id: selectedSkuId,
-    //   size: selectedSize,
-    //   model: selectedProduct.model,
-    //   type: selectedProduct.type,
-    //   color: selectedVariant.color,
-    //   price: selectedVariant.variantPrice,
-    //   slug: selectedProduct.slug + '-' + selectedVariant.color,
-    //   image: selectedVariant.images[0].src,
-    // });
     await addItem({
       productId: selectedProduct.productId,
       variantId: selectedVariant.variantId,
       skuId: selectedSkuId,
-      id: selectedSkuId,
       size: selectedSize,
       model: selectedProduct.model,
       type: selectedProduct.type,
@@ -178,14 +164,14 @@ const ProductPage = () => {
                         selectedProduct.price ? (
                           <>
                             <span className={styles.discounted_price}>
-                              ${formatNumber(selectedVariant.variantPrice)}
+                              ${formatPrice(selectedVariant.variantPrice)}
                             </span>
                             <span className={styles.crossed_price}>
-                              ${formatNumber(selectedProduct.price)}
+                              ${formatPrice(selectedProduct.price)}
                             </span>
                           </>
                         ) : (
-                          formatNumber(selectedProduct.currentPrice)
+                          formatPrice(selectedProduct.currentPrice)
                         )}
                       </div>
                     </div>
@@ -276,14 +262,14 @@ const ProductPage = () => {
                         selectedProduct.price ? (
                           <>
                             <span className={styles.discounted_price}>
-                              ${formatNumber(selectedVariant.variantPrice)}
+                              ${formatPrice(selectedVariant.variantPrice)}
                             </span>
                             <span className={styles.crossed_price}>
-                              ${formatNumber(selectedProduct.price)}
+                              ${formatPrice(selectedProduct.price)}
                             </span>
                           </>
                         ) : (
-                          formatNumber(selectedProduct.currentPrice)
+                          formatPrice(selectedProduct.currentPrice)
                         )}
                       </div>
                     </div>

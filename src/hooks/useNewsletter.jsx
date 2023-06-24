@@ -25,7 +25,7 @@ export const useNewsletter = () => {
         setSuccess({ content: 'Ya estas unido!' });
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err);
     }
   };

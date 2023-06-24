@@ -62,7 +62,7 @@ export const useOrder = () => {
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err);
       setIsLoading(false);
     }
@@ -87,7 +87,7 @@ export const useOrder = () => {
 
       return orders;
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err);
     }
   };

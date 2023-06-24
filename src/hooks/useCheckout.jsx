@@ -54,7 +54,7 @@ export const useCheckout = () => {
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err);
       setIsLoading(false);
     }
@@ -89,7 +89,7 @@ export const useCheckout = () => {
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err);
       setIsLoading(false);
     }
@@ -101,7 +101,7 @@ export const useCheckout = () => {
     try {
       await deleteDoc(checkoutSessionRef);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err);
       setIsLoading(false);
     }

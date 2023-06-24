@@ -15,8 +15,6 @@ const ProductSize = ({ skuId, value, quantity, selectedSize }) => {
       return;
     }
     selectSize({ skuId, value, quantity });
-
-    console.log(skuId);
   };
 
   let sizeStyles = `

@@ -41,7 +41,6 @@ const checkoutReducer = (state, action) => {
       };
     }
     case 'SELECT_SHIPPING_OPTION': {
-      console.log('payload', action.payload);
       return {
         ...state,
         shippingOption: action.payload,

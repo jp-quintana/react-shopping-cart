@@ -82,7 +82,7 @@ export const useAddress = () => {
       dispatch({ type: 'UPDATE_ADDRESSES', payload: userAddresses });
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err);
       setIsLoading(false);
     }
@@ -182,7 +182,7 @@ export const useAddress = () => {
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err);
       setIsLoading(false);
     }
@@ -228,7 +228,7 @@ export const useAddress = () => {
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err);
       setIsLoading(false);
     }

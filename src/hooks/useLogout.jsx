@@ -22,7 +22,7 @@ export const useLogout = () => {
       dispatchCartAction({ type: 'DELETE_CART' });
       dispatchAuthAction({ type: 'LOGOUT' });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err);
       setIsLoading(false);
     }

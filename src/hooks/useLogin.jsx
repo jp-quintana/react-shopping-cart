@@ -71,7 +71,6 @@ export const useLogin = () => {
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err.code);
       if (
         err.code === 'auth/wrong-password' ||
         err.code === 'auth/user-not-found'

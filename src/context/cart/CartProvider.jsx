@@ -61,7 +61,6 @@ const CartProvider = ({ children }) => {
             const productIds = [];
             const products = [];
             for (const item of cartDb.items) {
-              console.log(item);
               const inventoryRef = doc(db, 'inventory', item.sku);
               const inventoryDoc = await getDoc(inventoryRef);
               if (inventoryDoc.exists()) {
@@ -107,7 +106,7 @@ const CartProvider = ({ children }) => {
             });
           }
         } catch (err) {
-          console.log(err);
+          console.error(err);
         }
       };
       getCart();

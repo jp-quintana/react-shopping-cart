@@ -59,7 +59,7 @@ export const useSignUp = () => {
 
       dispatch({ type: 'LOGIN', payload: { user, ...userData } });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       if (err.code === 'auth/email-already-in-use') {
         setError({ details: 'El usuario ya existe' });
       } else {

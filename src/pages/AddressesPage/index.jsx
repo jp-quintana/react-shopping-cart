@@ -37,8 +37,6 @@ const AddressesPage = () => {
     setToastMessage(null);
   };
 
-  console.log('addresses', isLoading);
-
   return (
     <>
       <Toast>

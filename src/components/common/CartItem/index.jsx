@@ -4,21 +4,23 @@ import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 
 import ImageContainer from '../ImageContainer';
 
-import { formatNumber } from 'helpers/format';
-import { addItemPrice } from 'helpers/item';
+import { formatPrice } from 'helpers/format';
+import { addIndividualItemPrice } from 'helpers/item';
 
 import styles from './index.module.scss';
 
 const CartItem = ({
+  productId,
+  variantId,
+  skuId,
   model,
   type,
   color,
   size,
   price,
   slug,
-  amount,
-  thumbnail,
-  item,
+  quantity,
+  image,
   toggleCartModal,
   addItem,
   removeItem,
@@ -29,13 +31,24 @@ const CartItem = ({
 
   const handleAddItem = () => {
     if (!isLoading) {
-      addItem(item);
+      addItem({
+        productId,
+        variantId,
+        skuId,
+        size,
+        model,
+        type,
+        color,
+        price,
+        slug,
+        image,
+      });
     }
   };
 
   const handleRemoveItem = () => {
     if (!isLoading) {
-      removeItem(item);
+      removeItem(productId, skuId);
     }
   };
 
@@ -60,11 +73,11 @@ const CartItem = ({
             <p className={styles.title}>{`${type} ${model}`}</p>
             <p className={styles.color}>{color}</p>
             <p className={styles.size}>{size.toUpperCase()}</p>
-            <p className={styles.price}>${formatNumber(price)}</p>
+            <p className={styles.price}>${formatPrice(price)}</p>
           </div>
-          {/* <img className={styles.image} src={thumbnail} alt="" /> */}
+          {/* <img className={styles.image} src={image} alt="" /> */}
           <ImageContainer
-            src={thumbnail}
+            src={image}
             alt=""
             containerClassName={styles.image_container}
             fillClassName={styles.image_fill}
@@ -83,12 +96,14 @@ const CartItem = ({
           <i className={styles.minus_icon} onClick={handleRemoveItem}>
             <FaMinus />
           </i>
-          <div className={styles.quantity}>{amount}</div>
+          <div className={styles.quantity}>{quantity}</div>
           <i className={styles.plus_icon} onClick={handleAddItem}>
             <FaPlus />
           </i>
         </div>
-        <div className={styles.total}>${addItemPrice({ price, amount })}</div>
+        <div className={styles.total}>
+          ${addIndividualItemPrice({ price, quantity })}
+        </div>
       </div>
     </div>
   );

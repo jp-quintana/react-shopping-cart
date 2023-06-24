@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import Button from 'components/common/Button';
 import ImageContainer from 'components/common/ImageContainer';
 
-import { formatNumber, formatDiscount } from 'helpers/format';
+import { formatPrice, formatDiscount } from 'helpers/format';
 
 import styles from './index.module.scss';
 
@@ -26,8 +26,6 @@ const ProductCard = ({
   const isAdmin = location.pathname.split('/')[1] === 'admin';
 
   const [showDetailsPlaceholder, setDetailsShowPlaceholder] = useState(true);
-
-  console.log(currentPrice, actualPrice);
 
   return (
     <>
@@ -70,14 +68,14 @@ const ProductCard = ({
                 {currentPrice < actualPrice ? (
                   <>
                     <span className={styles.discounted_price}>
-                      ${formatNumber(currentPrice)}
+                      ${formatPrice(currentPrice)}
                     </span>
                     <span className={styles.crossed_price}>
-                      ${formatNumber(actualPrice)}
+                      ${formatPrice(actualPrice)}
                     </span>
                   </>
                 ) : (
-                  formatNumber(currentPrice)
+                  formatPrice(currentPrice)
                 )}
               </li>
             </>

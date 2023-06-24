@@ -16,7 +16,7 @@ import { db } from 'db/config';
 import { useAuthContext } from './useAuthContext';
 import { useCartContext } from './useCartContext';
 
-import { totalCartAmount } from 'helpers/cart';
+import { addAllItemsQuantity } from 'helpers/item';
 
 export const useInventory = () => {
   const { user } = useAuthContext();
@@ -53,7 +53,6 @@ export const useInventory = () => {
         const { stock } = skus.find((sku) => sku.id === item.id);
 
         if (stock <= 0) {
-          console.log('aca stock es 0');
           stockDifference.push(true);
           updatedItems = updatedItems.filter(
             (cartItem) => cartItem.id !== item.id
@@ -67,8 +66,7 @@ export const useInventory = () => {
         }
       }
 
-      const updatedTotalAmount = totalCartAmount(updatedItems);
-      console.log('updatedTotalAmount', updatedItems);
+      const updatedTotalAmount = addAllItemsQuantity(updatedItems);
 
       if (updatedTotalAmount === 0) {
         await deleteDoc(cartRef);
@@ -77,7 +75,6 @@ export const useInventory = () => {
           type: 'DELETE_CART',
         });
       } else if (stockDifference.length > 0) {
-        console.log('en setDoc', updatedItems);
         await setDoc(cartRef, {
           items: updatedItems,
           totalAmount: updatedTotalAmount,
@@ -92,8 +89,6 @@ export const useInventory = () => {
         });
       }
 
-      console.log(stockDifference);
-
       if (stockDifference.length > 0) {
         throw Error(
           'No hay stock suficiente de algunos productos en el carrito. Las cantidades en el carrito fueron actualizadas.',
@@ -105,7 +100,7 @@ export const useInventory = () => {
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       if (err.cause === 'custom') {
         setError({ details: err.message });
       } else {

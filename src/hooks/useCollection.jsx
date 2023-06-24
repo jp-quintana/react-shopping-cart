@@ -48,7 +48,7 @@ export const useCollection = () => {
 
   //     return variants;
   //   } catch (err) {
-  //     console.log(err);
+  //     console.error(err);
   //     setError(err);
   //     setIsLoading(false);
   //   }
@@ -65,8 +65,6 @@ export const useCollection = () => {
   //     querySnapshot.forEach((doc) => {
   //       products.push({ id: doc.id, ...doc.data() });
   //     });
-
-  //     console.log(products);
 
   //     for (const product of products) {
   //       for (const variant of product.variants) {
@@ -89,7 +87,7 @@ export const useCollection = () => {
 
   //     return variants;
   //   } catch (err) {
-  //     console.log(err);
+  //     console.error(err);
   //     setError(err);
   //     setIsLoading(false);
   //   }
@@ -149,7 +147,7 @@ export const useCollection = () => {
 
       return [].concat(...products);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err);
       setIsLoading(false);
     }

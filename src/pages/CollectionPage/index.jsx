@@ -40,8 +40,6 @@ const CollectionPage = () => {
     fetchProductVariants();
   }, [slugId]);
 
-  console.log(productVariants);
-
   return (
     <>
       {!productVariants && <Loader />}

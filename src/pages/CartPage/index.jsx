@@ -64,16 +64,18 @@ const CartPage = () => {
           <div className={styles.list_wrapper}>
             {items.map((item) => (
               <CartItem
-                key={item.id}
-                item={item}
+                key={item.skuId}
+                productId={item.productId}
+                variantId={item.variantId}
+                skuId={item.skuId}
                 model={item.model}
                 type={item.type}
                 color={item.color}
                 size={item.size}
                 price={item.price}
                 slug={item.slug}
-                amount={item.amount}
-                thumbnail={item.thumbnail}
+                quantity={item.quantity}
+                image={item.image}
                 addItem={addItem}
                 removeItem={removeItem}
                 deleteItem={deleteItem}
@@ -104,8 +106,6 @@ const CartPage = () => {
         </Button>
       </div>
     );
-
-  console.log(items);
 
   return (
     <>

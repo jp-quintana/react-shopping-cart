@@ -11,14 +11,14 @@ import Button from 'components/common/Button';
 import Toast from 'components/common/Toast';
 import ToastMessage from 'components/common/ToastMessage';
 
-import { addAllItemsPrice } from 'helpers/item';
+import { addAllItemsPrice, addAllItemsQuantity } from 'helpers/item';
 
 import styles from './index.module.scss';
 
 // TODO: Update component, check useKeyDown, etc...
 
 const CartContent = ({ toggleCartModal }) => {
-  const { items, totalAmount } = useCartContext();
+  const { items } = useCartContext();
   const { addItem, removeItem, deleteItem, isLoading, error } = useCart();
 
   const [toastMessage, setToastMessage] = useState(null);
@@ -32,6 +32,8 @@ const CartContent = ({ toggleCartModal }) => {
   const toggleToast = () => {
     setToastMessage(null);
   };
+
+  const totalQuantity = addAllItemsQuantity(items);
 
   if (items.length === 0) {
     return (
@@ -69,16 +71,18 @@ const CartContent = ({ toggleCartModal }) => {
               {items.map((item) => (
                 <CartItem
                   toggleCartModal={toggleCartModal}
-                  key={item.id}
-                  item={item}
+                  key={item.skuId}
+                  productId={item.productId}
+                  variantId={item.variantId}
+                  skuId={item.skuId}
                   model={item.model}
                   type={item.type}
                   color={item.color}
                   size={item.size}
                   price={item.price}
                   slug={item.slug}
-                  amount={item.amount}
-                  thumbnail={item.thumbnail}
+                  quantity={item.quantity}
+                  image={item.image}
                   addItem={addItem}
                   removeItem={removeItem}
                   deleteItem={deleteItem}
@@ -91,8 +95,8 @@ const CartContent = ({ toggleCartModal }) => {
         <div className={styles.footer_container}>
           <div className={styles.footer_wrapper}>
             <p>
-              <span>Total: ${addAllItemsPrice(items)} </span> | {totalAmount}{' '}
-              {+totalAmount > 1 ? 'items' : 'item'}
+              <span>Total: ${addAllItemsPrice(items)} </span> | {totalQuantity}{' '}
+              {+totalQuantity > 1 ? 'items' : 'item'}
             </p>
             <div className={styles.buttons_wrapper}>
               <Button

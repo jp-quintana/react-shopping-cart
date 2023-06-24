@@ -120,14 +120,6 @@ const ProductProvider = ({ children }) => {
         })
       );
 
-      console.log('aca', {
-        product: {
-          ...productData,
-          variants,
-        },
-        variant: variants.find((variant) => variant.color === selectedColor),
-      });
-
       return {
         product: {
           ...productData,
@@ -136,7 +128,7 @@ const ProductProvider = ({ children }) => {
         variant: variants.find((variant) => variant.color === selectedColor),
       };
     } catch (err) {
-      console.log(err);
+      console.error(err);
       // setError(err);
       // setIsLoading(false);
     }

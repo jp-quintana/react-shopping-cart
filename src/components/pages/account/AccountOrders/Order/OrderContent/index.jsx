@@ -2,8 +2,8 @@ import Button from 'components/common/Button';
 
 import { useKeyDown } from 'hooks/useKeyDown';
 
-import { addAllItemsPrice, addAllItemsAmount } from 'helpers/item';
-import { formatNumber, formatDate } from 'helpers/format';
+import { addAllItemsPrice, addAllItemsQuantity } from 'helpers/item';
+import { formatPrice, formatDate } from 'helpers/format';
 
 import styles from './index.module.scss';
 
@@ -33,15 +33,15 @@ const OrderContent = ({ toggleOrderModal, id, items, date }) => {
               </p>
               <p className={styles.size}>{item.size.toUpperCase()}</p>
             </div>
-            <p className={styles.price}>${formatNumber(item.price)}</p>
+            <p className={styles.price}>${formatPrice(item.price)}</p>
           </div>
         ))}
       </div>
       <div className={styles.modal_footer}>
         <p>
           <span>Total: {addAllItemsPrice(items)} </span> |{' '}
-          {addAllItemsAmount(items)}{' '}
-          {addAllItemsAmount(items) > 1 ? 'Items' : 'Item'}
+          {addAllItemsQuantity(items)}{' '}
+          {addAllItemsQuantity(items) > 1 ? 'Items' : 'Item'}
         </p>
         <Button className={styles.button} onClick={toggleOrderModal}>
           Back to account

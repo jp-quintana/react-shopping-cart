@@ -16,13 +16,3 @@ export const updateCartAtLogin = (items) => {
 
   return { items: updatedItems, totalAmount: updatedTotalAmount };
 };
-
-export const totalCartAmount = (items) => {
-  let totalAmount = 0;
-
-  for (const item of items) {
-    totalAmount += item.amount;
-  }
-
-  return totalAmount;
-};

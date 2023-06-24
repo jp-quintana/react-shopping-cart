@@ -407,7 +407,7 @@ export const useAdmin = () => {
 
       await setDoc(productRef, product);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err);
       setIsLoading(false);
     }
@@ -458,7 +458,7 @@ export const useAdmin = () => {
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err);
       setIsLoading(false);
     }
@@ -498,7 +498,7 @@ export const useAdmin = () => {
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err);
       setIsLoading(false);
     }
