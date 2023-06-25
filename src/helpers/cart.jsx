@@ -1,3 +1,4 @@
+// TODO: update this
 export const updateCartAtLogin = (items) => {
   let updatedItems = [];
   let updatedTotalAmount = 0;

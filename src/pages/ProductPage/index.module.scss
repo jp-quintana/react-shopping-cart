@@ -334,12 +334,13 @@
 
       .sizes_wrapper {
         width: 100%;
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        // display: grid;
+        // grid-template-columns: repeat(5, 1fr);
         gap: 1rem;
+        display: flex;
         margin-bottom: 2rem;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
       }
     }
 

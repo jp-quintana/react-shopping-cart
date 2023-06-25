@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from 'react';
 
-import { doc, getDoc, collection } from 'firebase/firestore';
+import { doc, getDoc, collection, setDoc } from 'firebase/firestore';
 import { db } from 'db/config';
 
 import { useAuthContext } from 'hooks/useAuthContext';
@@ -11,7 +11,6 @@ import CartContext from './cart-context';
 
 const initialState = {
   items: [],
-  totalAmount: 0,
   cartIsReady: false,
 };
 
@@ -47,68 +46,8 @@ const CartProvider = ({ children }) => {
   const { user } = useAuthContext();
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
-  // TODO: Update Cart Schema
-
   useEffect(() => {
     if (user) {
-      // const getCart = async () => {
-      //   try {
-      //     const cartRef = doc(db, 'carts', user.uid);
-      //     const cartDoc = await getDoc(cartRef);
-      //     if (cartDoc.exists()) {
-      //       const cartDb = { ...cartDoc.data() };
-      //       const cart = [];
-      //       const productIds = [];
-      //       const products = [];
-      //       for (const item of cartDb.items) {
-      //         const inventoryRef = doc(db, 'inventory', item.sku);
-      //         const inventoryDoc = await getDoc(inventoryRef);
-      //         if (inventoryDoc.exists()) {
-      //           const inventoryData = { ...inventoryDoc.data() };
-      //           if (!productIds.includes(item.productId)) {
-      //             productIds.push(item.productId);
-      //             const productRef = doc(db, 'products', item.productId);
-      //             const productDoc = await getDoc(productRef);
-      //             const productData = {
-      //               id: productDoc.id,
-      //               ...productDoc.data(),
-      //             };
-      //             products.push(productData);
-      //           }
-      //           const product = products.find(
-      //             (product) => (product.id = item.productId)
-      //           );
-      //           const variant = product.variants.find(
-      //             (variant) => (variant.id = item.variantId)
-      //           );
-      //           cart.push({
-      //             amount: item.amount,
-      //             color: variant.color,
-      //             description: product.description,
-      //             model: product.model,
-      //             price: variant.currentPrice,
-      //             productId: item.productId,
-      //             thumbnail: variant.images[0].src,
-      //             type: product.type,
-      //             slug: variant.slug,
-      //             id: item.sku,
-      //             size: inventoryData.value,
-      //           });
-      //         }
-      //       }
-      //       dispatch({
-      //         type: 'UPDATE_CART',
-      //         payload: { items: [...cart], totalAmount: cartDb.totalAmount },
-      //       });
-      //     } else {
-      //       dispatch({
-      //         type: 'CART_IS_READY',
-      //       });
-      //     }
-      //   } catch (err) {
-      //     console.error(err);
-      //   }
-      // };
       const getCart = async () => {
         try {
           const cartRef = doc(db, 'carts', user.uid);
@@ -118,6 +57,7 @@ const CartProvider = ({ children }) => {
 
             let fetchedProductsDocs = {};
             let fetchedVariantsDocs = {};
+            let cartNeedsUpdate;
 
             const cartItemPromises = cartData.items.map(async (item) => {
               const skuRef = doc(
@@ -177,11 +117,34 @@ const CartProvider = ({ children }) => {
                     slug: productData.slug + '-' + variantData.color,
                     image: variantData.images[0].src,
                   };
+                } else {
+                  cartNeedsUpdate = true;
+                  return null;
                 }
+              } else {
+                cartNeedsUpdate = true;
+                return null;
               }
             });
 
-            const populatedCartItems = await Promise.all(cartItemPromises);
+            let populatedCartItems = await Promise.all(cartItemPromises);
+
+            if (cartNeedsUpdate) {
+              populatedCartItems = populatedCartItems.filter(
+                (item) => item !== null
+              );
+
+              const updatedItemsDb = populatedCartItems.map((item) => ({
+                skuId: item.skuId,
+                productId: item.productId,
+                variantId: item.variantId,
+                quantity: item.quantity,
+              }));
+
+              await setDoc(cartRef, {
+                items: updatedItemsDb,
+              });
+            }
 
             dispatch({
               type: 'UPDATE_CART',
