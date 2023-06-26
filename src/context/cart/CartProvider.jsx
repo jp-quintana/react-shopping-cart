@@ -23,6 +23,12 @@ const cartReducer = (state, action) => {
         cartIsReady: true,
       };
     }
+    case 'CART_NOT_READY': {
+      return {
+        ...state,
+        cartIsReady: false,
+      };
+    }
     case 'UPDATE_CART': {
       return {
         ...state,
@@ -57,11 +63,11 @@ const cartReducer = (state, action) => {
 
 const CartProvider = ({ children }) => {
   const location = useLocation();
-  const { user } = useAuthContext();
+  const { user, authIsReady } = useAuthContext();
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
   useEffect(() => {
-    if (user) {
+    if (authIsReady) {
       const getCart = async () => {
         try {
           const cartRef = doc(db, 'carts', user.uid);
@@ -179,7 +185,7 @@ const CartProvider = ({ children }) => {
       };
       getCart();
     }
-  }, [user]);
+  }, [authIsReady]);
 
   console.log('cart-context', state);
 

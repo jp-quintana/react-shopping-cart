@@ -24,6 +24,8 @@ export const useSignUp = () => {
     setDefaultValue({ name, lastName });
 
     try {
+      dispatchCartAction({ type: 'CART_NOT_READY' });
+
       const credential = EmailAuthProvider.credential(email, password);
 
       const userCredential = await linkWithCredential(
@@ -37,15 +39,6 @@ export const useSignUp = () => {
 
       const user = userCredential.user;
 
-      // TODO: BORRAR ESTO
-      // const anonymouseCartRef = doc(db, 'carts', anonymousUser.uid);
-      // const anonymousCartDoc = await getDoc(anonymouseCartRef);
-
-      // if (anonymousCartDoc.exists()) {
-      //   await deleteDoc(doc(db, 'carts', anonymousUser.uid));
-      //   await setDoc(doc(db, 'carts', user.uid), { items, totalAmount });
-      // }
-
       const userData = {
         name,
         lastName,
@@ -58,6 +51,7 @@ export const useSignUp = () => {
       await setDoc(doc(db, 'users', user.uid), userData);
 
       dispatch({ type: 'LOGIN', payload: { user, ...userData } });
+      dispatchCartAction({ type: 'CART_IS_READY' });
     } catch (err) {
       console.error(err);
       if (err.code === 'auth/email-already-in-use') {
@@ -65,7 +59,7 @@ export const useSignUp = () => {
       } else {
         setError(err);
       }
-      setIsLoading(false);
+      dispatchCartAction({ type: 'CART_IS_READY' });
     }
   };
 

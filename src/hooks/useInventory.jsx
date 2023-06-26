@@ -37,7 +37,7 @@ export const useInventory = () => {
           'productsTest2/' + item.productId + '/variantSkusTest2/' + item.skuId
       );
 
-      const skus = [];
+      const skus = {};
 
       while (skuIdList.length) {
         const batch = skuIdList.splice(0, 10);
@@ -45,18 +45,16 @@ export const useInventory = () => {
         const skusSnapshot = await getDocs(q);
 
         skusSnapshot.forEach((doc) => {
-          skus.push({ skuId: doc.id, ...doc.data() });
+          skus[doc.id] = { skuId: doc.id, ...doc.data() };
         });
       }
 
       let updatedItems = [...items];
       let stockDifference;
-      console.log('skus', skus);
 
-      //TODO: Fix
-      for (const [index, item] of items.entries()) {
-        const { quantity: availableQuantity } = skus[index];
-        console.log('items', item);
+      for (const item of items) {
+        const { quantity: availableQuantity } = skus[item.skuId];
+
         if (availableQuantity <= 0) {
           stockDifference = true;
           updatedItems = updatedItems.filter(
@@ -64,7 +62,10 @@ export const useInventory = () => {
           );
         } else if (availableQuantity < item.quantity) {
           stockDifference = true;
-          updatedItems[index].quantity = availableQuantity;
+          const itemInCartIndex = updatedItems.findIndex(
+            (i) => i.skuId === item.skuId
+          );
+          updatedItems[itemInCartIndex].quantity = availableQuantity;
         }
       }
 

@@ -1,19 +1,17 @@
-// TODO: update this
 export const updateCartAtLogin = (items) => {
   let updatedItems = [];
-  let updatedTotalAmount = 0;
 
   items.forEach((item) => {
-    updatedTotalAmount += item.amount;
-
-    const itemInCartIndex = updatedItems.findIndex((i) => i.id === item.id);
+    const itemInCartIndex = updatedItems.findIndex(
+      (i) => i.skuId === item.skuId
+    );
 
     if (itemInCartIndex >= 0) {
-      updatedItems[itemInCartIndex].amount += item.amount;
+      updatedItems[itemInCartIndex].quantity += item.quantity;
     } else {
       updatedItems.push(item);
     }
   });
 
-  return { items: updatedItems, totalAmount: updatedTotalAmount };
+  return { items: updatedItems };
 };
