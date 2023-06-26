@@ -25,6 +25,7 @@ const cartReducer = (state, action) => {
     }
     case 'UPDATE_CART': {
       return {
+        ...state,
         items: payload,
         cartIsReady: true,
       };

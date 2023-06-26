@@ -51,11 +51,12 @@ export const useInventory = () => {
 
       let updatedItems = [...items];
       let stockDifference;
+      console.log('skus', skus);
 
+      //TODO: Fix
       for (const [index, item] of items.entries()) {
         const { quantity: availableQuantity } = skus[index];
-        console.log('aca', availableQuantity);
-
+        console.log('items', item);
         if (availableQuantity <= 0) {
           stockDifference = true;
           updatedItems = updatedItems.filter(
@@ -66,8 +67,6 @@ export const useInventory = () => {
           updatedItems[index].quantity = availableQuantity;
         }
       }
-
-      console.log('aca', stockDifference);
 
       const cartTotalItemQuantity = addAllItemsQuantity(updatedItems);
 

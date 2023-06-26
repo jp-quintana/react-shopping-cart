@@ -34,7 +34,7 @@ const CartPage = () => {
   const [toastMessage, setToastMessage] = useState(null);
 
   useEffect(() => {
-    if (cartNeedsCheck) {
+    if (cartNeedsCheck && items.length > 0) {
       checkInventory(items);
     } else {
       activateCartCheck();
