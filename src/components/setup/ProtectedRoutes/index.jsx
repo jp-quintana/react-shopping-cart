@@ -1,9 +1,11 @@
 import { Outlet, Navigate, useLocation } from 'react-router-dom';
 
 import { useAuthContext } from 'hooks/useAuthContext';
+import { useCartContext } from 'hooks/useCartContext';
 
 const ProtectedRoutes = ({ needAuth, needAdmin }) => {
   const { isVerified, isAdmin } = useAuthContext();
+  const { cartIsReady } = useCartContext();
   const { pathname, state } = useLocation();
 
   // TODO: SI EL USUARIO HACE LOGOUT TIENE QUE TERMINAR EN HOME Y NO EN LOGIN
@@ -19,24 +21,24 @@ const ProtectedRoutes = ({ needAuth, needAdmin }) => {
   }
 
   if (needAuth) {
-    if (isVerified) {
+    if (isVerified && cartIsReady) {
       return <Outlet />;
     }
 
-    if (!isVerified) {
+    if (!isVerified && cartIsReady) {
       return <Navigate to="/account/login" state={pathname} />;
     }
   }
 
   if (!needAuth) {
-    if (!isVerified) {
+    if (!isVerified && cartIsReady) {
       return <Outlet />;
     }
 
-    if (isVerified) {
+    if (isVerified && cartIsReady) {
       if (state === '/checkout') {
         return <Navigate to={state} />;
-      } else if (state === '/cuenta') {
+      } else if (state === '/account') {
         return <Navigate to={state} />;
       }
       return <Navigate to="/" />;

@@ -131,8 +131,16 @@ const CartProvider = ({ children }) => {
                     variantData = fetchedVariantsDocs[item.variantId];
                   }
 
+                  let currentQuantity = item.quantity;
+
+                  if (item.quantity > skuData.quantity) {
+                    cartNeedsUpdate = true;
+                    currentQuantity = skuData.quantity;
+                  }
+
                   return {
                     ...item,
+                    quantity: currentQuantity,
                     size: skuData.size,
                     model: productData.model,
                     type: productData.type,

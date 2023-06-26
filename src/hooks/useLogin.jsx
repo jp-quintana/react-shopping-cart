@@ -103,8 +103,14 @@ export const useLogin = () => {
                 variantData = fetchedVariantsDocs[item.variantId];
               }
 
+              if (item.quantity > skuData.quantity) {
+                cartNeedsUpdate = true;
+                currentQuantity = skuData.quantity;
+              }
+
               return {
                 ...item,
+                quantity: currentQuantity,
                 size: skuData.size,
                 model: productData.model,
                 type: productData.type,
@@ -141,6 +147,8 @@ export const useLogin = () => {
             items: updatedItemsDb,
           });
         }
+
+        console.log('acaaaaaaaaaaaa', populatedCartItems);
 
         dispatchCartAction({
           type: 'UPDATE_CART',
