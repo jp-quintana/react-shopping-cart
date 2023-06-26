@@ -11,7 +11,7 @@ import { useAddress } from './useAddress';
 
 export const useCheckout = () => {
   const { dispatch } = useCheckoutContext();
-  const { user, addresses } = useAuthContext();
+  const { user } = useAuthContext();
   const { createAddress } = useAddress();
 
   const checkoutSessionRef = doc(db, 'checkoutSessions', user.uid);

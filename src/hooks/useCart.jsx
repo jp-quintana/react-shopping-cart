@@ -86,8 +86,6 @@ export const useCart = () => {
         }
       }
 
-      console.log(updatedItems);
-
       const cartTotalItemQuantity = addAllItemsQuantity(updatedItems);
 
       const cartRef = doc(db, 'carts', user.uid);
@@ -275,5 +273,17 @@ export const useCart = () => {
     });
   };
 
-  return { addItem, removeItem, deleteItem, deleteCart, isLoading, error };
+  const activateCartCheck = () => {
+    dispatch({ type: 'CHECK' });
+  };
+
+  return {
+    addItem,
+    removeItem,
+    deleteItem,
+    deleteCart,
+    activateCartCheck,
+    isLoading,
+    error,
+  };
 };

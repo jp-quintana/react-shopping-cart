@@ -1,4 +1,5 @@
 import { useReducer, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import { doc, getDoc, collection, setDoc } from 'firebase/firestore';
 import { db } from 'db/config';
@@ -7,11 +8,10 @@ import { useAuthContext } from 'hooks/useAuthContext';
 
 import CartContext from './cart-context';
 
-// TODO: Delete total amount
-
 const initialState = {
   items: [],
   cartIsReady: false,
+  cartNeedsCheck: true,
 };
 
 const cartReducer = (state, action) => {
@@ -35,6 +35,18 @@ const cartReducer = (state, action) => {
         cartIsReady: true,
       };
     }
+    case 'CHECK': {
+      return {
+        ...state,
+        cartNeedsCheck: true,
+      };
+    }
+    case 'NO_CHECK': {
+      return {
+        ...state,
+        cartNeedsCheck: false,
+      };
+    }
 
     default: {
       return state;
@@ -43,6 +55,7 @@ const cartReducer = (state, action) => {
 };
 
 const CartProvider = ({ children }) => {
+  const location = useLocation();
   const { user } = useAuthContext();
   const [state, dispatch] = useReducer(cartReducer, initialState);
 
@@ -53,6 +66,10 @@ const CartProvider = ({ children }) => {
           const cartRef = doc(db, 'carts', user.uid);
           const cartDoc = await getDoc(cartRef);
           if (cartDoc.exists()) {
+            if (location === '/cart' || '/checkout') {
+              dispatch({ type: 'NO_CHECK' });
+            }
+
             const cartData = cartDoc.data();
 
             let fetchedProductsDocs = {};

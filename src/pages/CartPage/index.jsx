@@ -16,8 +16,15 @@ import { addAllItemsPrice } from 'helpers/item';
 import styles from './index.module.scss';
 
 const CartPage = () => {
-  const { items } = useCartContext();
-  const { addItem, removeItem, deleteItem, isLoading, error } = useCart();
+  const { items, cartNeedsCheck } = useCartContext();
+  const {
+    addItem,
+    removeItem,
+    deleteItem,
+    activateCartCheck,
+    isLoading,
+    error,
+  } = useCart();
   const {
     checkInventory,
     isLoading: isInventoryLoading,
@@ -27,7 +34,11 @@ const CartPage = () => {
   const [toastMessage, setToastMessage] = useState(null);
 
   useEffect(() => {
-    checkInventory(items);
+    if (cartNeedsCheck) {
+      checkInventory(items);
+    } else {
+      activateCartCheck();
+    }
   }, []);
 
   useEffect(() => {

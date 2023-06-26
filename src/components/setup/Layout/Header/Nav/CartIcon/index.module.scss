@@ -11,10 +11,10 @@
 
 .cart_amount {
   position: absolute;
-  bottom: -0.3rem;
-  right: -0.3rem;
-  width: 2.2rem;
-  height: 2.2rem;
+  bottom: -0.15rem;
+  right: -0.15rem;
+  width: 2rem;
+  height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,6 +26,13 @@
   font-weight: 700;
   color: #fff;
   background: $back-c-detail;
+
+  @media (min-width: 768px) {
+    bottom: -0.3rem;
+    right: -0.3rem;
+    width: 2.2rem;
+    height: 2.2rem;
+  }
 }
 
 .no_items {

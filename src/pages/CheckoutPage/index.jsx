@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { useCheckoutContext } from 'hooks/useCheckoutContext';
 import { useCartContext } from 'hooks/useCartContext';
+import { useCart } from 'hooks/useCart';
 import { useInventory } from 'hooks/useInventory';
 
 import CheckoutProgression from 'components/pages/checkout/CheckoutProgression';
@@ -27,13 +28,10 @@ const progressionSteps = [
 ];
 
 const CheckoutPage = () => {
+  const { items, cartNeedsCheck } = useCartContext();
   const { checkoutIsReady, currentStep } = useCheckoutContext();
-  const { items } = useCartContext();
-  const {
-    checkInventory,
-    isLoading: z,
-    error: inventoryError,
-  } = useInventory();
+  const { activateCartCheck } = useCart();
+  const { checkInventory, error: inventoryError } = useInventory();
 
   const [toastMessage, setToastMessage] = useState(null);
 
@@ -52,7 +50,11 @@ const CheckoutPage = () => {
   }
 
   useEffect(() => {
-    checkInventory(items);
+    if (cartNeedsCheck) {
+      checkInventory(items);
+    } else {
+      activateCartCheck();
+    }
   }, []);
 
   useEffect(() => {
