@@ -135,8 +135,15 @@ const CartProvider = ({ children }) => {
                 const skuData = skuDoc.data();
 
                 if (skuData.quantity > 0) {
+                  let currenItemQuantity = item.quantity;
+
+                  if (item.quantity > skuData.quantity) {
+                    cartNeedsUpdate = true;
+                    currenItemQuantity = skuData.quantity;
+                  }
+
                   if (item.model) {
-                    return item;
+                    return { ...item, quantity: currenItemQuantity };
                   }
 
                   let productData;
@@ -170,16 +177,9 @@ const CartProvider = ({ children }) => {
                     variantData = fetchedVariantsDocs[item.variantId];
                   }
 
-                  let currentQuantity = item.quantity;
-
-                  if (item.quantity > skuData.quantity) {
-                    cartNeedsUpdate = true;
-                    currentQuantity = skuData.quantity;
-                  }
-
                   return {
                     ...item,
-                    quantity: currentQuantity,
+                    quantity: currenItemQuantity,
                     size: skuData.size,
                     model: productData.model,
                     type: productData.type,
