@@ -13,5 +13,5 @@ export const updateCartAtLogin = (items) => {
     }
   });
 
-  return { items: updatedItems };
+  return updatedItems;
 };

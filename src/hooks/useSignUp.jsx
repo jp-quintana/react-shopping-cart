@@ -24,8 +24,6 @@ export const useSignUp = () => {
     setDefaultValue({ name, lastName });
 
     try {
-      dispatchCartAction({ type: 'CART_NOT_READY' });
-
       const credential = EmailAuthProvider.credential(email, password);
 
       const userCredential = await linkWithCredential(
@@ -59,7 +57,6 @@ export const useSignUp = () => {
       } else {
         setError(err);
       }
-      dispatchCartAction({ type: 'CART_IS_READY' });
     }
   };
 

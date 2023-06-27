@@ -1,17 +1,20 @@
 import { useReducer, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { doc, getDoc, collection, setDoc } from 'firebase/firestore';
+import { doc, getDoc, collection, setDoc, deleteDoc } from 'firebase/firestore';
 import { db } from 'db/config';
 
 import { useAuthContext } from 'hooks/useAuthContext';
 
 import CartContext from './cart-context';
 
+import { updateCartAtLogin } from 'helpers/cart';
+
 const initialState = {
   items: [],
   cartIsReady: false,
   cartNeedsCheck: true,
+  isLogin: true,
 };
 
 const cartReducer = (state, action) => {
@@ -21,6 +24,7 @@ const cartReducer = (state, action) => {
       return {
         ...state,
         cartIsReady: true,
+        isLogin: false,
       };
     }
     case 'CART_NOT_READY': {
@@ -34,6 +38,7 @@ const cartReducer = (state, action) => {
         ...state,
         items: payload,
         cartIsReady: true,
+        isLogin: false,
       };
     }
     case 'DELETE_CART': {
@@ -54,6 +59,18 @@ const cartReducer = (state, action) => {
         cartNeedsCheck: false,
       };
     }
+    case 'IS_LOGIN': {
+      return {
+        ...state,
+        isLogin: true,
+      };
+    }
+    case 'IS_NOT_LOGIN': {
+      return {
+        ...state,
+        isLogin: false,
+      };
+    }
 
     default: {
       return state;
@@ -62,28 +79,46 @@ const cartReducer = (state, action) => {
 };
 
 const CartProvider = ({ children }) => {
-  const location = useLocation();
-  const { user, authIsReady } = useAuthContext();
   const [state, dispatch] = useReducer(cartReducer, initialState);
+  const location = useLocation();
+  const { user } = useAuthContext();
 
   useEffect(() => {
-    if (authIsReady) {
+    if (user && state.isLogin) {
+      dispatch({ type: 'CART_NOT_READY' });
       const getCart = async () => {
         try {
           const cartRef = doc(db, 'carts', user.uid);
           const cartDoc = await getDoc(cartRef);
+
+          if (location === '/cart' || '/checkout') {
+            dispatch({ type: 'NO_CHECK' });
+          }
+
+          let currentCartItems = [];
+          let cartNeedsUpdate;
+
           if (cartDoc.exists()) {
-            if (location === '/cart' || '/checkout') {
-              dispatch({ type: 'NO_CHECK' });
-            }
-
             const cartData = cartDoc.data();
+            if (cartData.items.length > 0) {
+              currentCartItems = cartData.items;
+            } else {
+              await deleteDoc(cartRef);
+            }
+          }
 
+          if (state.items.length > 0) {
+            cartNeedsUpdate = true;
+
+            const itemsForCartUpdate = [...state.items, ...currentCartItems];
+            currentCartItems = updateCartAtLogin(itemsForCartUpdate);
+          }
+
+          if (currentCartItems.length > 0) {
             let fetchedProductsDocs = {};
             let fetchedVariantsDocs = {};
-            let cartNeedsUpdate;
 
-            const cartItemPromises = cartData.items.map(async (item) => {
+            const cartItemPromises = currentCartItems.map(async (item) => {
               const skuRef = doc(
                 collection(
                   db,
@@ -100,6 +135,10 @@ const CartProvider = ({ children }) => {
                 const skuData = skuDoc.data();
 
                 if (skuData.quantity > 0) {
+                  if (item.model) {
+                    return item;
+                  }
+
                   let productData;
                   let variantData;
 
@@ -193,7 +232,7 @@ const CartProvider = ({ children }) => {
       };
       getCart();
     }
-  }, [authIsReady]);
+  }, [user]);
 
   console.log('cart-context', state);
 
