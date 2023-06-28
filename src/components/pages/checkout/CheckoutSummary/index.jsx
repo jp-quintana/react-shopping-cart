@@ -11,9 +11,9 @@ const CheckoutSummary = () => {
   let shipping_option;
 
   if (shippingOption.standard) {
-    shipping_option = 'Standard - $750';
+    shipping_option = 'Standard - Free';
   } else {
-    shipping_option = 'Expidited - $1.500';
+    shipping_option = 'Expedited - $15.00';
   }
 
   if (currentStep === 2)

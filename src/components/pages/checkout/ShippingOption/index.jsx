@@ -54,24 +54,24 @@ const ShippingOption = () => {
                   />
                   <span>Standard Shipping (3 - 5 Bus. Days)</span>
                 </label>
-                <p>$750</p>
+                <p>Free</p>
               </div>
               <div>
                 <label>
                   <input
                     type="radio"
-                    value="expidited"
-                    checked={shippingOption.expidited}
+                    value="expedited"
+                    checked={shippingOption.expedited}
                     onChange={(e) => selectShippingOption(e.target.value)}
                     className={
-                      shippingOption.expidited
+                      shippingOption.expedited
                         ? styles.radio_selected
                         : styles.radio_unselected
                     }
                   />
-                  <span>Expidited (2 - 3 Bus. Days)</span>
+                  <span>Expedited (2 - 3 Bus. Days)</span>
                 </label>
-                <p>$1500</p>
+                <p>$15.00</p>
               </div>
             </form>
             <div className={styles.form_controls}>

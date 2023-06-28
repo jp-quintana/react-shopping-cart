@@ -14,7 +14,7 @@ export const addAllItemsPrice = (items) => {
 
 export const addAllItemsPriceNumber = (items) => {
   return items.reduce((total, item) => {
-    return total + item.quantity;
+    return total + item.quantity * item.price;
   }, 0);
 };
 

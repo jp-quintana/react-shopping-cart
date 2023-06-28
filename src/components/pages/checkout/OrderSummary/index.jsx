@@ -13,15 +13,27 @@ const OrderSummary = () => {
   const { shippingOption } = useCheckoutContext();
 
   let shipping_price;
+  let shipping_price_text;
   let shipping_option;
+  let shipping_option_className;
 
-  if (shippingOption.standard) {
-    shipping_price = 750;
-    shipping_option = '(standard)';
+  if (!shippingOption.standard && !shippingOption.expedited) {
+    shipping_price = 0;
+    shipping_price_text = 'Calculated next step';
+    shipping_option_className = styles.no_shipping_option;
   } else {
-    shipping_price = 1500;
-    shipping_option = '(expidited)';
+    if (shippingOption.standard) {
+      shipping_price_text = 'Free';
+      shipping_price = 0;
+      shipping_option = '(standard)';
+      shipping_option_className = styles.shipping_option;
+    } else {
+      shipping_price = 15;
+      shipping_option = '(expedited)';
+      shipping_option_className = styles.shipping_option;
+    }
   }
+
   const subtotal = addAllItemsPriceNumber(items);
   const total = +subtotal + shipping_price;
 
@@ -29,16 +41,15 @@ const OrderSummary = () => {
     <>
       <div className={styles.list_wrapper}>
         {items.map((item) => (
-          <div key={item.id} className={styles.item_container}>
+          <div key={item.skuId} className={styles.item_container}>
             <div className={styles.image}>
               <ImageContainer
                 containerClassName={styles.image_container}
                 fillClassName={styles.image_fill}
-                src={item.thumbnail}
+                src={item.image}
               />
-              {/* <img className={styles.image} src={item.thumbnail} alt="" /> */}
-              <div className={styles.amount}>
-                <div>{item.amount}</div>
+              <div className={styles.quantity}>
+                <div>{item.quantity}</div>
               </div>
             </div>
             <div className={styles.info}>
@@ -60,8 +71,10 @@ const OrderSummary = () => {
           <p>
             Shipping <i>{shipping_option}</i>
           </p>
-          <p className={styles.subtotal_price}>
-            $ {formatPrice(shipping_price)}
+          <p className={shipping_option_className}>
+            {shipping_price > 0
+              ? `$ ${formatPrice(shipping_price)}`
+              : shipping_price_text}
           </p>
         </div>
       </div>

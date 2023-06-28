@@ -13,7 +13,7 @@ const initialState = {
   email: null,
   id: null,
   shippingAddress: {},
-  shippingOption: { standard: true, expidited: false },
+  shippingOption: { standard: false, expedited: false },
 };
 
 const checkoutReducer = (state, action) => {
@@ -27,14 +27,12 @@ const checkoutReducer = (state, action) => {
     case 'SELECT_PREVIOUS_STEP': {
       return {
         ...state,
-        // TODO: CHEQUEAR SI HACE FALTA PREVSTATE EN USEREDUCER
         currentStep: state.currentStep - 1,
       };
     }
     case 'SUBMIT_SHIPPING_INFO': {
       return {
         ...state,
-        // TODO: CHEQUEAR SI HACE FALTA PREVSTATE EN USEREDUCER
         currentStep: state.currentStep + 1,
         email: action.payload.email,
         shippingAddress: action.payload.shippingAddress,
@@ -99,7 +97,7 @@ const CheckoutProvider = ({ children }) => {
         await setDoc(checkoutSessionRef, {
           email,
           shippingAddress: {},
-          shippingOption: { standard: true, expidited: false },
+          shippingOption: { standard: true, expedited: false },
           paymentInfo: {},
         });
 
