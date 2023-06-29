@@ -8,25 +8,40 @@ import { formatDate } from 'helpers/format';
 
 import styles from './index.module.scss';
 
-const Order = ({ id, items, date }) => {
+const Order = ({
+  id,
+  items,
+  date,
+  email,
+  address,
+  city,
+  state,
+  zipCode,
+  payment,
+  shippingOption,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleOrderModal = () => {
-    setIsOpen((prevState) => !prevState);
-  };
   return (
     <>
-      <CenterModal modalClassName={styles.modal} toggleModal={toggleOrderModal}>
+      <CenterModal modalClassName={styles.modal} close={() => setIsOpen(false)}>
         {isOpen && (
           <OrderContent
-            toggleOrderModal={toggleOrderModal}
+            closeModal={() => setIsOpen(false)}
             id={id}
             items={items}
             date={date}
+            email={email}
+            address={address}
+            city={city}
+            state={state}
+            zipCode={zipCode}
+            payment={payment}
+            shippingOption={shippingOption}
           />
         )}
       </CenterModal>
-      <div className={styles.card} onClick={toggleOrderModal}>
+      <div className={styles.card} onClick={() => setIsOpen(true)}>
         <h3>Order #{id}</h3>
         <p className={styles.date}>{formatDate(date)}</p>
       </div>

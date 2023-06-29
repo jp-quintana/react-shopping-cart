@@ -15,7 +15,7 @@ const EditAddress = ({
   address,
   zipCode,
   city,
-  province,
+  state,
   isMain,
   id,
   displayOrder,
@@ -35,7 +35,7 @@ const EditAddress = ({
   const addressInput = useRef();
   const zipCodeInput = useRef();
   const cityInput = useRef();
-  const provinceInput = useRef();
+  const stateInput = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,7 +47,7 @@ const EditAddress = ({
       address: addressInput.current.value,
       zipCode: zipCodeInput.current.value,
       city: cityInput.current.value,
-      province: provinceInput.current.value,
+      state: stateInput.current.value,
       isMain: isChecked,
       id,
       displayOrder,
@@ -137,7 +137,7 @@ const EditAddress = ({
                 defaultValue={zipCode}
               />
             </label>
-            {/* // TODO: update province to state  */}
+            {/* // TODO: update state to state  */}
             <label className={styles.label}>
               <span>State:</span>
               <input
@@ -145,8 +145,8 @@ const EditAddress = ({
                 type="text"
                 placeholder="State"
                 required
-                ref={provinceInput}
-                defaultValue={province}
+                ref={stateInput}
+                defaultValue={state}
               />
             </label>
             <label className={styles.checkbox}>

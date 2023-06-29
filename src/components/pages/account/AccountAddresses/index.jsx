@@ -33,7 +33,7 @@ const AccountAddresses = () => {
                   <li>
                     {defaultAddress.city}, {defaultAddress.zipCode}
                   </li>
-                  <li>{defaultAddress.province}</li>
+                  <li>{defaultAddress.state}</li>
                 </ul>
               </div>
               {otherAddresses.map((address) => (
@@ -50,7 +50,7 @@ const AccountAddresses = () => {
                     <li>
                       {address.city}, {address.zipCode}
                     </li>
-                    <li>{address.province}</li>
+                    <li>{address.state}</li>
                   </ul>
                 </div>
               ))}

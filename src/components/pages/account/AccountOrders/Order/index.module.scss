@@ -1,26 +1,5 @@
 .modal {
-  height: 85%;
-
-  @media (min-width: 768px) {
-    height: 90%;
-    width: 50%;
-  }
-
-  @media (min-width: 900px) {
-    width: 45%;
-  }
-
-  @media (min-width: 1024px) {
-    width: 40%;
-  }
-
-  @media (min-width: 1200px) {
-    width: 30%;
-  }
-
-  @media (min-width: 1920px) {
-    width: 25%;
-  }
+  padding: 3rem 0;
 }
 
 .card {

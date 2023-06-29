@@ -84,10 +84,10 @@ const CheckoutProvider = ({ children }) => {
     const getCheckoutSession = async () => {
       const checkoutSessionRef = doc(db, 'checkoutSessions', user.uid);
 
-      const checkoutSessionSnap = await getDoc(checkoutSessionRef);
+      const checkoutSessionDoc = await getDoc(checkoutSessionRef);
 
-      if (checkoutSessionSnap.exists()) {
-        const checkoutSessionData = { ...checkoutSessionSnap.data() };
+      if (checkoutSessionDoc.exists()) {
+        const checkoutSessionData = checkoutSessionDoc.data();
 
         dispatch({
           type: 'UPDATE_CHECKOUT_SESSION',
@@ -97,7 +97,7 @@ const CheckoutProvider = ({ children }) => {
         await setDoc(checkoutSessionRef, {
           email,
           shippingAddress: {},
-          shippingOption: { standard: true, expedited: false },
+          shippingOption: { standard: false, expedited: false },
           paymentInfo: {},
         });
 

@@ -48,7 +48,7 @@ const ShippingInfo = () => {
     lastName: defaultOption.lastName || '',
     address: defaultOption.address || '',
     city: defaultOption.city || '',
-    province: defaultOption.province || '',
+    state: defaultOption.state || '',
     zipCode: defaultOption.zipCode || '',
     phoneNumber: defaultOption.phoneNumber || '',
     label: defaultOption.label || '',
@@ -73,7 +73,7 @@ const ShippingInfo = () => {
         lastName: newAddress.lastName || '',
         address: newAddress.address || '',
         city: newAddress.city || '',
-        province: newAddress.province || '',
+        state: newAddress.state || '',
         zipCode: newAddress.zipCode || '',
         phoneNumber: newAddress.phoneNumber || '',
         label: option.label,
@@ -88,7 +88,7 @@ const ShippingInfo = () => {
         lastName: option.lastName || '',
         address: option.address || '',
         city: option.city || '',
-        province: option.province || '',
+        state: option.state || '',
         zipCode: option.zipCode || '',
         phoneNumber: option.phoneNumber || '',
         label: option.label,
@@ -159,15 +159,15 @@ const ShippingInfo = () => {
     }));
   };
 
-  const handleProvinceInput = (e) => {
+  const handleStateInput = (e) => {
     setNewAddress((prevState) => ({
       ...prevState,
-      province: e.target.value,
+      state: e.target.value,
     }));
 
     setUserInput((prevState) => ({
       ...prevState,
-      province: e.target.value,
+      state: e.target.value,
     }));
   };
 
@@ -234,15 +234,11 @@ const ShippingInfo = () => {
       userInput.city.length > 0 ? styles.input_focus : styles.input_no_focus,
   };
 
-  const provinceStyles = {
+  const stateStyles = {
     label:
-      userInput.province.length > 0
-        ? styles.label_focus
-        : styles.label_no_focus,
+      userInput.state.length > 0 ? styles.label_focus : styles.label_no_focus,
     input:
-      userInput.province.length > 0
-        ? styles.input_focus
-        : styles.input_no_focus,
+      userInput.state.length > 0 ? styles.input_focus : styles.input_no_focus,
   };
 
   const zipCodeStyles = {
@@ -406,16 +402,16 @@ const ShippingInfo = () => {
                     isDisabled ? styles.disabled : ''
                   }`}
                 >
-                  <label htmlFor="province" className={provinceStyles.label}>
+                  <label htmlFor="state" className={stateStyles.label}>
                     State
                   </label>
                   <input
-                    id="province"
+                    id="state"
                     type="text"
                     autoComplete="off"
-                    onChange={handleProvinceInput}
-                    value={userInput.province}
-                    className={provinceStyles.input}
+                    onChange={handleStateInput}
+                    value={userInput.state}
+                    className={stateStyles.input}
                     required
                     placeholder="State"
                     disabled={isDisabled}

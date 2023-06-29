@@ -26,7 +26,7 @@ export const useAddress = () => {
     address,
     zipCode,
     city,
-    province,
+    state,
     isMain = false,
     // isFromCheckout = null,
   }) => {
@@ -53,9 +53,9 @@ export const useAddress = () => {
         address,
         zipCode,
         city,
-        province,
+        state,
         isMain,
-        label: `${name} ${lastName} - ${address} - ${city}, ${zipCode} - ${province}`,
+        label: `${name} ${lastName} - ${address} - ${city}, ${zipCode} - ${state}`,
         value: id,
       };
 
@@ -95,7 +95,7 @@ export const useAddress = () => {
     address,
     zipCode,
     city,
-    province,
+    state,
     isMain,
     id,
     displayOrder,
@@ -123,9 +123,9 @@ export const useAddress = () => {
         address,
         zipCode,
         city,
-        province,
+        state,
         isMain,
-        label: `${name} ${lastName} - ${address} - ${city}, ${zipCode} - ${province}`,
+        label: `${name} ${lastName} - ${address} - ${city}, ${zipCode} - ${state}`,
         value: id,
         displayOrder,
       };

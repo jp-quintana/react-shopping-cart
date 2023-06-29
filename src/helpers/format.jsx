@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const formatPrice = (number) => {
   // return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   return number + '.00';
@@ -52,9 +54,7 @@ export const formatCvv = (value) => {
 };
 
 export const formatDate = (value) => {
-  const date = value.toDate().getDate();
-  const month = value.toDate().getMonth() + 1;
-  const year = value.toDate().getFullYear().toString().slice(-2);
+  const timestamp = `${value.seconds}.${value.nanoseconds}`;
 
-  return `${date}/${month}/${year}`;
+  return moment.unix(parseFloat(timestamp)).format('MM/DD/YY');
 };

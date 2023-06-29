@@ -1,5 +1,8 @@
+import { useEffect } from 'react';
+
 import { useCartContext } from 'hooks/useCartContext';
 import { useCheckoutContext } from 'hooks/useCheckoutContext';
+import { useCheckout } from 'hooks/useCheckout';
 
 import { formatPrice } from 'helpers/format';
 import { addAllItemsPriceNumber } from 'helpers/item';
@@ -10,7 +13,18 @@ import styles from './index.module.scss';
 
 const OrderSummary = () => {
   const { items } = useCartContext();
-  const { shippingOption } = useCheckoutContext();
+  const { shippingOption, currentStep } = useCheckoutContext();
+  const { selectShippingOption } = useCheckout();
+
+  useEffect(() => {
+    if (
+      currentStep === 2 &&
+      !shippingOption.standard &&
+      !shippingOption.expedited
+    ) {
+      selectShippingOption('standard');
+    }
+  }, [currentStep]);
 
   let shipping_price;
   let shipping_price_text;

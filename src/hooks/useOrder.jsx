@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import moment from 'moment';
+
 import {
   writeBatch,
   doc,
@@ -40,16 +42,18 @@ export const useOrder = () => {
       const batch = writeBatch(db);
 
       for (const item of items) {
-        const skuRef = doc(db, 'inventory', item.id);
-        batch.update(skuRef, { stock: increment(-item.amount) });
+        const skuRef = doc(
+          collection(db, 'productsTest2', item.productId, 'variantSkusTest2'),
+          item.skuId
+        );
+        batch.update(skuRef, { quantity: increment(-item.quantity) });
       }
 
       await batch.commit();
 
-      const createdAt = Timestamp.fromDate(new Date());
       await addDoc(ordersRef, {
-        createdAt,
-        items,
+        createdAt: moment().toDate(),
+        items: updatedItemsDb,
         email,
         shippingAddress,
         shippingOption,

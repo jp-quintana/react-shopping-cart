@@ -40,7 +40,7 @@ export const useCheckout = () => {
       }
 
       shippingAddress.value = shippingAddress.id;
-      shippingAddress.label = `${shippingAddress.name} ${shippingAddress.lastName} - ${shippingAddress.address} - ${shippingAddress.city}, ${shippingAddress.zipCode} - ${shippingAddress.province}`;
+      shippingAddress.label = `${shippingAddress.name} ${shippingAddress.lastName} - ${shippingAddress.address} - ${shippingAddress.city}, ${shippingAddress.zipCode} - ${shippingAddress.state}`;
 
       await updateDoc(checkoutSessionRef, {
         email,

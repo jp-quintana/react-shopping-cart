@@ -26,7 +26,7 @@ const AddAddress = ({ close }) => {
   const addressInput = useRef();
   const zipCodeInput = useRef();
   const cityInput = useRef();
-  const provinceInput = useRef();
+  const stateInput = useRef();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +37,7 @@ const AddAddress = ({ close }) => {
       address: addressInput.current.value,
       zipCode: zipCodeInput.current.value,
       city: cityInput.current.value,
-      province: provinceInput.current.value,
+      state: stateInput.current.value,
       isMain: isChecked,
     });
 
@@ -139,7 +139,7 @@ const AddAddress = ({ close }) => {
                 type="text"
                 placeholder="State"
                 required
-                ref={provinceInput}
+                ref={stateInput}
               />
             </label>
             <label className={styles.checkbox}>

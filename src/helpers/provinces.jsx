@@ -1,4 +1,4 @@
-export const provinces = [
+export const states = [
   'Buenos Aires',
   'CABA',
   'Catamarca',

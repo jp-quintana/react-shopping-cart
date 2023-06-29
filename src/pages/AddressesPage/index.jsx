@@ -85,7 +85,7 @@ const AddressesPage = () => {
                       address={defaultAddress.address}
                       zipCode={defaultAddress.zipCode}
                       city={defaultAddress.city}
-                      province={defaultAddress.province}
+                      state={defaultAddress.state}
                       id={defaultAddress.id}
                       isMain={defaultAddress.isMain}
                       onDelete={deleteAddress}
@@ -100,7 +100,7 @@ const AddressesPage = () => {
                       address={address.address}
                       zipCode={address.zipCode}
                       city={address.city}
-                      province={address.province}
+                      state={address.state}
                       id={address.id}
                       isMain={address.isMain}
                       displayOrder={address.displayOrder}

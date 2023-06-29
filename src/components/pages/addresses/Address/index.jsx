@@ -16,7 +16,7 @@ const Address = ({
   address,
   zipCode,
   city,
-  province,
+  state,
   isMain,
   displayOrder,
   onDelete,
@@ -39,7 +39,7 @@ const Address = ({
             address={address}
             zipCode={zipCode}
             city={city}
-            province={province}
+            state={state}
             isMain={isMain}
             id={id}
             displayOrder={displayOrder}
@@ -58,7 +58,7 @@ const Address = ({
             <li>
               {city}, {zipCode}
             </li>
-            <li>{province}</li>
+            <li>{state}</li>
           </ul>
           <div className={styles.controls}>
             <div className={styles.edit} onClick={() => setIsOpen(true)}>
