@@ -14,14 +14,16 @@ const initialState = {
   id: null,
   shippingAddress: {},
   shippingOption: { standard: false, expedited: false },
+  shippingCost: 0,
 };
 
 const checkoutReducer = (state, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case 'SELECT_STEP': {
       return {
         ...state,
-        currentStep: action.payload,
+        currentStep: payload,
       };
     }
     case 'SELECT_PREVIOUS_STEP': {
@@ -34,19 +36,20 @@ const checkoutReducer = (state, action) => {
       return {
         ...state,
         currentStep: state.currentStep + 1,
-        email: action.payload.email,
-        shippingAddress: action.payload.shippingAddress,
+        email: payload.email,
+        shippingAddress: payload.shippingAddress,
       };
     }
     case 'SELECT_SHIPPING_OPTION': {
       return {
         ...state,
-        shippingOption: action.payload,
+        shippingOption: payload,
       };
     }
     case 'SUBMIT_SHIPPING_OPTION': {
       return {
         ...state,
+        shippingCost: payload,
         currentStep: state.currentStep + 1,
       };
     }
@@ -54,18 +57,19 @@ const checkoutReducer = (state, action) => {
       return {
         ...state,
         checkoutIsReady: true,
-        id: action.payload.id,
-        email: action.payload.email,
+        id: payload.id,
+        email: payload.email,
       };
     }
     case 'UPDATE_CHECKOUT_SESSION': {
       return {
         ...state,
         checkoutIsReady: true,
-        email: action.payload.email,
-        id: action.payload.id,
-        shippingAddress: action.payload.shippingAddress,
-        shippingOption: action.payload.shippingOption,
+        email: payload.email,
+        id: payload.id,
+        shippingAddress: payload.shippingAddress,
+        shippingOption: payload.shippingOption,
+        shippingCost: payload.shippingCost,
       };
     }
 

@@ -26,7 +26,8 @@ import { useCheckout } from './useCheckout';
 export const useOrder = () => {
   const { user } = useAuthContext();
   const { items } = useCartContext();
-  const { email, shippingAddress, shippingOption } = useCheckoutContext();
+  const { email, shippingAddress, shippingOption, shippingCost } =
+    useCheckoutContext();
   const { deleteCart } = useCart();
   const { deleteCheckoutSession } = useCheckout();
 
@@ -53,10 +54,11 @@ export const useOrder = () => {
 
       await addDoc(ordersRef, {
         createdAt: moment().toDate(),
-        items: updatedItemsDb,
+        items,
         email,
         shippingAddress,
         shippingOption,
+        shippingCost,
         paymentInfo,
         createdBy: user.uid,
       });

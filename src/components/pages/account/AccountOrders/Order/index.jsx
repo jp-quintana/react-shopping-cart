@@ -19,6 +19,7 @@ const Order = ({
   zipCode,
   payment,
   shippingOption,
+  shippingCost,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -38,6 +39,7 @@ const Order = ({
             zipCode={zipCode}
             payment={payment}
             shippingOption={shippingOption}
+            shippingCost={shippingCost}
           />
         )}
       </CenterModal>

@@ -8,6 +8,8 @@ import Loader from 'components/common/Loader';
 
 import { BiChevronLeft } from 'react-icons/bi';
 
+import { formatPrice } from 'helpers/format';
+
 import styles from './index.module.scss';
 
 const ShippingOption = () => {
@@ -19,9 +21,16 @@ const ShippingOption = () => {
     isLoading,
   } = useCheckout();
 
+  const expiditedCost = 15;
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    submitShippingOption(shippingOption);
+
+    if (shippingOption.standard) {
+      submitShippingOption({ shippingOption });
+    } else {
+      submitShippingOption({ shippingOption, shippingCost: expiditedCost });
+    }
   };
 
   return (
@@ -71,7 +80,7 @@ const ShippingOption = () => {
                   />
                   <span>Expedited (2 - 3 Bus. Days)</span>
                 </label>
-                <p>$15.00</p>
+                <p>${formatPrice(expiditedCost)}</p>
               </div>
             </form>
             <div className={styles.form_controls}>

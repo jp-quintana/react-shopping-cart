@@ -35,7 +35,7 @@ const Payment = ({ handlePreviousStep }) => {
   const handleCardNumberInput = (e) => {
     setUserInput((prevState) => ({
       ...prevState,
-      cardNumber: e.target.value,
+      cardNumber: formatCardNumber(e.target.value),
     }));
   };
 
@@ -44,13 +44,16 @@ const Payment = ({ handlePreviousStep }) => {
   };
 
   const handleExpiryDateInput = (e) => {
-    setUserInput((prevState) => ({ ...prevState, expiryDate: e.target.value }));
+    setUserInput((prevState) => ({
+      ...prevState,
+      expiryDate: formatExpiryDate(e.target.value),
+    }));
   };
 
   const handleSecurityCodeInput = (e) => {
     setUserInput((prevState) => ({
       ...prevState,
-      securityCode: e.target.value,
+      securityCode: formatCvv(e.target.value),
     }));
   };
 
@@ -154,7 +157,7 @@ const Payment = ({ handlePreviousStep }) => {
                             e.preventDefault();
                           }
                         }}
-                        value={formatCardNumber(userInput.cardNumber)}
+                        value={userInput.cardNumber}
                         type="text"
                         inputMode="numeric"
                         placeholder="Card number"
@@ -194,7 +197,7 @@ const Payment = ({ handlePreviousStep }) => {
                               e.preventDefault();
                             }
                           }}
-                          value={formatExpiryDate(userInput.expiryDate)}
+                          value={userInput.expiryDate}
                           type="text"
                           placeholder="Expiration Date (MM/YY)"
                           className={expiryDateStyles.input}
@@ -217,7 +220,7 @@ const Payment = ({ handlePreviousStep }) => {
                               e.preventDefault();
                             }
                           }}
-                          value={formatCvv(userInput.securityCode)}
+                          value={userInput.securityCode}
                           type="password"
                           placeholder="Security code"
                           className={securityCodeStyles.input}

@@ -20,6 +20,7 @@ const OrderContent = ({
   zipCode,
   payment,
   shippingOption,
+  shippingCost,
 }) => {
   useKeyDown(() => {
     closeModal();
@@ -29,7 +30,6 @@ const OrderContent = ({
     ? 'Standard  (3 - 5 Bus. Days)'
     : 'Expedited (2 - 3 Bus. Days)';
   const subtotal = addAllItemsPriceNumber(items);
-  const shippingCost = 0;
   const total = subtotal + shippingCost;
 
   return (
@@ -66,7 +66,7 @@ const OrderContent = ({
       <div className={styles.list_wrapper}>
         <div className={styles.items_wrapper}>
           {items.map((item) => (
-            <div key={item.id} className={styles.item_container}>
+            <div key={item.skuId} className={styles.item_container}>
               <div className={styles.image_wrapper}>
                 <ImageContainer
                   src={item.image}

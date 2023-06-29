@@ -77,15 +77,16 @@ export const useCheckout = () => {
     dispatch({ type: 'SELECT_SHIPPING_OPTION', payload: selectedOption });
   };
 
-  const submitShippingOption = async (option) => {
+  const submitShippingOption = async ({ shippingOption, shippingCost = 0 }) => {
     setError(null);
     setIsLoading(true);
     try {
       await updateDoc(checkoutSessionRef, {
-        shippingOption: option,
+        shippingOption,
+        shippingCost,
       });
 
-      dispatch({ type: 'SUBMIT_SHIPPING_OPTION' });
+      dispatch({ type: 'SUBMIT_SHIPPING_OPTION', payload: shippingCost });
 
       setIsLoading(false);
     } catch (err) {
