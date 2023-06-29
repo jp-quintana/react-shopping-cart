@@ -1,11 +1,35 @@
+import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 import { motion, AnimatePresence } from 'framer-motion';
 
 import styles from './index.module.scss';
 
-const Toast = ({ children }) => {
-  const overlaysElement = document.getElementById('overlays');
+const Toast = ({ children, content }) => {
+  const overlayElement = document.getElementById('overlay');
+
+  const [bump, setBump] = useState(false);
+  const firstLoad = useRef(true);
+
+  useEffect(() => {
+    if (firstLoad.current) {
+      firstLoad.current = false;
+    } else {
+      setBump(true);
+      const timer = setTimeout(() => {
+        setBump(false);
+      }, 50);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [content]);
+
+  const variants = {
+    initial: { y: '50vh', x: '-50%', opacity: 0 },
+    visible: { y: 0, x: '-50%', opacity: 1, scale: bump ? 1.1 : 1 },
+    exit: { y: '50vh', x: '-50%', opacity: 0 },
+  };
 
   return (
     <AnimatePresence>
@@ -15,18 +39,20 @@ const Toast = ({ children }) => {
             <motion.div
               key="toast"
               className={styles.toast}
-              initial={{ x: '50%', y: '100vh' }}
-              animate={{ x: '50%', y: '0' }}
+              variants={variants}
+              initial="initial"
+              animate="visible"
+              exit="exit"
               transition={{ duration: 0.2 }}
-              exit={{ x: '50%', y: '100vh' }}
             >
               {children}
             </motion.div>,
-            overlaysElement
+            overlayElement
           )}
         </>
       )}
     </AnimatePresence>
   );
 };
+
 export default Toast;

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
-
 import { IoIosCheckmarkCircle, IoIosAlert } from 'react-icons/io';
+
+import ImageContainer from 'components/common/ImageContainer';
 
 import styles from './index.module.scss';
 
@@ -8,7 +9,7 @@ const ToastMessage = ({ toggleToast, content, className }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       toggleToast();
-    }, 6000);
+    }, 4000);
 
     return () => {
       clearTimeout(timer);
@@ -19,12 +20,17 @@ const ToastMessage = ({ toggleToast, content, className }) => {
     return (
       <div className={`${styles.addToCart} ${styles.success}`}>
         <div className={styles.content_wrapper}>
-          <img className={styles.image} src={content.thumbnail} alt="" />
+          {/* <img className={styles.image} src={content.image} alt="" /> */}
+          <ImageContainer
+            src={content.image}
+            alt=""
+            containerClassName={styles.image_container}
+            fillClassName={styles.image_fill}
+            imageClassName={styles.image}
+          />
           <div>
-            <p className={styles.title}>Producto agregado al carrito.</p>
-            <p className={styles.details}>
-              {content.details || 'La operacion se realizó con éxito.'}
-            </p>
+            <p className={styles.title}>Product added to cart.</p>
+            <p className={styles.details}>{content.message}</p>
           </div>
         </div>
         <i className={styles.icon}>
@@ -39,10 +45,8 @@ const ToastMessage = ({ toggleToast, content, className }) => {
       <div className={`${styles.error} ${className}`}>
         <div className={styles.content_wrapper}>
           <div>
-            <p className={styles.title}>Hubo un error.</p>
-            <p className={styles.error_details}>
-              {content.details || 'La operacion no pudo ser realizada.'}
-            </p>
+            <p className={styles.title}>There was an error.</p>
+            <p className={styles.error_details}>{content.message}</p>
           </div>
         </div>
         <i className={styles.icon}>

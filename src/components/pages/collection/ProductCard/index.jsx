@@ -54,7 +54,7 @@ const ProductCard = ({
           {!showDetailsPlaceholder && (
             <>
               <li className={styles.title}>
-                {type} {model}
+                {model} {type}
               </li>
               <li className={styles.color}>
                 <span className={styles.text}>{color}</span>

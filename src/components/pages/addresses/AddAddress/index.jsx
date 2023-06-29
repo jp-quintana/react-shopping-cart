@@ -68,95 +68,99 @@ const AddAddress = ({ close }) => {
       </Toast>
       {isLoading && <Loader />}
       {!isLoading && (
-        <form id="form" className={styles.form} onSubmit={handleSubmit}>
-          <h2 className={styles.title}>Add Address:</h2>
-          <div className={styles.form_inputs_wrapper}>
-            <label className={styles.label}>
-              <span>Name:</span>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="Name"
-                required
-                ref={nameInput}
-              />
-            </label>
-            <label className={styles.label}>
-              <span>Last Name:</span>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="Last Name"
-                required
-                ref={lastNameInput}
-              />
-            </label>
-            <label className={styles.label}>
-              <span>Phone:</span>
-              <input
-                className={styles.input}
-                type="tel"
-                required
-                ref={phoneNumberInput}
-              />
-            </label>
-            <label className={styles.label}>
-              <span>Address:</span>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="Address"
-                required
-                ref={addressInput}
-              />
-            </label>
-            <label className={styles.label}>
-              <span>City:</span>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="City"
-                required
-                ref={cityInput}
-              />
-            </label>
-            <label className={styles.label}>
-              <span>Zip Code:</span>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="Zip Code"
-                inputMode="nuAddAddressModalmeric"
-                required
-                ref={zipCodeInput}
-              />
-            </label>
+        <div className={styles.form_container}>
+          <div className={styles.form_wrapper}>
+            <form id="form" className={styles.form} onSubmit={handleSubmit}>
+              <h2 className={styles.title}>Add Address:</h2>
+              <div className={styles.form_inputs_wrapper}>
+                <label className={styles.label}>
+                  <span>Name:</span>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="Name"
+                    required
+                    ref={nameInput}
+                  />
+                </label>
+                <label className={styles.label}>
+                  <span>Last Name:</span>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="Last Name"
+                    required
+                    ref={lastNameInput}
+                  />
+                </label>
+                <label className={styles.label}>
+                  <span>Phone:</span>
+                  <input
+                    className={styles.input}
+                    type="tel"
+                    required
+                    ref={phoneNumberInput}
+                  />
+                </label>
+                <label className={styles.label}>
+                  <span>Address:</span>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="Address"
+                    required
+                    ref={addressInput}
+                  />
+                </label>
+                <label className={styles.label}>
+                  <span>City:</span>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="City"
+                    required
+                    ref={cityInput}
+                  />
+                </label>
+                <label className={styles.label}>
+                  <span>Zip Code:</span>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="Zip Code"
+                    inputMode="nuAddAddressModalmeric"
+                    required
+                    ref={zipCodeInput}
+                  />
+                </label>
 
-            <label className={styles.label}>
-              <span>State</span>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="State"
-                required
-                ref={stateInput}
-              />
-            </label>
-            <label className={styles.checkbox}>
-              <input
-                className={styles.input}
-                type="checkbox"
-                onChange={handleCheckboxInput}
-              />
-              <div>Primary Address</div>
-            </label>
+                <label className={styles.label}>
+                  <span>State</span>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="State"
+                    required
+                    ref={stateInput}
+                  />
+                </label>
+                <label className={styles.checkbox}>
+                  <input
+                    className={styles.input}
+                    type="checkbox"
+                    onChange={handleCheckboxInput}
+                  />
+                  <div>Primary Address</div>
+                </label>
+              </div>
+            </form>
           </div>
           <div className={styles.button_wrapper}>
             <Button form="form" className={styles.button} type="submit">
               Add
             </Button>
           </div>
-        </form>
+        </div>
       )}
     </>
   );

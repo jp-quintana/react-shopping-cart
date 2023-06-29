@@ -55,47 +55,51 @@ const EditProfile = ({ close, name, lastName, phoneNumber }) => {
       </Toast>
       {isLoading && <Loader />}
       {!isLoading && (
-        <form id="form" className={styles.form} onSubmit={handleSubmit}>
-          <h2 className={styles.title}>Edit info</h2>
-          <div className={styles.form_inputs_wrapper}>
-            <label className={styles.label}>
-              <span>Name:</span>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="Name"
-                required
-                ref={nameInput}
-                defaultValue={name}
-              />
-            </label>
-            <label className={styles.label}>
-              <span>Last Name:</span>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="Last Name"
-                required
-                ref={lastNameInput}
-                defaultValue={lastName}
-              />
-            </label>
-            <label className={styles.label}>
-              <span>Phone:</span>
-              <input
-                className={styles.input}
-                type="tel"
-                ref={phoneNumberInput}
-                defaultValue={phoneNumber ? phoneNumber : ''}
-              />
-            </label>
+        <div className={styles.form_container}>
+          <div className={styles.form_wrapper}>
+            <form id="form" className={styles.form} onSubmit={handleSubmit}>
+              <h2 className={styles.title}>Edit info</h2>
+              <div className={styles.form_inputs_wrapper}>
+                <label className={styles.label}>
+                  <span>Name:</span>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="Name"
+                    required
+                    ref={nameInput}
+                    defaultValue={name}
+                  />
+                </label>
+                <label className={styles.label}>
+                  <span>Last Name:</span>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="Last Name"
+                    required
+                    ref={lastNameInput}
+                    defaultValue={lastName}
+                  />
+                </label>
+                <label className={styles.label}>
+                  <span>Phone:</span>
+                  <input
+                    className={styles.input}
+                    type="tel"
+                    ref={phoneNumberInput}
+                    defaultValue={phoneNumber ? phoneNumber : ''}
+                  />
+                </label>
+              </div>
+            </form>
           </div>
           <div className={styles.button_wrapper}>
             <Button form="form" className={styles.button} type="submit">
               Edit
             </Button>
           </div>
-        </form>
+        </div>
       )}
     </>
   );

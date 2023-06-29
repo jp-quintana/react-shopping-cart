@@ -34,7 +34,7 @@
 
   .content {
     height: 100%;
-    overflow-y: overlay;
+    overflow-y: auto;
     margin: 0 0.3rem;
 
     &::-webkit-scrollbar {

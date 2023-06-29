@@ -31,7 +31,7 @@ const ProductPage = () => {
 
   const { addItem, isLoading, error } = useCart();
 
-  const [notification, setNotification] = useState(false);
+  const [notify, setNotify] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
 
   const handleAddToCart = async () => {
@@ -47,26 +47,26 @@ const ProductPage = () => {
       slug: selectedProduct.slug + '-' + selectedVariant.color,
       image: selectedVariant.images[0].src,
     });
-    setNotification(true);
+    setNotify(true);
   };
 
   useEffect(() => {
-    if (notification) {
+    if (notify) {
       if (!error) {
         setToastMessage({
           addToCartSuccess: true,
-          thumbnail: selectedVariant.images[0].src,
-          details: `${selectedProduct.type} ${selectedProduct.model} - ${
+          image: selectedVariant.images[0].src,
+          message: `${selectedProduct.model} ${selectedProduct.type} - ${
             selectedVariant.color
           } - ${selectedSize.toUpperCase()}`,
         });
       } else if (error) {
-        setToastMessage({ error, details: error.details });
+        setToastMessage({ error, message: error.message });
       }
 
-      setNotification(false);
+      setNotify(false);
     }
-  }, [notification]);
+  }, [notify]);
 
   const toggleToast = () => {
     setToastMessage(null);
@@ -94,7 +94,7 @@ const ProductPage = () => {
 
   return (
     <>
-      <Toast>
+      <Toast content={toastMessage}>
         {toastMessage && (
           <ToastMessage toggleToast={toggleToast} content={toastMessage} />
         )}

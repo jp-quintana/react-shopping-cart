@@ -68,104 +68,107 @@ const EditAddress = ({
     <>
       {isLoading && <Loader />}
       {!isLoading && (
-        <form id="form" className={styles.form} onSubmit={handleSubmit}>
-          <h2 className={styles.title}>Edit address</h2>
-          <div className={styles.form_inputs_wrapper}>
-            <label className={styles.label}>
-              <span>Name:</span>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="Name"
-                required
-                ref={nameInput}
-                defaultValue={name}
-              />
-            </label>
-            <label className={styles.label}>
-              <span>Last Name:</span>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="Last Name"
-                required
-                ref={lastNameInput}
-                defaultValue={lastName}
-              />
-            </label>
-            <label className={styles.label}>
-              <span>Phone:</span>
-              <input
-                className={styles.input}
-                type="tel"
-                required
-                ref={phoneNumberInput}
-                defaultValue={phoneNumber}
-              />
-            </label>
-            <label className={styles.label}>
-              <span>Address:</span>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="Address"
-                required
-                ref={addressInput}
-                defaultValue={address}
-              />
-            </label>
-            <label className={styles.label}>
-              <span>City:</span>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="City"
-                required
-                ref={cityInput}
-                defaultValue={city}
-              />
-            </label>
-            <label className={styles.label}>
-              <span>Zip Code:</span>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="Zip Code"
-                inputMode="numeric"
-                required
-                ref={zipCodeInput}
-                defaultValue={zipCode}
-              />
-            </label>
-            {/* // TODO: update state to state  */}
-            <label className={styles.label}>
-              <span>State:</span>
-              <input
-                className={styles.input}
-                type="text"
-                placeholder="State"
-                required
-                ref={stateInput}
-                defaultValue={state}
-              />
-            </label>
-            <label className={styles.checkbox}>
-              <input
-                className={styles.input}
-                type="checkbox"
-                checked={isChecked}
-                onChange={handleCheckboxInput}
-                disabled={isMain}
-              />
-              <div>Primary address</div>
-            </label>
+        <div className={styles.form_container}>
+          <div className={styles.form_wrapper}>
+            <form id="form" className={styles.form} onSubmit={handleSubmit}>
+              <h2 className={styles.title}>Edit address</h2>
+              <div className={styles.form_inputs_wrapper}>
+                <label className={styles.label}>
+                  <span>Name:</span>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="Name"
+                    required
+                    ref={nameInput}
+                    defaultValue={name}
+                  />
+                </label>
+                <label className={styles.label}>
+                  <span>Last Name:</span>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="Last Name"
+                    required
+                    ref={lastNameInput}
+                    defaultValue={lastName}
+                  />
+                </label>
+                <label className={styles.label}>
+                  <span>Phone:</span>
+                  <input
+                    className={styles.input}
+                    type="tel"
+                    required
+                    ref={phoneNumberInput}
+                    defaultValue={phoneNumber}
+                  />
+                </label>
+                <label className={styles.label}>
+                  <span>Address:</span>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="Address"
+                    required
+                    ref={addressInput}
+                    defaultValue={address}
+                  />
+                </label>
+                <label className={styles.label}>
+                  <span>City:</span>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="City"
+                    required
+                    ref={cityInput}
+                    defaultValue={city}
+                  />
+                </label>
+                <label className={styles.label}>
+                  <span>Zip Code:</span>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="Zip Code"
+                    inputMode="numeric"
+                    required
+                    ref={zipCodeInput}
+                    defaultValue={zipCode}
+                  />
+                </label>
+                <label className={styles.label}>
+                  <span>State:</span>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="State"
+                    required
+                    ref={stateInput}
+                    defaultValue={state}
+                  />
+                </label>
+                <label className={styles.checkbox}>
+                  <input
+                    className={styles.input}
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={handleCheckboxInput}
+                    disabled={isMain}
+                  />
+                  <div>Primary address</div>
+                </label>
+              </div>
+            </form>
           </div>
           <div className={styles.button_wrapper}>
             <Button form="form" className={styles.button} type="submit">
               Edit
             </Button>
           </div>
-        </form>
+        </div>
       )}
     </>
   );
