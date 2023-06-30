@@ -12,7 +12,7 @@ import styles from './index.module.scss';
 const EditProfile = ({ close, name, lastName, phoneNumber }) => {
   const { editProfile, isLoading, error } = useProfile();
 
-  const [notification, setNotification] = useState(false);
+  const [notify, setNotify] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
 
   const nameInput = useRef();
@@ -28,29 +28,28 @@ const EditProfile = ({ close, name, lastName, phoneNumber }) => {
       phoneNumber: phoneNumberInput.current.value,
     });
 
-    setNotification(true);
+    setNotify(true);
   };
 
   useEffect(() => {
-    if (notification) {
+    if (notify) {
       if (error) {
-        setToastMessage({ error, details: error.details });
-        setNotification(false);
+        setToastMessage({ error, message: error.message });
+        setNotify(false);
       } else {
         close();
       }
     }
-  }, [notification]);
-
-  const toggleToast = () => {
-    setToastMessage(null);
-  };
+  }, [notify]);
 
   return (
     <>
-      <Toast>
+      <Toast content={toastMessage}>
         {toastMessage && (
-          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+          <ToastMessage
+            close={() => setToastMessage(null)}
+            content={toastMessage}
+          />
         )}
       </Toast>
       {isLoading && <Loader />}

@@ -29,19 +29,18 @@ const AddressesPage = () => {
 
   useEffect(() => {
     if (error) {
-      setToastMessage({ error, details: error.details });
+      setToastMessage({ error, message: error.message });
     }
   }, [error]);
 
-  const toggleToast = () => {
-    setToastMessage(null);
-  };
-
   return (
     <>
-      <Toast>
+      <Toast content={toastMessage}>
         {toastMessage && (
-          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+          <ToastMessage
+            close={() => setToastMessage(null)}
+            content={toastMessage}
+          />
         )}
       </Toast>
       <CenterModal close={() => setIsOpen(false)} modalClassName={styles.modal}>

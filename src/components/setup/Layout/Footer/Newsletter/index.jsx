@@ -28,27 +28,24 @@ const Newsletter = () => {
     await subscribeToNewsletter({ email });
   };
 
-  const toggleToast = () => {
-    setToastMessage(null);
-  };
-
   useEffect(() => {
     if (success || error) {
       scrollTo();
     }
 
     if (error) {
-      if (error) {
-        setToastMessage({ error, details: error.details });
-      }
+      setToastMessage({ error, message: error.message });
     }
   }, [success, error]);
 
   return (
     <>
-      <Toast>
+      <Toast content={toastMessage}>
         {toastMessage && (
-          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+          <ToastMessage
+            close={() => setToastMessage(null)}
+            content={toastMessage}
+          />
         )}
       </Toast>
       <section className={styles.section}>
@@ -75,7 +72,7 @@ const Newsletter = () => {
             )}
             {success && (
               <Button type="button" className={styles.success} disabled>
-                {success.content}
+                {success.message}
               </Button>
             )}
           </form>

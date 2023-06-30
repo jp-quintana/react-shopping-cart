@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from 'react';
+import { useReducer, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { doc, getDoc, collection, setDoc, deleteDoc } from 'firebase/firestore';
@@ -81,7 +81,10 @@ const cartReducer = (state, action) => {
 const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
   const location = useLocation();
+
   const { user } = useAuthContext();
+
+  const firstLoad = useRef(true);
 
   useEffect(() => {
     if (user && state.isLogin) {
@@ -91,7 +94,12 @@ const CartProvider = ({ children }) => {
           const cartRef = doc(db, 'carts', user.uid);
           const cartDoc = await getDoc(cartRef);
 
-          if (location === '/cart' || '/checkout') {
+          if (
+            (location.pathname === '/cart' ||
+              location.pathname === '/checkout') &&
+            firstLoad.current
+          ) {
+            firstLoad.current = false;
             dispatch({ type: 'NO_CHECK' });
           }
 

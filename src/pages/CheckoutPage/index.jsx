@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useCheckoutContext } from 'hooks/useCheckoutContext';
 import { useCartContext } from 'hooks/useCartContext';
@@ -28,11 +28,14 @@ const progressionSteps = [
 ];
 
 const CheckoutPage = () => {
+  const navigate = useNavigate();
+
   const { items, cartNeedsCheck } = useCartContext();
   const { checkoutIsReady, currentStep } = useCheckoutContext();
   const { activateCartCheck } = useCart();
-  const { checkInventory, error: inventoryError } = useInventory();
+  const { checkInventory, isLoading, error: inventoryError } = useInventory();
 
+  const [stopCheckout, setStopCheckout] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
 
   let formContent;
@@ -59,34 +62,46 @@ const CheckoutPage = () => {
 
   useEffect(() => {
     if (inventoryError) {
-      setToastMessage({
-        error: inventoryError,
-        details: inventoryError.details,
-      });
+      if (items.length === 0) {
+        setStopCheckout(true);
+
+        setToastMessage({
+          error: inventoryError,
+          message: `${inventoryError.message} Redirecting...`,
+        });
+
+        setTimeout(() => {
+          navigate('/');
+        }, 4000);
+      } else {
+        setToastMessage({
+          error: inventoryError,
+          message: inventoryError.message,
+        });
+      }
     }
   }, [inventoryError]);
 
-  const toggleToast = () => {
-    setToastMessage(null);
-  };
-
   return (
     <>
-      <Toast>
+      <Toast content={toastMessage} stop={setStopCheckout}>
         {toastMessage && (
-          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+          <ToastMessage
+            close={() => setToastMessage(null)}
+            content={toastMessage}
+          />
         )}
       </Toast>
       <div className={styles.background} />
       <section className={styles.layout}>
         <>
-          {!checkoutIsReady && (
+          {!checkoutIsReady && isLoading && (
             <Loader
               containerClassName={styles.loader_container}
               noPortal={true}
             />
           )}
-          {checkoutIsReady && (
+          {checkoutIsReady && !isLoading && (
             <>
               <div className={`${styles.header} main-container`}>
                 <Link to="/">

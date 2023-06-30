@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { useAuthContext } from 'hooks/useAuthContext';
 import { useOrder } from 'hooks/useOrder';
-import { useLogout } from 'hooks/useLogout';
+import { useAuth } from 'hooks/useAuth';
 
 import AccountOrders from 'components/pages/account/AccountOrders';
 import AccountProfile from 'components/pages/account/AccountProfile';
@@ -19,7 +19,7 @@ const AccountPage = () => {
   const { name, lastName, email, phoneNumber } = useAuthContext();
 
   const { getOrders, error } = useOrder();
-  const { logout } = useLogout();
+  const { logout } = useAuth();
 
   const [orders, setOrders] = useState(null);
   const [toastMessage, setToastMessage] = useState(null);
@@ -41,14 +41,10 @@ const AccountPage = () => {
     if (error) {
       setToastMessage({
         error,
-        details: 'No se pudieron recuperar las órdenes.',
+        message: error.message,
       });
     }
   }, [error]);
-
-  const toggleToast = () => {
-    setToastMessage(null);
-  };
 
   const handleLogout = async () => {
     await logout();
@@ -56,9 +52,12 @@ const AccountPage = () => {
 
   return (
     <>
-      <Toast>
+      <Toast content={toastMessage}>
         {toastMessage && (
-          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+          <ToastMessage
+            close={() => setToastMessage(null)}
+            content={toastMessage}
+          />
         )}
       </Toast>
       {!orders && <Loader />}

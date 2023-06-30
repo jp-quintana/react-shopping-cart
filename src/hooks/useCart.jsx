@@ -8,10 +8,12 @@ import { useAuthContext } from './useAuthContext';
 import { useCartContext } from './useCartContext';
 
 import { addAllItemsQuantity } from 'helpers/item';
+import { CustomError } from 'helpers/error/customError';
+import { handleError } from 'helpers/error/handleError';
 
 export const useCart = () => {
   const { user } = useAuthContext();
-  const { items, totalAmount, dispatch } = useCartContext();
+  const { items, dispatch } = useCartContext();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -60,7 +62,9 @@ export const useCart = () => {
           );
           noStock = true;
         } else {
-          throw Error(`Size ${itemToAdd.size} is out of stock!`);
+          throw new CustomError(
+            `Size ${itemToAdd.size.toUpperCase()} is out of stock!`
+          );
         }
       } else {
         if (itemInCart) {
@@ -68,7 +72,7 @@ export const useCart = () => {
             itemInCart.quantity = availableQuantity;
             stockWasUpdated = true;
           } else if (itemInCart.quantity === availableQuantity) {
-            throw Error('All available stock is currently in cart!');
+            throw new CustomError('All available stock is currently in cart!');
           } else {
             const updatedItem = {
               ...itemInCart,
@@ -115,17 +119,19 @@ export const useCart = () => {
       }
 
       if (noStock) {
-        throw Error('This item is out of stock. Cart was updated!');
+        throw new CustomError('This item is out of stock. Cart was updated!');
       }
 
       if (stockWasUpdated) {
-        throw Error('Stock is limited. Item quantity in cart updated!');
+        throw new CustomError(
+          'Stock is limited. Item quantity in cart updated!'
+        );
       }
 
       setIsLoading(false);
     } catch (err) {
       console.error(err);
-      setError({ details: err.message });
+      setError(handleError(err));
       setIsLoading(false);
     }
   };
@@ -203,17 +209,21 @@ export const useCart = () => {
       }
 
       if (noStock) {
-        throw Error('This item is out of stock and was removed from cart!');
+        throw new CustomError(
+          'This item is out of stock and was removed from cart!'
+        );
       }
 
       if (stockWasUpdated) {
-        throw Error('Stock is limited. Item quantity in cart updated!');
+        throw new CustomError(
+          'Stock is limited. Item quantity in cart updated!'
+        );
       }
 
       setIsLoading(false);
     } catch (err) {
       console.error(err);
-      setError({ details: err.message });
+      setError(handleError(err));
       setIsLoading(false);
     }
   };

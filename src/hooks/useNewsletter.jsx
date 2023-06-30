@@ -4,6 +4,8 @@ import { collection, query, where, getDocs, addDoc } from 'firebase/firestore';
 
 import { db } from 'db/config';
 
+import { handleError } from 'helpers/error/handleError';
+
 export const useNewsletter = () => {
   const newsletterRef = collection(db, 'newsletter');
 
@@ -20,13 +22,13 @@ export const useNewsletter = () => {
       if (querySnapshot.empty) {
         await addDoc(newsletterRef, { email });
 
-        setSuccess({ content: 'Gracias por unirte!' });
+        setSuccess({ message: 'Thanks for joining!' });
       } else {
-        setSuccess({ content: 'Ya estas unido!' });
+        setSuccess({ message: 'You have already joined!' });
       }
     } catch (err) {
       console.error(err);
-      setError(err);
+      setError(handleError(err));
     }
   };
 

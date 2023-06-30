@@ -7,6 +7,8 @@ import { db } from 'db/config';
 
 import { useAuthContext } from 'hooks/useAuthContext';
 
+import { handleError } from 'helpers/error/handleError';
+
 export const useAddress = () => {
   const { user, addresses, dispatch } = useAuthContext();
 
@@ -83,7 +85,7 @@ export const useAddress = () => {
       setIsLoading(false);
     } catch (err) {
       console.error(err);
-      setError(err);
+      setError(handleError(err));
       setIsLoading(false);
     }
   };
@@ -183,7 +185,7 @@ export const useAddress = () => {
       setIsLoading(false);
     } catch (err) {
       console.error(err);
-      setError(err);
+      setError(handleError(err));
       setIsLoading(false);
     }
   };
@@ -229,7 +231,7 @@ export const useAddress = () => {
       setIsLoading(false);
     } catch (err) {
       console.error(err);
-      setError(err);
+      setError(handleError(err));
       setIsLoading(false);
     }
   };

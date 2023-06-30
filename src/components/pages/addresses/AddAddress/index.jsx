@@ -13,7 +13,7 @@ const AddAddress = ({ close }) => {
   const { createAddress, isLoading, error } = useAddress();
 
   const [isChecked, setIsChecked] = useState(false);
-  const [notification, setNotification] = useState(false);
+  const [notify, setNotify] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
 
   const handleCheckboxInput = () => {
@@ -41,29 +41,28 @@ const AddAddress = ({ close }) => {
       isMain: isChecked,
     });
 
-    setNotification(true);
+    setNotify(true);
   };
 
   useEffect(() => {
-    if (notification) {
+    if (notify) {
       if (error) {
-        setToastMessage({ error, details: error.details });
-        setNotification(false);
+        setToastMessage({ error, message: error.message });
+        setNotify(false);
       } else {
         close();
       }
     }
-  }, [notification]);
-
-  const toggleToast = () => {
-    setToastMessage(null);
-  };
+  }, [notify]);
 
   return (
     <>
-      <Toast>
+      <Toast content={toastMessage}>
         {toastMessage && (
-          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+          <ToastMessage
+            close={() => setToastMessage(null)}
+            content={toastMessage}
+          />
         )}
       </Toast>
       {isLoading && <Loader />}

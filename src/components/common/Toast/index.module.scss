@@ -1,3 +1,7 @@
+.backdrop {
+  background-color: hsla(0, 0%, 0%, 0.5) !important;
+}
+
 .toast {
   max-width: 45rem;
   min-height: 8rem;
@@ -5,7 +9,7 @@
   position: fixed;
   left: 50%;
   bottom: 2.5%;
-  z-index: 100;
+  z-index: 500;
 }
 
 .bump {

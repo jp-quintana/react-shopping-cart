@@ -23,7 +23,7 @@ const CartPage = () => {
     deleteItem,
     activateCartCheck,
     isLoading,
-    error,
+    error: cartError,
   } = useCart();
   const {
     checkInventory,
@@ -42,23 +42,19 @@ const CartPage = () => {
   }, []);
 
   useEffect(() => {
-    if (error) {
-      setToastMessage({ error, details: error.details });
+    if (cartError) {
+      setToastMessage({ cartError, message: cartError.message });
     }
-  }, [error]);
+  }, [cartError]);
 
   useEffect(() => {
     if (inventoryError) {
       setToastMessage({
         error: inventoryError,
-        details: inventoryError.details,
+        message: inventoryError.message,
       });
     }
   }, [inventoryError]);
-
-  const toggleToast = () => {
-    setToastMessage(null);
-  };
 
   let content =
     items.length > 0 ? (
@@ -123,9 +119,12 @@ const CartPage = () => {
       {isInventoryLoading && <Loader />}
       {!isInventoryLoading && (
         <>
-          <Toast>
+          <Toast content={toastMessage}>
             {toastMessage && (
-              <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+              <ToastMessage
+                close={() => setToastMessage(null)}
+                content={toastMessage}
+              />
             )}
           </Toast>
           <section>

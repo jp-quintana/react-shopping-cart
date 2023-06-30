@@ -11,7 +11,6 @@ import {
   orderBy,
   getDocs,
   addDoc,
-  Timestamp,
   increment,
 } from 'firebase/firestore';
 
@@ -22,6 +21,8 @@ import { useCartContext } from './useCartContext';
 import { useCheckoutContext } from './useCheckoutContext';
 import { useCart } from './useCart';
 import { useCheckout } from './useCheckout';
+
+import { handleError } from 'helpers/error/handleError';
 
 export const useOrder = () => {
   const { user } = useAuthContext();
@@ -69,7 +70,7 @@ export const useOrder = () => {
       setIsLoading(false);
     } catch (err) {
       console.error(err);
-      setError(err);
+      setError(handleError(err));
       setIsLoading(false);
     }
   };
@@ -94,7 +95,7 @@ export const useOrder = () => {
       return orders;
     } catch (err) {
       console.error(err);
-      setError(err);
+      setError(handleError(err));
     }
   };
 

@@ -68,10 +68,6 @@ const ProductPage = () => {
     }
   }, [notify]);
 
-  const toggleToast = () => {
-    setToastMessage(null);
-  };
-
   let addEventHandler = false;
   if (selectedSize.length > 0) {
     addEventHandler = true;
@@ -96,7 +92,10 @@ const ProductPage = () => {
     <>
       <Toast content={toastMessage}>
         {toastMessage && (
-          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+          <ToastMessage
+            close={() => setToastMessage(null)}
+            content={toastMessage}
+          />
         )}
       </Toast>
       {!productIsReady && <Loader />}

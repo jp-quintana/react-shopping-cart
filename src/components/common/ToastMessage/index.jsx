@@ -5,10 +5,10 @@ import ImageContainer from 'components/common/ImageContainer';
 
 import styles from './index.module.scss';
 
-const ToastMessage = ({ toggleToast, content, className }) => {
+const ToastMessage = ({ close, content, className }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      toggleToast();
+      close();
     }, 4000);
 
     return () => {
@@ -20,7 +20,6 @@ const ToastMessage = ({ toggleToast, content, className }) => {
     return (
       <div className={`${styles.addToCart} ${styles.success}`}>
         <div className={styles.content_wrapper}>
-          {/* <img className={styles.image} src={content.image} alt="" /> */}
           <ImageContainer
             src={content.image}
             alt=""

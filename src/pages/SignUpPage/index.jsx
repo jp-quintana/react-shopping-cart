@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import { useSignUp } from 'hooks/useSignUp';
+import { useAuth } from 'hooks/useAuth';
 
 import Loader from 'components/common/Loader';
 import Toast from 'components/common/Toast';
@@ -12,7 +12,7 @@ import styles from './index.module.scss';
 const SignUpPage = () => {
   const { state: routerState } = useLocation();
 
-  const { signUp, error, defaultValue } = useSignUp();
+  const { signUp, isLoading, error, defaultValue } = useAuth();
 
   const [toastMessage, setToastMessage] = useState(null);
 
@@ -34,83 +34,86 @@ const SignUpPage = () => {
 
   useEffect(() => {
     if (error) {
-      setToastMessage({ error, details: error.details });
+      setToastMessage({ error, message: error.message });
     }
   }, [error]);
 
-  const toggleToast = () => {
-    setToastMessage(null);
-  };
-
   return (
     <>
-      <Toast>
+      <Toast content={toastMessage}>
         {toastMessage && (
-          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+          <ToastMessage
+            close={() => setToastMessage(null)}
+            content={toastMessage}
+          />
         )}
       </Toast>
-      <>
-        <section className={styles.nav_section}></section>
-        <section className={styles.section}>
-          <div className={styles.container}>
-            <div className={`${styles.wrapper} main-container`}>
-              <form onSubmit={handleSubmit} className={styles.form}>
-                <h2 className={styles.title}>Create Account</h2>
-                <label className={styles.label}>
-                  <span>Name:</span>
-                  <input
-                    defaultValue={defaultValue ? defaultValue.name : ''}
-                    className={styles.input}
-                    type="text"
-                    placeholder="Name"
-                    required
-                    ref={nameInput}
-                  />
-                </label>
-                <label className={styles.label}>
-                  <span>Last Name:</span>
-                  <input
-                    defaultValue={defaultValue ? defaultValue.lastName : ''}
-                    className={styles.input}
-                    type="text"
-                    placeholder="Last Name"
-                    required
-                    ref={lastNameInput}
-                  />
-                </label>
-                <label className={styles.label}>
-                  <span>Email:</span>
-                  <input
-                    className={styles.input}
-                    type="email"
-                    placeholder="yourname@email.com"
-                    required
-                    ref={emailInput}
-                  />
-                </label>
-                <label className={styles.label}>
-                  <span>Password:</span>
-                  <input
-                    className={styles.input}
-                    type="password"
-                    required
-                    ref={passwordInput}
-                  />
-                </label>
-                <button className={styles.button} type="submit">
-                  Create Account
-                </button>
-              </form>
-              <p className={styles.login}>
-                Already have an account?{' '}
-                <Link to="/account/login" state={routerState}>
-                  Login
-                </Link>
-              </p>
+      {isLoading && <Loader />}
+      {!isLoading && (
+        <>
+          <section className={styles.nav_section}></section>
+          <section className={styles.section}>
+            <div className={styles.container}>
+              <div className={`${styles.wrapper} main-container`}>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                  <h2 className={styles.title}>Create Account</h2>
+                  <label className={styles.label}>
+                    <span>Name:</span>
+                    <input
+                      defaultValue={defaultValue?.name || ''}
+                      className={styles.input}
+                      type="text"
+                      placeholder="Name"
+                      required
+                      ref={nameInput}
+                    />
+                  </label>
+                  <label className={styles.label}>
+                    <span>Last Name:</span>
+                    <input
+                      defaultValue={defaultValue?.lastName || ''}
+                      className={styles.input}
+                      type="text"
+                      placeholder="Last Name"
+                      required
+                      ref={lastNameInput}
+                    />
+                  </label>
+                  <label className={styles.label}>
+                    <span>Email:</span>
+                    <input
+                      defaultValue={defaultValue?.email || ''}
+                      className={styles.input}
+                      type="email"
+                      placeholder="yourname@email.com"
+                      required
+                      ref={emailInput}
+                    />
+                  </label>
+                  <label className={styles.label}>
+                    <span>Password:</span>
+                    <input
+                      className={styles.input}
+                      type="password"
+                      required
+                      ref={passwordInput}
+                    />
+                  </label>
+                  <button className={styles.button} type="submit">
+                    Create Account
+                  </button>
+                </form>
+                <p className={styles.login}>
+                  Already have an account?{' '}
+                  <Link to="/account/login" state={routerState}>
+                    Login
+                  </Link>
+                </p>
+              </div>
             </div>
-          </div>
-        </section>
-      </>
+          </section>
+        </>
+      )}
     </>
   );
 };

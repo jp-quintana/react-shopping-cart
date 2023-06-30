@@ -12,7 +12,7 @@ import styles from './index.module.scss';
 const LoginPage = () => {
   const { state: routerState } = useLocation();
 
-  const { login, isLoading, error } = useAuth();
+  const { login, isLoading, error, defaultValue } = useAuth();
 
   const [toastMessage, setToastMessage] = useState(null);
 
@@ -30,19 +30,18 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (error) {
-      setToastMessage({ error, details: error.details });
+      setToastMessage({ error, message: error.message });
     }
   }, [error]);
 
-  const toggleToast = () => {
-    setToastMessage(null);
-  };
-
   return (
     <>
-      <Toast>
+      <Toast content={toastMessage}>
         {toastMessage && (
-          <ToastMessage toggleToast={toggleToast} content={toastMessage} />
+          <ToastMessage
+            close={() => setToastMessage(null)}
+            content={toastMessage}
+          />
         )}
       </Toast>
       {isLoading && <Loader />}
@@ -57,6 +56,7 @@ const LoginPage = () => {
                   <label className={styles.label}>
                     <span>Email:</span>
                     <input
+                      defaultValue={defaultValue?.email || ''}
                       className={styles.input}
                       type="email"
                       placeholder="yourname@email.com"

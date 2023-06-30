@@ -17,6 +17,8 @@ import { useAuthContext } from './useAuthContext';
 import { useCartContext } from './useCartContext';
 
 import { addAllItemsQuantity } from 'helpers/item';
+import { CustomError } from 'helpers/error/customError';
+import { handleError } from 'helpers/error/handleError';
 
 export const useInventory = () => {
   const { user } = useAuthContext();
@@ -89,7 +91,7 @@ export const useInventory = () => {
       }
 
       if (stockDifference) {
-        throw Error(
+        throw new CustomError(
           'Available stock is limited. Quantities in cart have been updated!'
         );
       }
@@ -97,7 +99,7 @@ export const useInventory = () => {
       setIsLoading(false);
     } catch (err) {
       console.error(err);
-      setError({ details: err.message });
+      setError(handleError(err));
       setIsLoading(false);
     }
   };

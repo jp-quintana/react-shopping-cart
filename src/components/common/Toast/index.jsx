@@ -1,11 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
+import Backdrop from '../Backdrop';
+
 import { motion, AnimatePresence } from 'framer-motion';
 
 import styles from './index.module.scss';
 
-const Toast = ({ children, content }) => {
+const Toast = ({ children, content, stop }) => {
   const overlayElement = document.getElementById('overlay');
 
   const [bump, setBump] = useState(false);
@@ -25,7 +27,7 @@ const Toast = ({ children, content }) => {
     }
   }, [content]);
 
-  const variants = {
+  const toastVariants = {
     initial: { y: '50vh', x: '-50%', opacity: 0 },
     visible: { y: 0, x: '-50%', opacity: 1, scale: bump ? 1.1 : 1 },
     exit: { y: '50vh', x: '-50%', opacity: 0 },
@@ -36,17 +38,20 @@ const Toast = ({ children, content }) => {
       {children && (
         <>
           {createPortal(
-            <motion.div
-              key="toast"
-              className={styles.toast}
-              variants={variants}
-              initial="initial"
-              animate="visible"
-              exit="exit"
-              transition={{ duration: 0.2 }}
-            >
-              {children}
-            </motion.div>,
+            <>
+              {stop && <Backdrop backdropClassName={styles.backdrop} />}
+              <motion.div
+                key="toast"
+                className={styles.toast}
+                variants={toastVariants}
+                initial="initial"
+                animate="visible"
+                exit="exit"
+                transition={{ duration: 0.2 }}
+              >
+                {children}
+              </motion.div>
+            </>,
             overlayElement
           )}
         </>
