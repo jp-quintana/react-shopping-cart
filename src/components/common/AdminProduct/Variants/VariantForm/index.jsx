@@ -64,7 +64,7 @@ const VariantForm = ({
   const handleEditSubmit = (e) => {
     e.preventDefault();
     if (detailsInput.currentPrice > detailsInput.actualPrice) {
-      // TODO: Agregar error
+      // TODO: Add error
       return;
     }
     if (sizes.length > 0) {

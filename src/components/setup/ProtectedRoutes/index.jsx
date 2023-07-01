@@ -8,8 +8,6 @@ const ProtectedRoutes = ({ needAuth, needAdmin }) => {
   const { cartIsReady } = useCartContext();
   const { pathname, state } = useLocation();
 
-  // TODO: SI EL USUARIO HACE LOGOUT TIENE QUE TERMINAR EN HOME Y NO EN LOGIN
-
   if (needAdmin) {
     if (isAdmin) {
       return <Outlet />;

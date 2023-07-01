@@ -67,7 +67,7 @@ const DragDropFileInput = ({
     setFileToBeDeleted(null);
   };
 
-  // TODO: CHEQUEAR SI PREVIEW FILES FUNCIONA
+  // TODO: Check if preview files works
 
   return (
     <>

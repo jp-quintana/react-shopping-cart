@@ -16,7 +16,7 @@ import { formatCardNumber, formatExpiryDate, formatCvv } from 'helpers/format';
 
 import styles from './index.module.scss';
 
-const Payment = ({ handlePreviousStep }) => {
+const Payment = ({}) => {
   const navigate = useNavigate();
 
   const { selectPreviousStep } = useCheckout();
@@ -24,6 +24,13 @@ const Payment = ({ handlePreviousStep }) => {
 
   const [paymentOption, setPaymentOption] = useState('creditCard');
   const [navigation, setNavigation] = useState(false);
+
+  // const [billingAddress, setBillingAddress] = useState({
+  //   same: true,
+  //   different: false,
+  // });
+
+  const [billingAddress, setBillingAddress] = useState('different');
 
   const [userInput, setUserInput] = useState({
     cardNumber: '',
@@ -56,6 +63,23 @@ const Payment = ({ handlePreviousStep }) => {
       securityCode: formatCvv(e.target.value),
     }));
   };
+
+  const handleBillingAddressChange = (value) => {
+    console.log(value);
+    if (value === 'same') {
+      setBillingAddress({
+        same: true,
+        different: false,
+      });
+    } else {
+      setBillingAddress({
+        same: false,
+        different: true,
+      });
+    }
+  };
+
+  const isChecked = (value) => value === billingAddress;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -112,6 +136,8 @@ const Payment = ({ handlePreviousStep }) => {
         : styles.input_no_focus,
   };
 
+  // console.log(billingAddress.same);
+
   return (
     <div className={styles.container}>
       {isLoading && (
@@ -122,117 +148,166 @@ const Payment = ({ handlePreviousStep }) => {
           <>
             <CheckoutSummary />
             <form id="form" onSubmit={handleSubmit} className={styles.form}>
-              <h2 className={styles.title}>Payment Method</h2>
-              <div className={styles.payment_options_wrapper}>
-                <div>
-                  <label className={styles.payment_option}>
-                    <input
-                      type="radio"
-                      value="creditCard"
-                      checked={paymentOption === 'creditCard'}
-                      onChange={(e) => setPaymentOption(e.target.value)}
-                      className={
-                        paymentOption === 'creditCard'
-                          ? styles.radio_selected
-                          : styles.radio_unselected
-                      }
-                    />
-                    <span>Credit card</span>
-                  </label>
-                </div>
-                {paymentOption === 'creditCard' && (
-                  <div className={styles.inputs_wrapper}>
-                    <div className={styles.float_container}>
-                      <label
-                        htmlFor="cardNumber"
-                        className={cardNumberStyles.label}
-                      >
-                        Card number
-                      </label>
+              {/* <div className={styles.payment_options_container}>
+                <h2 className={styles.title}>Payment Method</h2>
+                <h3 className={styles.subtitle}>
+                  Just use random numbers. There is no validation.
+                </h3>
+                <div className={styles.payment_options_wrapper}>
+                  <div>
+                    <label className={styles.payment_option}>
                       <input
-                        id="cardNumber"
-                        onChange={handleCardNumberInput}
-                        onKeyPress={(e) => {
-                          if (!/[0-9]/.test(e.key)) {
-                            e.preventDefault();
-                          }
-                        }}
-                        value={userInput.cardNumber}
-                        type="text"
-                        inputMode="numeric"
-                        placeholder="Card number"
-                        className={cardNumberStyles.input}
-                        required
+                        type="radio"
+                        value="creditCard"
+                        checked={paymentOption === 'creditCard'}
+                        onChange={(e) => setPaymentOption(e.target.value)}
+                        className={
+                          paymentOption === 'creditCard'
+                            ? styles.radio_selected
+                            : styles.radio_unselected
+                        }
                       />
-                    </div>
-                    <div className={styles.float_container}>
-                      <label htmlFor="name" className={nameStyles.label}>
-                        Name on card
-                      </label>
-                      <input
-                        id="name"
-                        onChange={handleNameInput}
-                        value={userInput.name}
-                        type="text"
-                        placeholder="Name on card"
-                        className={nameStyles.input}
-                        autoComplete="off"
-                        required
-                      />
-                    </div>
-                    <div className={styles.card_security}>
-                      <div className={styles.float_container}>
-                        <label
-                          htmlFor="expiryDate"
-                          className={expiryDateStyles.label}
-                          autoComplete="off"
-                        >
-                          Expiration Date (MM/YY)
-                        </label>
-                        <input
-                          id="expiryDate"
-                          onChange={handleExpiryDateInput}
-                          onKeyPress={(e) => {
-                            if (!/[0-9]/.test(e.key)) {
-                              e.preventDefault();
-                            }
-                          }}
-                          value={userInput.expiryDate}
-                          type="text"
-                          placeholder="Expiration Date (MM/YY)"
-                          className={expiryDateStyles.input}
-                          autoComplete="off"
-                          required
-                        />
-                      </div>
-                      <div className={styles.float_container}>
-                        <label
-                          htmlFor="securityCode"
-                          className={securityCodeStyles.label}
-                        >
-                          Security code
-                        </label>
-                        <input
-                          id="securityCode"
-                          onChange={handleSecurityCodeInput}
-                          onKeyPress={(e) => {
-                            if (!/[0-9]/.test(e.key)) {
-                              e.preventDefault();
-                            }
-                          }}
-                          value={userInput.securityCode}
-                          type="password"
-                          placeholder="Security code"
-                          className={securityCodeStyles.input}
-                          autoComplete="off"
-                          required
-                        />
-                      </div>
-                    </div>
+                      <span>Credit card</span>
+                    </label>
                   </div>
-                )}
+                  {paymentOption === 'creditCard' && (
+                    <div className={styles.inputs_wrapper}>
+                      <div className={styles.float_container}>
+                        <label
+                          htmlFor="cardNumber"
+                          className={cardNumberStyles.label}
+                        >
+                          Card number
+                        </label>
+                        <input
+                          id="cardNumber"
+                          onChange={handleCardNumberInput}
+                          onKeyPress={(e) => {
+                            if (!/[0-9]/.test(e.key)) {
+                              e.preventDefault();
+                            }
+                          }}
+                          value={userInput.cardNumber}
+                          type="text"
+                          inputMode="numeric"
+                          placeholder="Card number"
+                          className={cardNumberStyles.input}
+                          required
+                        />
+                      </div>
+                      <div className={styles.float_container}>
+                        <label htmlFor="name" className={nameStyles.label}>
+                          Name on card
+                        </label>
+                        <input
+                          id="name"
+                          onChange={handleNameInput}
+                          value={userInput.name}
+                          type="text"
+                          placeholder="Name on card"
+                          className={nameStyles.input}
+                          autoComplete="off"
+                          required
+                        />
+                      </div>
+                      <div className={styles.card_security}>
+                        <div className={styles.float_container}>
+                          <label
+                            htmlFor="expiryDate"
+                            className={expiryDateStyles.label}
+                            autoComplete="off"
+                          >
+                            Expiration Date (MM/YY)
+                          </label>
+                          <input
+                            id="expiryDate"
+                            onChange={handleExpiryDateInput}
+                            onKeyPress={(e) => {
+                              if (!/[0-9]/.test(e.key)) {
+                                e.preventDefault();
+                              }
+                            }}
+                            value={userInput.expiryDate}
+                            type="text"
+                            placeholder="Expiration Date (MM/YY)"
+                            className={expiryDateStyles.input}
+                            autoComplete="off"
+                            required
+                          />
+                        </div>
+                        <div className={styles.float_container}>
+                          <label
+                            htmlFor="securityCode"
+                            className={securityCodeStyles.label}
+                          >
+                            Security code
+                          </label>
+                          <input
+                            id="securityCode"
+                            onChange={handleSecurityCodeInput}
+                            onKeyPress={(e) => {
+                              if (!/[0-9]/.test(e.key)) {
+                                e.preventDefault();
+                              }
+                            }}
+                            value={userInput.securityCode}
+                            type="password"
+                            placeholder="Security code"
+                            className={securityCodeStyles.input}
+                            autoComplete="off"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div> */}
+              <div className={styles.billing_address_container}>
+                <h2 className={styles.title}>Billing Address</h2>
+                <div className={styles.billing_address_wrapper}>
+                  <div>
+                    <label className={styles.payment_option}>
+                      <input
+                        type="radio"
+                        value="same"
+                        // checked={isChecked('same')}
+                        // onChange={(e) => setBillingAddres(e.target.value)}
+                        // checked={billingAddress.same}
+                        // onChange={(e) =>
+                        //   handleBillingAddressChange(e.target.value)
+                        // }
+                        // className={
+                        //   billingAddress.same
+                        //     ? styles.radio_selected
+                        //     : styles.radio_unselected
+                        // }
+                      />
+                      <span>Same as shipping address</span>
+                    </label>
+                  </div>
+                  <div>
+                    <label className={styles.payment_option}>
+                      <input
+                        type="radio"
+                        value="different"
+                        // checked={isChecked('different')}
+                        // onChange={(e) => setBillingAddres(e.target.value)}
+                        // checked={billingAddress.different}
+                        // onChange={(e) =>
+                        //   handleBillingAddressChange(e.target.value)
+                        // }
+                        // className={
+                        //   billingAddress.different
+                        //     ? styles.radio_selected
+                        //     : styles.radio_unselected
+                        // }
+                      />
+                      <span>Use different billing address</span>
+                    </label>
+                  </div>
+                </div>
               </div>
-              {/* TODO: BILLING ADDRESS */}
             </form>
             <div className={styles.form_controls}>
               <p onClick={selectPreviousStep} className={styles.back}>

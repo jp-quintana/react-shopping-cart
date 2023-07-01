@@ -13,8 +13,6 @@ const Loader = ({
   containerClassName,
   loaderClassName,
 }) => {
-  // TODO: update this whole component
-
   const overlayElement = document.getElementById('overlay');
 
   if (noPortal) {

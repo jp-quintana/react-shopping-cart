@@ -7,12 +7,22 @@
 
   .wrapper {
     .form {
+      display: flex;
+      flex-direction: column;
+      gap: 6rem;
+
       .title {
         font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
         margin-bottom: 1.5rem;
       }
 
       h2,
+      h3,
       p,
       span,
       input {
@@ -22,6 +32,7 @@
       }
 
       h2,
+      h3,
       p,
       span,
       label {
@@ -50,7 +61,8 @@
   }
 }
 
-.payment_options_wrapper {
+.payment_options_wrapper,
+.billing_address_wrapper {
   border: 1px solid #515255;
   border-radius: 1rem;
   padding: 1rem 0;
