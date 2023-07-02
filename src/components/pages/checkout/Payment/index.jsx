@@ -25,12 +25,7 @@ const Payment = ({}) => {
   const [paymentOption, setPaymentOption] = useState('creditCard');
   const [navigation, setNavigation] = useState(false);
 
-  // const [billingAddress, setBillingAddress] = useState({
-  //   same: true,
-  //   different: false,
-  // });
-
-  const [billingAddress, setBillingAddress] = useState('different');
+  const [billingAddress, setBillingAddress] = useState('same');
 
   const [userInput, setUserInput] = useState({
     cardNumber: '',
@@ -63,23 +58,6 @@ const Payment = ({}) => {
       securityCode: formatCvv(e.target.value),
     }));
   };
-
-  const handleBillingAddressChange = (value) => {
-    console.log(value);
-    if (value === 'same') {
-      setBillingAddress({
-        same: true,
-        different: false,
-      });
-    } else {
-      setBillingAddress({
-        same: false,
-        different: true,
-      });
-    }
-  };
-
-  const isChecked = (value) => value === billingAddress;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -148,7 +126,7 @@ const Payment = ({}) => {
           <>
             <CheckoutSummary />
             <form id="form" onSubmit={handleSubmit} className={styles.form}>
-              {/* <div className={styles.payment_options_container}>
+              <div className={styles.payment_options_container}>
                 <h2 className={styles.title}>Payment Method</h2>
                 <h3 className={styles.subtitle}>
                   Just use random numbers. There is no validation.
@@ -262,26 +240,23 @@ const Payment = ({}) => {
                     </div>
                   )}
                 </div>
-              </div> */}
+              </div>
               <div className={styles.billing_address_container}>
                 <h2 className={styles.title}>Billing Address</h2>
                 <div className={styles.billing_address_wrapper}>
                   <div>
                     <label className={styles.payment_option}>
                       <input
+                        onClick={() => console.log('hola')}
                         type="radio"
                         value="same"
-                        // checked={isChecked('same')}
-                        // onChange={(e) => setBillingAddres(e.target.value)}
-                        // checked={billingAddress.same}
-                        // onChange={(e) =>
-                        //   handleBillingAddressChange(e.target.value)
-                        // }
-                        // className={
-                        //   billingAddress.same
-                        //     ? styles.radio_selected
-                        //     : styles.radio_unselected
-                        // }
+                        checked={billingAddress === 'same'}
+                        onChange={(e) => setBillingAddress(e.target.value)}
+                        className={
+                          billingAddress === 'same'
+                            ? styles.radio_selected
+                            : styles.radio_unselected
+                        }
                       />
                       <span>Same as shipping address</span>
                     </label>
@@ -291,17 +266,13 @@ const Payment = ({}) => {
                       <input
                         type="radio"
                         value="different"
-                        // checked={isChecked('different')}
-                        // onChange={(e) => setBillingAddres(e.target.value)}
-                        // checked={billingAddress.different}
-                        // onChange={(e) =>
-                        //   handleBillingAddressChange(e.target.value)
-                        // }
-                        // className={
-                        //   billingAddress.different
-                        //     ? styles.radio_selected
-                        //     : styles.radio_unselected
-                        // }
+                        checked={billingAddress === 'different'}
+                        onChange={(e) => setBillingAddress(e.target.value)}
+                        className={
+                          billingAddress === 'different'
+                            ? styles.radio_selected
+                            : styles.radio_unselected
+                        }
                       />
                       <span>Use different billing address</span>
                     </label>
