@@ -1,4 +1,61 @@
-import React from 'react';
+import styles from './index.module.scss';
+
+const nameStyles = {
+  label:
+    userInput.name.length > 0 ? styles.label_focus : styles.label_no_focus,
+  input:
+    userInput.name.length > 0 ? styles.input_focus : styles.input_no_focus,
+};
+
+const lastNameStyles = {
+  label:
+    userInput.lastName.length > 0
+      ? styles.label_focus
+      : styles.label_no_focus,
+  input:
+    userInput.lastName.length > 0
+      ? styles.input_focus
+      : styles.input_no_focus,
+};
+
+const addressStyles = {
+  label:
+    userInput.address.length > 0 ? styles.label_focus : styles.label_no_focus,
+  input:
+    userInput.address.length > 0 ? styles.input_focus : styles.input_no_focus,
+};
+
+const cityStyles = {
+  label:
+    userInput.city.length > 0 ? styles.label_focus : styles.label_no_focus,
+  input:
+    userInput.city.length > 0 ? styles.input_focus : styles.input_no_focus,
+};
+
+const stateStyles = {
+  label:
+    userInput.state.length > 0 ? styles.label_focus : styles.label_no_focus,
+  input:
+    userInput.state.length > 0 ? styles.input_focus : styles.input_no_focus,
+};
+
+const zipCodeStyles = {
+  label:
+    userInput.zipCode.length > 0 ? styles.label_focus : styles.label_no_focus,
+  input:
+    userInput.zipCode.length > 0 ? styles.input_focus : styles.input_no_focus,
+};
+
+const phoneNumberStyles = {
+  label:
+    userInput.phoneNumber.length > 0
+      ? styles.label_focus
+      : styles.label_no_focus,
+  input:
+    userInput.phoneNumber.length > 0
+      ? styles.input_focus
+      : styles.input_no_focus,
+};
 
 const AddressForm = () => {
   return (
