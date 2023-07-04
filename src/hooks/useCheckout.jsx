@@ -31,9 +31,9 @@ export const useCheckout = () => {
     setError(null);
     setIsLoading(true);
     try {
-      const { email, isNew, ...shippingAddress } = userInput;
+      const { email, ...shippingAddress } = userInput;
 
-      if (isNew) {
+      if (shippingAddress.value === 'new') {
         shippingAddress.id = uuid();
         // Se puede agregar el display order aca de ser necesario, loopear por todos los addresses => index + 1 => etc
         await createAddress(shippingAddress);

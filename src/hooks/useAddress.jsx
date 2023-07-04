@@ -47,17 +47,24 @@ export const useAddress = () => {
         id = uuid();
       }
 
+      const formattedName = name.trim().replace(/\s+/g, ' ');
+      const formattedLastName = lastName.trim().replace(/\s+/g, ' ');
+      const formattedAddress = address.trim().replace(/\s+/g, ' ');
+      const formattedZipCode = zipCode.trim().replace(/\s+/g, ' ');
+      const formattedCity = city.trim().replace(/\s+/g, ' ');
+      const formattedState = state.trim().replace(/\s+/g, ' ');
+
       const addressToAdd = {
         id,
-        name,
-        lastName,
+        name: formattedName,
+        lastName: formattedLastName,
         phoneNumber,
-        address,
-        zipCode,
-        city,
-        state,
+        address: formattedAddress,
+        zipCode: formattedZipCode,
+        city: formattedCity,
+        state: formattedState,
         isMain,
-        label: `${name} ${lastName} - ${address} - ${city}, ${zipCode} - ${state}`,
+        label: `${formattedName} ${formattedLastName} - ${formattedAddress} - ${formattedCity}, ${formattedState} ${formattedZipCode}`,
         value: id,
       };
 
@@ -117,17 +124,24 @@ export const useAddress = () => {
           : (isMain = false);
       }
 
+      const formattedName = name.trim().replace(/\s+/g, ' ');
+      const formattedLastName = lastName.trim().replace(/\s+/g, ' ');
+      const formattedAddress = address.trim().replace(/\s+/g, ' ');
+      const formattedZipCode = zipCode.trim().replace(/\s+/g, ' ');
+      const formattedCity = city.trim().replace(/\s+/g, ' ');
+      const formattedState = state.trim().replace(/\s+/g, ' ');
+
       const updatedAddress = {
         id,
-        name,
-        lastName,
+        name: formattedName,
+        lastName: formattedLastName,
         phoneNumber,
-        address,
-        zipCode,
-        city,
-        state,
+        address: formattedAddress,
+        zipCode: formattedZipCode,
+        city: formattedCity,
+        state: formattedState,
         isMain,
-        label: `${name} ${lastName} - ${address} - ${city}, ${zipCode} - ${state}`,
+        label: `${formattedName} ${formattedLastName} - ${formattedAddress} - ${formattedCity}, ${formattedState} ${formattedZipCode}`,
         value: id,
         displayOrder,
       };

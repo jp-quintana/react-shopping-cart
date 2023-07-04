@@ -56,9 +56,8 @@ const Address = ({
           <ul className={styles.info}>
             <li>{address}</li>
             <li>
-              {city}, {zipCode}
+              {city}, {state} {zipCode}
             </li>
-            <li>{state}</li>
           </ul>
           <div className={styles.controls}>
             <div className={styles.edit} onClick={() => setIsOpen(true)}>

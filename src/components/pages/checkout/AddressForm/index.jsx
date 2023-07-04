@@ -1,21 +1,15 @@
 import styles from './index.module.scss';
 
 const nameStyles = {
-  label:
-    userInput.name.length > 0 ? styles.label_focus : styles.label_no_focus,
-  input:
-    userInput.name.length > 0 ? styles.input_focus : styles.input_no_focus,
+  label: userInput.name.length > 0 ? styles.label_focus : styles.label_no_focus,
+  input: userInput.name.length > 0 ? styles.input_focus : styles.input_no_focus,
 };
 
 const lastNameStyles = {
   label:
-    userInput.lastName.length > 0
-      ? styles.label_focus
-      : styles.label_no_focus,
+    userInput.lastName.length > 0 ? styles.label_focus : styles.label_no_focus,
   input:
-    userInput.lastName.length > 0
-      ? styles.input_focus
-      : styles.input_no_focus,
+    userInput.lastName.length > 0 ? styles.input_focus : styles.input_no_focus,
 };
 
 const addressStyles = {
@@ -26,10 +20,8 @@ const addressStyles = {
 };
 
 const cityStyles = {
-  label:
-    userInput.city.length > 0 ? styles.label_focus : styles.label_no_focus,
-  input:
-    userInput.city.length > 0 ? styles.input_focus : styles.input_no_focus,
+  label: userInput.city.length > 0 ? styles.label_focus : styles.label_no_focus,
+  input: userInput.city.length > 0 ? styles.input_focus : styles.input_no_focus,
 };
 
 const stateStyles = {
@@ -78,9 +70,10 @@ const AddressForm = () => {
           </label>
           <input
             id="name"
+            name="name"
             type="text"
             autoComplete="off"
-            onChange={handleNameInput}
+            onChange={(e) => handleInput(e.target.name, e.target.value)}
             value={userInput.name}
             className={nameStyles.input}
             required
@@ -98,9 +91,10 @@ const AddressForm = () => {
           </label>
           <input
             id="lastName"
+            name="lastName"
             type="text"
             autoComplete="off"
-            onChange={handleLastNameInput}
+            onChange={(e) => handleInput(e.target.name, e.target.value)}
             value={userInput.lastName}
             className={lastNameStyles.input}
             required
@@ -119,9 +113,10 @@ const AddressForm = () => {
         </label>
         <input
           id="address"
+          name="address"
           type="text"
           autoComplete="off"
-          onChange={handleAddressInput}
+          onChange={(e) => handleInput(e.target.name, e.target.value)}
           value={userInput.address}
           className={addressStyles.input}
           required
@@ -140,33 +135,14 @@ const AddressForm = () => {
           </label>
           <input
             id="city"
+            name="city"
             type="text"
             autoComplete="off"
-            onChange={handleCityInput}
+            onChange={(e) => handleInput(e.target.name, e.target.value)}
             value={userInput.city}
             className={cityStyles.input}
             required
             placeholder="City"
-            disabled={isDisabled}
-          />
-        </div>
-        <div
-          className={`${styles.float_container} ${
-            isDisabled ? styles.disabled : ''
-          }`}
-        >
-          <label htmlFor="zipCode" className={zipCodeStyles.label}>
-            Zip Code
-          </label>
-          <input
-            id="zipCode"
-            type="text"
-            autoComplete="off"
-            onChange={handleZipCodeInput}
-            value={userInput.zipCode}
-            className={zipCodeStyles.input}
-            required
-            placeholder="Zip Code"
             disabled={isDisabled}
           />
         </div>
@@ -180,13 +156,35 @@ const AddressForm = () => {
           </label>
           <input
             id="state"
+            name="state"
             type="text"
             autoComplete="off"
-            onChange={handleStateInput}
+            onChange={(e) => handleInput(e.target.name, e.target.value)}
             value={userInput.state}
             className={stateStyles.input}
             required
             placeholder="State"
+            disabled={isDisabled}
+          />
+        </div>
+        <div
+          className={`${styles.float_container} ${
+            isDisabled ? styles.disabled : ''
+          }`}
+        >
+          <label htmlFor="zipCode" className={zipCodeStyles.label}>
+            Zip Code
+          </label>
+          <input
+            id="zipCode"
+            name="zipCode"
+            type="text"
+            autoComplete="off"
+            onChange={(e) => handleInput(e.target.name, e.target.value)}
+            value={userInput.zipCode}
+            className={zipCodeStyles.input}
+            required
+            placeholder="Zip Code"
             disabled={isDisabled}
           />
         </div>
@@ -201,9 +199,10 @@ const AddressForm = () => {
         </label>
         <input
           id="phoneNumber"
+          name="phoneNumber"
           type="tel"
           autoComplete="off"
-          onChange={handlePhoneNumberInput}
+          onChange={(e) => handleInput(e.target.name, e.target.value)}
           value={userInput.phoneNumber}
           className={phoneNumberStyles.input}
           required

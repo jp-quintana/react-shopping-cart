@@ -19,42 +19,46 @@ const ShippingInfo = () => {
   const { email, shippingAddress } = useCheckoutContext();
   const { submitShippingInfo, isLoading } = useCheckout();
 
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [newAddress, setNewAddress] = useState({});
-
   const options = [...addresses, { label: 'Add new address', value: 'new' }];
 
-  let defaultOption;
-  let initialIsNew = false;
-
-  if (shippingAddress.hasOwnProperty('address')) {
-    defaultOption = shippingAddress;
-  } else {
-    defaultOption = addresses.find((address) => address.isMain);
-
-    if (!defaultOption) {
-      defaultOption = {
-        label: 'Add new address',
-        value: 'new',
-      };
-      initialIsNew = true;
-    }
-  }
-
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [defaultOption, setDefaultOption] = useState(false);
+  const [newAddress, setNewAddress] = useState({});
   const [userInput, setUserInput] = useState({
-    email: email || '',
-    id: defaultOption.id || '',
-    name: defaultOption.name || '',
-    lastName: defaultOption.lastName || '',
-    address: defaultOption.address || '',
-    city: defaultOption.city || '',
-    state: defaultOption.state || '',
-    zipCode: defaultOption.zipCode || '',
-    phoneNumber: defaultOption.phoneNumber || '',
-    label: defaultOption.label || '',
-    value: defaultOption.value || '',
-    isNew: initialIsNew,
+    email,
+    id: '',
+    name: '',
+    lastName: '',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    phoneNumber: '',
+    label: '',
+    value: '',
   });
+
+  useEffect(() => {
+    if (Object.keys(shippingAddress).length > 0) {
+      setDefaultOption(
+        options.find((option) => option.value === shippingAddress.value)
+      );
+      setUserInput({ ...userInput, ...shippingAddress });
+    } else {
+      const mainAddress = options.find((option) => option.isMain);
+
+      if (!mainAddress) {
+        setDefaultOption({ label: 'Add new address', value: 'new' });
+        setUserInput({
+          label: 'Add new Address',
+          value: 'new',
+        });
+      } else {
+        setDefaultOption(mainAddress);
+        setUserInput({ ...userInput, ...mainAddress });
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (userInput.value === 'new') {
@@ -78,7 +82,6 @@ const ShippingInfo = () => {
         phoneNumber: newAddress.phoneNumber || '',
         label: option.label,
         value: option.value,
-        isNew: true,
       }));
     } else {
       setUserInput((prevState) => ({
@@ -93,7 +96,6 @@ const ShippingInfo = () => {
         phoneNumber: option.phoneNumber || '',
         label: option.label,
         value: option.value,
-        isNew: false,
       }));
     }
   };
@@ -109,96 +111,10 @@ const ShippingInfo = () => {
       ...prevState,
       [key]: value,
     }));
-  };
 
-  const handleEmailInput = (e) => {
-    setUserInput((prevState) => ({
-      ...prevState,
-      email: e.target.value,
-    }));
-  };
-
-  const handleNameInput = (e) => {
     setNewAddress((prevState) => ({
       ...prevState,
-      name: e.target.value,
-    }));
-
-    setUserInput((prevState) => ({
-      ...prevState,
-      name: e.target.value,
-    }));
-  };
-
-  const handleLastNameInput = (e) => {
-    setNewAddress((prevState) => ({
-      ...prevState,
-      lastName: e.target.value,
-    }));
-
-    setUserInput((prevState) => ({
-      ...prevState,
-      lastName: e.target.value,
-    }));
-  };
-
-  const handleAddressInput = (e) => {
-    setNewAddress((prevState) => ({
-      ...prevState,
-      address: e.target.value,
-    }));
-
-    setUserInput((prevState) => ({
-      ...prevState,
-      address: e.target.value,
-    }));
-  };
-
-  const handleCityInput = (e) => {
-    setNewAddress((prevState) => ({
-      ...prevState,
-      city: e.target.value,
-    }));
-
-    setUserInput((prevState) => ({
-      ...prevState,
-      city: e.target.value,
-    }));
-  };
-
-  const handleStateInput = (e) => {
-    setNewAddress((prevState) => ({
-      ...prevState,
-      state: e.target.value,
-    }));
-
-    setUserInput((prevState) => ({
-      ...prevState,
-      state: e.target.value,
-    }));
-  };
-
-  const handleZipCodeInput = (e) => {
-    setNewAddress((prevState) => ({
-      ...prevState,
-      zipCode: e.target.value,
-    }));
-
-    setUserInput((prevState) => ({
-      ...prevState,
-      zipCode: e.target.value,
-    }));
-  };
-
-  const handlePhoneNumberInput = (e) => {
-    setNewAddress((prevState) => ({
-      ...prevState,
-      phoneNumber: e.target.value,
-    }));
-
-    setUserInput((prevState) => ({
-      ...prevState,
-      phoneNumber: e.target.value,
+      [key]: value,
     }));
   };
 
@@ -209,69 +125,69 @@ const ShippingInfo = () => {
       userInput.email.length > 0 ? styles.input_focus : styles.input_no_focus,
   };
 
-  // const nameStyles = {
-  //   label:
-  //     userInput.name.length > 0 ? styles.label_focus : styles.label_no_focus,
-  //   input:
-  //     userInput.name.length > 0 ? styles.input_focus : styles.input_no_focus,
-  // };
+  const nameStyles = {
+    label:
+      userInput.name.length > 0 ? styles.label_focus : styles.label_no_focus,
+    input:
+      userInput.name.length > 0 ? styles.input_focus : styles.input_no_focus,
+  };
 
-  // const lastNameStyles = {
-  //   label:
-  //     userInput.lastName.length > 0
-  //       ? styles.label_focus
-  //       : styles.label_no_focus,
-  //   input:
-  //     userInput.lastName.length > 0
-  //       ? styles.input_focus
-  //       : styles.input_no_focus,
-  // };
+  const lastNameStyles = {
+    label:
+      userInput.lastName.length > 0
+        ? styles.label_focus
+        : styles.label_no_focus,
+    input:
+      userInput.lastName.length > 0
+        ? styles.input_focus
+        : styles.input_no_focus,
+  };
 
-  // const addressStyles = {
-  //   label:
-  //     userInput.address.length > 0 ? styles.label_focus : styles.label_no_focus,
-  //   input:
-  //     userInput.address.length > 0 ? styles.input_focus : styles.input_no_focus,
-  // };
+  const addressStyles = {
+    label:
+      userInput.address.length > 0 ? styles.label_focus : styles.label_no_focus,
+    input:
+      userInput.address.length > 0 ? styles.input_focus : styles.input_no_focus,
+  };
 
-  // const cityStyles = {
-  //   label:
-  //     userInput.city.length > 0 ? styles.label_focus : styles.label_no_focus,
-  //   input:
-  //     userInput.city.length > 0 ? styles.input_focus : styles.input_no_focus,
-  // };
+  const cityStyles = {
+    label:
+      userInput.city.length > 0 ? styles.label_focus : styles.label_no_focus,
+    input:
+      userInput.city.length > 0 ? styles.input_focus : styles.input_no_focus,
+  };
 
-  // const stateStyles = {
-  //   label:
-  //     userInput.state.length > 0 ? styles.label_focus : styles.label_no_focus,
-  //   input:
-  //     userInput.state.length > 0 ? styles.input_focus : styles.input_no_focus,
-  // };
+  const stateStyles = {
+    label:
+      userInput.state.length > 0 ? styles.label_focus : styles.label_no_focus,
+    input:
+      userInput.state.length > 0 ? styles.input_focus : styles.input_no_focus,
+  };
 
-  // const zipCodeStyles = {
-  //   label:
-  //     userInput.zipCode.length > 0 ? styles.label_focus : styles.label_no_focus,
-  //   input:
-  //     userInput.zipCode.length > 0 ? styles.input_focus : styles.input_no_focus,
-  // };
+  const zipCodeStyles = {
+    label:
+      userInput.zipCode.length > 0 ? styles.label_focus : styles.label_no_focus,
+    input:
+      userInput.zipCode.length > 0 ? styles.input_focus : styles.input_no_focus,
+  };
 
-  // const phoneNumberStyles = {
-  //   label:
-  //     userInput.phoneNumber.length > 0
-  //       ? styles.label_focus
-  //       : styles.label_no_focus,
-  //   input:
-  //     userInput.phoneNumber.length > 0
-  //       ? styles.input_focus
-  //       : styles.input_no_focus,
-  // };
+  const phoneNumberStyles = {
+    label:
+      userInput.phoneNumber.length > 0
+        ? styles.label_focus
+        : styles.label_no_focus,
+    input:
+      userInput.phoneNumber.length > 0
+        ? styles.input_focus
+        : styles.input_no_focus,
+  };
 
   return (
     <div className={styles.info_container}>
-      {isLoading && (
+      {isLoading && !defaultOption && (
         <Loader containerClassName={styles.loader_container} noPortal={true} />
       )}
-      {!isLoading && (
+      {!isLoading && defaultOption && (
         <div className={styles.info_wrapper}>
           <form className={styles.info_form} onSubmit={handleSubmit}>
             <div className={styles.contact_info_wrapper}>
@@ -282,9 +198,10 @@ const ShippingInfo = () => {
                 </label>
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   autoComplete="off"
-                  onChange={handleEmailInput}
+                  onChange={(e) => handleInput(e.target.name, e.target.value)}
                   value={userInput.email}
                   className={emailStyles.input}
                   required
@@ -312,9 +229,10 @@ const ShippingInfo = () => {
                   </label>
                   <input
                     id="name"
+                    name="name"
                     type="text"
                     autoComplete="off"
-                    onChange={handleNameInput}
+                    onChange={(e) => handleInput(e.target.name, e.target.value)}
                     value={userInput.name}
                     className={nameStyles.input}
                     required
@@ -332,9 +250,10 @@ const ShippingInfo = () => {
                   </label>
                   <input
                     id="lastName"
+                    name="lastName"
                     type="text"
                     autoComplete="off"
-                    onChange={handleLastNameInput}
+                    onChange={(e) => handleInput(e.target.name, e.target.value)}
                     value={userInput.lastName}
                     className={lastNameStyles.input}
                     required
@@ -353,9 +272,10 @@ const ShippingInfo = () => {
                 </label>
                 <input
                   id="address"
+                  name="address"
                   type="text"
                   autoComplete="off"
-                  onChange={handleAddressInput}
+                  onChange={(e) => handleInput(e.target.name, e.target.value)}
                   value={userInput.address}
                   className={addressStyles.input}
                   required
@@ -374,33 +294,14 @@ const ShippingInfo = () => {
                   </label>
                   <input
                     id="city"
+                    name="city"
                     type="text"
                     autoComplete="off"
-                    onChange={handleCityInput}
+                    onChange={(e) => handleInput(e.target.name, e.target.value)}
                     value={userInput.city}
                     className={cityStyles.input}
                     required
                     placeholder="City"
-                    disabled={isDisabled}
-                  />
-                </div>
-                <div
-                  className={`${styles.float_container} ${
-                    isDisabled ? styles.disabled : ''
-                  }`}
-                >
-                  <label htmlFor="zipCode" className={zipCodeStyles.label}>
-                    Zip Code
-                  </label>
-                  <input
-                    id="zipCode"
-                    type="text"
-                    autoComplete="off"
-                    onChange={handleZipCodeInput}
-                    value={userInput.zipCode}
-                    className={zipCodeStyles.input}
-                    required
-                    placeholder="Zip Code"
                     disabled={isDisabled}
                   />
                 </div>
@@ -414,13 +315,35 @@ const ShippingInfo = () => {
                   </label>
                   <input
                     id="state"
+                    name="state"
                     type="text"
                     autoComplete="off"
-                    onChange={handleStateInput}
+                    onChange={(e) => handleInput(e.target.name, e.target.value)}
                     value={userInput.state}
                     className={stateStyles.input}
                     required
                     placeholder="State"
+                    disabled={isDisabled}
+                  />
+                </div>
+                <div
+                  className={`${styles.float_container} ${
+                    isDisabled ? styles.disabled : ''
+                  }`}
+                >
+                  <label htmlFor="zipCode" className={zipCodeStyles.label}>
+                    Zip Code
+                  </label>
+                  <input
+                    id="zipCode"
+                    name="zipCode"
+                    type="text"
+                    autoComplete="off"
+                    onChange={(e) => handleInput(e.target.name, e.target.value)}
+                    value={userInput.zipCode}
+                    className={zipCodeStyles.input}
+                    required
+                    placeholder="Zip Code"
                     disabled={isDisabled}
                   />
                 </div>
@@ -438,9 +361,10 @@ const ShippingInfo = () => {
                 </label>
                 <input
                   id="phoneNumber"
+                  name="phoneNumber"
                   type="tel"
                   autoComplete="off"
-                  onChange={handlePhoneNumberInput}
+                  onChange={(e) => handleInput(e.target.name, e.target.value)}
                   value={userInput.phoneNumber}
                   className={phoneNumberStyles.input}
                   required
