@@ -9,10 +9,7 @@ import { useAdmin } from 'hooks/useAdmin';
 import ProductForm from './ProductForm';
 import Variants from './Variants';
 
-import Button from 'components/common/Button';
-import Loader from 'components/common/Loader';
-import CenterModal from 'components/common/CenterModal';
-import ConfirmMessage from 'components/common/ConfirmMessage';
+import { Button, Loader, CenterModal, ConfirmMessage } from 'components/common';
 
 import styles from './index.module.scss';
 

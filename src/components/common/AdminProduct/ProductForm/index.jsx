@@ -1,5 +1,4 @@
-import DragDropFileInput from 'components/common/DragDropFIleInput';
-import TagsInput from 'components/common/TagsInput';
+import { DragDropFileInput, TagsInput } from 'components/common';
 
 import styles from './index.module.scss';
 

@@ -1,5 +1,4 @@
 import { createPortal } from 'react-dom';
-
 import { motion, AnimatePresence } from 'framer-motion';
 
 import { useKeyDown } from 'hooks/useKeyDown';
@@ -8,7 +7,7 @@ import { Backdrop } from 'components/common';
 
 import styles from './index.module.scss';
 
-const CenterModal = ({
+const NavDrawer = ({
   children,
   close,
   backdropClassName,
@@ -35,6 +34,7 @@ const CenterModal = ({
           {createPortal(
             <>
               <Backdrop
+                close={close}
                 backdropClassName={`${styles.backdrop} ${backdropClassName}`}
               />
               <div
@@ -44,13 +44,13 @@ const CenterModal = ({
                 <div className={`${styles.modal_wrapper} ${wrapperClassName}`}>
                   <motion.div
                     onClick={(e) => e.stopPropagation()}
-                    key="center-modal"
+                    key="nav-drawer"
                     variants={variants}
                     initial="initial"
                     animate="visible"
                     exit="exit"
                     transition={{ duration: 0.2 }}
-                    className={`${styles.center_modal} ${modalClassName}`}
+                    className={`${styles.nav_drawer} ${modalClassName}`}
                   >
                     {children}
                   </motion.div>
@@ -65,4 +65,4 @@ const CenterModal = ({
   );
 };
 
-export default CenterModal;
+export default NavDrawer;

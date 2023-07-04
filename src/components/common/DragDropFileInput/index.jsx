@@ -8,8 +8,7 @@ import {
   FaEllipsisH,
 } from 'react-icons/fa';
 
-import CenterModal from 'components/common/CenterModal';
-import ConfirmMessage from 'components/common/ConfirmMessage';
+import { CenterModal, ConfirmMessage } from 'components/common';
 
 import styles from './index.module.scss';
 

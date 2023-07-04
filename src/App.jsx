@@ -6,24 +6,22 @@ import { useCartContext } from 'hooks/useCartContext';
 import ProductProvider from 'context/product/ProductProvider';
 import CheckoutProvider from 'context/checkout/CheckoutProvider';
 
-import Layout from 'components/setup/Layout';
-import ProtectedRoutes from 'components/setup/ProtectedRoutes';
+import { Layout } from 'components/layouts';
+import { ProtectedRoutes } from 'components/routes';
 
-import HomePage from './pages/HomePage';
-import Admin from './pages/Admin';
-import AdminCollections from './pages/AdminCollections';
-import AdminAddProduct from './pages/AdminAddProduct';
-import AdminEditProduct from './pages/AdminEditProduct';
-import AccountPage from './pages/AccountPage';
-import AddressesPage from './pages/AddressesPage';
-import LoginPage from 'pages/LoginPage';
-import SignUpPage from 'pages/SignUpPage';
-import CollectionPage from './pages/CollectionPage';
-import ProductPage from './pages/ProductPage';
-import CartPage from './pages/CartPage';
-import CheckoutPage from './pages/CheckoutPage';
+import {
+  HomePage,
+  AccountPage,
+  AddressesPage,
+  LoginPage,
+  SignUpPage,
+  CollectionPage,
+  ProductPage,
+  CartPage,
+  CheckoutPage,
+} from './components/pages';
 
-import Loader from './components/common/Loader';
+import { Loader } from './components/common';
 
 import './App.scss';
 

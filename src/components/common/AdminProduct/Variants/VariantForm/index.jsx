@@ -4,10 +4,12 @@ import { FaQuestionCircle } from 'react-icons/fa';
 
 import ImageSelect from './ImageSelect';
 
-import Button from 'components/common/Button';
-import ToolTip from 'components/common/ToolTip';
-import CenterModal from 'components/common/CenterModal';
-import ConfirmMessage from 'components/common/ConfirmMessage';
+import {
+  Button,
+  ToolTip,
+  CenterModal,
+  ConfirmMessage,
+} from 'components/common';
 
 import styles from './index.module.scss';
 

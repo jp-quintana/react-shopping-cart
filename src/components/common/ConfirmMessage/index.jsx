@@ -1,6 +1,6 @@
 import { useKeyDown } from 'hooks/useKeyDown';
 
-import Button from 'components/common/Button';
+import { Button } from 'components/common';
 
 import styles from './index.module.scss';
 

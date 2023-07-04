@@ -7,9 +7,7 @@ import { useCart } from 'hooks/useCart';
 
 import CartItem from '../CartItem';
 
-import Button from 'components/common/Button';
-import Toast from 'components/common/Toast';
-import ToastMessage from 'components/common/ToastMessage';
+import { Button, Toast, ToastMessage } from 'components/common';
 
 import { addAllItemsPrice, addAllItemsQuantity } from 'helpers/item';
 

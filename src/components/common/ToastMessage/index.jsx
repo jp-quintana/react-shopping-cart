@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { IoIosCheckmarkCircle, IoIosAlert } from 'react-icons/io';
 
-import ImageContainer from 'components/common/ImageContainer';
+import { ImageContainer } from 'components/common';
 
 import styles from './index.module.scss';
 

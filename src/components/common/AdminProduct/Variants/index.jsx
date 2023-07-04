@@ -2,7 +2,7 @@ import VariantForm from './VariantForm';
 
 import { FaPlusCircle } from 'react-icons/fa';
 
-import Button from 'components/common/Button';
+import { Button } from 'components/common';
 
 import styles from './index.module.scss';
 
