@@ -13,7 +13,7 @@ import {
   Button,
   Loader,
   Slider,
-  ImageContainer,
+  MediaContainer,
   Toast,
   ToastMessage,
 } from 'components/common';
@@ -133,7 +133,7 @@ const ProductPage = () => {
                         modules={[Pagination]}
                         sliderClassName={styles.slider}
                         slideClassName={styles.slide}
-                        imageContainerClassName={styles.image_container}
+                        MediaContainerClassName={styles.image_container}
                         imageFillClassName={styles.image_fill}
                         imageClassName={styles.image}
                       />
@@ -278,9 +278,9 @@ const ProductPage = () => {
 
                   <div className={styles.images}>
                     {selectedVariant.images.map((image) => (
-                      <ImageContainer
+                      <MediaContainer
                         key={image.id}
-                        src={image.src}
+                        image={image.src}
                         alt=""
                         containerClassName={styles.image_container}
                         fillClassName={styles.image_fill}

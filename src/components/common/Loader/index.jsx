@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom';
 
 import Backdrop from '../Backdrop';
-import ImageContainer from '../ImageContainer';
+import MediaContainer from '../MediaContainer';
 
 import styles from './index.module.scss';
 
@@ -19,12 +19,12 @@ const Loader = ({
     return (
       <>
         <div className={`${styles.loader_np_container} ${containerClassName}`}>
-          <ImageContainer
-            src={LoaderImage}
+          <MediaContainer
+            image={LoaderImage}
             alt=""
             containerClassName={styles.image_container}
             fillClassName={styles.image_fill}
-            imageClassName={`${styles.image} ${loaderClassName}`}
+            mediaClassName={`${styles.image} ${loaderClassName}`}
           />
         </div>
       </>
@@ -39,12 +39,12 @@ const Loader = ({
             backdropClassName={`${styles.backdrop} ${backdropClassName}`}
           />
           <div className={`${styles.loader_container} ${containerClassName}`}>
-            <ImageContainer
-              src={LoaderImage}
+            <MediaContainer
+              image={LoaderImage}
               alt=""
               containerClassName={styles.image_container}
               fillClassName={styles.image_fill}
-              imageClassName={`${styles.image} ${loaderClassName}`}
+              mediaClassName={`${styles.image} ${loaderClassName}`}
             />
           </div>
         </>,

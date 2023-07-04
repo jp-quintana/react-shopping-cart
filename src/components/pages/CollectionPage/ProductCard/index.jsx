@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
 
-import { Button, ImageContainer } from 'components/common';
+import { Button, MediaContainer } from 'components/common';
 
 import { formatPrice, formatDiscount } from 'helpers/format';
 
@@ -34,8 +34,8 @@ const ProductCard = ({
             {formatDiscount({ currentPrice, actualPrice })}
           </span>
         )}
-        <ImageContainer
-          src={image.src}
+        <MediaContainer
+          image={image.src}
           to={`/products/${slug}`}
           alt=""
           clearPlaceholders={() => setDetailsShowPlaceholder(false)}

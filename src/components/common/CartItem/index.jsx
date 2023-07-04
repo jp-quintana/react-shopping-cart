@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 
-import ImageContainer from '../ImageContainer';
+import MediaContainer from '../MediaContainer';
 
 import { formatPrice } from 'helpers/format';
 import { addIndividualItemPrice } from 'helpers/item';
@@ -75,12 +75,12 @@ const CartItem = ({
             <p className={styles.size}>{size.toUpperCase()}</p>
             <p className={styles.price}>${formatPrice(price)}</p>
           </div>
-          <ImageContainer
-            src={image}
+          <MediaContainer
+            image={image}
             alt=""
             containerClassName={styles.image_container}
             fillClassName={styles.image_fill}
-            imageClassName={styles.image}
+            mediaClassName={styles.image}
           />
         </div>
       </Link>

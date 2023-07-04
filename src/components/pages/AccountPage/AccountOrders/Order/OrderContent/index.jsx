@@ -1,6 +1,6 @@
 import { useKeyDown } from 'hooks/useKeyDown';
 
-import { Button, ImageContainer } from 'components/common';
+import { Button, MediaContainer } from 'components/common';
 
 import { addAllItemsPriceNumber } from 'helpers/item';
 import { formatPrice, formatDate } from 'helpers/format';
@@ -67,12 +67,12 @@ const OrderContent = ({
           {items.map((item) => (
             <div key={item.skuId} className={styles.item_container}>
               <div className={styles.image_wrapper}>
-                <ImageContainer
-                  src={item.image}
+                <MediaContainer
+                  image={item.image}
                   alt=""
                   containerClassName={styles.image_container}
                   fillClassName={styles.image_fill}
-                  imageClassName={styles.image}
+                  mediaClassName={styles.image}
                 />
                 <div className={styles.quantity}>
                   <div>{item.quantity}</div>

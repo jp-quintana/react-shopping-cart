@@ -6,7 +6,7 @@ import 'swiper/css/navigation';
 
 import 'swiper/css';
 
-import ImageContainer from '../ImageContainer';
+import MediaContainer from '../MediaContainer';
 
 const Slider = ({
   slides,
@@ -21,7 +21,7 @@ const Slider = ({
   modules,
   sliderClassName,
   slideClassName,
-  imageContainerClassName,
+  MediaContainerClassName,
   imageFillClassName,
   imagePlaceholderClassName,
   imageClassName,
@@ -42,14 +42,14 @@ const Slider = ({
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id} className={slideClassName}>
-            <ImageContainer
-              src={slide.src}
+            <MediaContainer
+              image={slide.src}
               to={slide.url}
               alt={slide.alt || ''}
-              containerClassName={imageContainerClassName}
+              containerClassName={MediaContainerClassName}
               fillClassName={imageFillClassName}
               placeholderClassName={imagePlaceholderClassName}
-              imageClassName={imageClassName}
+              mediaClassName={imageClassName}
             />
             {/* <img src={slide.src} alt="" className={imageClassName} /> */}
           </SwiperSlide>

@@ -8,7 +8,7 @@ export { default as CenterModal } from './CenterModal';
 export { default as ConfirmMessage } from './ConfirmMessage';
 export { default as DragDropFileInput } from './DragDropFileInput';
 export { default as Dropdown } from './Dropdown';
-export { default as ImageContainer } from './ImageContainer';
+export { default as MediaContainer } from './MediaContainer';
 export { default as Loader } from './Loader';
 export { default as Modal } from './Modal';
 export { default as Slider } from './Slider';

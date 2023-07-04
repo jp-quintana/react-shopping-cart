@@ -7,7 +7,7 @@ import { useCheckout } from 'hooks/useCheckout';
 import { formatPrice } from 'helpers/format';
 import { addAllItemsPriceNumber } from 'helpers/item';
 
-import { ImageContainer } from 'components/common';
+import { MediaContainer } from 'components/common';
 
 import styles from './index.module.scss';
 
@@ -57,10 +57,10 @@ const OrderSummary = () => {
         {items.map((item) => (
           <div key={item.skuId} className={styles.item_container}>
             <div className={styles.image}>
-              <ImageContainer
+              <MediaContainer
                 containerClassName={styles.image_container}
                 fillClassName={styles.image_fill}
-                src={item.image}
+                image={item.image}
               />
               <div className={styles.quantity}>
                 <div>{item.quantity}</div>

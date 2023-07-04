@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { IoIosCheckmarkCircle, IoIosAlert } from 'react-icons/io';
 
-import { ImageContainer } from 'components/common';
+import { MediaContainer } from 'components/common';
 
 import styles from './index.module.scss';
 
@@ -20,12 +20,12 @@ const ToastMessage = ({ close, content, className }) => {
     return (
       <div className={`${styles.addToCart} ${styles.success}`}>
         <div className={styles.content_wrapper}>
-          <ImageContainer
-            src={content.image}
+          <MediaContainer
+            image={content.image}
             alt=""
             containerClassName={styles.image_container}
             fillClassName={styles.image_fill}
-            imageClassName={styles.image}
+            mediaClassName={styles.image}
           />
           <div>
             <p className={styles.title}>Product added to cart.</p>

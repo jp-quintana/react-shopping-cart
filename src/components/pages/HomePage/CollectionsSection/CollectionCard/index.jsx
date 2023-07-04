@@ -1,4 +1,4 @@
-import { Button, ImageContainer } from 'components/common';
+import { Button, MediaContainer } from 'components/common';
 
 import styles from './index.module.scss';
 
@@ -21,11 +21,11 @@ const CollectionCard = ({ id, image, title, text, url }) => {
         </Button>
       </div>
       {/* <img className={styles.image} src={image} alt="" /> */}
-      <ImageContainer
+      <MediaContainer
         containerClassName={styles.image_container}
         fillClassName={isAlt ? styles.image_fill_alt : styles.image_fill}
-        imageClassName={styles.image}
-        src={image}
+        mediaClassName={styles.image}
+        image={image}
         alt=""
       />
     </div>

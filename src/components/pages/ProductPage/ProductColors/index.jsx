@@ -1,6 +1,6 @@
 import { useProduct } from 'hooks/useProduct';
 
-import { ImageContainer } from 'components/common';
+import { MediaContainer } from 'components/common';
 
 import styles from './index.module.scss';
 
@@ -23,13 +23,13 @@ const ProductColors = ({ id, thumbnail, selectedColor }) => {
     selectedColor === id ? styles.thumbnail_selected : styles.thumbnail;
 
   return (
-    <ImageContainer
-      src={thumbnail}
+    <MediaContainer
+      image={thumbnail}
       alt=""
       onClick={shouldAddEventHandler ? handleSelectVariant : undefined}
       containerClassName={styles.image_container}
       fillClassName={styles.image_fill}
-      imageClassName={variantStyles}
+      mediaClassName={variantStyles}
     />
   );
 };
