@@ -11,6 +11,7 @@ const AddressForm = ({
   isDisabled,
   handleInput,
   handleSelectAddress,
+  containerClassName,
 }) => {
   const nameStyles = {
     label:
@@ -70,7 +71,7 @@ const AddressForm = ({
   };
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${containerClassName}`}>
       <Dropdown
         styles={reactSelectStyles}
         options={options}

@@ -90,6 +90,7 @@ export const useAddress = () => {
 
       dispatch({ type: 'UPDATE_ADDRESSES', payload: userAddresses });
       setIsLoading(false);
+      return addressToAdd;
     } catch (err) {
       console.error(err);
       setError(handleError(err));
@@ -146,22 +147,6 @@ export const useAddress = () => {
         displayOrder,
       };
 
-      const checkoutSessionDoc = await getDoc(checkoutSessionRef);
-
-      if (checkoutSessionDoc.exists()) {
-        const { shippingAddress } = checkoutSessionDoc.data();
-        if (shippingAddress.id === updatedAddress.id) {
-          const { isMain, displayOrder, ...updatedShippingAddress } =
-            updatedAddress;
-
-          await updateDoc(checkoutSessionRef, {
-            shippingAddress: {
-              ...updatedShippingAddress,
-            },
-          });
-        }
-      }
-
       let updatedAddresses = [...userAddresses];
 
       if (isMain) {
@@ -212,10 +197,10 @@ export const useAddress = () => {
       const checkoutSessionDoc = await getDoc(checkoutSessionRef);
 
       if (checkoutSessionDoc.exists()) {
-        const { shippingAddress } = checkoutSessionDoc.data();
-        if (shippingAddress.id === id) {
+        const { shippingAddressId } = checkoutSessionDoc.data();
+        if (shippingAddressId === id) {
           await updateDoc(checkoutSessionRef, {
-            shippingAddress: {},
+            shippingAddressId: null,
           });
         }
       }

@@ -37,7 +37,7 @@ export const useOrder = () => {
 
   const ordersRef = collection(db, 'orders');
 
-  const createOrder = async (paymentInfo) => {
+  const createOrder = async (paymentInfo, billingAddress) => {
     setError(null);
     setIsLoading(true);
     try {
@@ -61,6 +61,7 @@ export const useOrder = () => {
         shippingOption,
         shippingCost,
         paymentInfo,
+        billingAddress,
         createdBy: user.uid,
       });
 

@@ -33,7 +33,7 @@ const CheckoutSummary = () => {
           <p className={styles.label}>Address</p>
           <p className={styles.content}>
             {shippingAddress.address} - {shippingAddress.city},{' '}
-            {shippingAddress.zipCode} - {shippingAddress.state}
+            {shippingAddress.state} {shippingAddress.zipCode}
           </p>
           <p
             className={styles.update}
@@ -62,7 +62,7 @@ const CheckoutSummary = () => {
           <p className={styles.label}>Address</p>
           <p className={styles.content}>
             {shippingAddress.address} - {shippingAddress.city},{' '}
-            {shippingAddress.zipCode} - {shippingAddress.state}
+            {shippingAddress.state} {shippingAddress.zipCode}
           </p>
           <p
             className={styles.update}

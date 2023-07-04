@@ -21,6 +21,11 @@
         margin-bottom: 1.5rem;
       }
 
+      .billing_address_title {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+      }
+
       h2,
       h3,
       p,
@@ -213,8 +218,7 @@
 .button {
   margin-left: auto;
   padding: 1.2rem;
-  //override tailwind
-  background-color: #48e471 !important;
+  background-color: #48e471;
   font-size: 1.4rem;
   font-weight: $font-w-700;
   border-radius: 1rem;
@@ -242,4 +246,9 @@
   &:hover {
     background-color: #74eb93 !important;
   }
+}
+
+.billing_form_container {
+  padding-top: 2rem !important;
+  padding: 1rem 2rem;
 }

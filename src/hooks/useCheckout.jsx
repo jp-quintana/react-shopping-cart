@@ -33,23 +33,27 @@ export const useCheckout = () => {
     try {
       const { email, ...shippingAddress } = userInput;
 
+      let formattedShippingAddress = shippingAddress;
+
       if (shippingAddress.value === 'new') {
         shippingAddress.id = uuid();
-        // Se puede agregar el display order aca de ser necesario, loopear por todos los addresses => index + 1 => etc
-        await createAddress(shippingAddress);
+
+        formattedShippingAddress = await createAddress(shippingAddress);
       }
 
-      shippingAddress.value = shippingAddress.id;
-      shippingAddress.label = `${shippingAddress.name} ${shippingAddress.lastName} - ${shippingAddress.address} - ${shippingAddress.city}, ${shippingAddress.zipCode} - ${shippingAddress.state}`;
+      delete formattedShippingAddress.value;
+      delete formattedShippingAddress.label;
+      delete formattedShippingAddress.isMain;
+      delete formattedShippingAddress.displayOrder;
 
       await updateDoc(checkoutSessionRef, {
         email,
-        shippingAddress,
+        shippingAddressId: formattedShippingAddress.id,
       });
 
       dispatch({
         type: 'SUBMIT_SHIPPING_INFO',
-        payload: { email, shippingAddress },
+        payload: { email, shippingAddress: formattedShippingAddress },
       });
 
       setIsLoading(false);

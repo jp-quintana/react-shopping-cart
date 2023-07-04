@@ -21,8 +21,9 @@ const ShippingInfo = () => {
   const options = [...addresses, { label: 'Add new address', value: 'new' }];
 
   const [isDisabled, setIsDisabled] = useState(false);
-  const [defaultOption, setDefaultOption] = useState(false);
+  const [defaultOption, setDefaultOption] = useState(null);
   const [newAddress, setNewAddress] = useState({});
+
   const [userInput, setUserInput] = useState({
     email,
     id: '',
@@ -38,24 +39,28 @@ const ShippingInfo = () => {
   });
 
   useEffect(() => {
-    if (Object.keys(shippingAddress).length > 0) {
-      setDefaultOption(
-        options.find((option) => option.value === shippingAddress.value)
-      );
-      setUserInput({ ...userInput, ...shippingAddress });
-    } else {
-      const mainAddress = options.find((option) => option.isMain);
+    let initialOption;
 
-      if (!mainAddress) {
-        setDefaultOption({ label: 'Add new address', value: 'new' });
-        setUserInput({
-          label: 'Add new Address',
-          value: 'new',
-        });
-      } else {
-        setDefaultOption(mainAddress);
-        setUserInput({ ...userInput, ...mainAddress });
-      }
+    if (shippingAddress.id) {
+      initialOption = options.find(
+        (option) => option.value === shippingAddress.id
+      );
+    }
+
+    if (!initialOption) {
+      initialOption = options.find((option) => option.isMain);
+    }
+
+    if (!initialOption) {
+      setDefaultOption({ label: 'Add new address', value: 'new' });
+      setUserInput({
+        ...userInput,
+        label: 'Add new Address',
+        value: 'new',
+      });
+    } else {
+      setDefaultOption(initialOption);
+      setUserInput({ ...userInput, ...initialOption });
     }
   }, []);
 

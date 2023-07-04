@@ -138,8 +138,7 @@
 .button {
   margin-left: auto;
   padding: 1.2rem;
-  //override tailwind
-  background-color: #48e471 !important;
+  background-color: #48e471;
   font-size: 1.4rem;
   font-weight: $font-w-700;
   border-radius: 1rem;
@@ -165,6 +164,6 @@
   }
 
   &:hover {
-    background-color: #74eb93 !important;
+    background-color: #74eb93;
   }
 }

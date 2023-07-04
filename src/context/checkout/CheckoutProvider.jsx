@@ -12,7 +12,7 @@ const initialState = {
   currentStep: 1,
   email: null,
   id: null,
-  shippingAddress: {},
+  shippingAddress: { id: null },
   shippingOption: { standard: false, expedited: false },
   shippingCost: 0,
 };
@@ -93,16 +93,22 @@ const CheckoutProvider = ({ children }) => {
       if (checkoutSessionDoc.exists()) {
         const checkoutSessionData = checkoutSessionDoc.data();
 
+        const { shippingAddressId, ...formattedCheckoutData } =
+          checkoutSessionData;
+
+        formattedCheckoutData.shippingAddress = { id: shippingAddressId };
+
         dispatch({
           type: 'UPDATE_CHECKOUT_SESSION',
-          payload: { ...checkoutSessionData, id: user.uid },
+          payload: { ...formattedCheckoutData, id: user.uid },
         });
       } else {
         await setDoc(checkoutSessionRef, {
           email,
-          shippingAddress: {},
+          shippingAddressId: null,
           shippingOption: { standard: false, expedited: false },
           paymentInfo: {},
+          shippingCost: 0,
         });
 
         dispatch({

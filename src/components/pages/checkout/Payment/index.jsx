@@ -4,10 +4,13 @@ import { useNavigate } from 'react-router-dom';
 
 import { BiChevronLeft } from 'react-icons/bi';
 
+import { useAuthContext } from 'hooks/useAuthContext';
+import { useCheckoutContext } from 'hooks/useCheckoutContext';
 import { useCheckout } from 'hooks/useCheckout';
 import { useOrder } from 'hooks/useOrder';
 
 import CheckoutSummary from '../CheckoutSummary';
+import AddressForm from '../AddressForm';
 
 import Button from 'components/common/Button';
 import Loader from 'components/common/Loader';
@@ -16,18 +19,18 @@ import { formatCardNumber, formatExpiryDate, formatCvv } from 'helpers/format';
 
 import styles from './index.module.scss';
 
-const Payment = ({}) => {
+const Payment = () => {
   const navigate = useNavigate();
 
+  const { addresses } = useAuthContext();
+  const { shippingAddress } = useCheckoutContext();
   const { selectPreviousStep } = useCheckout();
   const { createOrder, isLoading, error } = useOrder();
 
   const [paymentOption, setPaymentOption] = useState('creditCard');
   const [navigation, setNavigation] = useState(false);
 
-  const [billingAddress, setBillingAddress] = useState('same');
-
-  const [userInput, setUserInput] = useState({
+  const [cardInput, setCardInput] = useState({
     cardNumber: '',
     name: '',
     expiryDate: '',
@@ -35,40 +38,147 @@ const Payment = ({}) => {
   });
 
   const handleCardNumberInput = (e) => {
-    setUserInput((prevState) => ({
+    setCardInput((prevState) => ({
       ...prevState,
       cardNumber: formatCardNumber(e.target.value),
     }));
   };
 
   const handleNameInput = (e) => {
-    setUserInput((prevState) => ({ ...prevState, name: e.target.value }));
+    setCardInput((prevState) => ({ ...prevState, name: e.target.value }));
   };
 
   const handleExpiryDateInput = (e) => {
-    setUserInput((prevState) => ({
+    setCardInput((prevState) => ({
       ...prevState,
       expiryDate: formatExpiryDate(e.target.value),
     }));
   };
 
   const handleSecurityCodeInput = (e) => {
-    setUserInput((prevState) => ({
+    setCardInput((prevState) => ({
       ...prevState,
       securityCode: formatCvv(e.target.value),
     }));
   };
 
+  const options = [...addresses, { label: 'Add new address', value: 'new' }];
+
+  const [billingAddress, setBillingAddress] = useState('same');
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [defaultOption, setDefaultOption] = useState(null);
+  const [newAddress, setNewAddress] = useState({});
+
+  const [billingInput, setBillingInput] = useState({
+    id: '',
+    name: '',
+    lastName: '',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    phoneNumber: '',
+    label: '',
+    value: '',
+  });
+
+  useEffect(() => {
+    let initialOption;
+
+    if (shippingAddress.id) {
+      initialOption = options.find(
+        (option) => option.value === shippingAddress.id
+      );
+    }
+
+    if (!initialOption) {
+      initialOption = options.find((option) => option.isMain);
+    }
+
+    if (!initialOption) {
+      setDefaultOption({ label: 'Add new address', value: 'new' });
+      setBillingInput({
+        ...billingInput,
+        label: 'Add new Address',
+        value: 'new',
+      });
+    } else {
+      setDefaultOption(initialOption);
+      setBillingInput({ ...billingInput, ...initialOption });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (billingInput.value === 'new') {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }, [billingInput.value]);
+
+  const handleBillingInput = (key, value) => {
+    setBillingInput((prevState) => ({
+      ...prevState,
+      [key]: value,
+    }));
+
+    setNewAddress((prevState) => ({
+      ...prevState,
+      [key]: value,
+    }));
+  };
+
+  const handleSelectAddress = (option) => {
+    if (option.value === 'new') {
+      setBillingInput((prevState) => ({
+        ...prevState,
+        id: newAddress.id || '',
+        name: newAddress.name || '',
+        lastName: newAddress.lastName || '',
+        address: newAddress.address || '',
+        city: newAddress.city || '',
+        state: newAddress.state || '',
+        zipCode: newAddress.zipCode || '',
+        phoneNumber: newAddress.phoneNumber || '',
+        label: option.label,
+        value: option.value,
+      }));
+    } else {
+      setBillingInput((prevState) => ({
+        ...prevState,
+        id: option.id || '',
+        name: option.name || '',
+        lastName: option.lastName || '',
+        address: option.address || '',
+        city: option.city || '',
+        state: option.state || '',
+        zipCode: option.zipCode || '',
+        phoneNumber: option.phoneNumber || '',
+        label: option.label,
+        value: option.value,
+      }));
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await createOrder(userInput);
+    await createOrder(cardInput, {
+      address: billingInput.address,
+      city: billingInput.city,
+      id: billingInput.id,
+      name: billingInput.name,
+      lastName: billingInput.lastName,
+      phoneNumber: billingInput.phoneNumber,
+      state: billingInput.state,
+      zipCode: billingInput.zipCode,
+    });
 
     setNavigation(true);
   };
 
   useEffect(() => {
     if (navigation && !error) {
-      navigate('/cuenta');
+      navigate('/account');
     } else {
       setNavigation(false);
     }
@@ -76,45 +186,43 @@ const Payment = ({}) => {
 
   const cardNumberStyles = {
     label:
-      userInput.cardNumber.length > 0
+      cardInput.cardNumber.length > 0
         ? styles.label_focus
         : styles.label_no_focus,
     input:
-      userInput.cardNumber.length > 0
+      cardInput.cardNumber.length > 0
         ? styles.input_focus
         : styles.input_no_focus,
   };
 
   const nameStyles = {
     label:
-      userInput.name.length > 0 ? styles.label_focus : styles.label_no_focus,
+      cardInput.name.length > 0 ? styles.label_focus : styles.label_no_focus,
     input:
-      userInput.name.length > 0 ? styles.input_focus : styles.input_no_focus,
+      cardInput.name.length > 0 ? styles.input_focus : styles.input_no_focus,
   };
 
   const expiryDateStyles = {
     label:
-      userInput.expiryDate.length > 0
+      cardInput.expiryDate.length > 0
         ? styles.label_focus
         : styles.label_no_focus,
     input:
-      userInput.expiryDate.length > 0
+      cardInput.expiryDate.length > 0
         ? styles.input_focus
         : styles.input_no_focus,
   };
 
   const securityCodeStyles = {
     label:
-      userInput.securityCode.length > 0
+      cardInput.securityCode.length > 0
         ? styles.label_focus
         : styles.label_no_focus,
     input:
-      userInput.securityCode.length > 0
+      cardInput.securityCode.length > 0
         ? styles.input_focus
         : styles.input_no_focus,
   };
-
-  // console.log(billingAddress.same);
 
   return (
     <div className={styles.container}>
@@ -165,7 +273,7 @@ const Payment = ({}) => {
                               e.preventDefault();
                             }
                           }}
-                          value={userInput.cardNumber}
+                          value={cardInput.cardNumber}
                           type="text"
                           inputMode="numeric"
                           placeholder="Card number"
@@ -180,7 +288,7 @@ const Payment = ({}) => {
                         <input
                           id="name"
                           onChange={handleNameInput}
-                          value={userInput.name}
+                          value={cardInput.name}
                           type="text"
                           placeholder="Name on card"
                           className={nameStyles.input}
@@ -205,7 +313,7 @@ const Payment = ({}) => {
                                 e.preventDefault();
                               }
                             }}
-                            value={userInput.expiryDate}
+                            value={cardInput.expiryDate}
                             type="text"
                             placeholder="Expiration Date (MM/YY)"
                             className={expiryDateStyles.input}
@@ -228,7 +336,7 @@ const Payment = ({}) => {
                                 e.preventDefault();
                               }
                             }}
-                            value={userInput.securityCode}
+                            value={cardInput.securityCode}
                             type="password"
                             placeholder="Security code"
                             className={securityCodeStyles.input}
@@ -242,12 +350,13 @@ const Payment = ({}) => {
                 </div>
               </div>
               <div className={styles.billing_address_container}>
-                <h2 className={styles.title}>Billing Address</h2>
+                <h2 className={styles.billing_address_title}>
+                  Billing Address
+                </h2>
                 <div className={styles.billing_address_wrapper}>
                   <div>
                     <label className={styles.payment_option}>
                       <input
-                        onClick={() => console.log('hola')}
                         type="radio"
                         value="same"
                         checked={billingAddress === 'same'}
@@ -277,6 +386,17 @@ const Payment = ({}) => {
                       <span>Use different billing address</span>
                     </label>
                   </div>
+                  {billingAddress === 'different' && (
+                    <AddressForm
+                      userInput={billingInput}
+                      options={options}
+                      defaultOption={defaultOption}
+                      isDisabled={isDisabled}
+                      handleInput={handleBillingInput}
+                      handleSelectAddress={handleSelectAddress}
+                      containerClassName={styles.billing_form_container}
+                    />
+                  )}
                 </div>
               </div>
             </form>

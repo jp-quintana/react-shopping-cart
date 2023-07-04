@@ -2,7 +2,6 @@ import { CustomError } from './customError';
 
 export const handleError = (err) => {
   if (err instanceof CustomError) {
-    console.log('aca', err);
     return { message: err.message };
   } else if (
     err?.code === 'auth/wrong-password' ||

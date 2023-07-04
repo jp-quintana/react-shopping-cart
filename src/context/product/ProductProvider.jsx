@@ -129,8 +129,6 @@ const ProductProvider = ({ children }) => {
       };
     } catch (err) {
       console.error(err);
-      // setError(err);
-      // setIsLoading(false);
     }
   };
 
