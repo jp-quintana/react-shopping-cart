@@ -1,0 +1,92 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  p,
+  span,
+  input {
+    color: #fff;
+    font-size: 1.6rem;
+  }
+
+  p,
+  span,
+  label,
+  a,
+  button {
+    font-family: $font-f-secondary;
+    letter-spacing: $ls-secondary;
+  }
+
+  label {
+    pointer-events: none;
+    color: #b1b1b3;
+    line-height: normal;
+    -moz-transition: all 0.1s ease-in;
+    -o-transition: all 0.1s ease-in;
+    -webkit-transition: all 0.1s ease-in;
+    transition: all 0.1s ease-in;
+  }
+
+  input {
+    line-height: normal;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid #515255;
+    border-radius: 1rem;
+  }
+}
+
+.float_container {
+  position: relative;
+
+  .label_no_focus {
+    position: absolute;
+    left: 1.1rem;
+    top: 1.7rem;
+    bottom: 0;
+    margin: auto 0;
+    font-size: 1.6rem;
+    opacity: 0;
+  }
+
+  .label_focus {
+    position: absolute;
+    left: 1.1rem;
+    top: 0.9rem;
+  }
+
+  .input_no_focus {
+    padding: 1.5rem 1rem 1.5rem;
+  }
+
+  .input_focus {
+    padding: 2.2rem 1rem 0.8rem;
+  }
+
+  input:disabled {
+    user-select: none;
+    pointer-events: none;
+  }
+}
+
+.name_wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.zip_wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.disabled {
+  cursor: not-allowed;
+}

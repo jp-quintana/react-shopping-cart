@@ -60,12 +60,8 @@
 }
 
 .shipping_address_wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-
   .title {
-    margin-bottom: 0.5rem;
+    margin-bottom: 2rem;
   }
 }
 
@@ -102,82 +98,65 @@
   }
 }
 
-.name_wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.zip_wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 1rem;
-}
-
 .form_controls {
   display: flex;
-}
 
-.back_link {
-  display: inline-flex;
-  align-items: center;
-  line-height: normal;
-  color: #fff;
-  font-size: 1.4rem;
-
-  @media (min-width: 360px) {
-    font-size: 1.6rem;
-  }
-
-  span {
-    font-size: 1.6rem;
-    display: flex;
+  .back_link {
+    display: inline-flex;
     align-items: center;
+    line-height: normal;
+    color: #fff;
+    font-size: 1.4rem;
 
     @media (min-width: 360px) {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
+    }
+
+    span {
+      font-size: 1.6rem;
+      display: flex;
+      align-items: center;
+
+      @media (min-width: 360px) {
+        font-size: 1.8rem;
+      }
+    }
+
+    &:hover {
+      color: #fff;
     }
   }
 
-  &:hover {
-    color: #fff;
+  .button {
+    margin-left: auto;
+    padding: 1.2rem;
+    background-color: #48e471;
+    font-size: 1.4rem;
+    font-weight: $font-w-700;
+    border-radius: 1rem;
+
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    -moz-transition: all 0.1s ease-in;
+    -o-transition: all 0.1s ease-in;
+    -webkit-transition: all 0.1s ease-in;
+    transition: all 0.1s ease-in;
+
+    @media (min-width: 360px) {
+      font-size: 1.6rem;
+      padding: 2rem;
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+
+    &:hover {
+      background-color: #74eb93 !important;
+    }
   }
-}
-
-.button {
-  margin-left: auto;
-  padding: 1.2rem;
-  //override tailwind
-  background-color: #48e471 !important;
-  font-size: 1.4rem;
-  font-weight: $font-w-700;
-  border-radius: 1rem;
-
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-
-  -moz-transition: all 0.1s ease-in;
-  -o-transition: all 0.1s ease-in;
-  -webkit-transition: all 0.1s ease-in;
-  transition: all 0.1s ease-in;
-
-  @media (min-width: 360px) {
-    font-size: 1.6rem;
-    padding: 2rem;
-  }
-
-  &:active {
-    transform: scale(0.9);
-  }
-
-  &:hover {
-    background-color: #74eb93 !important;
-  }
-}
-
-.disabled {
-  cursor: not-allowed;
 }
