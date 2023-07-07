@@ -31,6 +31,9 @@ const ProductPage = () => {
     selectedSkuId,
   } = useProductContext();
 
+  console.log(selectedProduct);
+  console.log(selectedVariant);
+
   const { addItem, isLoading, error } = useCart();
 
   const [notify, setNotify] = useState(false);
@@ -172,7 +175,7 @@ const ProductPage = () => {
                             </span>
                           </>
                         ) : (
-                          formatPrice(selectedProduct.currentPrice)
+                          formatPrice(selectedProduct.price)
                         )}
                       </div>
                     </div>
@@ -189,10 +192,10 @@ const ProductPage = () => {
                         <div className={styles.variants_wrapper}>
                           {selectedProduct.variants.map((variant) => (
                             <ProductColors
-                              key={variant.color}
-                              id={variant.color}
+                              key={variant.variantId}
+                              id={variant.variantId}
                               thumbnail={variant.images[0].src}
-                              selectedColor={selectedVariant.color}
+                              selectedId={selectedVariant.variantId}
                             />
                           ))}
                         </div>
@@ -270,7 +273,7 @@ const ProductPage = () => {
                             </span>
                           </>
                         ) : (
-                          formatPrice(selectedProduct.currentPrice)
+                          formatPrice(selectedProduct.price)
                         )}
                       </div>
                     </div>
@@ -300,10 +303,10 @@ const ProductPage = () => {
                       <div className={styles.variants_wrapper}>
                         {selectedProduct.variants.map((variant) => (
                           <ProductColors
-                            key={variant.color}
-                            id={variant.color}
+                            key={variant.variantId}
+                            id={variant.variantId}
                             thumbnail={variant.images[0].src}
-                            selectedColor={selectedVariant.color}
+                            selectedId={selectedVariant.variantId}
                           />
                         ))}
                       </div>

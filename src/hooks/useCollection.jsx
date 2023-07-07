@@ -137,6 +137,7 @@ export const useCollection = () => {
             ...productData,
             ...variantDoc.data(),
             skus: skus.filter((sku) => sku.variantId === variantDoc.id),
+            numberOfVariants: variantsSnapshot.size,
           })
         );
 

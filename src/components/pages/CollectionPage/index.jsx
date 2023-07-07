@@ -56,7 +56,7 @@ const CollectionPage = () => {
                 type={productVariant.type}
                 slug={productVariant.slug + '-' + productVariant.color}
                 image={productVariant.images[0]}
-                numberOfproductVariants={productVariant.numberOfVariants}
+                numberOfVariants={productVariant.numberOfVariants}
               />
             ))}
           </div>

@@ -96,29 +96,23 @@ const ProductProvider = ({ children }) => {
         ...skuDoc.data(),
       }));
 
-      console.log(skusData);
-
       const variantsRef = collection(productDoc.ref, 'variants');
 
       const variantsSnapshot = await getDocs(variantsRef);
 
       const variants = [];
 
-      console.log(variantsSnapshot);
-
       variantsSnapshot.forEach((variantDoc) =>
         variants.push({
           ...variantDoc.data(),
           variantId: variantDoc.id,
-          sizes: skusData.map((sku) => {
-            if (sku.variantId === variantDoc.id) {
-              return {
-                skuId: sku.skuId,
-                value: sku.size,
-                quantity: sku.quantity,
-              };
-            }
-          }),
+          sizes: skusData
+            .filter((sku) => sku.variantId === variantDoc.id)
+            .map((sku) => ({
+              skuId: sku.skuId,
+              value: sku.size,
+              quantity: sku.quantity,
+            })),
         })
       );
 
@@ -137,8 +131,6 @@ const ProductProvider = ({ children }) => {
   useEffect(() => {
     const fetchProduct = async () => {
       const { product, variant } = await getProduct();
-
-      console.log(product, variant);
 
       dispatch({ type: 'SET_PRODUCT', payload: { product, variant } });
     };

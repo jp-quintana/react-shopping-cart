@@ -4,23 +4,25 @@ import { MediaContainer } from 'components/common';
 
 import styles from './index.module.scss';
 
-const ProductColors = ({ id, thumbnail, selectedColor }) => {
+const ProductColors = ({ id, thumbnail, selectedId }) => {
   const { selectVariant } = useProduct();
 
+  console.log('aca', id);
+
   let shouldAddEventHandler = false;
-  if (selectedColor !== id) {
+  if (selectedId !== id) {
     shouldAddEventHandler = true;
   }
 
   const handleSelectVariant = () => {
-    if (id === selectedColor) {
+    if (id === selectedId) {
       return;
     }
     selectVariant(id);
   };
 
   let variantStyles =
-    selectedColor === id ? styles.thumbnail_selected : styles.thumbnail;
+    selectedId === id ? styles.thumbnail_selected : styles.thumbnail;
 
   return (
     <MediaContainer
