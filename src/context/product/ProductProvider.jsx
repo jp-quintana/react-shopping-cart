@@ -70,7 +70,7 @@ const ProductProvider = ({ children }) => {
       const selectedColor = slugArr.pop();
       const formattedSlug = slugArr.join('-');
 
-      const productsRef = collection(db, 'productsTest2');
+      const productsRef = collection(db, 'products');
       const productQuery = query(
         productsRef,
         where('slug', '==', formattedSlug)
@@ -85,30 +85,32 @@ const ProductProvider = ({ children }) => {
         ...productDoc.data(),
       };
 
-      const variantsSkusRef = collection(productDoc.ref, 'variantSkusTest2');
+      const skusRef = collection(productDoc.ref, 'skus');
 
-      const variantsSkusQuery = query(variantsSkusRef, orderBy('order'));
+      const skusQuery = query(skusRef, orderBy('order'));
 
-      const variantsSkusSnapshot = await getDocs(variantsSkusQuery);
+      const skusSnapshot = await getDocs(skusQuery);
 
-      const variantsSkusData = variantsSkusSnapshot.docs.map(
-        (variantsSkuDoc) => ({
-          skuId: variantsSkuDoc.id,
-          ...variantsSkuDoc.data(),
-        })
-      );
+      const skusData = skusSnapshot.docs.map((skuDoc) => ({
+        skuId: skuDoc.id,
+        ...skuDoc.data(),
+      }));
 
-      const variantsRef = collection(productDoc.ref, 'variantsTest2');
+      console.log(skusData);
+
+      const variantsRef = collection(productDoc.ref, 'variants');
 
       const variantsSnapshot = await getDocs(variantsRef);
 
       const variants = [];
 
+      console.log(variantsSnapshot);
+
       variantsSnapshot.forEach((variantDoc) =>
         variants.push({
           ...variantDoc.data(),
           variantId: variantDoc.id,
-          sizes: variantsSkusData.map((sku) => {
+          sizes: skusData.map((sku) => {
             if (sku.variantId === variantDoc.id) {
               return {
                 skuId: sku.skuId,
@@ -135,6 +137,8 @@ const ProductProvider = ({ children }) => {
   useEffect(() => {
     const fetchProduct = async () => {
       const { product, variant } = await getProduct();
+
+      console.log(product, variant);
 
       dispatch({ type: 'SET_PRODUCT', payload: { product, variant } });
     };

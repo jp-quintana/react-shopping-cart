@@ -27,7 +27,7 @@ export const useInventory = () => {
   const [isLoading, setIsLoading] = useState();
   const [error, setError] = useState();
 
-  const skusRef = collectionGroup(db, 'variantSkusTest2');
+  const skusRef = collectionGroup(db, 'skus');
   const cartRef = doc(db, 'carts', user.uid);
 
   const checkInventory = async (items) => {
@@ -36,7 +36,7 @@ export const useInventory = () => {
     try {
       const skuIdList = items.map(
         (item) =>
-          'productsTest2/' + item.productId + '/variantSkusTest2/' + item.skuId
+          'products/' + item.productId + '/skus/' + item.skuId
       );
 
       const skus = {};

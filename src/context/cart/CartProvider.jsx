@@ -130,9 +130,9 @@ const CartProvider = ({ children }) => {
               const skuRef = doc(
                 collection(
                   db,
-                  'productsTest2',
+                  'products',
                   item.productId,
-                  'variantSkusTest2'
+                  'skus'
                 ),
                 item.skuId
               );
@@ -158,7 +158,7 @@ const CartProvider = ({ children }) => {
                   let variantData;
 
                   if (!fetchedProductsDocs[item.productId]) {
-                    const productRef = doc(db, 'productsTest2', item.productId);
+                    const productRef = doc(db, 'products', item.productId);
                     const productDoc = await getDoc(productRef);
 
                     productData = productDoc.data();
@@ -171,9 +171,9 @@ const CartProvider = ({ children }) => {
                     const variantRef = doc(
                       collection(
                         db,
-                        'productsTest2',
+                        'products',
                         item.productId,
-                        'variantsTest2'
+                        'variants'
                       ),
                       item.variantId
                     );

@@ -45,7 +45,7 @@ export const useOrder = () => {
 
       for (const item of items) {
         const skuRef = doc(
-          collection(db, 'productsTest2', item.productId, 'variantSkusTest2'),
+          collection(db, 'products', item.productId, 'skus'),
           item.skuId
         );
         batch.update(skuRef, { quantity: increment(-item.quantity) });

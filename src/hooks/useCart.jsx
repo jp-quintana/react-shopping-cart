@@ -27,7 +27,7 @@ export const useCart = () => {
 
   const getCurrentStock = async (productId, skuId) => {
     const skuRef = doc(
-      collection(db, 'productsTest2', productId, 'variantSkusTest2'),
+      collection(db, 'products', productId, 'skus'),
       skuId
     );
     const skuDoc = await getDoc(skuRef);

@@ -16,7 +16,7 @@ export const useCollection = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const productsRef = collection(db, 'productsTest2');
+  const productsRef = collection(db, 'products');
 
   // const getCollection = async () => {
   //   setError(null);
@@ -111,20 +111,20 @@ export const useCollection = () => {
           ...productDoc.data(),
         };
 
-        const variantsSkusRef = collection(productDoc.ref, 'variantSkusTest2');
+        const skusRef = collection(productDoc.ref, 'skus');
 
-        const variantsSkusSnapshot = await getDocs(variantsSkusRef);
+        const skusSnapshot = await getDocs(skusRef);
 
-        const variantsSkus = [];
+        const skus = [];
 
-        variantsSkusSnapshot.forEach((variantsSkuDoc) =>
-          variantsSkus.push({
-            variantSkuId: variantsSkuDoc.id,
-            ...variantsSkuDoc.data(),
+        skusSnapshot.forEach((skuDoc) =>
+          skus.push({
+            skuId: skuDoc.id,
+            ...skuDoc.data(),
           })
         );
 
-        const variantsRef = collection(productDoc.ref, 'variantsTest2');
+        const variantsRef = collection(productDoc.ref, 'variants');
 
         const variantsSnapshot = await getDocs(variantsRef);
 
@@ -136,7 +136,7 @@ export const useCollection = () => {
             variantId: variantDoc.id,
             ...productData,
             ...variantDoc.data(),
-            skus: variantsSkus.filter((sku) => sku.variantId === variantDoc.id),
+            skus: skus.filter((sku) => sku.variantId === variantDoc.id),
           })
         );
 
