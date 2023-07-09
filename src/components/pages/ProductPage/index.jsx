@@ -16,6 +16,7 @@ import {
   MediaContainer,
   Toast,
   ToastMessage,
+  NotFound,
 } from 'components/common';
 
 import { formatPrice } from 'helpers/format';
@@ -30,9 +31,6 @@ const ProductPage = () => {
     selectedSize,
     selectedSkuId,
   } = useProductContext();
-
-  console.log(selectedProduct);
-  console.log(selectedVariant);
 
   const { addItem, isLoading, error } = useCart();
 
@@ -104,7 +102,12 @@ const ProductPage = () => {
         )}
       </Toast>
       {!productIsReady && <Loader />}
-      {productIsReady && (
+      {productIsReady && !selectedVariant && (
+        <section className="main-container">
+          <NotFound />
+        </section>
+      )}
+      {productIsReady && selectedVariant && (
         <>
           {!isBigScreen && (
             <>

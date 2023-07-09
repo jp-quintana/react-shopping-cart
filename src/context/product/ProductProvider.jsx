@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from 'react';
 
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { collection, getDocs, query, where, orderBy } from 'firebase/firestore';
 import { db } from 'db/config';
@@ -59,8 +59,6 @@ const productReducer = (state, action) => {
 
 const ProductProvider = ({ children }) => {
   const { id: slugId } = useParams();
-  const { state: locationState } = useLocation();
-  const navigate = useNavigate();
 
   const [state, dispatch] = useReducer(productReducer, initialState);
 
@@ -129,6 +127,9 @@ const ProductProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    if (state.productIsReady) {
+      dispatch({ type: 'CLEAR_PRODUCT' });
+    }
     const fetchProduct = async () => {
       const { product, variant } = await getProduct();
 
@@ -137,21 +138,6 @@ const ProductProvider = ({ children }) => {
 
     fetchProduct();
   }, [slugId]);
-
-  // TODO: se puede reemplazar con un link condicional en el cart modal (dentro de cartItem). Solo agregarle link al item si el slugId del params no coincide con el slug del product.
-  // TODO: update this. Search for "pending..." in vs search
-  useEffect(() => {
-    if (locationState === '/productos') {
-      const fetchProduct = async () => {
-        const { product, variant } = await getProduct();
-
-        dispatch({ type: 'SET_PRODUCT', payload: { product, variant } });
-        navigate('.');
-      };
-
-      fetchProduct();
-    }
-  }, [locationState]);
 
   console.log('product-context', state);
 

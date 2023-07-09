@@ -56,6 +56,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      margin: 0.1rem 0;
       text-transform: capitalize;
       font-weight: $font-w-700;
 
@@ -106,7 +107,7 @@
     .color_placeholder {
       height: 1.4rem;
       border-radius: 0.25rem;
-      margin: 0.15rem;
+      margin: 0.2rem;
       width: 35%;
     }
 

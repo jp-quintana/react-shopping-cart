@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 
@@ -27,8 +27,6 @@ const CartItem = ({
   deleteItem,
   isLoading,
 }) => {
-  const { id: urlId } = useParams();
-
   const handleAddItem = () => {
     if (!isLoading) {
       addItem({
@@ -58,16 +56,9 @@ const CartItem = ({
     }
   };
 
-  // TODO: update this. Search for "pending..." in vs search
-  const clearProduct = urlId === slug && '/productos';
-
   return (
     <div className={styles.card}>
-      <Link
-        to={`/products/${slug}`}
-        state={clearProduct}
-        onClick={closeCartModal}
-      >
+      <Link to={`/products/${slug}`} onClick={closeCartModal}>
         <div className={styles.info_container}>
           <div className={styles.info_wrapper}>
             <p className={styles.title}>{`${type} ${model}`}</p>
