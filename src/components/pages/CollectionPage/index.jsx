@@ -44,7 +44,12 @@ const CollectionPage = () => {
 
   return (
     <>
-      {!productVariants && <Loader />}
+      {!productVariants && (
+        <>
+          <div className={styles.loader_section} />
+          <Loader />
+        </>
+      )}
       {productVariants && (
         <section>
           <div className={`${styles.container} main-container`}>

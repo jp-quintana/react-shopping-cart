@@ -168,6 +168,9 @@
         border: 0.2rem solid $c-var;
         color: #fff;
         background: $back-c-button-primary;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         &:hover {
           cursor: pointer;
@@ -376,6 +379,9 @@
       padding: 2rem 1rem;
       text-align: center;
       font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       -webkit-user-select: none;
       -webkit-touch-callout: none;
@@ -402,5 +408,37 @@
         padding-top: 141.42017391%;
       }
     }
+  }
+}
+
+.loader_section {
+  min-height: 100vh;
+}
+
+.button_content_show {
+  opacity: 1;
+}
+
+.button_content_no_show {
+  opacity: 0;
+}
+
+.button_loader {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: rotation 1s linear infinite;
+  position: absolute;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

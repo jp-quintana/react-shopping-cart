@@ -26,6 +26,7 @@ const CartItem = ({
   removeItem,
   deleteItem,
   isLoading,
+  loadingItemId,
 }) => {
   const handleAddItem = () => {
     if (!isLoading) {
@@ -86,7 +87,18 @@ const CartItem = ({
           <i className={styles.minus_icon} onClick={handleRemoveItem}>
             <FaMinus />
           </i>
-          <div className={styles.quantity}>{quantity}</div>
+          <div className={styles.quantity}>
+            {loadingItemId === skuId && (
+              <span className={styles.quantity_loader}></span>
+            )}
+            <span
+              className={
+                loadingItemId === skuId ? styles.quantity_no_show : undefined
+              }
+            >
+              {quantity}
+            </span>
+          </div>
           <i className={styles.plus_icon} onClick={handleAddItem}>
             <FaPlus />
           </i>

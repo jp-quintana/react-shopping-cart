@@ -16,6 +16,7 @@ export const useCart = () => {
   const { items, dispatch } = useCartContext();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingItemId, setLoadingItemId] = useState(false);
   const [error, setError] = useState(null);
 
   // const getCurrentStock = async (itemId) => {
@@ -26,16 +27,15 @@ export const useCart = () => {
   // };
 
   const getCurrentStock = async (productId, skuId) => {
-    const skuRef = doc(
-      collection(db, 'products', productId, 'skus'),
-      skuId
-    );
+    const skuRef = doc(collection(db, 'products', productId, 'skus'), skuId);
     const skuDoc = await getDoc(skuRef);
 
     return skuDoc.data();
   };
 
   const addItem = async (itemToAdd) => {
+    if (isLoading) return;
+    setLoadingItemId(itemToAdd.skuId);
     setError(null);
     setIsLoading(true);
     try {
@@ -128,15 +128,18 @@ export const useCart = () => {
         );
       }
 
+      setLoadingItemId(null);
       setIsLoading(false);
     } catch (err) {
       console.error(err);
       setError(handleError(err));
+      setLoadingItemId(null);
       setIsLoading(false);
     }
   };
 
   const removeItem = async (productId, skuId) => {
+    setLoadingItemId(skuId);
     setError(null);
     setIsLoading(true);
     try {
@@ -220,9 +223,11 @@ export const useCart = () => {
         );
       }
 
+      setLoadingItemId(null);
       setIsLoading(false);
     } catch (err) {
       console.error(err);
+      setLoadingItemId(null);
       setError(handleError(err));
       setIsLoading(false);
     }
@@ -294,6 +299,7 @@ export const useCart = () => {
     deleteCart,
     activateCartCheck,
     isLoading,
+    loadingItemId,
     error,
   };
 };

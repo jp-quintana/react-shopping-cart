@@ -101,7 +101,12 @@ const ProductPage = () => {
           />
         )}
       </Toast>
-      {!productIsReady && <Loader />}
+      {!productIsReady && (
+        <>
+          <div className={styles.loader_section} />
+          <Loader />
+        </>
+      )}
       {productIsReady && !selectedVariant && (
         <section className="main-container">
           <NotFound />
@@ -230,12 +235,17 @@ const ProductPage = () => {
                             addEventHandler ? handleAddToCart : undefined
                           }
                         >
-                          {buttonContent}
+                          <span className={styles.button_content_show}>
+                            {buttonContent}
+                          </span>
                         </Button>
                       )}
                       {isLoading && (
                         <Button className={buttonStyles} disabled={true}>
-                          {buttonContent}
+                          <span className={styles.button_loader}></span>
+                          <span className={styles.button_content_no_show}>
+                            {buttonContent}
+                          </span>
                         </Button>
                       )}
                     </div>
@@ -337,12 +347,17 @@ const ProductPage = () => {
                         disabled={isButtonDisabled}
                         onClick={addEventHandler ? handleAddToCart : undefined}
                       >
-                        {buttonContent}
+                        <span className={styles.button_content_show}>
+                          {buttonContent}
+                        </span>
                       </Button>
                     )}
                     {isLoading && (
                       <Button className={buttonStyles} disabled={true}>
-                        {buttonContent}
+                        <span className={styles.button_loader}></span>
+                        <span className={styles.button_content_no_show}>
+                          {buttonContent}
+                        </span>
                       </Button>
                     )}
                   </div>
