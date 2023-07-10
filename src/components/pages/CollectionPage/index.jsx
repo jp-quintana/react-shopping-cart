@@ -20,7 +20,7 @@ const CollectionPage = () => {
   const navigate = useNavigate();
   const { id: slugId } = useParams();
 
-  const { getCollection } = useCollection();
+  const { getCollection, error } = useCollection();
 
   const [productVariants, setProductVariants] = useState(null);
 
@@ -39,6 +39,8 @@ const CollectionPage = () => {
 
     fetchProductVariants();
   }, [slugId]);
+
+  console.log(error);
 
   return (
     <>

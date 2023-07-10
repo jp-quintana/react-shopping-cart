@@ -12,7 +12,7 @@ import {
 
 import { db } from 'db/config';
 
-import { CustomError } from 'helpers/error/customError';
+// import { CustomError } from 'helpers/error/customError';
 
 export const useCollection = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -38,9 +38,9 @@ export const useCollection = () => {
 
       const productsSnapshot = await getDocs(productsQuery);
 
-      if (productsSnapshot.size === 0) {
-        throw new CustomError('Collection does not exist', 404);
-      }
+      // if (productsSnapshot.size === 0) {
+      //   throw new CustomError('Collection does not exist', 404);
+      // }
 
       const productsPromises = productsSnapshot.docs.map(async (productDoc) => {
         const productData = {
@@ -50,7 +50,7 @@ export const useCollection = () => {
 
         const skusRef = collection(productDoc.ref, 'skus');
 
-        // TODO: need to order this in the future with "orderBy"
+        // TODO: need to order this in the future with OrderBy
         const skusSnapshot = await getDocs(skusRef);
 
         const skus = [];
