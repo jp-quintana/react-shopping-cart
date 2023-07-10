@@ -24,6 +24,7 @@ const CartPage = () => {
     deleteItem,
     activateCartCheck,
     isLoading,
+    loadingItemId,
     error: cartError,
   } = useCart();
   const {
@@ -88,6 +89,7 @@ const CartPage = () => {
                 removeItem={removeItem}
                 deleteItem={deleteItem}
                 isLoading={isLoading}
+                loadingItemId={loadingItemId}
               />
             ))}
           </div>

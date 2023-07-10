@@ -15,7 +15,8 @@ import styles from './index.module.scss';
 
 const CartContent = ({ closeCartModal }) => {
   const { items } = useCartContext();
-  const { addItem, removeItem, deleteItem, isLoading, error } = useCart();
+  const { addItem, removeItem, deleteItem, isLoading, loadingItemId, error } =
+    useCart();
 
   const [toastMessage, setToastMessage] = useState(null);
 
@@ -72,6 +73,7 @@ const CartContent = ({ closeCartModal }) => {
                     removeItem={removeItem}
                     deleteItem={deleteItem}
                     isLoading={isLoading}
+                    loadingItemId={loadingItemId}
                   />
                 ))}
               </div>
