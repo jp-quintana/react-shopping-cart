@@ -1,0 +1,46 @@
+.modal {
+  padding: 3rem 0;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 8fr 2fr;
+  padding: 2rem;
+  border: 0.2rem solid #000;
+  border-radius: 1rem;
+  background: #fff;
+  color: #000;
+  font-size: 1.4rem;
+
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  h3 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-transform: uppercase;
+    font-size: 1.4rem;
+  }
+
+  p {
+    margin-left: auto;
+  }
+
+  .date {
+    font-family: $font-f-secondary;
+    font-weight: $font-w-700;
+    letter-spacing: $ls-secondary;
+    font-size: 1.4rem;
+  }
+}

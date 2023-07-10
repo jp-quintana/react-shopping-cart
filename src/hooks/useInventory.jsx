@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import {
   doc,
-  collection,
+  collectionGroup,
   query,
   where,
   setDoc,
@@ -16,7 +16,9 @@ import { db } from 'db/config';
 import { useAuthContext } from './useAuthContext';
 import { useCartContext } from './useCartContext';
 
-import { totalCartAmount } from 'helpers/cart';
+import { addAllItemsQuantity } from 'helpers/item';
+import { CustomError } from 'helpers/error/customError';
+import { handleError } from 'helpers/error/handleError';
 
 export const useInventory = () => {
   const { user } = useAuthContext();
@@ -25,92 +27,79 @@ export const useInventory = () => {
   const [isLoading, setIsLoading] = useState();
   const [error, setError] = useState();
 
-  const inventoryRef = collection(db, 'inventory');
+  const skusRef = collectionGroup(db, 'skus');
   const cartRef = doc(db, 'carts', user.uid);
 
   const checkInventory = async (items) => {
     setError(null);
     setIsLoading(true);
     try {
-      const idList = items.map((item) => item.id);
+      const skuIdList = items.map(
+        (item) =>
+          'products/' + item.productId + '/skus/' + item.skuId
+      );
 
-      const skus = [];
+      const skus = {};
 
-      while (idList.length) {
-        const batch = idList.splice(0, 10);
-        const q = query(inventoryRef, where(documentId(), 'in', [...batch]));
-        const inventorySnapshot = await getDocs(q);
+      while (skuIdList.length) {
+        const batch = skuIdList.splice(0, 10);
+        const q = query(skusRef, where(documentId(), 'in', [...batch]));
+        const skusSnapshot = await getDocs(q);
 
-        inventorySnapshot.forEach((doc) => {
-          skus.push({ id: doc.id, ...doc.data() });
+        skusSnapshot.forEach((doc) => {
+          skus[doc.id] = { skuId: doc.id, ...doc.data() };
         });
       }
 
       let updatedItems = [...items];
-      const stockDifference = [];
+      let stockDifference;
 
       for (const item of items) {
-        const { stock } = skus.find((sku) => sku.id === item.id);
+        const { quantity: availableQuantity } = skus[item.skuId];
 
-        if (stock <= 0) {
-          console.log('aca stock es 0');
-          stockDifference.push(true);
+        if (availableQuantity <= 0) {
+          stockDifference = true;
           updatedItems = updatedItems.filter(
-            (cartItem) => cartItem.id !== item.id
+            (cartItem) => cartItem.skuId !== item.skuId
           );
-        } else if (stock < item.amount) {
-          stockDifference.push(true);
+        } else if (availableQuantity < item.quantity) {
+          stockDifference = true;
           const itemInCartIndex = updatedItems.findIndex(
-            (i) => i.id === item.id
+            (i) => i.skuId === item.skuId
           );
-          updatedItems[itemInCartIndex].amount = stock;
+          updatedItems[itemInCartIndex].quantity = availableQuantity;
         }
       }
 
-      const updatedTotalAmount = totalCartAmount(updatedItems);
-      console.log('updatedTotalAmount', updatedItems);
+      const cartTotalItemQuantity = addAllItemsQuantity(updatedItems);
 
-      if (updatedTotalAmount === 0) {
+      if (cartTotalItemQuantity === 0) {
         await deleteDoc(cartRef);
 
         dispatch({
           type: 'DELETE_CART',
         });
-      } else if (stockDifference.length > 0) {
-        console.log('en setDoc', updatedItems);
+      } else if (stockDifference) {
         await setDoc(cartRef, {
           items: updatedItems,
-          totalAmount: updatedTotalAmount,
         });
 
         dispatch({
           type: 'UPDATE_CART',
-          payload: {
-            items: updatedItems,
-            totalAmount: updatedTotalAmount,
-          },
+          payload: updatedItems,
         });
       }
 
-      console.log(stockDifference);
-
-      if (stockDifference.length > 0) {
-        throw Error(
-          'No hay stock suficiente de algunos productos en el carrito. Las cantidades en el carrito fueron actualizadas.',
-          {
-            cause: 'custom',
-          }
+      if (stockDifference) {
+        throw new CustomError(
+          'Available stock is limited. Quantities in cart have been updated!'
         );
       }
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
-      if (err.cause === 'custom') {
-        setError({ details: err.message });
-      } else {
-        setError(err);
-      }
+      console.error(err);
+      setError(handleError(err));
       setIsLoading(false);
     }
   };

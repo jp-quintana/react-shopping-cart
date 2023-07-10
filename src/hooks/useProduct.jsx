@@ -5,14 +5,14 @@ export const useProduct = () => {
 
   const selectVariant = (variantId) => {
     const variant = selectedProduct.variants.find(
-      (variant) => variant.id === variantId
+      (variant) => variant.variantId === variantId
     );
 
     dispatch({ type: 'SELECT_VARIANT', payload: variant });
   };
 
-  const selectSize = ({ id, value, stock }) => {
-    dispatch({ type: 'SELECT_SIZE', payload: { id, value, stock } });
+  const selectSize = ({ skuId, value, stock }) => {
+    dispatch({ type: 'SELECT_SIZE', payload: { skuId, value, stock } });
   };
 
   return { selectVariant, selectSize };

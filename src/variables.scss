@@ -4,39 +4,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 @font-face {
   font-family: 'Monument Extended';
-  src: url('https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.eot'); /* IE9*/
-  src: url('https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.eot?#iefix')
+  src: url('//db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.eot');
+  src: url('//db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.eot?#iefix')
       format('embedded-opentype'),
-    /* IE6-IE8 */
-      url('https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.woff2')
+    url('//db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.woff2')
       format('woff2'),
-    /* chrome firefox */
-      url('https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.woff')
+    url('//db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.woff')
       format('woff'),
-    /* chrome firefox */
-      url('https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.ttf')
+    url('//db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.ttf')
       format('truetype'),
-    /* chrome firefox opera Safari, Android, iOS 4.2+*/
-      url('https://db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.svg#Monument Extended')
-      format('svg'); /* iOS 4.1- */
+    url('//db.onlinewebfonts.com/t/55d433372d270829c51e2577a78ef12d.svg#Monument Extended')
+      format('svg');
 }
+
 @font-face {
   font-family: 'Monument Extended Ultrabold';
-  src: url('https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.eot'); /* IE9*/
-  src: url('https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.eot?#iefix')
+  src: url('//db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.eot');
+  src: url('//db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.eot?#iefix')
       format('embedded-opentype'),
-    /* IE6-IE8 */
-      url('https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.woff2')
+    url('//db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.woff2')
       format('woff2'),
-    /* chrome firefox */
-      url('https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.woff')
+    url('//db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.woff')
       format('woff'),
-    /* chrome firefox */
-      url('https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.ttf')
+    url('//db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.ttf')
       format('truetype'),
-    /* chrome firefox opera Safari, Android, iOS 4.2+*/
-      url('https://db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.svg#Monument Extended Ultrabold')
-      format('svg'); /* iOS 4.1- */
+    url('//db.onlinewebfonts.com/t/a4745f4b1d04fa025c6a05d891ed0126.svg#Monument Extended Ultrabold')
+      format('svg');
 }
 
 $font-f-primary: 'Monument Extended', sans-serif;
@@ -53,13 +46,18 @@ $c-var: #3d3d3d;
 $c-detail: #8c52ff;
 $c-link-primary: #3d3d3d;
 $c-link-hover: #000;
+$c-discount: rgba(243, 121, 120, 1);
 
 $back-c-primary: #fff;
-$back-detail: radial-gradient(
+$back-c-grey: #3d3d3d;
+$back-c-detail: radial-gradient(
   circle at 12.8% 28%,
   rgb(206, 155, 243) 0%,
   #8c52ff 90%
 );
+$back-c-highlight: hsla(0, 0%, 5%, 0.2);
+$back-c-error: rgba(243, 121, 120, 0.95);
+$back-c-discount: rgba(243, 121, 120, 0.95);
 
 $back-c-button-primary: #3d3d3d;
 $back-c-button-secondary: #fff;
@@ -71,6 +69,7 @@ $back-c-var-hover: hsla(0, 0%, 5%, 0.2);
 $border-c-button-checkout: #48e471;
 $border-c-button-checkout-hover: #74eb93;
 $border-c-var: hsla(0, 0%, 5%, 0.2);
+// $border-c-var: #3b3b3b;
 
 $border-modal: 1px solid $border-c-var;
 
@@ -83,3 +82,6 @@ $z-nav: 5;
 $z-backdrop: 20;
 $z-modal: 25;
 $z-modal-n: 30;
+
+$box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+  0 8px 10px -6px rgba(0, 0, 0, 0.1);

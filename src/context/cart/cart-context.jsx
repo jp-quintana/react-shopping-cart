@@ -2,7 +2,8 @@ import { createContext } from 'react';
 
 const CartContext = createContext({
   items: [],
-  totalAmount: 0,
+  cartIsReady: false,
+  checkInventory: true,
 });
 
 export default CartContext;

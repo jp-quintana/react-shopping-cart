@@ -1,5 +1,18 @@
-export const formatNumber = (number) => {
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+import moment from 'moment';
+
+export const formatPrice = (number) => {
+  // return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  return number + '.00';
+};
+
+export const formatDiscount = ({ currentPrice, actualPrice }) => {
+  const discountPercentage = Math.round(
+    (currentPrice / actualPrice - 1) * -100
+  );
+  const roundedDiscountPercentage = Math.round(discountPercentage / 5) * 5;
+  return '-' + roundedDiscountPercentage + '%';
+
+  // return '-' + Math.round((currentPrice / actualPrice - 1) * -100) + '%';
 };
 
 export const formatCardNumber = (value) => {
@@ -41,9 +54,7 @@ export const formatCvv = (value) => {
 };
 
 export const formatDate = (value) => {
-  const date = value.toDate().getDate();
-  const month = value.toDate().getMonth() + 1;
-  const year = value.toDate().getFullYear().toString().slice(-2);
+  const timestamp = `${value.seconds}.${value.nanoseconds}`;
 
-  return `${date}/${month}/${year}`;
+  return moment.unix(parseFloat(timestamp)).format('MM/DD/YY');
 };

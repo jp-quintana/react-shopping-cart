@@ -6,6 +6,8 @@ import { db } from 'db/config';
 
 import { useAuthContext } from './useAuthContext';
 
+import { handleError } from 'helpers/error/handleError';
+
 export const useProfile = () => {
   const { user, dispatch } = useAuthContext();
 
@@ -31,8 +33,8 @@ export const useProfile = () => {
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
-      setError(err);
+      console.error(err);
+      setError(handleError(err));
       setIsLoading(false);
     }
   };

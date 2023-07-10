@@ -12,44 +12,44 @@ const initialState = {
   currentStep: 1,
   email: null,
   id: null,
-  shippingAddress: {},
-  shippingOption: { standard: true, expidited: false },
+  shippingAddress: { id: null },
+  shippingOption: { standard: false, expedited: false },
+  shippingCost: 0,
 };
 
 const checkoutReducer = (state, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case 'SELECT_STEP': {
       return {
         ...state,
-        currentStep: action.payload,
+        currentStep: payload,
       };
     }
     case 'SELECT_PREVIOUS_STEP': {
       return {
         ...state,
-        // TODO: CHEQUEAR SI HACE FALTA PREVSTATE EN USEREDUCER
         currentStep: state.currentStep - 1,
       };
     }
     case 'SUBMIT_SHIPPING_INFO': {
       return {
         ...state,
-        // TODO: CHEQUEAR SI HACE FALTA PREVSTATE EN USEREDUCER
         currentStep: state.currentStep + 1,
-        email: action.payload.email,
-        shippingAddress: action.payload.shippingAddress,
+        email: payload.email,
+        shippingAddress: payload.shippingAddress,
       };
     }
     case 'SELECT_SHIPPING_OPTION': {
-      console.log('payload', action.payload);
       return {
         ...state,
-        shippingOption: action.payload,
+        shippingOption: payload,
       };
     }
     case 'SUBMIT_SHIPPING_OPTION': {
       return {
         ...state,
+        shippingCost: payload,
         currentStep: state.currentStep + 1,
       };
     }
@@ -57,18 +57,19 @@ const checkoutReducer = (state, action) => {
       return {
         ...state,
         checkoutIsReady: true,
-        id: action.payload.id,
-        email: action.payload.email,
+        id: payload.id,
+        email: payload.email,
       };
     }
     case 'UPDATE_CHECKOUT_SESSION': {
       return {
         ...state,
         checkoutIsReady: true,
-        email: action.payload.email,
-        id: action.payload.id,
-        shippingAddress: action.payload.shippingAddress,
-        shippingOption: action.payload.shippingOption,
+        email: payload.email,
+        id: payload.id,
+        shippingAddress: payload.shippingAddress,
+        shippingOption: payload.shippingOption,
+        shippingCost: payload.shippingCost,
       };
     }
 
@@ -87,21 +88,27 @@ const CheckoutProvider = ({ children }) => {
     const getCheckoutSession = async () => {
       const checkoutSessionRef = doc(db, 'checkoutSessions', user.uid);
 
-      const checkoutSessionSnap = await getDoc(checkoutSessionRef);
+      const checkoutSessionDoc = await getDoc(checkoutSessionRef);
 
-      if (checkoutSessionSnap.exists()) {
-        const checkoutSessionData = { ...checkoutSessionSnap.data() };
+      if (checkoutSessionDoc.exists()) {
+        const checkoutSessionData = checkoutSessionDoc.data();
+
+        const { shippingAddressId, ...formattedCheckoutData } =
+          checkoutSessionData;
+
+        formattedCheckoutData.shippingAddress = { id: shippingAddressId };
 
         dispatch({
           type: 'UPDATE_CHECKOUT_SESSION',
-          payload: { ...checkoutSessionData, id: user.uid },
+          payload: { ...formattedCheckoutData, id: user.uid },
         });
       } else {
         await setDoc(checkoutSessionRef, {
           email,
-          shippingAddress: {},
-          shippingOption: { standard: true, expidited: false },
+          shippingAddressId: null,
+          shippingOption: { standard: false, expedited: false },
           paymentInfo: {},
+          shippingCost: 0,
         });
 
         dispatch({

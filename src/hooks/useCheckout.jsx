@@ -11,7 +11,7 @@ import { useAddress } from './useAddress';
 
 export const useCheckout = () => {
   const { dispatch } = useCheckoutContext();
-  const { user, addresses } = useAuthContext();
+  const { user } = useAuthContext();
   const { createAddress } = useAddress();
 
   const checkoutSessionRef = doc(db, 'checkoutSessions', user.uid);
@@ -31,30 +31,34 @@ export const useCheckout = () => {
     setError(null);
     setIsLoading(true);
     try {
-      const { email, isNew, ...shippingAddress } = userInput;
+      const { email, ...shippingAddress } = userInput;
 
-      if (isNew) {
+      let formattedShippingAddress = shippingAddress;
+
+      if (shippingAddress.value === 'new') {
         shippingAddress.id = uuid();
-        // Se puede agregar el display order aca de ser necesario, loopear por todos los addresses => index + 1 => etc
-        await createAddress(shippingAddress);
+
+        formattedShippingAddress = await createAddress(shippingAddress);
       }
 
-      shippingAddress.value = shippingAddress.id;
-      shippingAddress.label = `${shippingAddress.name} ${shippingAddress.lastName} - ${shippingAddress.address} - ${shippingAddress.city}, ${shippingAddress.zipCode} - ${shippingAddress.province}`;
+      delete formattedShippingAddress.value;
+      delete formattedShippingAddress.label;
+      delete formattedShippingAddress.isMain;
+      delete formattedShippingAddress.displayOrder;
 
       await updateDoc(checkoutSessionRef, {
         email,
-        shippingAddress,
+        shippingAddressId: formattedShippingAddress.id,
       });
 
       dispatch({
         type: 'SUBMIT_SHIPPING_INFO',
-        payload: { email, shippingAddress },
+        payload: { email, shippingAddress: formattedShippingAddress },
       });
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err);
       setIsLoading(false);
     }
@@ -65,31 +69,32 @@ export const useCheckout = () => {
     if (option === 'standard') {
       selectedOption = {
         standard: true,
-        expidited: false,
+        expedited: false,
       };
     } else {
       selectedOption = {
         standard: false,
-        expidited: true,
+        expedited: true,
       };
     }
 
     dispatch({ type: 'SELECT_SHIPPING_OPTION', payload: selectedOption });
   };
 
-  const submitShippingOption = async (option) => {
+  const submitShippingOption = async ({ shippingOption, shippingCost = 0 }) => {
     setError(null);
     setIsLoading(true);
     try {
       await updateDoc(checkoutSessionRef, {
-        shippingOption: option,
+        shippingOption,
+        shippingCost,
       });
 
-      dispatch({ type: 'SUBMIT_SHIPPING_OPTION' });
+      dispatch({ type: 'SUBMIT_SHIPPING_OPTION', payload: shippingCost });
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err);
       setIsLoading(false);
     }
@@ -101,7 +106,7 @@ export const useCheckout = () => {
     try {
       await deleteDoc(checkoutSessionRef);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       setError(err);
       setIsLoading(false);
     }

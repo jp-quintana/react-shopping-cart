@@ -1,0 +1,92 @@
+.modal {
+  padding: 3rem 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  border: 0.2rem solid #000;
+  border-radius: 1rem;
+  background: #fff;
+  color: #000;
+  font-size: 1.4rem;
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+
+  .title {
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    font-size: 1.4rem;
+  }
+
+  .content {
+    margin-top: auto;
+
+    .name,
+    .info {
+      font-family: $font-f-secondary;
+      letter-spacing: $ls-secondary;
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.controls {
+  margin-top: 4rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.edit {
+  width: 100%;
+  text-align: center;
+  border: 0.2rem solid #000;
+  border-radius: 1rem;
+  text-transform: uppercase;
+  background: $back-c-button-secondary;
+  color: #000;
+  padding: 0.5rem 1rem;
+  font-size: 1.4rem;
+  letter-spacing: $ls-button;
+
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+
+  &:hover {
+    cursor: pointer;
+    background: $back-c-button-hover;
+    color: #fff;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+.delete {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.delete_icon {
+  padding: 1rem;
+  font-size: 3.2rem;
+  border-radius: 50rem;
+
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #ff6666;
+  }
+}

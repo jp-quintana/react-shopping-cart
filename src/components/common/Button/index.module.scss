@@ -1,0 +1,15 @@
+.button {
+  text-align: center;
+  border: none;
+  letter-spacing: $ls-button;
+  font-family: $font-f-primary;
+
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+
+  &:hover {
+    cursor: pointer;
+  }
+}

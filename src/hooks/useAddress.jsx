@@ -7,6 +7,8 @@ import { db } from 'db/config';
 
 import { useAuthContext } from 'hooks/useAuthContext';
 
+import { handleError } from 'helpers/error/handleError';
+
 export const useAddress = () => {
   const { user, addresses, dispatch } = useAuthContext();
 
@@ -26,7 +28,7 @@ export const useAddress = () => {
     address,
     zipCode,
     city,
-    province,
+    state,
     isMain = false,
     // isFromCheckout = null,
   }) => {
@@ -45,17 +47,24 @@ export const useAddress = () => {
         id = uuid();
       }
 
+      const formattedName = name.trim().replace(/\s+/g, ' ');
+      const formattedLastName = lastName.trim().replace(/\s+/g, ' ');
+      const formattedAddress = address.trim().replace(/\s+/g, ' ');
+      const formattedZipCode = zipCode.trim().replace(/\s+/g, ' ');
+      const formattedCity = city.trim().replace(/\s+/g, ' ');
+      const formattedState = state.trim().replace(/\s+/g, ' ');
+
       const addressToAdd = {
         id,
-        name,
-        lastName,
+        name: formattedName,
+        lastName: formattedLastName,
         phoneNumber,
-        address,
-        zipCode,
-        city,
-        province,
+        address: formattedAddress,
+        zipCode: formattedZipCode,
+        city: formattedCity,
+        state: formattedState,
         isMain,
-        label: `${name} ${lastName} - ${address} - ${city}, ${zipCode} - ${province}`,
+        label: `${formattedName} ${formattedLastName} - ${formattedAddress} - ${formattedCity}, ${formattedState} ${formattedZipCode}`,
         value: id,
       };
 
@@ -81,9 +90,10 @@ export const useAddress = () => {
 
       dispatch({ type: 'UPDATE_ADDRESSES', payload: userAddresses });
       setIsLoading(false);
+      return addressToAdd;
     } catch (err) {
-      console.log(err);
-      setError(err);
+      console.error(err);
+      setError(handleError(err));
       setIsLoading(false);
     }
   };
@@ -95,7 +105,7 @@ export const useAddress = () => {
     address,
     zipCode,
     city,
-    province,
+    state,
     isMain,
     id,
     displayOrder,
@@ -115,36 +125,27 @@ export const useAddress = () => {
           : (isMain = false);
       }
 
+      const formattedName = name.trim().replace(/\s+/g, ' ');
+      const formattedLastName = lastName.trim().replace(/\s+/g, ' ');
+      const formattedAddress = address.trim().replace(/\s+/g, ' ');
+      const formattedZipCode = zipCode.trim().replace(/\s+/g, ' ');
+      const formattedCity = city.trim().replace(/\s+/g, ' ');
+      const formattedState = state.trim().replace(/\s+/g, ' ');
+
       const updatedAddress = {
         id,
-        name,
-        lastName,
+        name: formattedName,
+        lastName: formattedLastName,
         phoneNumber,
-        address,
-        zipCode,
-        city,
-        province,
+        address: formattedAddress,
+        zipCode: formattedZipCode,
+        city: formattedCity,
+        state: formattedState,
         isMain,
-        label: `${name} ${lastName} - ${address} - ${city}, ${zipCode} - ${province}`,
+        label: `${formattedName} ${formattedLastName} - ${formattedAddress} - ${formattedCity}, ${formattedState} ${formattedZipCode}`,
         value: id,
         displayOrder,
       };
-
-      const checkoutSessionDoc = await getDoc(checkoutSessionRef);
-
-      if (checkoutSessionDoc.exists()) {
-        const { shippingAddress } = checkoutSessionDoc.data();
-        if (shippingAddress.id === updatedAddress.id) {
-          const { isMain, displayOrder, ...updatedShippingAddress } =
-            updatedAddress;
-
-          await updateDoc(checkoutSessionRef, {
-            shippingAddress: {
-              ...updatedShippingAddress,
-            },
-          });
-        }
-      }
 
       let updatedAddresses = [...userAddresses];
 
@@ -182,8 +183,8 @@ export const useAddress = () => {
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
-      setError(err);
+      console.error(err);
+      setError(handleError(err));
       setIsLoading(false);
     }
   };
@@ -196,10 +197,10 @@ export const useAddress = () => {
       const checkoutSessionDoc = await getDoc(checkoutSessionRef);
 
       if (checkoutSessionDoc.exists()) {
-        const { shippingAddress } = checkoutSessionDoc.data();
-        if (shippingAddress.id === id) {
+        const { shippingAddressId } = checkoutSessionDoc.data();
+        if (shippingAddressId === id) {
           await updateDoc(checkoutSessionRef, {
-            shippingAddress: {},
+            shippingAddressId: null,
           });
         }
       }
@@ -228,8 +229,8 @@ export const useAddress = () => {
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
-      setError(err);
+      console.error(err);
+      setError(handleError(err));
       setIsLoading(false);
     }
   };

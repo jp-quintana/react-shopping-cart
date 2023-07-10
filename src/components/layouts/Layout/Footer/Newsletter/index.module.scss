@@ -1,0 +1,93 @@
+.container {
+  width: 100%;
+
+  @media (max-width: 1024px) {
+    padding-bottom: 3rem;
+    width: 90%;
+    margin: 0 auto;
+    max-width: 32rem;
+  }
+
+  .title {
+    font-size: 1.8rem;
+    text-align: right;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    letter-spacing: $ls-primary;
+
+    @media (max-width: 1024px) {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+  }
+
+  .form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0 auto;
+
+    @media (max-width: 1024px) {
+      flex-direction: column;
+    }
+
+    .input {
+      border: solid 0.2rem #9e9e9e;
+      border-radius: 1rem;
+      padding: 1rem 2rem;
+      width: 100%;
+      font-size: 1.6rem;
+    }
+
+    .button {
+      flex-shrink: 0;
+      padding: 0 2rem;
+      font-size: 1.2rem;
+      border-radius: 1rem;
+      letter-spacing: $ls-button;
+      font-family: $font-f-primary;
+      color: #fff;
+      text-transform: uppercase;
+      background-color: $back-c-button-primary;
+      letter-spacing: $ls-button;
+      align-self: stretch;
+
+      @media (max-width: 1024px) {
+        padding: 1.2rem 2rem;
+      }
+
+      &:active {
+        transform: scale(0.9);
+      }
+
+      &:hover {
+        background-color: $back-c-button-hover;
+      }
+    }
+
+    .success {
+      padding: 1rem 2rem;
+      font-family: $font-f-secondary;
+      font-weight: 900;
+      width: 100%;
+      font-size: 1.6rem;
+      border-radius: 1rem;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: $ls-button;
+      border: 2px solid $border-c-button-checkout;
+      background-color: #ccc !important;
+      align-self: stretch;
+
+      -moz-transition: all 0.1s ease-in;
+      -o-transition: all 0.1s ease-in;
+      -webkit-transition: all 0.1s ease-in;
+      transition: all 0.1s ease-in;
+
+      &:hover {
+        cursor: auto;
+      }
+    }
+  }
+}

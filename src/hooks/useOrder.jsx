@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import moment from 'moment';
+
 import {
   writeBatch,
   doc,
@@ -9,7 +11,6 @@ import {
   orderBy,
   getDocs,
   addDoc,
-  Timestamp,
   increment,
 } from 'firebase/firestore';
 
@@ -21,10 +22,13 @@ import { useCheckoutContext } from './useCheckoutContext';
 import { useCart } from './useCart';
 import { useCheckout } from './useCheckout';
 
+import { handleError } from 'helpers/error/handleError';
+
 export const useOrder = () => {
   const { user } = useAuthContext();
   const { items } = useCartContext();
-  const { email, shippingAddress, shippingOption } = useCheckoutContext();
+  const { email, shippingAddress, shippingOption, shippingCost } =
+    useCheckoutContext();
   const { deleteCart } = useCart();
   const { deleteCheckoutSession } = useCheckout();
 
@@ -33,27 +37,31 @@ export const useOrder = () => {
 
   const ordersRef = collection(db, 'orders');
 
-  const createOrder = async (paymentInfo) => {
+  const createOrder = async (paymentInfo, billingAddress) => {
     setError(null);
     setIsLoading(true);
     try {
       const batch = writeBatch(db);
 
       for (const item of items) {
-        const skuRef = doc(db, 'inventory', item.id);
-        batch.update(skuRef, { stock: increment(-item.amount) });
+        const skuRef = doc(
+          collection(db, 'products', item.productId, 'skus'),
+          item.skuId
+        );
+        batch.update(skuRef, { quantity: increment(-item.quantity) });
       }
 
       await batch.commit();
 
-      const createdAt = Timestamp.fromDate(new Date());
       await addDoc(ordersRef, {
-        createdAt,
+        createdAt: moment().toDate(),
         items,
         email,
         shippingAddress,
         shippingOption,
+        shippingCost,
         paymentInfo,
+        billingAddress,
         createdBy: user.uid,
       });
 
@@ -62,8 +70,8 @@ export const useOrder = () => {
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
-      setError(err);
+      console.error(err);
+      setError(handleError(err));
       setIsLoading(false);
     }
   };
@@ -87,8 +95,8 @@ export const useOrder = () => {
 
       return orders;
     } catch (err) {
-      console.log(err);
-      setError(err);
+      console.error(err);
+      setError(handleError(err));
     }
   };
 

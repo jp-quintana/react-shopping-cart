@@ -1,0 +1,254 @@
+.container {
+  height: 100%;
+
+  .loader_container {
+    margin-top: 4rem;
+  }
+
+  .wrapper {
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 6rem;
+
+      .title {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .billing_address_title {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+      }
+
+      h2,
+      h3,
+      p,
+      span,
+      input {
+        color: #fff;
+        font-size: 1.6rem;
+        font-weight: 400;
+      }
+
+      h2,
+      h3,
+      p,
+      span,
+      label {
+        font-family: $font-f-secondary;
+        letter-spacing: $ls-secondary;
+      }
+
+      label {
+        color: #b1b1b3;
+        line-height: normal;
+        -moz-transition: all 0.1s ease-in;
+        -o-transition: all 0.1s ease-in;
+        -webkit-transition: all 0.1s ease-in;
+        transition: all 0.1s ease-in;
+      }
+
+      input:not([type='radio']) {
+        line-height: normal;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        border: 1px solid #515255;
+        border-radius: 1rem;
+      }
+    }
+  }
+}
+
+.payment_options_wrapper,
+.billing_address_wrapper {
+  border: 1px solid #515255;
+  border-radius: 1rem;
+  padding: 1rem 0;
+
+  font-family: $font-f-secondary;
+  letter-spacing: $ls-secondary;
+
+  & > div {
+    &:not(:first-child) {
+      padding-top: 1rem;
+
+      border-top: 1px solid #515255;
+    }
+
+    &:not(:last-child) {
+      padding-bottom: 1rem;
+    }
+  }
+}
+
+.payment_option {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 2rem;
+}
+
+.radio_unselected {
+  background-color: #3c3d40;
+  border: 1px solid #515255;
+
+  &:hover {
+    border: 1px solid #939393;
+    background-color: #3c3d45;
+    cursor: pointer;
+  }
+}
+
+.radio_selected {
+  border: 6px solid #939393;
+  background-color: #3c3d45;
+
+  &:before {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 60%;
+    margin: 20% auto;
+    border-radius: 50%;
+    color: #3c3d40;
+  }
+}
+
+.radio_unselected,
+.radio_selected {
+  -webkit-appearance: none;
+  border-radius: 50%;
+  width: 1.6rem;
+  height: 1.6rem;
+
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+}
+
+.inputs_wrapper {
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card_security {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.float_container {
+  position: relative;
+
+  .label_no_focus {
+    position: absolute;
+    left: 1.1rem;
+    top: 1.7rem;
+    bottom: 0;
+    margin: auto 0;
+    font-size: 1.6rem;
+    opacity: 0;
+  }
+
+  .label_focus {
+    position: absolute;
+    left: 1.1rem;
+    top: 0.9rem;
+  }
+
+  .input_no_focus {
+    padding: 1.5rem 1rem 1.5rem;
+    font-family: $font-f-secondary;
+    letter-spacing: $ls-secondary;
+    letter-spacing: normal;
+  }
+
+  .input_focus {
+    padding: 2.2rem 1rem 0.8rem;
+  }
+}
+
+.form_controls {
+  display: flex;
+  margin-top: 6rem;
+
+  p,
+  button {
+    font-family: $font-f-secondary;
+    letter-spacing: $ls-secondary;
+  }
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  line-height: normal;
+  color: #fff;
+  font-size: 1.4rem;
+
+  @media (min-width: 360px) {
+    font-size: 1.6rem;
+  }
+
+  span {
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+
+    @media (min-width: 360px) {
+      font-size: 1.8rem;
+    }
+  }
+
+  &:hover {
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+.button {
+  margin-left: auto;
+  padding: 1.2rem;
+  background-color: #48e471;
+  font-size: 1.4rem;
+  font-weight: $font-w-700;
+  border-radius: 1rem;
+
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  -moz-transition: all 0.1s ease-in;
+  -o-transition: all 0.1s ease-in;
+  -webkit-transition: all 0.1s ease-in;
+  transition: all 0.1s ease-in;
+
+  @media (min-width: 360px) {
+    font-size: 1.6rem;
+    padding: 2rem;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+
+  &:hover {
+    background-color: #74eb93 !important;
+  }
+}
+
+.billing_form_container {
+  padding-top: 2rem !important;
+  padding: 1rem 2rem;
+}

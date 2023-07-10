@@ -1,23 +1,35 @@
 import { useState } from 'react';
 
-import { doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, deleteDoc, collection } from 'firebase/firestore';
 
 import { db } from 'db/config';
 
 import { useAuthContext } from './useAuthContext';
 import { useCartContext } from './useCartContext';
 
-import { totalCartAmount } from 'helpers/cart';
+import { addAllItemsQuantity } from 'helpers/item';
+import { CustomError } from 'helpers/error/customError';
+import { handleError } from 'helpers/error/handleError';
 
 export const useCart = () => {
   const { user } = useAuthContext();
-  const { items, totalAmount, dispatch } = useCartContext();
+  const { items, dispatch } = useCartContext();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const getCurrentStock = async (itemId) => {
-    const skuRef = doc(db, 'inventory', itemId);
+  // const getCurrentStock = async (itemId) => {
+  //   const skuRef = doc(db, 'inventory', itemId);
+  //   const skuDoc = await getDoc(skuRef);
+
+  //   return skuDoc.data();
+  // };
+
+  const getCurrentStock = async (productId, skuId) => {
+    const skuRef = doc(
+      collection(db, 'products', productId, 'skus'),
+      skuId
+    );
     const skuDoc = await getDoc(skuRef);
 
     return skuDoc.data();
@@ -28,243 +40,237 @@ export const useCart = () => {
     setIsLoading(true);
     try {
       const itemInCartIndex = items.findIndex(
-        (item) => item.id === itemToAdd.id
+        (item) => item.skuId === itemToAdd.skuId
       );
+
       const itemInCart = items[itemInCartIndex];
 
       let updatedItems = [...items];
 
-      const { stock } = await getCurrentStock(itemToAdd.id);
+      const { quantity: availableQuantity } = await getCurrentStock(
+        itemToAdd.productId,
+        itemToAdd.skuId
+      );
 
       let noStock;
       let stockWasUpdated;
 
-      if (stock <= 0) {
+      if (availableQuantity <= 0) {
         if (itemInCart) {
           updatedItems = updatedItems.filter(
-            (item) => item.id !== itemInCart.id
+            (item) => item.skuId !== itemInCart.skuId
           );
           noStock = true;
         } else {
-          throw Error('No hay más stock de este producto.', {
-            cause: 'custom',
-          });
+          throw new CustomError(
+            `Size ${itemToAdd.size.toUpperCase()} is out of stock!`
+          );
         }
       } else {
         if (itemInCart) {
-          if (itemInCart.amount > stock) {
-            itemInCart.amount = stock - 1;
+          if (itemInCart.quantity > availableQuantity) {
+            itemInCart.quantity = availableQuantity;
             stockWasUpdated = true;
-          }
+          } else if (itemInCart.quantity === availableQuantity) {
+            throw new CustomError('All available stock is currently in cart!');
+          } else {
+            const updatedItem = {
+              ...itemInCart,
+              quantity: itemInCart.quantity + 1,
+            };
 
-          if (itemInCart.amount === stock) {
-            throw Error(
-              'Todo el stock disponible de este producto está en el carrito.',
-              {
-                cause: 'custom',
-              }
-            );
+            updatedItems[itemInCartIndex] = updatedItem;
           }
-
-          const updatedItem = {
-            ...itemInCart,
-            amount: itemInCart.amount + 1,
-          };
-          updatedItems[itemInCartIndex] = updatedItem;
         } else {
           const addedItem = {
             ...itemToAdd,
-            amount: 1,
+            quantity: 1,
           };
           updatedItems.push(addedItem);
         }
       }
 
-      const updatedTotalAmount = totalCartAmount(updatedItems);
-      const updatedItemsDb = updatedItems.map((item) => ({
-        sku: item.id,
-        productId: item.productId,
-        variantId: item.variantId,
-      }));
+      const cartTotalItemQuantity = addAllItemsQuantity(updatedItems);
 
       const cartRef = doc(db, 'carts', user.uid);
 
-      if (updatedTotalAmount === 0) {
+      if (cartTotalItemQuantity === 0) {
         await deleteDoc(cartRef);
 
         dispatch({
           type: 'DELETE_CART',
         });
       } else {
+        const updatedItemsDb = updatedItems.map((item) => ({
+          skuId: item.skuId,
+          productId: item.productId,
+          variantId: item.variantId,
+          quantity: item.quantity,
+        }));
+
         await setDoc(cartRef, {
           items: updatedItemsDb,
-          totalAmount: updatedTotalAmount,
         });
 
         dispatch({
           type: 'UPDATE_CART',
-          payload: {
-            items: updatedItems,
-            totalAmount: updatedTotalAmount,
-          },
+          payload: updatedItems,
         });
       }
 
       if (noStock) {
-        throw Error(
-          'No hay más stock de este producto. Las cantidades en el carrito fueron actualizadas.',
-          { cause: 'custom' }
-        );
+        throw new CustomError('This item is out of stock. Cart was updated!');
       }
 
       if (stockWasUpdated) {
-        throw Error(
-          'Hay menos unidades disponibles que las cantidades en el carrito. Las cantidades en el carrito fueron actualizadas.',
-          {
-            cause: 'custom',
-          }
+        throw new CustomError(
+          'Stock is limited. Item quantity in cart updated!'
         );
       }
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
-      if (err.cause === 'custom') {
-        setError({ details: err.message });
-      } else {
-        console.log('aca');
-        setError(err);
-      }
+      console.error(err);
+      setError(handleError(err));
       setIsLoading(false);
     }
   };
 
-  const removeItem = async (itemToRemove) => {
+  const removeItem = async (productId, skuId) => {
     setError(null);
     setIsLoading(true);
     try {
-      const itemInCartIndex = items.findIndex(
-        (item) => item.id === itemToRemove.id
-      );
+      const itemInCartIndex = items.findIndex((item) => item.skuId === skuId);
       const itemInCart = items[itemInCartIndex];
 
       let updatedItems = [...items];
 
-      const { stock } = await getCurrentStock(itemToRemove.id);
-
       let noStock;
       let stockWasUpdated;
 
-      if (itemInCart.amount === 1) {
-        updatedItems = items.filter((item) => item.id !== itemInCart.id);
+      if (itemInCart.quantity === 1) {
+        updatedItems = items.filter((item) => item.skuId !== skuId);
       } else {
-        if (stock <= 0) {
+        const { quantity: availableQuantity } = await getCurrentStock(
+          productId,
+          skuId
+        );
+
+        if (availableQuantity <= 0) {
           updatedItems = updatedItems.filter(
-            (item) => item.id !== itemInCart.id
+            (item) => item.skuId !== itemInCart.skuId
           );
           noStock = true;
-        } else if (stock < itemInCart.amount) {
+        } else if (availableQuantity < itemInCart.quantity) {
           const updatedItem = {
             ...itemInCart,
-            amount: stock,
+            quantity: availableQuantity,
           };
 
           updatedItems[itemInCartIndex] = updatedItem;
 
           stockWasUpdated = true;
         } else {
-          const updatedItem = { ...itemInCart, amount: itemInCart.amount - 1 };
+          const updatedItem = {
+            ...itemInCart,
+            quantity: itemInCart.quantity - 1,
+          };
+
           updatedItems[itemInCartIndex] = updatedItem;
         }
       }
 
-      const updatedTotalAmount = totalCartAmount(updatedItems);
+      const cartTotalItemQuantity = addAllItemsQuantity(updatedItems);
 
       const cartRef = doc(db, 'carts', user.uid);
 
-      if (updatedTotalAmount === 0) {
+      if (cartTotalItemQuantity === 0) {
         await deleteDoc(cartRef);
 
         dispatch({
           type: 'DELETE_CART',
         });
       } else {
+        const updatedItemsDb = updatedItems.map((item) => ({
+          skuId: item.skuId,
+          productId: item.productId,
+          variantId: item.variantId,
+          quantity: item.quantity,
+        }));
+
         await setDoc(cartRef, {
-          items: updatedItems,
-          totalAmount: updatedTotalAmount,
+          items: updatedItemsDb,
         });
 
         dispatch({
           type: 'UPDATE_CART',
-          payload: {
-            items: updatedItems,
-            totalAmount: updatedTotalAmount,
-          },
+          payload: updatedItems,
         });
       }
 
       if (noStock) {
-        throw Error(
-          'No hay más stock de este producto. Las cantidades en el carrito fueron actualizadas.',
-          { cause: 'custom' }
+        throw new CustomError(
+          'This item is out of stock and was removed from cart!'
         );
       }
 
       if (stockWasUpdated) {
-        throw Error(
-          'Hay menos unidades disponibles que las cantidades en el carrito. Las cantidades en el carrito fueron actualizadas.',
-          {
-            cause: 'custom',
-          }
+        throw new CustomError(
+          'Stock is limited. Item quantity in cart updated!'
         );
       }
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
-      if (err.cause === 'custom') {
-        setError({ details: err.message });
-      } else {
-        setError(err);
-      }
+      console.error(err);
+      setError(handleError(err));
       setIsLoading(false);
     }
   };
 
-  const deleteItem = async (itemToDelete) => {
+  const deleteItem = async (skuId) => {
     setError(null);
     setIsLoading(true);
     try {
-      const updatedTotalAmount = totalAmount - itemToDelete.amount;
+      const itemInCartIndex = items.findIndex((item) => item.skuId === skuId);
+      const itemInCart = items[itemInCartIndex];
 
-      const updatedItems = items.filter((item) => item.id !== itemToDelete.id);
+      const updatedItems = items.filter(
+        (item) => item.skuId !== itemInCart.skuId
+      );
 
       const cartRef = doc(db, 'carts', user.uid);
 
-      if (updatedTotalAmount === 0) {
+      const cartTotalItemQuantity = addAllItemsQuantity(updatedItems);
+
+      if (cartTotalItemQuantity === 0) {
         await deleteDoc(cartRef);
 
         dispatch({
           type: 'DELETE_CART',
         });
       } else {
+        const updatedItemsDb = updatedItems.map((item) => ({
+          skuId: item.skuId,
+          productId: item.productId,
+          variantId: item.variantId,
+          quantity: item.quantity,
+        }));
+
         await setDoc(cartRef, {
-          items: updatedItems,
-          totalAmount: updatedTotalAmount,
+          items: updatedItemsDb,
         });
 
         dispatch({
           type: 'UPDATE_CART',
-          payload: {
-            items: updatedItems,
-            totalAmount: updatedTotalAmount,
-          },
+          payload: updatedItems,
         });
       }
 
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
+      console.error(err);
+      setError({ details: err.message });
       setIsLoading(false);
     }
   };
@@ -277,5 +283,17 @@ export const useCart = () => {
     });
   };
 
-  return { addItem, removeItem, deleteItem, deleteCart, isLoading, error };
+  const activateCartCheck = () => {
+    dispatch({ type: 'CHECK' });
+  };
+
+  return {
+    addItem,
+    removeItem,
+    deleteItem,
+    deleteCart,
+    activateCartCheck,
+    isLoading,
+    error,
+  };
 };

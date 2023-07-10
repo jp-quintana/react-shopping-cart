@@ -1,0 +1,220 @@
+.confirm_modal {
+  padding-right: 3rem;
+  padding-left: 3rem;
+
+  width: auto !important;
+  height: auto !important;
+}
+
+.modal {
+  padding: 2rem !important;
+
+  @media (min-width: 900px) {
+    height: 60%;
+    width: 50%;
+  }
+}
+
+.form_container {
+  .controls_container {
+    display: flex;
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 1px solid #3d3d3d;
+    align-items: center;
+    gap: 2rem;
+
+    .no_image,
+    .image_wrapper {
+      height: 9rem;
+      width: 6.363rem;
+    }
+
+    .no_image {
+      border: 1px dashed #3d3d3d;
+      border-radius: 0.6rem;
+    }
+
+    .image_wrapper {
+      position: relative;
+
+      img {
+        border-radius: 0.6rem;
+      }
+
+      div {
+        position: absolute;
+        top: -0.5rem;
+        right: -0.5rem;
+        width: 2.2rem;
+        height: 2.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 1.3rem;
+        font-family: $font-f-secondary;
+        letter-spacing: $ls-secondary;
+        font-weight: 700;
+        color: #fff;
+        background: #3d3d3d;
+      }
+    }
+
+    .variant_title {
+      font-family: $font-f-secondary;
+      font-weight: $font-w-700;
+      letter-spacing: $ls-secondary;
+      text-transform: capitalize;
+    }
+
+    .buttons_wrapper {
+      display: flex;
+      gap: 1rem;
+      margin-left: auto;
+
+      button {
+        padding: 0.5rem 2rem;
+        font-family: $font-f-secondary;
+        font-weight: $font-w-700;
+        letter-spacing: $ls-secondary;
+        border-radius: 0.6rem;
+        color: #fff;
+      }
+
+      .edit,
+      .submit {
+        background: #3d3d3d;
+      }
+
+      .cancel,
+      .delete {
+        background: rgba(243, 121, 120, 0.95);
+      }
+    }
+  }
+
+  .controls_container_editing {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-bottom: none !important;
+  }
+
+  .table_wrapper {
+    border: 1px solid #3d3d3d;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+
+    .no_sizes {
+      font-family: $font-f-secondary;
+      font-weight: $font-w-700;
+      letter-spacing: $ls-secondary;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+
+      tr {
+        th {
+          margin-bottom: 0.5rem;
+          padding: 1rem 0;
+
+          .color_header,
+          .actual_price_header,
+          .table_header {
+            color: white;
+            background: $back-c-detail;
+            border-radius: 0.6rem;
+            padding: 0.5rem 1rem;
+            display: inline-flex;
+            gap: 1rem;
+            align-items: center;
+          }
+
+          .color_header,
+          .actual_price_header {
+            position: relative;
+            &:hover .tooltip {
+              visibility: visible;
+              opacity: 1;
+            }
+          }
+        }
+
+        th,
+        td {
+          font-family: $font-f-secondary;
+          font-weight: $font-w-700;
+          letter-spacing: $ls-secondary;
+        }
+
+        .size_td,
+        th {
+          text-transform: uppercase;
+          text-align: center;
+        }
+
+        td {
+          padding: 1rem 2rem;
+
+          .images_button_wrapper {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+
+            p {
+              margin-bottom: 1rem;
+              display: inline-block;
+              text-transform: capitalize;
+            }
+
+            .images_button {
+              font-family: $font-f-secondary;
+              font-weight: $font-w-700;
+              letter-spacing: $ls-secondary;
+              padding: 0.5rem 2rem;
+              color: #fff;
+              background-color: #3d3d3d;
+              border-radius: 0.6rem;
+            }
+          }
+
+          // .image_links {
+          //   width: auto;
+          //   .image_link {
+          //     display: flex;
+          //     gap: 1rem;
+
+          //     div > label {
+          //       width: calc(100% / 7);
+          //       overflow: hidden;
+          //       white-space: nowrap;
+          //       text-overflow: ellipsis;
+          //     }
+          //   }
+          // }
+
+          input,
+          .button {
+            width: 100%;
+          }
+
+          input {
+            border: 1px solid #3d3d3d;
+            padding: 1rem;
+            border-radius: 1rem;
+            font-size: 1.2rem;
+            font-weight: $font-w-400;
+          }
+        }
+      }
+    }
+  }
+
+  .table_wrapper_editing {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+  }
+}

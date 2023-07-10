@@ -1,0 +1,33 @@
+// TODO: REMOVE TAILWIND
+
+.tooltip {
+  text-transform: none;
+  position: absolute;
+  width: 200%;
+  bottom: 4rem;
+  left: 50%;
+  transform: translate(-50%, 0);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s;
+  background: #3d3d3d;
+  font-size: 1.2rem !important;
+  text-align: center !important;
+  z-index: 1 !important;
+  font-family: $font-f-secondary !important;
+  font-weight: $font-w-400 !important;
+  letter-spacing: $ls-secondary !important;
+  border-radius: 0.6rem !important;
+  padding: 0.5rem !important;
+
+  &::after {
+    content: ' ';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #3d3d3d transparent transparent transparent;
+  }
+}

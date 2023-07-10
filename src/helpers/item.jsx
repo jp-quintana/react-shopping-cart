@@ -1,29 +1,25 @@
-import { formatNumber } from './format';
+import { formatPrice } from './format';
 
-export const addItemPrice = ({ price, amount }) => {
-  return formatNumber(price * amount);
+export const addIndividualItemPrice = ({ price, quantity }) => {
+  return formatPrice(price * quantity);
 };
 
 export const addAllItemsPrice = (items) => {
-  let total = 0;
-
-  items.forEach((item) => (total += item.price * item.amount));
-
-  return formatNumber(total);
+  return formatPrice(
+    items.reduce((total, item) => {
+      return total + item.price * item.quantity;
+    }, 0)
+  );
 };
 
 export const addAllItemsPriceNumber = (items) => {
-  let total = 0;
-
-  items.forEach((item) => (total += item.price * item.amount));
-
-  return total;
+  return items.reduce((total, item) => {
+    return total + item.quantity * item.price;
+  }, 0);
 };
 
-export const addAllItemsAmount = (items) => {
-  let total = 0;
-
-  items.forEach((item) => (total += item.amount));
-
-  return formatNumber(total);
+export const addAllItemsQuantity = (items) => {
+  return items.reduce((total, item) => {
+    return total + item.quantity;
+  }, 0);
 };
