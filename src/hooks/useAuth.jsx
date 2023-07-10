@@ -65,6 +65,8 @@ export const useAuth = () => {
   const login = async ({ email, password }) => {
     setError(null);
     setIsLoading(true);
+    setDefaultValue({ email });
+
     try {
       dispatchCartAction({ type: 'IS_LOGIN' });
       const anonymousUser = user;

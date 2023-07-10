@@ -119,6 +119,16 @@ const AddAddress = ({ close }) => {
                   />
                 </label>
                 <label className={styles.label}>
+                  <span>State</span>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    placeholder="State"
+                    required
+                    ref={stateInput}
+                  />
+                </label>
+                <label className={styles.label}>
                   <span>Zip Code:</span>
                   <input
                     className={styles.input}
@@ -127,17 +137,6 @@ const AddAddress = ({ close }) => {
                     inputMode="nuAddAddressModalmeric"
                     required
                     ref={zipCodeInput}
-                  />
-                </label>
-
-                <label className={styles.label}>
-                  <span>State</span>
-                  <input
-                    className={styles.input}
-                    type="text"
-                    placeholder="State"
-                    required
-                    ref={stateInput}
                   />
                 </label>
                 <label className={styles.checkbox}>

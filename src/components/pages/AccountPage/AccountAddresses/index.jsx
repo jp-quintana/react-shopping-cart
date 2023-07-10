@@ -31,9 +31,9 @@ const AccountAddresses = () => {
                 <ul className={styles.info}>
                   <li>{defaultAddress.address}</li>
                   <li>
-                    {defaultAddress.city}, {defaultAddress.zipCode}
+                    {defaultAddress.city}, {defaultAddress.state}{' '}
+                    {defaultAddress.zipCode}
                   </li>
-                  <li>{defaultAddress.state}</li>
                 </ul>
               </div>
               {otherAddresses.map((address) => (
@@ -48,9 +48,8 @@ const AccountAddresses = () => {
                   <ul className={styles.info}>
                     <li>{address.address}</li>
                     <li>
-                      {address.city}, {address.zipCode}
+                      {address.city},{address.state} {address.zipCode}
                     </li>
-                    <li>{address.state}</li>
                   </ul>
                 </div>
               ))}
