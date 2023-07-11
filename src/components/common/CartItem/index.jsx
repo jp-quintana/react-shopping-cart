@@ -62,9 +62,9 @@ const CartItem = ({
       <Link to={`/products/${slug}`} onClick={closeCartModal}>
         <div className={styles.info_container}>
           <div className={styles.info_wrapper}>
-            <p className={styles.title}>{`${type} ${model}`}</p>
+            <p className={styles.title}>{`${model} ${type}`}</p>
             <p className={styles.color}>{color}</p>
-            <p className={styles.size}>{size.toUpperCase()}</p>
+            <p className={styles.size}>{size?.toUpperCase()}</p>
             <p className={styles.price}>${formatPrice(price)}</p>
           </div>
           <MediaContainer

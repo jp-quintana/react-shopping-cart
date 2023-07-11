@@ -68,9 +68,9 @@ const OrderSummary = () => {
             </div>
             <div className={styles.info}>
               <p className={styles.name}>
-                {item.type} {item.model} - {item.color}
+                {item.model} {item.type} - {item.color}
               </p>
-              <p className={styles.size}>{item.size.toUpperCase()}</p>
+              <p className={styles.size}>{item.size?.toUpperCase()}</p>
             </div>
             <p className={styles.price}>$ {formatPrice(item.price)}</p>
           </div>

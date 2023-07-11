@@ -13,6 +13,7 @@ const initialState = {
   selectedVariant: null,
   selectedSkuId: '',
   selectedSize: '',
+  singleSize: null,
 };
 
 const productReducer = (state, action) => {
@@ -48,6 +49,14 @@ const productReducer = (state, action) => {
         ...state,
         selectedSkuId: payload.skuId,
         selectedSize: payload.value,
+      };
+    }
+
+    case 'SINGLE_SIZE': {
+      return {
+        ...state,
+        singleSize: { quantity: payload.quantity },
+        selectedSkuId: payload.selectedSkuId,
       };
     }
 
@@ -94,6 +103,8 @@ const ProductProvider = ({ children }) => {
         ...skuDoc.data(),
       }));
 
+      console.log(skusData);
+
       const variantsRef = collection(productDoc.ref, 'variants');
 
       const variantsSnapshot = await getDocs(variantsRef);
@@ -114,12 +125,26 @@ const ProductProvider = ({ children }) => {
         })
       );
 
+      const selectedVariant = variants.find(
+        (variant) => variant.color === selectedColor
+      );
+
+      if (selectedVariant.sizes.length === 1) {
+        dispatch({
+          type: 'SINGLE_SIZE',
+          payload: {
+            selectedSkuId: selectedVariant.sizes[0].skuId,
+            quantity: selectedVariant.sizes[0].quantity,
+          },
+        });
+      }
+
       return {
         product: {
           ...productData,
           variants,
         },
-        variant: variants.find((variant) => variant.color === selectedColor),
+        variant: selectedVariant,
       };
     } catch (err) {
       console.error(err);
