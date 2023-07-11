@@ -74,7 +74,7 @@ const ProductCard = ({
                     </span>
                   </>
                 ) : (
-                  formatPrice(currentPrice)
+                  <span>${formatPrice(currentPrice)}</span>
                 )}
               </li>
             </>

@@ -30,6 +30,7 @@ const ProductPage = () => {
     selectedVariant,
     selectedSize,
     selectedSkuId,
+    singleSize,
   } = useProductContext();
 
   const { addItem, isLoading, error } = useCart();
@@ -61,7 +62,7 @@ const ProductPage = () => {
           image: selectedVariant.images[0].src,
           message: `${selectedProduct.model} ${selectedProduct.type} - ${
             selectedVariant.color
-          } - ${selectedSize.toUpperCase()}`,
+          } ${selectedSize ? ` - ${selectedSize.toUpperCase()}` : ''}`,
         });
       } else if (error) {
         setToastMessage({ error, message: error.message });
@@ -72,24 +73,50 @@ const ProductPage = () => {
   }, [notify]);
 
   let addEventHandler = false;
-  if (selectedSize.length > 0) {
-    addEventHandler = true;
+
+  if (singleSize) {
+    if (singleSize.quantity > 0) {
+      addEventHandler = true;
+    }
+  } else {
+    if (selectedSize.length > 0) {
+      addEventHandler = true;
+    }
   }
 
-  const buttonContent =
-    selectedSize.length === 0
-      ? 'SELECT SIZE'
-      : `ADD ${selectedSize.toUpperCase()} TO BAG`;
+  const buttonContent = singleSize
+    ? singleSize.quantity > 0
+      ? 'ADD TO BAG'
+      : 'OUT OF STOCK'
+    : selectedSize.length === 0
+    ? 'SELECT SIZE'
+    : `ADD ${selectedSize.toUpperCase()} TO BAG`;
 
   const buttonStyles = `
-    ${selectedSize.length === 0 ? styles.button_disabled : styles.button}
+    ${
+      singleSize
+        ? singleSize.quantity > 0
+          ? styles.button
+          : styles.button_disabled
+        : selectedSize.length === 0
+        ? styles.button_disabled
+        : styles.button
+    }
   `;
 
-  const isButtonDisabled = selectedSize.length === 0 ? true : false;
+  const isButtonDisabled = singleSize
+    ? singleSize.quantity > 0
+      ? false
+      : true
+    : selectedSize.length === 0
+    ? true
+    : false;
 
   const isBigScreen = useMediaQuery({
     query: '(min-width: 1024px)',
   });
+
+  console.log(singleSize);
 
   return (
     <>
@@ -183,7 +210,7 @@ const ProductPage = () => {
                             </span>
                           </>
                         ) : (
-                          formatPrice(selectedProduct.price)
+                          <span>${formatPrice(selectedProduct.price)}</span>
                         )}
                       </div>
                     </div>
@@ -208,22 +235,23 @@ const ProductPage = () => {
                           ))}
                         </div>
                       </div>
+                      {!singleSize && (
+                        <div className={styles.sizes_container}>
+                          <p className={styles.pick_size}>Select Size</p>
 
-                      <div className={styles.sizes_container}>
-                        <p className={styles.pick_size}>Select Size</p>
-
-                        <div className={styles.sizes_wrapper}>
-                          {selectedVariant.sizes.map((size) => (
-                            <ProductSize
-                              key={size.skuId}
-                              skuId={size.skuId}
-                              value={size.value}
-                              quantity={size.quantity}
-                              selectedSize={selectedSize}
-                            />
-                          ))}
+                          <div className={styles.sizes_wrapper}>
+                            {selectedVariant.sizes.map((size) => (
+                              <ProductSize
+                                key={size.skuId}
+                                skuId={size.skuId}
+                                value={size.value}
+                                quantity={size.quantity}
+                                selectedSize={selectedSize}
+                              />
+                            ))}
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
 
                     <div className={styles.button_wrapper}>
@@ -286,7 +314,7 @@ const ProductPage = () => {
                             </span>
                           </>
                         ) : (
-                          formatPrice(selectedProduct.price)
+                          <span>${formatPrice(selectedProduct.price)}</span>
                         )}
                       </div>
                     </div>
@@ -325,21 +353,23 @@ const ProductPage = () => {
                       </div>
                     </div>
 
-                    <div className={styles.sizes_container}>
-                      <p className={styles.pick_size}>Select Size</p>
+                    {!singleSize && (
+                      <div className={styles.sizes_container}>
+                        <p className={styles.pick_size}>Select Size</p>
 
-                      <div className={styles.sizes_wrapper}>
-                        {selectedVariant.sizes.map((size) => (
-                          <ProductSize
-                            key={size.skuId}
-                            skuId={size.skuId}
-                            value={size.value}
-                            quantity={size.quantity}
-                            selectedSize={selectedSize}
-                          />
-                        ))}
+                        <div className={styles.sizes_wrapper}>
+                          {selectedVariant.sizes.map((size) => (
+                            <ProductSize
+                              key={size.skuId}
+                              skuId={size.skuId}
+                              value={size.value}
+                              quantity={size.quantity}
+                              selectedSize={selectedSize}
+                            />
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    )}
 
                     {!isLoading && (
                       <Button

@@ -4,11 +4,21 @@ export const useProduct = () => {
   const { selectedProduct, dispatch } = useProductContext();
 
   const selectVariant = (variantId) => {
-    const variant = selectedProduct.variants.find(
+    const selectedVariant = selectedProduct.variants.find(
       (variant) => variant.variantId === variantId
     );
 
-    dispatch({ type: 'SELECT_VARIANT', payload: variant });
+    dispatch({ type: 'SELECT_VARIANT', payload: selectedVariant });
+
+    if (selectedVariant.sizes.length === 1) {
+      dispatch({
+        type: 'SINGLE_SIZE',
+        payload: {
+          selectedSkuId: selectedVariant.sizes[0].skuId,
+          quantity: selectedVariant.sizes[0].quantity,
+        },
+      });
+    }
   };
 
   const selectSize = ({ skuId, value, stock }) => {
