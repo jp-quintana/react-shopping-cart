@@ -1,6 +1,6 @@
 export { default as AccountPage } from './AccountPage';
 export { default as AddressesPage } from './AddressesPage';
-export { default as Admin } from './Admin';
+export { default as AdminPage } from './AdminPage';
 export { default as AdminAddProduct } from './AdminAddProduct';
 export { default as AdminCollections } from './AdminCollections';
 export { default as AdminEditProduct } from './AdminEditProduct';

@@ -14,15 +14,21 @@
     margin-bottom: 3rem;
   }
 
-  .links_wrapper {
+  .options_wrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 3rem;
   }
 
-  a div {
+  .option div {
     padding: 2rem;
     border: 1px solid #000;
     border-radius: 1rem;
+  }
+
+  .seed {
+    &:hover {
+      cursor: pointer;
+    }
   }
 }

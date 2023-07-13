@@ -84,8 +84,7 @@ export const useCollection = () => {
 
       const products = await Promise.all(productsPromises);
 
-      console.log(products);
-
+      setIsLoading(false);
       return [].concat(...products);
     } catch (err) {
       console.error(err);
