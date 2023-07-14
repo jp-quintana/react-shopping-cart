@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useCollection } from 'hooks/useCollection';
 import { useAdmin } from 'hooks/useAdmin';
 
-import { Loader, CenterModal, ConfirmMessage } from 'components/common';
+import { Loader, CenterModal, ConfirmModal } from 'components/common';
 
 // import ProductCard from 'components/pages/collection/ProductCard';
 
@@ -56,7 +56,7 @@ const AdminCollections = () => {
         modalClassName={styles.confirm_modal}
       >
         {isConfirmOpen && (
-          <ConfirmMessage
+          <ConfirmModal
             isConfirmOpen={isConfirmOpen}
             handleConfirm={handleDeleteOnConfirm}
             handleCancel={closeConfirm}

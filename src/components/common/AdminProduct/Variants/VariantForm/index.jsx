@@ -4,12 +4,7 @@ import { FaQuestionCircle } from 'react-icons/fa';
 
 import ImageSelect from './ImageSelect';
 
-import {
-  Button,
-  ToolTip,
-  CenterModal,
-  ConfirmMessage,
-} from 'components/common';
+import { Button, ToolTip, CenterModal, ConfirmModal } from 'components/common';
 
 import styles from './index.module.scss';
 
@@ -142,7 +137,7 @@ const VariantForm = ({
         modalClassName={styles.confirm_modal}
       >
         {isConfirmOpen && (
-          <ConfirmMessage
+          <ConfirmModal
             isConfirmOpen={isConfirmOpen}
             handleConfirm={handleDeleteOnConfirm}
             handleCancel={closeConfirm}

@@ -1,4 +1,4 @@
-.loader_section {
+.section {
   min-height: 100vh;
 }
 
@@ -18,4 +18,13 @@
     padding-top: 12.2rem;
     grid-template-columns: repeat(4, 1fr);
   }
+}
+
+.loading_more {
+  margin-top: 10rem;
+  width: 100%;
+  text-align: center;
+  font-size: 2.4rem;
+  letter-spacing: 1rem;
+  text-transform: uppercase;
 }

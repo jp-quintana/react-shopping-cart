@@ -49,7 +49,6 @@ const CollectionPage = () => {
 
       observer.current = new IntersectionObserver(async (entries) => {
         if (entries[0].isIntersecting) {
-          console.log('hollaaaaa');
           const moreProductVariants = await getCollection({
             collectionName: slugId,
           });
@@ -70,16 +69,20 @@ const CollectionPage = () => {
 
   return (
     <>
-      <section className={styles.loader_section}>
+      <section className={styles.section}>
         {!productVariants && <Loader />}
         {productVariants && (
-          <div className={`${styles.container} main-container`}>
-            {productVariants.map((productVariant, index) =>
-              index + 1 === productVariants.length ? (
+          <div className="main-container">
+            <div className={styles.container}>
+              {productVariants.map((productVariant, index) => (
                 <div
                   id={productVariant.id}
                   key={productVariant.id}
-                  ref={lastProductVariantRef}
+                  ref={
+                    index + 1 === productVariants.length
+                      ? lastProductVariantRef
+                      : undefined
+                  }
                 >
                   <ProductCard
                     model={productVariant.model}
@@ -92,20 +95,9 @@ const CollectionPage = () => {
                     numberOfVariants={productVariant.numberOfVariants}
                   />
                 </div>
-              ) : (
-                <ProductCard
-                  key={productVariant.id}
-                  model={productVariant.model}
-                  color={productVariant.color}
-                  currentPrice={productVariant.variantPrice}
-                  actualPrice={productVariant.price}
-                  type={productVariant.type}
-                  slug={productVariant.slug + '-' + productVariant.color}
-                  image={productVariant.images[0]}
-                  numberOfVariants={productVariant.numberOfVariants}
-                />
-              )
-            )}
+              ))}
+            </div>
+            {isLoading && <div className={styles.loading_more}>Loading</div>}
           </div>
         )}
       </section>

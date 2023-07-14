@@ -5,7 +5,7 @@ export { default as CartContent } from './CartContent';
 export { default as CartItem } from './CartItem';
 export { default as CartModal } from './CartModal';
 export { default as CenterModal } from './CenterModal';
-export { default as ConfirmMessage } from './ConfirmMessage';
+export { default as ConfirmModal } from './ConfirmModal';
 export { default as DragDropFileInput } from './DragDropFileInput';
 export { default as Dropdown } from './Dropdown';
 export { default as MediaContainer } from './MediaContainer';
