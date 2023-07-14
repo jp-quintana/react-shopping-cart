@@ -3,6 +3,8 @@ import { collection, doc, writeBatch } from 'firebase/firestore';
 
 import { db } from 'db/config';
 
+import moment from 'moment';
+
 import products from 'data/products.json';
 
 export const useSeed = () => {
@@ -26,6 +28,8 @@ export const useSeed = () => {
           price: product.price,
           slug: product.slug,
           type: product.type,
+          updatedAt: moment().toDate(),
+          createdAt: moment().toDate(),
         });
 
         const variantsRef = collection(newProductRef, 'variants');
@@ -38,6 +42,8 @@ export const useSeed = () => {
             images: variant.images,
             variantPrice: variant.variantPrice,
             productId: newProductRef.id,
+            updatedAt: moment().toDate(),
+            createdAt: moment().toDate(),
           });
 
           for (const sku of variant.skus) {

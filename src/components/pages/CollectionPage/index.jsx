@@ -20,7 +20,7 @@ const CollectionPage = () => {
   const navigate = useNavigate();
   const { id: slugId } = useParams();
 
-  const { getCollection, isLoading, error } = useCollection();
+  const { getCollection, isLoading, hasMore, error } = useCollection();
 
   const [productVariants, setProductVariants] = useState(null);
 
@@ -33,6 +33,7 @@ const CollectionPage = () => {
     const fetchProductVariants = async () => {
       const productVariants = await getCollection({
         collectionName: slugId,
+        isNewQuery: true,
       });
       setProductVariants(productVariants);
     };
@@ -43,13 +44,20 @@ const CollectionPage = () => {
   const observer = useRef();
   const lastProductVariantRef = useCallback(
     (node) => {
-      if (isLoading) return;
+      if (isLoading || !hasMore) return;
       if (observer.current) observer.current.disconnect();
 
-      observer.current = new IntersectionObserver((entries) => {
-        console.log(entries[0]);
+      observer.current = new IntersectionObserver(async (entries) => {
         if (entries[0].isIntersecting) {
-          console.log('Yes');
+          console.log('hollaaaaa');
+          const moreProductVariants = await getCollection({
+            collectionName: slugId,
+          });
+
+          setProductVariants((prevState) => [
+            ...prevState,
+            ...moreProductVariants,
+          ]);
         }
       });
 
@@ -57,7 +65,7 @@ const CollectionPage = () => {
         observer.current.observe(node);
       }
     },
-    [isLoading]
+    [isLoading, hasMore]
   );
 
   return (
