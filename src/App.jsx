@@ -1,4 +1,5 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
 import { useAuthContext } from 'hooks/useAuthContext';
 import { useCartContext } from 'hooks/useCartContext';
@@ -19,6 +20,7 @@ import {
   ProductPage,
   CartPage,
   CheckoutPage,
+  AdminPage,
 } from './components/pages';
 
 import { Loader } from './components/common';
@@ -28,6 +30,12 @@ import './App.scss';
 const App = () => {
   const { authIsReady } = useAuthContext();
   const { cartIsReady } = useCartContext();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   return (
     <>
@@ -70,15 +78,15 @@ const App = () => {
               <Route path="account/signup" element={<SignUpPage />} />
             </Route>
 
-            {/* <Route element={<ProtectedRoutes needAdmin={true} />}>
-              <Route path="admin" element={<Admin />} />
-              <Route path="admin/products" element={<AdminCollections />} />
+            <Route element={<ProtectedRoutes needAdmin={true} />}>
+              <Route path="admin" element={<AdminPage />} />
+              {/* <Route path="admin/products" element={<AdminCollections />} />
               <Route path="admin/products/add" element={<AdminAddProduct />} />
               <Route
                 path="admin/products/:productId"
                 element={<AdminEditProduct />}
-              />
-            </Route> */}
+              /> */}
+            </Route>
 
             <Route path="*" element={<Navigate to="/" />} />
           </Route>

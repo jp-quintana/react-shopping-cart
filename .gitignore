@@ -3,10 +3,13 @@
 /.pnp
 .pnp.js
 
-#config
+# config
 firebase-config.jsx
 .firebase
 .firebaserc
+
+# data
+/src/data/products.json
 
 # testing
 /coverage
@@ -24,3 +27,4 @@ firebase-config.jsx
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+ 

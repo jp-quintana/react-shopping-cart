@@ -14,8 +14,7 @@ export default defineConfig({
       db: path.resolve('src/db/'),
       helpers: path.resolve('src/helpers/'),
       hooks: path.resolve('src/hooks/'),
-      pages: path.resolve('src/pages/'),
-      setup: path.resolve('src/context/'),
+      data: path.resolve('src/data/'),
     },
   },
   css: {

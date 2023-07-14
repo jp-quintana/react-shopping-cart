@@ -9,7 +9,7 @@ import { useAdmin } from 'hooks/useAdmin';
 import ProductForm from './ProductForm';
 import Variants from './Variants';
 
-import { Button, Loader, CenterModal, ConfirmMessage } from 'components/common';
+import { Button, Loader, CenterModal, ConfirmModal } from 'components/common';
 
 import styles from './index.module.scss';
 
@@ -292,7 +292,7 @@ const AdminProduct = ({
         modalClassName={styles.confirm_modal}
       >
         {isConfirmOpen && (
-          <ConfirmMessage
+          <ConfirmModal
             text="Are you sure you want to delete this product? There is no way to undo this."
             handleConfirm={handleDeleteOnConfirm}
           />

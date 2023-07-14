@@ -1,0 +1,75 @@
+.modal_container {
+  position: fixed;
+  overflow: hidden;
+  z-index: 101;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    text-align: center;
+  }
+
+  p,
+  button {
+    font-family: $font-f-secondary;
+    font-weight: $font-w-700;
+    letter-spacing: $ls-secondary;
+  }
+
+  .modal_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    .confirm_modal {
+      overflow: hidden;
+      width: 40rem;
+      max-width: 90%;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 3rem;
+      z-index: 1;
+      border: $border-modal;
+      border-color: hsla(0, 0%, 5%, 0.2);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+        0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+      .title {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+      }
+
+      .text {
+        font-size: 1.4rem;
+        text-align: justify;
+        margin-bottom: 3rem;
+      }
+      .controls_wrapper {
+        margin: 0 auto;
+        text-align: center;
+        display: grid;
+        gap: 1rem;
+
+        @media (min-width: 480px) {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 3rem;
+        }
+
+        .button,
+        .error_button {
+          padding: 0.5rem 2rem;
+          border-radius: 0.6rem;
+          background-color: #3d3d3d;
+          color: white;
+        }
+
+        .error_button {
+          background-color: $back-c-error;
+        }
+      }
+    }
+  }
+}

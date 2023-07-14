@@ -8,7 +8,7 @@ import {
   FaEllipsisH,
 } from 'react-icons/fa';
 
-import { CenterModal, ConfirmMessage } from 'components/common';
+import { CenterModal, ConfirmModal } from 'components/common';
 
 import styles from './index.module.scss';
 
@@ -76,7 +76,7 @@ const DragDropFileInput = ({
           modalClassName={styles.confirm_modal}
         >
           {isConfirmOpen && (
-            <ConfirmMessage
+            <ConfirmModal
               isConfirmOpen={isConfirmOpen}
               handleConfirm={handleDeleteOnConfirm}
               handleCancel={closeConfirm}

@@ -1,0 +1,1082 @@
+[
+  {
+    "collection": "accessories",
+    "description": "adjustable cap",
+    "model": "baires",
+    "price": 22,
+    "slug": "baires-dad-hat",
+    "type": "dad hat",
+    "variants": [
+      {
+        "color": "white",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 22,
+        "skus": [
+          {
+            "order": null,
+            "quantity": 123,
+            "size": null,
+            "value": "bairesdadhatwhite"
+          }
+        ]
+      },
+      {
+        "color": "black",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 18,
+        "skus": [
+          {
+            "order": null,
+            "quantity": 123,
+            "size": null,
+            "value": "bairesdadhatblack"
+          }
+        ]
+      },
+      {
+        "color": "grey",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 18,
+        "skus": [
+          {
+            "order": null,
+            "quantity": 123,
+            "size": null,
+            "value": "bairesdadhatgrey"
+          }
+        ]
+      },
+      {
+        "color": "tan",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 18,
+        "skus": [
+          {
+            "order": null,
+            "quantity": 123,
+            "size": null,
+            "value": "bairesdadhattan"
+          }
+        ]
+      },
+      {
+        "color": "purple",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 18,
+        "skus": [
+          {
+            "order": null,
+            "quantity": 123,
+            "size": null,
+            "value": "bairesdadhatpurple"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "collection": "t-shirts",
+    "description": "oversized tee",
+    "model": "de gira",
+    "price": 36,
+    "slug": "de-gira-tee",
+    "type": "tee",
+    "variants": [
+      {
+        "color": "white",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 28,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "degirateewhitexs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "degirateewhites"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "degirateewhitem"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "degirateewhitel"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "degirateewhitexl"
+          }
+        ]
+      },
+      {
+        "color": "black",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 36,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "degirateeblackxs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "degirateeblacks"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "degirateeblackm"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "degirateeblackl"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "degirateeblackxl"
+          }
+        ]
+      },
+      {
+        "color": "grey",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 36,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "degirateegreyxs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "degirateegreys"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "degirateegreym"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "degirateegreyl"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "degirateegreyxl"
+          }
+        ]
+      },
+      {
+        "color": "tan",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 36,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "degirateetanxs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "degirateetans"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "degirateetanm"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "degirateetanl"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "degirateetanxl"
+          }
+        ]
+      },
+      {
+        "color": "purple",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 36,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "degirateepurplexs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "degirateepurples"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "degirateepurplem"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "degirateepurplel"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "degirateepurplexl"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "collection": "hoodies-sweatshirts",
+    "description": "oversized hoodie",
+    "model": "de gira",
+    "price": 68,
+    "slug": "de-gira-hoodie",
+    "type": "hoodie",
+    "variants": [
+      {
+        "color": "white",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 50,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "degirahoodiewhitexs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "degirahoodiewhites"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "degirahoodiewhitem"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "degirahoodiewhitel"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "degirahoodiewhitexl"
+          }
+        ]
+      },
+      {
+        "color": "black",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 68,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "degirahoodieblackxs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "degirahoodieblacks"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "degirahoodieblackm"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "degirahoodieblackl"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "degirahoodieblackxl"
+          }
+        ]
+      },
+      {
+        "color": "grey",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 68,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "degirahoodiegreyxs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "degirahoodiegreys"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "degirahoodiegreym"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "degirahoodiegreyl"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "degirahoodiegreyxl"
+          }
+        ]
+      },
+      {
+        "color": "tan",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 68,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "degirahoodietanxs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "degirahoodietans"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "degirahoodietanm"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "degirahoodietanl"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "degirahoodietanxl"
+          }
+        ]
+      },
+      {
+        "color": "purple",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 68,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "degirahoodiepurplexs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "degirahoodiepurples"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "degirahoodiepurplem"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "degirahoodiepurplel"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "degirahoodiepurplexl"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "collection": "t-shirts",
+    "description": "oversized tee",
+    "model": "ojos",
+    "price": 36,
+    "slug": "ojos-tee",
+    "type": "tee",
+    "variants": [
+      {
+        "color": "black",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 36,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "ojosteeblackxs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "ojosteeblacks"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "ojosteeblackm"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "ojosteeblackl"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "ojosteeblackxl"
+          }
+        ]
+      },
+      {
+        "color": "white",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 36,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "ojosteewhitexs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "ojosteewhites"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "ojosteewhitem"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "ojosteewhitel"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "ojosteewhitexl"
+          }
+        ]
+      },
+      {
+        "color": "grey",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 36,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "ojosteegreyxs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "ojosteegreys"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "ojosteegreym"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "ojosteegreyl"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "ojosteegreyxl"
+          }
+        ]
+      },
+      {
+        "color": "tan",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 36,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "ojosteetanxs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "ojosteetans"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "ojosteetanm"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "ojosteetanl"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "ojosteetanxl"
+          }
+        ]
+      },
+      {
+        "color": "purple",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 36,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "ojosteepurplexs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "ojosteepurples"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "ojosteepurplem"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "ojosteepurplel"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "ojosteepurplexl"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "collection": "hoodies-sweatshirts",
+    "description": "oversized sweatshirt",
+    "model": "flaakko",
+    "price": 56,
+    "slug": "flaakko-sweatshirt",
+    "type": "sweatshirt",
+    "variants": [
+      {
+        "color": "black",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 56,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "flaakkosweatblackxs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "flaakkosweatblacks"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "flaakkosweatblackm"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "flaakkosweatblackl"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "flaakkosweatblackxl"
+          }
+        ]
+      },
+      {
+        "color": "white",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 56,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "flaakkosweatwhitexs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "flaakkosweatwhites"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "flaakkosweatwhitem"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "flaakkosweatwhitel"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "flaakkosweatwhitexl"
+          }
+        ]
+      },
+      {
+        "color": "grey",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 56,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "flaakkosweatgreyxs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "flaakkosweatgreys"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "flaakkosweatgreym"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "flaakkosweatgreyl"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "flaakkosweatgreyxl"
+          }
+        ]
+      },
+      {
+        "color": "tan",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 56,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "flaakkosweattanxs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "flaakkosweattans"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "flaakkosweattanm"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "flaakkosweattanl"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "flaakkosweattanxl"
+          }
+        ]
+      },
+      {
+        "color": "purple",
+        "images": [
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          },
+          {
+            "id": "Add corresponding image id (id used as folder name where image is found in storage)",
+            "src": "Add corresponging image link from storage"
+          }
+        ],
+        "variantPrice": 56,
+        "skus": [
+          {
+            "order": 1,
+            "quantity": 123,
+            "size": "xs",
+            "value": "flaakkosweatpurplexs"
+          },
+          {
+            "order": 2,
+            "quantity": 123,
+            "size": "s",
+            "value": "flaakkosweatpurples"
+          },
+          {
+            "order": 3,
+            "quantity": 123,
+            "size": "m",
+            "value": "flaakkosweatpurplem"
+          },
+          {
+            "order": 4,
+            "quantity": 123,
+            "size": "l",
+            "value": "flaakkosweatpurplel"
+          },
+          {
+            "order": 5,
+            "quantity": 123,
+            "size": "xl",
+            "value": "flaakkosweatpurplexl"
+          }
+        ]
+      }
+    ]
+  }
+]

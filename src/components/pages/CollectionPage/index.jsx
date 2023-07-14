@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 import { useCollection } from 'hooks/useCollection';
@@ -20,7 +20,7 @@ const CollectionPage = () => {
   const navigate = useNavigate();
   const { id: slugId } = useParams();
 
-  const { getCollection, error } = useCollection();
+  const { getCollection, isLoading, hasMore, error } = useCollection();
 
   const [productVariants, setProductVariants] = useState(null);
 
@@ -33,6 +33,7 @@ const CollectionPage = () => {
     const fetchProductVariants = async () => {
       const productVariants = await getCollection({
         collectionName: slugId,
+        isNewQuery: true,
       });
       setProductVariants(productVariants);
     };
@@ -40,35 +41,66 @@ const CollectionPage = () => {
     fetchProductVariants();
   }, [slugId]);
 
-  console.log(error);
+  const observer = useRef();
+  const lastProductVariantRef = useCallback(
+    (node) => {
+      if (isLoading || !hasMore) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver(async (entries) => {
+        if (entries[0].isIntersecting) {
+          const moreProductVariants = await getCollection({
+            collectionName: slugId,
+          });
+
+          setProductVariants((prevState) => [
+            ...prevState,
+            ...moreProductVariants,
+          ]);
+        }
+      });
+
+      if (node) {
+        observer.current.observe(node);
+      }
+    },
+    [isLoading, hasMore]
+  );
 
   return (
     <>
-      {!productVariants && (
-        <>
-          <div className={styles.loader_section} />
-          <Loader />
-        </>
-      )}
-      {productVariants && (
-        <section>
-          <div className={`${styles.container} main-container`}>
-            {productVariants.map((productVariant) => (
-              <ProductCard
-                key={productVariant.id}
-                model={productVariant.model}
-                color={productVariant.color}
-                currentPrice={productVariant.variantPrice}
-                actualPrice={productVariant.price}
-                type={productVariant.type}
-                slug={productVariant.slug + '-' + productVariant.color}
-                image={productVariant.images[0]}
-                numberOfVariants={productVariant.numberOfVariants}
-              />
-            ))}
+      <section className={styles.section}>
+        {!productVariants && <Loader />}
+        {productVariants && (
+          <div className="main-container">
+            <div className={styles.container}>
+              {productVariants.map((productVariant, index) => (
+                <div
+                  id={productVariant.id}
+                  key={productVariant.id}
+                  ref={
+                    index + 1 === productVariants.length
+                      ? lastProductVariantRef
+                      : undefined
+                  }
+                >
+                  <ProductCard
+                    model={productVariant.model}
+                    color={productVariant.color}
+                    currentPrice={productVariant.variantPrice}
+                    actualPrice={productVariant.price}
+                    type={productVariant.type}
+                    slug={productVariant.slug + '-' + productVariant.color}
+                    image={productVariant.images[0]}
+                    numberOfVariants={productVariant.numberOfVariants}
+                  />
+                </div>
+              ))}
+            </div>
+            {isLoading && <div className={styles.loading_more}>Loading</div>}
           </div>
-        </section>
-      )}
+        )}
+      </section>
     </>
   );
 };
