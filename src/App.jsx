@@ -20,7 +20,6 @@ import {
   ProductPage,
   CartPage,
   CheckoutPage,
-  AdminPage,
 } from './components/pages';
 
 import { Loader } from './components/common';
