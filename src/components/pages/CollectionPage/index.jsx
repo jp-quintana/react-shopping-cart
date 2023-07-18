@@ -23,7 +23,7 @@ const CollectionPage = () => {
 
   const { getCollection, isLoading, hasMore, error } = useCollection();
 
-  const firstLoad = useRef(true);
+  // const firstLoad = useRef(true);
   const [productVariants, setProductVariants] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState(null);
 

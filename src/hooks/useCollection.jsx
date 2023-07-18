@@ -56,8 +56,6 @@ export const useCollection = () => {
 
       const productsSnapshot = await getDocs(productsQuery);
 
-      console.log('productsSnapshot:', productsSnapshot);
-
       if (productsSnapshot.size === 0) {
         setHasMore(false);
         setIsLoading(false);
@@ -96,7 +94,20 @@ export const useCollection = () => {
 
         const productVariants = [];
 
-        variantsSnapshot.forEach((variantDoc) =>
+        variantsSnapshot.forEach((variantDoc) => {
+          let availableQuantity = skus
+            .filter((sku) => sku.variantId === variantDoc.id)
+            .reduce((result, obj) => {
+              if (!obj.size) {
+                result['singleSize'] = obj.quantity;
+              } else {
+                result[obj.size] = obj.quantity;
+              }
+              return result;
+            }, {});
+
+          const sizes = Object.keys(availableQuantity);
+
           productVariants.push({
             id: uuid(),
             variantId: variantDoc.id,
@@ -104,19 +115,19 @@ export const useCollection = () => {
             ...variantDoc.data(),
             skus: skus.filter((sku) => sku.variantId === variantDoc.id),
             numberOfVariants: variantsSnapshot.size,
+            availableQuantity,
+            sizes,
             discount: formatDiscountNumber({
               currentPrice: variantDoc.data().variantPrice,
               actualPrice: productData.price,
             }),
-          })
-        );
+          });
+        });
 
         return productVariants;
       });
 
       const products = await Promise.all(productsPromises);
-
-      console.log(products);
 
       setIsLoading(false);
       return [].concat(...products);

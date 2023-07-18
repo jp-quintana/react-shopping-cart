@@ -1,6 +1,7 @@
 .container_b {
   position: fixed;
-  width: 80%;
+  max-width: 125rem;
+  width: 90%;
   background-color: hsla(0, 0%, 100%, 0.85);
   backdrop-filter: blur(8px);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
@@ -12,15 +13,82 @@
   border: $border-modal;
   z-index: 1;
 
+  .option_buttons_container {
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: hidden;
+    opacity: 0;
+    transition: grid-template-rows 0.2s ease-in-out, opacity 0.4s ease-in-out;
+
+    &.is_open {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+
+    .expandable {
+      min-height: 0;
+    }
+
+    .option_buttons_wrapper {
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+
+      .option_button_value {
+        user-select: none;
+        display: flex;
+        gap: 0.5rem;
+        font-family: $font-f-secondary;
+        text-transform: uppercase;
+        font-weight: 700;
+        padding: 0.5rem 1rem;
+        border: 0.2rem solid black;
+        border-radius: 0.5rem;
+        transition: all ease-in-out 0.2s;
+
+        div {
+          border: 1px solid black;
+        }
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &.is_selected,
+        &:hover {
+          background: #000;
+          color: #fff;
+
+          div {
+            border: 1px solid white;
+          }
+        }
+
+        &.is_selected:hover {
+          background: rgba(0, 0, 0, 0.6);
+        }
+      }
+    }
+  }
+
   .options {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 1rem;
+    padding: 0 0.5rem;
     gap: 0.8rem;
+    border-top: 0 solid #fff;
+    transition: border-top 0.1s ease-in-out;
+    margin: 0 2rem;
+
+    &.option_is_selected {
+      border-top: 2px solid rgba(105, 105, 105, 0.4);
+    }
 
     .option {
       width: 100%;
+      user-select: none;
       height: 5rem;
       padding: 0 2rem;
       display: flex;
@@ -32,24 +100,31 @@
       color: #3d3d3d;
       border-radius: 0.5rem;
       position: relative;
+      transition: color 0.2s ease-in-out, padding 0.1s ease-in-out;
 
       &:hover {
         cursor: pointer;
+        color: #000;
+      }
+
+      svg {
+        transition: transform 0.2s ease-in-out;
       }
 
       &::before {
         content: '';
         position: absolute;
-        top: 0;
-        height: 100%;
+        top: 5%;
+        height: 90%;
         width: 95%;
         background-color: #3d3d3d;
         left: 50%;
         transform: translateX(-50%);
-        background-color: rgba(105, 105, 105, 0.3);
+        background-color: rgba(105, 105, 105, 0.4);
         border-radius: 0.5rem;
         opacity: 0;
-        transition: opacity 0.2s ease-in-out;
+        transition: opacity 0.2s ease-in-out, padding-bottom 0.1s ease-in-out,
+          border-radius 0.1s ease-in-out;
       }
 
       &:hover::before {
@@ -64,11 +139,38 @@
         left: -0.5rem;
         height: 3rem;
         width: 0.2rem;
-        background-color: #3d3d3d;
+        background-color: rgba(105, 105, 105, 0.4);
       }
 
       span {
         white-space: nowrap;
+      }
+
+      &.is_selected {
+        padding-bottom: 0.25rem;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0%;
+          height: 90%;
+          width: 95%;
+          background-color: #3d3d3d;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: rgba(105, 105, 105, 0.4);
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+          border-bottom-left-radius: 0.5rem;
+          border-bottom-right-radius: 0.5rem;
+          opacity: 1;
+          transition: opacity 0.2s ease-in-out, top 0.1s ease-in-out,
+            border-radius 0.1s ease-in-out;
+        }
+
+        svg {
+          transform: rotate(-180deg);
+        }
       }
     }
   }

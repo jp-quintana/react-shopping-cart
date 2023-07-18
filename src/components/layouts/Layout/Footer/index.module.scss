@@ -1,6 +1,10 @@
 .footer {
   padding: 10rem 0 3rem;
 
+  &.is_collection_page {
+    padding-bottom: 25rem;
+  }
+
   @media (max-width: 1024px) {
     padding: 7.5rem 0 1rem;
   }

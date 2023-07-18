@@ -116,8 +116,6 @@ const ProductPage = () => {
     query: '(min-width: 1024px)',
   });
 
-  console.log(singleSize);
-
   return (
     <>
       <Toast content={toastMessage}>

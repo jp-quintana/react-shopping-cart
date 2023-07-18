@@ -7,8 +7,6 @@ import styles from './index.module.scss';
 const ProductColors = ({ id, thumbnail, selectedId }) => {
   const { selectVariant } = useProduct();
 
-  console.log('aca', id);
-
   let shouldAddEventHandler = false;
   if (selectedId !== id) {
     shouldAddEventHandler = true;

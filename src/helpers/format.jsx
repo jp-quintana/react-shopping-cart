@@ -16,7 +16,6 @@ export const formatDiscount = ({ currentPrice, actualPrice }) => {
 };
 
 export const formatDiscountNumber = ({ currentPrice, actualPrice }) => {
-  console.log({ currentPrice, actualPrice });
   const discountPercentage = Math.round(
     (currentPrice / actualPrice - 1) * -100
   );
