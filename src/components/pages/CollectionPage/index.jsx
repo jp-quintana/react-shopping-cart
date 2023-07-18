@@ -48,8 +48,6 @@ const CollectionPage = () => {
     setFilteredProducts(filteredProducts);
   };
 
-  console.log(productVariants);
-
   // TODO: check to see if this backup is needed
 
   // useEffect(() => {

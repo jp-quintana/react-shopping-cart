@@ -11,7 +11,7 @@ const ProductFilter = ({ allProducts, handleFilter }) => {
   const [filterConditions, setFilterConditions] = useState({});
   const [availableFilterOptions, setAvailableFilterOptions] = useState({
     color: [],
-    size: [],
+    skus: [],
     fit: [],
     type: [],
     discount: [],
@@ -78,7 +78,7 @@ const ProductFilter = ({ allProducts, handleFilter }) => {
       },
       {
         color: new Set(),
-        size: new Set(),
+        skus: new Set(),
         fit: new Set(),
         type: new Set(),
         discount: new Set(),
@@ -86,7 +86,7 @@ const ProductFilter = ({ allProducts, handleFilter }) => {
     );
     setAvailableFilterOptions({
       color: [...availableOptions.color],
-      size: [...availableOptions.size],
+      skus: [...availableOptions.skus],
       fit: [...availableOptions.fit],
       types: [...availableOptions.type],
       discount: [...availableOptions.discount],
