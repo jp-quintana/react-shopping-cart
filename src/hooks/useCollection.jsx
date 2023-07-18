@@ -13,6 +13,8 @@ import {
 
 import { db } from 'db/config';
 
+import { formatDiscountNumber } from 'helpers/format';
+
 export const useCollection = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -102,6 +104,10 @@ export const useCollection = () => {
             ...variantDoc.data(),
             skus: skus.filter((sku) => sku.variantId === variantDoc.id),
             numberOfVariants: variantsSnapshot.size,
+            discount: formatDiscountNumber({
+              currentPrice: variantDoc.data().variantPrice,
+              actualPrice: productData.price,
+            }),
           })
         );
 

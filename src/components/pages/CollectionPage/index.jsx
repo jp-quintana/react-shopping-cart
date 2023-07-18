@@ -3,9 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { useCollection } from 'hooks/useCollection';
 
-import { Loader } from 'components/common';
-
 import ProductCard from './ProductCard';
+import ProductFilter from './ProductFilter';
+
+import { Loader } from 'components/common';
 
 import styles from './index.module.scss';
 
@@ -22,7 +23,9 @@ const CollectionPage = () => {
 
   const { getCollection, isLoading, hasMore, error } = useCollection();
 
+  const firstLoad = useRef(true);
   const [productVariants, setProductVariants] = useState(null);
+  const [filteredProducts, setFilteredProducts] = useState(null);
 
   useEffect(() => {
     setProductVariants(null);
@@ -40,6 +43,31 @@ const CollectionPage = () => {
 
     fetchProductVariants();
   }, [slugId]);
+
+  const handleFilter = (filteredProducts) => {
+    setFilteredProducts(filteredProducts);
+  };
+
+  console.log(productVariants);
+
+  // TODO: check to see if this backup is needed
+
+  // useEffect(() => {
+  //   if (firstLoad.current) {
+  //     firstLoad.current = false;
+  //     return;
+  //   }
+
+  //   if (filteredProducts.length === 0 && hasMore) {
+  //     (async () => {
+  //       const moreProductVariants = await getCollection({
+  //         collectionName: slugId,
+  //       });
+
+  //       setProductVariants(moreProductVariants);
+  //     })();
+  //   }
+  // }, [filteredProducts]);
 
   const observer = useRef();
   const lastProductVariantRef = useCallback(
@@ -70,35 +98,46 @@ const CollectionPage = () => {
   return (
     <>
       <section className={styles.section}>
-        {!productVariants && <Loader />}
+        {(!productVariants || !filteredProducts) && <Loader />}
         {productVariants && (
-          <div className="main-container">
-            <div className={styles.container}>
-              {productVariants.map((productVariant, index) => (
-                <div
-                  id={productVariant.id}
-                  key={productVariant.id}
-                  ref={
-                    index + 1 === productVariants.length
-                      ? lastProductVariantRef
-                      : undefined
-                  }
-                >
-                  <ProductCard
-                    model={productVariant.model}
-                    color={productVariant.color}
-                    currentPrice={productVariant.variantPrice}
-                    actualPrice={productVariant.price}
-                    type={productVariant.type}
-                    slug={productVariant.slug + '-' + productVariant.color}
-                    image={productVariant.images[0]}
-                    numberOfVariants={productVariant.numberOfVariants}
-                  />
+          <>
+            {filteredProducts && (
+              <div className="main-container">
+                <div className={styles.container}>
+                  {filteredProducts.map((productVariant, index) => (
+                    <div
+                      id={productVariant.id}
+                      key={productVariant.id}
+                      ref={
+                        index + 1 === filteredProducts.length
+                          ? lastProductVariantRef
+                          : undefined
+                      }
+                    >
+                      <ProductCard
+                        model={productVariant.model}
+                        color={productVariant.color}
+                        discount={productVariant.discount}
+                        currentPrice={productVariant.variantPrice}
+                        actualPrice={productVariant.price}
+                        type={productVariant.type}
+                        slug={productVariant.slug + '-' + productVariant.color}
+                        image={productVariant.images[0]}
+                        numberOfVariants={productVariant.numberOfVariants}
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            {isLoading && <div className={styles.loading_more}>Loading</div>}
-          </div>
+                {isLoading && (
+                  <div className={styles.loading_more}>Loading</div>
+                )}
+              </div>
+            )}
+            <ProductFilter
+              allProducts={productVariants}
+              handleFilter={handleFilter}
+            />
+          </>
         )}
       </section>
     </>

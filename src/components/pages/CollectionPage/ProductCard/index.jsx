@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import { Button, MediaContainer } from 'components/common';
 
-import { formatPrice, formatDiscount } from 'helpers/format';
+import { formatPrice } from 'helpers/format';
 
 import styles from './index.module.scss';
 
@@ -16,6 +16,7 @@ const ProductCard = ({
   currentPrice,
   actualPrice,
   type,
+  discount,
   slug,
   image,
   numberOfVariants,
@@ -30,9 +31,7 @@ const ProductCard = ({
     <>
       <div className={styles.container}>
         {!showDetailsPlaceholder && currentPrice < actualPrice && (
-          <span className={styles.discount}>
-            {formatDiscount({ currentPrice, actualPrice })}
-          </span>
+          <span className={styles.discount}>-{discount}%</span>
         )}
         <MediaContainer
           image={image.src}
