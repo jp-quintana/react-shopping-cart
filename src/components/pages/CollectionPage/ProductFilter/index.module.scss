@@ -13,7 +13,8 @@
   border: $border-modal;
   z-index: 1;
 
-  .option_buttons_container {
+  .option_buttons_container,
+  .option_values_container {
     display: grid;
     grid-template-rows: 0fr;
     overflow: hidden;
@@ -84,6 +85,10 @@
 
     &.option_is_selected {
       border-top: 2px solid rgba(105, 105, 105, 0.4);
+    }
+
+    &.value_is_selected {
+      border-bottom: 2px solid rgba(105, 105, 105, 0.4);
     }
 
     .option {

@@ -6,6 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import { FaChevronUp } from 'react-icons/fa';
 
 // import ProductFilterButton from './ProductFilterButton';
+import ProductFilterValues from './ProductFilterValues';
 
 import styles from './index.module.scss';
 
@@ -132,12 +133,13 @@ const ProductFilter = ({ allProducts, handleFilter }) => {
         updatedFilterConditions[option].push(value);
       }
     }
-    console.log(updatedFilterConditions);
 
     setFilterConditions(updatedFilterConditions);
   };
 
-  console.log(filterConditions);
+  const handleClearConditions = () => {
+    setFilterConditions({});
+  };
 
   const isBigScreen = useMediaQuery({
     query: '(min-width: 1024px)',
@@ -190,7 +192,11 @@ const ProductFilter = ({ allProducts, handleFilter }) => {
           </div>
           <ul
             className={`${styles.options} ${
-              showOption && styles.option_is_selected
+              showOption ? styles.option_is_selected : undefined
+            } ${
+              Object.keys(filterConditions).length > 0
+                ? styles.value_is_selected
+                : undefined
             }`}
           >
             <li
@@ -259,9 +265,18 @@ const ProductFilter = ({ allProducts, handleFilter }) => {
           </ul>
           <div
             className={`${styles.option_values_container} ${
-              showOption ? styles.is_open : undefined
+              Object.keys(filterConditions).length > 0
+                ? styles.is_open
+                : undefined
             }`}
-          ></div>
+          >
+            <div className={styles.expandable}>
+              <ProductFilterValues
+                filterConditions={filterConditions}
+                handleClearConditions={handleClearConditions}
+              />
+            </div>
+          </div>
         </div>
       )}
     </>
