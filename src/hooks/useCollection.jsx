@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import {
@@ -27,12 +27,14 @@ export const useCollection = () => {
   const getCollection = async ({
     collectionName = 'products',
     isNewQuery = false,
+    sortBy = { field: 'createdAt', direction: 'asc' },
   }) => {
     setError(null);
 
     try {
       if (isNewQuery) {
         latestDoc.current = 0;
+        // setHasMore(true);
       }
 
       let productsQuery;
@@ -40,7 +42,7 @@ export const useCollection = () => {
       if (collectionName === 'products') {
         productsQuery = query(
           productsRef,
-          orderBy('collection'),
+          orderBy(sortBy.field, sortBy.direction),
           startAfter(isNewQuery ? 0 : latestDoc.current),
           limit(3)
         );
@@ -48,7 +50,7 @@ export const useCollection = () => {
         productsQuery = query(
           productsRef,
           where('collection', '==', collectionName),
-          orderBy('collection'),
+          orderBy(sortBy.field, sortBy.direction),
           startAfter(isNewQuery ? 0 : latestDoc.current),
           limit(3)
         );
@@ -113,7 +115,7 @@ export const useCollection = () => {
             variantId: variantDoc.id,
             ...productData,
             ...variantDoc.data(),
-            skus: skus.filter((sku) => sku.variantId === variantDoc.id),
+            // skus: skus.filter((sku) => sku.variantId === variantDoc.id),
             numberOfVariants: variantsSnapshot.size,
             availableQuantity,
             sizes,

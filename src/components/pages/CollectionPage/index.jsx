@@ -23,9 +23,14 @@ const CollectionPage = () => {
 
   const { getCollection, isLoading, hasMore, error } = useCollection();
 
-  // const firstLoad = useRef(true);
+  const firstLoad = useRef(true);
   const [productVariants, setProductVariants] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState(null);
+  const [sortBy, setSortBy] = useState({
+    field: 'createdAt',
+    direction: 'asc',
+    description: 'newest',
+  });
 
   useEffect(() => {
     setProductVariants(null);
@@ -66,10 +71,33 @@ const CollectionPage = () => {
   //     })();
   //   }
   // }, [filteredProducts]);
+  // TODO: check to see if this backup is needed
+
+  useEffect(() => {
+    if (firstLoad.current) {
+      firstLoad.current = false;
+      return;
+    }
+
+    window.scrollTo(0, 0);
+
+    // setFilteredProducts(null);
+    setProductVariants(null);
+    (async () => {
+      const productVariants = await getCollection({
+        collectionName: slugId,
+        isNewQuery: true,
+        sortBy,
+      });
+
+      setProductVariants(productVariants);
+    })();
+  }, [sortBy]);
 
   const observer = useRef();
   const lastProductVariantRef = useCallback(
     (node) => {
+      console.log(node);
       if (isLoading || !hasMore) return;
       if (observer.current) observer.current.disconnect();
 
@@ -77,6 +105,7 @@ const CollectionPage = () => {
         if (entries[0].isIntersecting) {
           const moreProductVariants = await getCollection({
             collectionName: slugId,
+            sortBy,
           });
 
           setProductVariants((prevState) => [
@@ -92,6 +121,28 @@ const CollectionPage = () => {
     },
     [isLoading, hasMore]
   );
+
+  const handleSortBy = (description) => {
+    if (description === 'newest') {
+      setSortBy({
+        field: 'createdAt',
+        direction: 'asc',
+        description,
+      });
+    } else if (description === 'price: low-high') {
+      setSortBy({
+        field: 'price',
+        direction: 'asc',
+        description,
+      });
+    } else if (description === 'price: high-low') {
+      setSortBy({
+        field: 'price',
+        direction: 'desc',
+        description,
+      });
+    }
+  };
 
   return (
     <>
@@ -134,6 +185,8 @@ const CollectionPage = () => {
             <ProductFilter
               allProducts={productVariants}
               handleFilter={handleFilter}
+              handleSortBy={handleSortBy}
+              sortByDesciption={sortBy.description}
             />
           </>
         )}

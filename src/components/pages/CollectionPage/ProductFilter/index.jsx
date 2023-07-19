@@ -1,16 +1,21 @@
 import { useState, useEffect } from 'react';
 
-import moment from 'moment';
-
 import { useMediaQuery } from 'react-responsive';
 import { FaChevronUp } from 'react-icons/fa';
 
-// import ProductFilterButton from './ProductFilterButton';
+import ReactSlider from 'react-slider';
+
 import ProductFilterValues from './ProductFilterValues';
 
 import styles from './index.module.scss';
+import './sliderStyles.css';
 
-const ProductFilter = ({ allProducts, handleFilter }) => {
+const ProductFilter = ({
+  allProducts,
+  handleFilter,
+  handleSortBy,
+  sortByDesciption,
+}) => {
   const [filterConditions, setFilterConditions] = useState({});
   const [availableFilterOptions, setAvailableFilterOptions] = useState({
     color: [],
@@ -18,15 +23,14 @@ const ProductFilter = ({ allProducts, handleFilter }) => {
     fit: [],
     type: [],
     discount: [],
+    price: [],
+    sortBy: ['newest', 'price: low-high', 'price: high-low'],
   });
-  const [showOption, setShowOption] = useState(null);
 
-  // TODO: lift sort by logic to parent component
-  const [sortBy, setSortBy] = useState('newest');
+  const [showOption, setShowOption] = useState(null);
 
   useEffect(() => {
     let filteredProducts = allProducts;
-    console.log('running');
     if (Object.keys(filterConditions).length > 0) {
       filteredProducts = allProducts.filter((product) => {
         return Object.entries(filterConditions).every(
@@ -46,27 +50,16 @@ const ProductFilter = ({ allProducts, handleFilter }) => {
                 product.price >= conditions[0] && product.price <= conditions[1]
               );
             }
+
+            if (property === 'size') {
+              return conditions.some(
+                (condition) => product.availableQuantity[condition] > 0
+              );
+            }
           }
         );
       });
     }
-
-    // TODO: lift sort by logic to parent component
-    // if (sortBy === 'newest') {
-    //   filteredProducts.sort((a, b) => {
-    //     const dateA = moment(a.createdAt);
-    //     const dateB = moment(b.createdAt);
-    //     return dateB.diff(dateA);
-    //   });
-    // } else if (sortBy === 'low-high') {
-    //   filteredProducts.sort((a, b) => {
-    //     return a.price - b.price;
-    //   });
-    // } else if (sortBy === 'high-low') {
-    //   filteredProducts.sort((a, b) => {
-    //     return b.price - a.price;
-    //   });
-    // }
 
     handleFilter(filteredProducts);
   }, [filterConditions, allProducts]);
@@ -78,6 +71,8 @@ const ProductFilter = ({ allProducts, handleFilter }) => {
           if (key === 'sizes') {
             const newArr = [...result.sizes, ...obj.sizes];
             result[key] = new Set(newArr);
+          } else if (key === 'price') {
+            result[key].push(obj[key]);
           } else {
             result[key].add(obj[key]);
           }
@@ -91,9 +86,11 @@ const ProductFilter = ({ allProducts, handleFilter }) => {
         fit: new Set(),
         type: new Set(),
         discount: new Set(),
+        price: [],
       }
     );
-    setAvailableFilterOptions({
+    setAvailableFilterOptions((prevState) => ({
+      ...prevState,
       color: [...availableOptions.color],
       size: [...availableOptions.sizes],
       fit: [...availableOptions.fit],
@@ -101,7 +98,9 @@ const ProductFilter = ({ allProducts, handleFilter }) => {
       discount: [...availableOptions.discount].filter(
         (discount) => discount !== 0
       ),
-    });
+      minPrice: Math.min(...availableOptions.price),
+      maxPrice: Math.max(...availableOptions.price),
+    }));
   }, [allProducts]);
 
   const handleSelectOption = (option) => {
@@ -137,8 +136,20 @@ const ProductFilter = ({ allProducts, handleFilter }) => {
     setFilterConditions(updatedFilterConditions);
   };
 
+  const handleResetPriceRange = () => {
+    let updatedFilterConditions = { ...filterConditions };
+
+    delete updatedFilterConditions['price'];
+    setFilterConditions(updatedFilterConditions);
+  };
+
   const handleClearConditions = () => {
     setFilterConditions({});
+  };
+
+  const handleSortByPick = (value) => {
+    handleClearConditions();
+    handleSortBy(value);
   };
 
   const isBigScreen = useMediaQuery({
@@ -186,6 +197,53 @@ const ProductFilter = ({ allProducts, handleFilter }) => {
                         {showOption === 'discount' ? `-${value}%` : value}
                       </div>
                     ))}
+                  {showOption === 'sortBy' &&
+                    availableFilterOptions[showOption]?.map((value) => (
+                      <div
+                        key={value}
+                        onClick={
+                          sortByDesciption !== value
+                            ? () => {
+                                handleSortByPick(value);
+                              }
+                            : undefined
+                        }
+                        className={`${styles.option_button_value} ${
+                          sortByDesciption === value
+                            ? styles.is_selected
+                            : undefined
+                        }`}
+                      >
+                        {value}
+                      </div>
+                    ))}
+                  {showOption === 'price' && (
+                    <ReactSlider
+                      value={
+                        filterConditions?.price || [
+                          availableFilterOptions.minPrice,
+                          availableFilterOptions.maxPrice,
+                        ]
+                      }
+                      min={availableFilterOptions.minPrice}
+                      max={availableFilterOptions.maxPrice}
+                      className={styles.slider}
+                      thumbClassName={styles.thumb}
+                      trackClassName="track"
+                      defaultValue={[0, 100]}
+                      renderThumb={(props, state) => (
+                        <div {...props}>{state.valueNow}</div>
+                      )}
+                      pearling
+                      minDistance={10}
+                      onAfterChange={(value) =>
+                        setFilterConditions((prevState) => ({
+                          ...prevState,
+                          price: value,
+                        }))
+                      }
+                    />
+                  )}
                 </>
               </div>
             </div>
@@ -254,12 +312,12 @@ const ProductFilter = ({ allProducts, handleFilter }) => {
               <FaChevronUp />
             </li>
             <li
-              onClick={() => handleSelectOption('sort-by')}
+              onClick={() => handleSelectOption('sortBy')}
               className={`${styles.option} ${
                 showOption === 'sort-by' ? styles.is_selected : undefined
               }`}
             >
-              <span>Sort By: {sortBy}</span>
+              <span>Sort By: {sortByDesciption}</span>
               <FaChevronUp />
             </li>
           </ul>
@@ -273,6 +331,8 @@ const ProductFilter = ({ allProducts, handleFilter }) => {
             <div className={styles.expandable}>
               <ProductFilterValues
                 filterConditions={filterConditions}
+                handleCommonButton={handleCommonButton}
+                handleResetPriceRange={handleResetPriceRange}
                 handleClearConditions={handleClearConditions}
               />
             </div>

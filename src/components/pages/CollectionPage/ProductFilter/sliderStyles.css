@@ -1,0 +1,7 @@
+.track {
+  height: 1rem;
+}
+
+.track.track-1 {
+  background: rgba(0, 0, 0, 1);
+}

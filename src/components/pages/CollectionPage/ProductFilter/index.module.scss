@@ -70,6 +70,33 @@
           background: rgba(0, 0, 0, 0.6);
         }
       }
+
+      .slider {
+        height: 1rem;
+        width: 26rem;
+        background: rgba(#000000, 0.5);
+        border-radius: 0.5rem;
+      }
+
+      .thumb {
+        background: #000;
+        color: #fff;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 4rem;
+        top: -50%;
+        border-radius: 0.5rem;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
     }
   }
 
