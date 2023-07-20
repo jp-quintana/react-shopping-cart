@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { FaRedoAlt } from 'react-icons/fa';
 
 import { useCollection } from 'hooks/useCollection';
 
@@ -26,6 +27,7 @@ const CollectionPage = () => {
   const newSlug = useRef(true);
   const [productVariants, setProductVariants] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState(null);
+  const [filterConditions, setFilterConditions] = useState({});
   const [sortBy, setSortBy] = useState({
     field: 'createdAt',
     direction: 'asc',
@@ -35,6 +37,7 @@ const CollectionPage = () => {
   useEffect(() => {
     setProductVariants(null);
     setFilteredProducts(null);
+    setFilterConditions({});
     if (!newSlug.current) {
       newSlug.current = true;
       setSortBy({
@@ -62,26 +65,6 @@ const CollectionPage = () => {
   const handleFilter = (filteredProducts) => {
     setFilteredProducts(filteredProducts);
   };
-
-  // TODO: check to see if this backup is needed
-
-  // useEffect(() => {
-  //   if (newSlug.current) {
-  //     newSlug.current = false;
-  //     return;
-  //   }
-
-  //   if (filteredProducts.length === 0 && hasMore) {
-  //     (async () => {
-  //       const moreProductVariants = await getCollection({
-  //         collectionName: slugId,
-  //       });
-
-  //       setProductVariants(moreProductVariants);
-  //     })();
-  //   }
-  // }, [filteredProducts]);
-  // TODO: check to see if this backup is needed
 
   useEffect(() => {
     if (newSlug.current) {
@@ -116,10 +99,13 @@ const CollectionPage = () => {
             sortBy,
           });
 
-          setProductVariants((prevState) => [
-            ...prevState,
-            ...moreProductVariants,
-          ]);
+          setProductVariants((prevState) => {
+            if (!prevState) {
+              return prevState;
+            } else {
+              return [...prevState, ...moreProductVariants];
+            }
+          });
         }
       });
 
@@ -129,6 +115,10 @@ const CollectionPage = () => {
     },
     [isLoading, hasMore]
   );
+
+  const handleUpdateFilterConditions = (value) => {
+    setFilterConditions(value);
+  };
 
   const handleSortBy = (description) => {
     if (description === 'newest') {
@@ -156,45 +146,69 @@ const CollectionPage = () => {
     <>
       <section className={styles.section}>
         {(!productVariants || !filteredProducts) && <Loader />}
+
         {productVariants && (
           <>
             {filteredProducts && (
               <div className="main-container">
                 <div className={styles.container}>
-                  {filteredProducts.map((productVariant, index) => (
-                    <div
-                      id={productVariant.id}
-                      key={productVariant.id}
-                      ref={
-                        index + 1 === filteredProducts.length
-                          ? lastProductVariantRef
-                          : undefined
-                      }
-                    >
-                      <ProductCard
-                        model={productVariant.model}
-                        color={productVariant.color}
-                        discount={productVariant.discount}
-                        currentPrice={productVariant.variantPrice}
-                        actualPrice={productVariant.price}
-                        type={productVariant.type}
-                        slug={productVariant.slug + '-' + productVariant.color}
-                        image={productVariant.images[0]}
-                        numberOfVariants={productVariant.numberOfVariants}
-                      />
-                    </div>
-                  ))}
+                  {filteredProducts.length === 0 && !isLoading && (
+                    <>
+                      <p className={styles.less_filters_title}>
+                        Sorry, no products matched your selection {`:(`}
+                      </p>
+                      <p className={styles.less_filters_subtitle}>
+                        Use fewer filters or
+                      </p>
+                      <div
+                        onClick={() => handleUpdateFilterConditions({})}
+                        className={styles.clear_all}
+                      >
+                        <span>Clear all</span>
+                        <FaRedoAlt />
+                      </div>
+                    </>
+                  )}
+                  <div className={styles.grid_container}>
+                    {filteredProducts.map((productVariant, index) => (
+                      <div
+                        id={productVariant.id}
+                        key={productVariant.id}
+                        ref={
+                          index + 1 === filteredProducts.length
+                            ? lastProductVariantRef
+                            : undefined
+                        }
+                      >
+                        <ProductCard
+                          model={productVariant.model}
+                          color={productVariant.color}
+                          discount={productVariant.discount}
+                          currentPrice={productVariant.variantPrice}
+                          actualPrice={productVariant.price}
+                          type={productVariant.type}
+                          slug={
+                            productVariant.slug + '-' + productVariant.color
+                          }
+                          image={productVariant.images[0]}
+                          numberOfVariants={productVariant.numberOfVariants}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  {isLoading && (
+                    <div className={styles.loading_more}>Loading</div>
+                  )}
                 </div>
-                {isLoading && (
-                  <div className={styles.loading_more}>Loading</div>
-                )}
               </div>
             )}
             <ProductFilter
               allProducts={productVariants}
+              filterConditions={filterConditions}
+              sortByDescription={sortBy.description}
               handleFilter={handleFilter}
               handleSortBy={handleSortBy}
-              sortByDesciption={sortBy.description}
+              handleUpdateFilterConditions={handleUpdateFilterConditions}
             />
           </>
         )}

@@ -12,11 +12,12 @@ import './sliderStyles.css';
 
 const ProductFilter = ({
   allProducts,
+  filterConditions,
+  sortByDescription,
   handleFilter,
   handleSortBy,
-  sortByDesciption,
+  handleUpdateFilterConditions,
 }) => {
-  const [filterConditions, setFilterConditions] = useState({});
   const [availableFilterOptions, setAvailableFilterOptions] = useState({
     color: [],
     size: [],
@@ -26,8 +27,8 @@ const ProductFilter = ({
     price: [],
     sortBy: ['newest', 'price: low-high', 'price: high-low'],
   });
-
   const [showOption, setShowOption] = useState(null);
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
     let filteredProducts = allProducts;
@@ -103,6 +104,20 @@ const ProductFilter = ({
     }));
   }, [allProducts]);
 
+  useEffect(() => {
+    let timer;
+
+    if (!isHovering && showOption) {
+      timer = setTimeout(() => {
+        setShowOption(null);
+      }, 1000);
+    }
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [isHovering]);
+
   const handleSelectOption = (option) => {
     setShowOption((prevState) => {
       if (prevState === option) {
@@ -133,23 +148,31 @@ const ProductFilter = ({
       }
     }
 
-    setFilterConditions(updatedFilterConditions);
+    handleUpdateFilterConditions(updatedFilterConditions);
   };
 
   const handleResetPriceRange = () => {
     let updatedFilterConditions = { ...filterConditions };
 
     delete updatedFilterConditions['price'];
-    setFilterConditions(updatedFilterConditions);
+    handleUpdateFilterConditions(updatedFilterConditions);
   };
 
   const handleClearConditions = () => {
-    setFilterConditions({});
+    handleUpdateFilterConditions({});
   };
 
   const handleSortByPick = (value) => {
     handleClearConditions();
     handleSortBy(value);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
   };
 
   const isBigScreen = useMediaQuery({
@@ -159,7 +182,11 @@ const ProductFilter = ({
   return (
     <>
       {isBigScreen && (
-        <div className={styles.container_b}>
+        <div
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          className={styles.container_b}
+        >
           <div
             className={`${styles.option_buttons_container} ${
               showOption ? styles.is_open : undefined
@@ -202,14 +229,14 @@ const ProductFilter = ({
                       <div
                         key={value}
                         onClick={
-                          sortByDesciption !== value
+                          sortByDescription !== value
                             ? () => {
                                 handleSortByPick(value);
                               }
                             : undefined
                         }
                         className={`${styles.option_button_value} ${
-                          sortByDesciption === value
+                          sortByDescription === value
                             ? styles.is_selected
                             : undefined
                         }`}
@@ -237,7 +264,7 @@ const ProductFilter = ({
                       pearling
                       minDistance={1}
                       onAfterChange={(value) =>
-                        setFilterConditions((prevState) => ({
+                        handleUpdateFilterConditions((prevState) => ({
                           ...prevState,
                           price: value,
                         }))
@@ -317,7 +344,7 @@ const ProductFilter = ({
                 showOption === 'sort-by' ? styles.is_selected : undefined
               }`}
             >
-              <span>Sort By: {sortByDesciption}</span>
+              <span>Sort By: {sortByDescription}</span>
               <FaChevronUp />
             </li>
           </ul>
