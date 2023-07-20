@@ -8,6 +8,7 @@ import {
   where,
   orderBy,
   startAfter,
+  startAt,
   limit,
 } from 'firebase/firestore';
 
@@ -34,25 +35,33 @@ export const useCollection = () => {
     try {
       if (isNewQuery) {
         latestDoc.current = 0;
-        // setHasMore(true);
+        setHasMore(true);
       }
 
       let productsQuery;
 
-      if (collectionName === 'products') {
-        productsQuery = query(
-          productsRef,
-          orderBy(sortBy.field, sortBy.direction),
+      let constraints = [orderBy(sortBy.field, sortBy.direction)];
+
+      if (sortBy.field === 'createdAt') {
+        constraints.unshift(orderBy('collection'));
+      }
+
+      if (sortBy.direction === 'desc' && !latestDoc.current) {
+        constraints.push(limit(3));
+      } else {
+        constraints.push(
           startAfter(isNewQuery ? 0 : latestDoc.current),
           limit(3)
         );
+      }
+
+      if (collectionName === 'products') {
+        productsQuery = query(productsRef, ...constraints);
       } else {
         productsQuery = query(
           productsRef,
           where('collection', '==', collectionName),
-          orderBy(sortBy.field, sortBy.direction),
-          startAfter(isNewQuery ? 0 : latestDoc.current),
-          limit(3)
+          ...constraints
         );
       }
 

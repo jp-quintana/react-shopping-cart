@@ -23,7 +23,7 @@ const CollectionPage = () => {
 
   const { getCollection, isLoading, hasMore, error } = useCollection();
 
-  const firstLoad = useRef(true);
+  const newSlug = useRef(true);
   const [productVariants, setProductVariants] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState(null);
   const [sortBy, setSortBy] = useState({
@@ -34,6 +34,16 @@ const CollectionPage = () => {
 
   useEffect(() => {
     setProductVariants(null);
+    setFilteredProducts(null);
+    if (!newSlug.current) {
+      newSlug.current = true;
+      setSortBy({
+        field: 'createdAt',
+        direction: 'asc',
+        description: 'newest',
+      });
+    }
+
     if (!validSlugs.includes(slugId)) {
       navigate('/');
     }
@@ -56,8 +66,8 @@ const CollectionPage = () => {
   // TODO: check to see if this backup is needed
 
   // useEffect(() => {
-  //   if (firstLoad.current) {
-  //     firstLoad.current = false;
+  //   if (newSlug.current) {
+  //     newSlug.current = false;
   //     return;
   //   }
 
@@ -74,15 +84,14 @@ const CollectionPage = () => {
   // TODO: check to see if this backup is needed
 
   useEffect(() => {
-    if (firstLoad.current) {
-      firstLoad.current = false;
+    if (newSlug.current) {
+      newSlug.current = false;
       return;
     }
 
     window.scrollTo(0, 0);
 
-    // setFilteredProducts(null);
-    setProductVariants(null);
+    setFilteredProducts(null);
     (async () => {
       const productVariants = await getCollection({
         collectionName: slugId,
@@ -97,7 +106,6 @@ const CollectionPage = () => {
   const observer = useRef();
   const lastProductVariantRef = useCallback(
     (node) => {
-      console.log(node);
       if (isLoading || !hasMore) return;
       if (observer.current) observer.current.disconnect();
 

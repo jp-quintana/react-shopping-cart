@@ -235,7 +235,7 @@ const ProductFilter = ({
                         <div {...props}>{state.valueNow}</div>
                       )}
                       pearling
-                      minDistance={10}
+                      minDistance={1}
                       onAfterChange={(value) =>
                         setFilterConditions((prevState) => ({
                           ...prevState,
