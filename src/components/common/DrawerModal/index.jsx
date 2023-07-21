@@ -7,13 +7,14 @@ import { Backdrop } from 'components/common';
 
 import styles from './index.module.scss';
 
-const NavDrawer = ({
+const DrawerModal = ({
   children,
   close,
   backdropClassName,
   containerClassName,
   wrapperClassName,
   modalClassName,
+  motionKey,
 }) => {
   useKeyDown(() => {
     close();
@@ -34,7 +35,6 @@ const NavDrawer = ({
           {createPortal(
             <>
               <Backdrop
-                close={close}
                 backdropClassName={`${styles.backdrop} ${backdropClassName}`}
               />
               <div
@@ -44,7 +44,7 @@ const NavDrawer = ({
                 <div className={`${styles.modal_wrapper} ${wrapperClassName}`}>
                   <motion.div
                     onClick={(e) => e.stopPropagation()}
-                    key="nav-drawer"
+                    key={motionKey}
                     variants={variants}
                     initial="initial"
                     animate="visible"
@@ -65,4 +65,4 @@ const NavDrawer = ({
   );
 };
 
-export default NavDrawer;
+export default DrawerModal;

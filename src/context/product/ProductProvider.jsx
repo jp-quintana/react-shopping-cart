@@ -103,8 +103,6 @@ const ProductProvider = ({ children }) => {
         ...skuDoc.data(),
       }));
 
-      console.log(skusData);
-
       const variantsRef = collection(productDoc.ref, 'variants');
 
       const variantsSnapshot = await getDocs(variantsRef);

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import {
@@ -13,6 +13,8 @@ import {
 
 import { db } from 'db/config';
 
+import { formatDiscountNumber } from 'helpers/format';
+
 export const useCollection = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -25,36 +27,44 @@ export const useCollection = () => {
   const getCollection = async ({
     collectionName = 'products',
     isNewQuery = false,
+    sortBy = { field: 'createdAt', direction: 'asc' },
   }) => {
     setError(null);
 
     try {
       if (isNewQuery) {
         latestDoc.current = 0;
+        setHasMore(true);
       }
 
       let productsQuery;
 
-      if (collectionName === 'products') {
-        productsQuery = query(
-          productsRef,
-          orderBy('collection'),
-          startAfter(isNewQuery ? 0 : latestDoc.current),
-          limit(3)
-        );
+      let constraints = [orderBy(sortBy.field, sortBy.direction)];
+
+      if (sortBy.field === 'createdAt') {
+        constraints.unshift(orderBy('collection'));
+      }
+
+      if (sortBy.direction === 'desc' && !latestDoc.current) {
+        constraints.push(limit(3));
       } else {
-        productsQuery = query(
-          productsRef,
-          where('collection', '==', collectionName),
-          orderBy('collection'),
+        constraints.push(
           startAfter(isNewQuery ? 0 : latestDoc.current),
           limit(3)
         );
       }
 
-      const productsSnapshot = await getDocs(productsQuery);
+      if (collectionName === 'products') {
+        productsQuery = query(productsRef, ...constraints);
+      } else {
+        productsQuery = query(
+          productsRef,
+          where('collection', '==', collectionName),
+          ...constraints
+        );
+      }
 
-      console.log('productsSnapshot:', productsSnapshot);
+      const productsSnapshot = await getDocs(productsQuery);
 
       if (productsSnapshot.size === 0) {
         setHasMore(false);
@@ -94,23 +104,45 @@ export const useCollection = () => {
 
         const productVariants = [];
 
-        variantsSnapshot.forEach((variantDoc) =>
+        variantsSnapshot.forEach((variantDoc) => {
+          let availableQuantity = skus
+            .filter((sku) => sku.variantId === variantDoc.id)
+            .reduce((result, obj) => {
+              if (!obj.size) {
+                result['singleSize'] = obj.quantity;
+              } else {
+                result[obj.size] = obj.quantity;
+              }
+              return result;
+            }, {});
+
+          const sizes = Object.keys(availableQuantity);
+
+          const { price: actualPrice, ...restProductData } = productData;
+          const { variantPrice: currentPrice, ...restVariantData } =
+            variantDoc.data();
+
           productVariants.push({
             id: uuid(),
             variantId: variantDoc.id,
-            ...productData,
-            ...variantDoc.data(),
-            skus: skus.filter((sku) => sku.variantId === variantDoc.id),
+            price: currentPrice,
+            actualPrice,
+            ...restProductData,
+            ...restVariantData,
             numberOfVariants: variantsSnapshot.size,
-          })
-        );
+            availableQuantity,
+            sizes,
+            discount: formatDiscountNumber({
+              currentPrice,
+              actualPrice,
+            }),
+          });
+        });
 
         return productVariants;
       });
 
       const products = await Promise.all(productsPromises);
-
-      console.log(products);
 
       setIsLoading(false);
       return [].concat(...products);

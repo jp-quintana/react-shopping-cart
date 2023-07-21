@@ -57,7 +57,12 @@ const AccountPage = () => {
           />
         )}
       </Toast>
-      {!orders && <Loader />}
+      {!orders && (
+        <>
+          <div className={styles.loader_section} />
+          <Loader />
+        </>
+      )}
       {orders && (
         <>
           <section>

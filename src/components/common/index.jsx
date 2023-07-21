@@ -7,6 +7,7 @@ export { default as CartModal } from './CartModal';
 export { default as CenterModal } from './CenterModal';
 export { default as ConfirmModal } from './ConfirmModal';
 export { default as DragDropFileInput } from './DragDropFileInput';
+export { default as DrawerModal } from './DrawerModal';
 export { default as Dropdown } from './Dropdown';
 export { default as MediaContainer } from './MediaContainer';
 export { default as Loader } from './Loader';

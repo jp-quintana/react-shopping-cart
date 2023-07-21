@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
 import {
   FaInstagram,
@@ -13,12 +13,22 @@ import Newsletter from './Newsletter';
 import styles from './index.module.scss';
 
 const Footer = () => {
+  const location = useLocation();
+
   const isBigScreen = useMediaQuery({
     query: '(min-width: 1024px)',
   });
 
+  const isCollectionPage = location.pathname.includes('collections');
+
   return (
-    <footer className={styles.footer}>
+    <footer
+      className={`${styles.footer} ${
+        isCollectionPage && isBigScreen
+          ? styles.is_collection_page_b
+          : styles.is_collection_page_s
+      }`}
+    >
       {!isBigScreen && <Newsletter />}
       <div className={styles.container}>
         <div className={styles.sitemap}>

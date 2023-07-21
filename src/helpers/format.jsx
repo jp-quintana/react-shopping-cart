@@ -15,6 +15,16 @@ export const formatDiscount = ({ currentPrice, actualPrice }) => {
   // return '-' + Math.round((currentPrice / actualPrice - 1) * -100) + '%';
 };
 
+export const formatDiscountNumber = ({ currentPrice, actualPrice }) => {
+  const discountPercentage = Math.round(
+    (currentPrice / actualPrice - 1) * -100
+  );
+  const roundedDiscountPercentage = Math.round(discountPercentage / 5) * 5;
+  return Math.abs(roundedDiscountPercentage);
+
+  // return '-' + Math.round((currentPrice / actualPrice - 1) * -100) + '%';
+};
+
 export const formatCardNumber = (value) => {
   // if (e.target.value.length < 20) {
   //   const input = e.target.value
