@@ -145,7 +145,9 @@ const CollectionPage = () => {
   return (
     <>
       <section className={styles.section}>
-        {(!productVariants || !filteredProducts) && <Loader />}
+        {(!productVariants || !filteredProducts) && (
+          <Loader backdropClassName={styles.backdrop} />
+        )}
 
         {productVariants && (
           <>

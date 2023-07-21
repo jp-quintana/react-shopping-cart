@@ -14,6 +14,7 @@ import styles from './index.module.scss';
 
 const Footer = () => {
   const location = useLocation();
+
   const isBigScreen = useMediaQuery({
     query: '(min-width: 1024px)',
   });
@@ -23,7 +24,9 @@ const Footer = () => {
   return (
     <footer
       className={`${styles.footer} ${
-        isCollectionPage && styles.is_collection_page
+        isCollectionPage && isBigScreen
+          ? styles.is_collection_page_b
+          : styles.is_collection_page_s
       }`}
     >
       {!isBigScreen && <Newsletter />}

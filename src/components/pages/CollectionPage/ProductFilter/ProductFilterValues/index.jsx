@@ -7,9 +7,10 @@ const ProductFilterValues = ({
   handleClearConditions,
   handleCommonButton,
   handleResetPriceRange,
+  containerClassName,
 }) => {
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${containerClassName}`}>
       <div onClick={handleClearConditions} className={styles.clear_all}>
         <span>Clear all</span>
         <FaRedoAlt />

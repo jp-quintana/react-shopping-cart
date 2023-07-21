@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 
 import { useMediaQuery } from 'react-responsive';
-import { FaChevronUp } from 'react-icons/fa';
+import { FaSlidersH, FaChevronUp } from 'react-icons/fa';
 
 import ReactSlider from 'react-slider';
 
 import ProductFilterValues from './ProductFilterValues';
+import { DrawerModal } from 'components/common';
 
 import styles from './index.module.scss';
 import './sliderStyles.css';
@@ -28,6 +29,8 @@ const ProductFilter = ({
     sortBy: ['newest', 'price: low-high', 'price: high-low'],
   });
   const [showOption, setShowOption] = useState(null);
+  const [conditionsCount, setConditionsCount] = useState(0);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
@@ -42,9 +45,9 @@ const ProductFilter = ({
               property === 'type' ||
               property === 'discount'
             )
-              return conditions.some(
-                (condition) => condition === product[property]
-              );
+              return conditions.some((condition) => {
+                return condition === product[property];
+              });
 
             if (property === 'price') {
               return (
@@ -99,10 +102,20 @@ const ProductFilter = ({
       discount: [...availableOptions.discount].filter(
         (discount) => discount !== 0
       ),
-      minPrice: Math.min(...availableOptions.price),
-      maxPrice: Math.max(...availableOptions.price),
+      price: [
+        Math.min(...availableOptions.price),
+        Math.max(...availableOptions.price),
+      ],
     }));
   }, [allProducts]);
+
+  useEffect(() => {
+    let conditionsCount = 0;
+    for (const key in filterConditions) {
+      conditionsCount += filterConditions[key].length;
+    }
+    setConditionsCount(conditionsCount);
+  }, [filterConditions]);
 
   useEffect(() => {
     let timer;
@@ -179,8 +192,158 @@ const ProductFilter = ({
     query: '(min-width: 1024px)',
   });
 
+  useEffect(() => {
+    if (isBigScreen && modalIsOpen) {
+      setModalIsOpen(false);
+    }
+  }, [isBigScreen]);
+
   return (
     <>
+      <DrawerModal
+        motionKey="filter-drawer"
+        close={() => setModalIsOpen(false)}
+        modalClassName={styles.modal}
+      >
+        {modalIsOpen && (
+          <>
+            <div className={styles.modal_header}>
+              <div
+                className={`${styles.option_values_container} ${
+                  Object.keys(filterConditions).length > 0
+                    ? styles.is_open
+                    : undefined
+                }`}
+              >
+                <div className={styles.expandable}>
+                  <ProductFilterValues
+                    filterConditions={filterConditions}
+                    handleCommonButton={handleCommonButton}
+                    handleResetPriceRange={handleResetPriceRange}
+                    handleClearConditions={handleClearConditions}
+                    containerClassName={styles.values_container}
+                  />
+                </div>
+              </div>
+              <div
+                className={`${styles.input_wrapper} ${
+                  Object.keys(filterConditions).length > 0
+                    ? styles.is_open
+                    : undefined
+                }`}
+              >
+                <input
+                  type="text"
+                  placeholder="Search products in this collection..."
+                  disabled
+                />
+              </div>
+            </div>
+            <div className={styles.options_container}>
+              {Object.keys(availableFilterOptions).map((option) => (
+                <div key={option} className={styles.option_card}>
+                  <div className={styles.option_title_wrapper}>
+                    <p className={styles.option_title}>{option}</p>
+                  </div>
+                  <div className={styles.option_buttons_wrapper}>
+                    <>
+                      {(option === 'color' ||
+                        option === 'size' ||
+                        option === 'fit' ||
+                        option === 'type' ||
+                        option === 'discount') &&
+                        availableFilterOptions[option]?.map((value) => (
+                          <div
+                            key={value}
+                            onClick={() => {
+                              handleCommonButton(option, value);
+                            }}
+                            className={`${styles.option_button_value} ${
+                              filterConditions[option]?.includes(value)
+                                ? styles.is_selected
+                                : undefined
+                            }`}
+                          >
+                            {option === 'color' && (
+                              <div
+                                style={{
+                                  height: '15px',
+                                  width: '15px',
+                                  backgroundColor: value,
+                                }}
+                              />
+                            )}
+                            {option === 'discount' ? `-${value}%` : value}
+                          </div>
+                        ))}
+                      {option === 'sortBy' &&
+                        availableFilterOptions[option]?.map((value) => (
+                          <div
+                            key={value}
+                            onClick={
+                              sortByDescription !== value
+                                ? () => {
+                                    handleSortByPick(value);
+                                  }
+                                : undefined
+                            }
+                            className={`${styles.option_button_value} ${
+                              sortByDescription === value
+                                ? styles.is_selected
+                                : undefined
+                            }`}
+                          >
+                            {value}
+                          </div>
+                        ))}
+                      {option === 'price' && (
+                        <ReactSlider
+                          value={
+                            filterConditions?.price || [
+                              availableFilterOptions.price[0],
+                              availableFilterOptions.price[1],
+                            ]
+                          }
+                          min={availableFilterOptions.price[0]}
+                          max={availableFilterOptions.price[1]}
+                          className={styles.slider}
+                          thumbClassName={styles.thumb}
+                          trackClassName="track"
+                          defaultValue={[0, 100]}
+                          renderThumb={(props, state) => (
+                            <div {...props}>{state.valueNow}</div>
+                          )}
+                          pearling
+                          minDistance={1}
+                          onAfterChange={(value) =>
+                            handleUpdateFilterConditions((prevState) => ({
+                              ...prevState,
+                              price: value,
+                            }))
+                          }
+                        />
+                      )}
+                    </>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </DrawerModal>
+      {!isBigScreen && (
+        <div className={styles.container_s}>
+          <div
+            onClick={() => setModalIsOpen(true)}
+            className={styles.modal_open_button}
+          >
+            <FaSlidersH />
+            {conditionsCount > 0 && (
+              <div className={styles.conditions_count}>{conditionsCount}</div>
+            )}
+          </div>
+        </div>
+      )}
       {isBigScreen && (
         <div
           onMouseEnter={handleMouseEnter}
@@ -248,12 +411,12 @@ const ProductFilter = ({
                     <ReactSlider
                       value={
                         filterConditions?.price || [
-                          availableFilterOptions.minPrice,
-                          availableFilterOptions.maxPrice,
+                          availableFilterOptions.price[0],
+                          availableFilterOptions.price[1],
                         ]
                       }
-                      min={availableFilterOptions.minPrice}
-                      max={availableFilterOptions.maxPrice}
+                      min={availableFilterOptions.price[0]}
+                      max={availableFilterOptions.price[1]}
                       className={styles.slider}
                       thumbClassName={styles.thumb}
                       trackClassName="track"

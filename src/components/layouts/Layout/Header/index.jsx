@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 import Nav from './Nav';
-import NavDrawer from './NavDrawer';
+import { DrawerModal } from 'components/common';
 import NavDrawerContent from './NavDrawerContent';
 
 const Header = ({ openCartModal }) => {
@@ -24,9 +24,9 @@ const Header = ({ openCartModal }) => {
 
   return (
     <header>
-      <NavDrawer close={() => setIsOpen(false)}>
+      <DrawerModal motionKey="nav-drawer" close={() => setIsOpen(false)}>
         {isOpen && <NavDrawerContent toggleSideNav={toggleSideNav} />}
-      </NavDrawer>
+      </DrawerModal>
       <Nav toggleSideNav={toggleSideNav} openCartModal={openCartModal} />
     </header>
   );
