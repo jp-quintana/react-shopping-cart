@@ -28,6 +28,7 @@ export const useSeed = () => {
           price: product.price,
           slug: product.slug,
           type: product.type,
+          fit: product.fit,
           updatedAt: moment().toDate(),
           createdAt: moment().toDate(),
         });

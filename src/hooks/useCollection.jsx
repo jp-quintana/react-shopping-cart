@@ -8,7 +8,6 @@ import {
   where,
   orderBy,
   startAfter,
-  startAt,
   limit,
 } from 'firebase/firestore';
 
@@ -119,18 +118,23 @@ export const useCollection = () => {
 
           const sizes = Object.keys(availableQuantity);
 
+          const { price: actualPrice, ...restProductData } = productData;
+          const { variantPrice: currentPrice, ...restVariantData } =
+            variantDoc.data();
+
           productVariants.push({
             id: uuid(),
             variantId: variantDoc.id,
-            ...productData,
-            ...variantDoc.data(),
-            // skus: skus.filter((sku) => sku.variantId === variantDoc.id),
+            price: currentPrice,
+            actualPrice,
+            ...restProductData,
+            ...restVariantData,
             numberOfVariants: variantsSnapshot.size,
             availableQuantity,
             sizes,
             discount: formatDiscountNumber({
-              currentPrice: variantDoc.data().variantPrice,
-              actualPrice: productData.price,
+              currentPrice,
+              actualPrice,
             }),
           });
         });

@@ -184,8 +184,8 @@ const CollectionPage = () => {
                           model={productVariant.model}
                           color={productVariant.color}
                           discount={productVariant.discount}
-                          currentPrice={productVariant.variantPrice}
-                          actualPrice={productVariant.price}
+                          currentPrice={productVariant.price}
+                          actualPrice={productVariant.actualPrice}
                           type={productVariant.type}
                           slug={
                             productVariant.slug + '-' + productVariant.color
