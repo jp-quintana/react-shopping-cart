@@ -119,8 +119,16 @@ export const useCollection = () => {
           const sizes = Object.keys(availableQuantity);
 
           const { price: actualPrice, ...restProductData } = productData;
-          const { variantPrice: currentPrice, ...restVariantData } =
-            variantDoc.data();
+          const {
+            variantPrice: currentPrice,
+            images: variantImages,
+            ...restVariantData
+          } = variantDoc.data();
+
+          const formattedVariantImages = variantImages.map((image) => ({
+            ...image,
+            url: `/products/${restProductData.slug}-${restVariantData.color}`,
+          }));
 
           productVariants.push({
             id: uuid(),
@@ -129,6 +137,7 @@ export const useCollection = () => {
             actualPrice,
             ...restProductData,
             ...restVariantData,
+            slides: formattedVariantImages,
             numberOfVariants: variantsSnapshot.size,
             availableQuantity,
             sizes,

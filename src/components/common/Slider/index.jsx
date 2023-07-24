@@ -2,11 +2,15 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
-import 'swiper/css/navigation';
+// import 'swiper/css/navigation';
 
 import 'swiper/css';
 
+import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
+
 import MediaContainer from '../MediaContainer';
+
+import './sliderStyles.css';
 
 const Slider = ({
   slides,
@@ -18,18 +22,22 @@ const Slider = ({
   grabCursor,
   autoplay,
   pagination,
+  navigation,
+  allowTouchMove = true,
   modules,
   sliderClassName,
   slideClassName,
-  MediaContainerClassName,
+  mediaContainerClassName,
   imageFillClassName,
   imagePlaceholderClassName,
   imageClassName,
+  clearPlaceholders,
 }) => {
+  console.log(slides);
   return (
     <>
       <Swiper
-        breakpoints={bp}
+        breakpoints={bp ? bp : undefined}
         slidesPerView={slidesPerView}
         spaceBetween={spaceBetween}
         loop={loop}
@@ -37,21 +45,33 @@ const Slider = ({
         grabCursor={grabCursor}
         autoplay={autoplay}
         pagination={pagination}
+        navigation={navigation}
+        allowTouchMove={allowTouchMove}
         modules={modules}
-        className={sliderClassName}
+        className={`${sliderClassName} slider-navigation`}
       >
+        {navigation && (
+          <>
+            <div className="swiper-button image-swiper-button-prev">
+              <FaArrowLeft />
+            </div>
+            <div className="swiper-button image-swiper-button-next">
+              <FaArrowRight />
+            </div>
+          </>
+        )}
         {slides.map((slide) => (
           <SwiperSlide key={slide.id} className={slideClassName}>
             <MediaContainer
               image={slide.src}
               to={slide.url}
               alt={slide.alt || ''}
-              containerClassName={MediaContainerClassName}
+              clearPlaceholders={clearPlaceholders}
+              containerClassName={mediaContainerClassName}
               fillClassName={imageFillClassName}
               placeholderClassName={imagePlaceholderClassName}
               mediaClassName={imageClassName}
             />
-            {/* <img src={slide.src} alt="" className={imageClassName} /> */}
           </SwiperSlide>
         ))}
       </Swiper>

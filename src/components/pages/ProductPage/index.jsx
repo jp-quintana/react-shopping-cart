@@ -169,7 +169,7 @@ const ProductPage = () => {
                         modules={[Pagination]}
                         sliderClassName={styles.slider}
                         slideClassName={styles.slide}
-                        MediaContainerClassName={styles.image_container}
+                        mediaContainerClassName={styles.image_container}
                         imageFillClassName={styles.image_fill}
                         imageClassName={styles.image}
                       />

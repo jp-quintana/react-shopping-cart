@@ -2,7 +2,9 @@ import { useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
 
-import { Button, MediaContainer } from 'components/common';
+import { Navigation } from 'swiper';
+
+import { Button, Slider } from 'components/common';
 
 import { formatPrice } from 'helpers/format';
 
@@ -17,8 +19,7 @@ const ProductCard = ({
   actualPrice,
   type,
   discount,
-  slug,
-  image,
+  slides,
   numberOfVariants,
   handleDeleteStart,
 }) => {
@@ -33,14 +34,32 @@ const ProductCard = ({
         {!showDetailsPlaceholder && currentPrice < actualPrice && (
           <span className={styles.discount}>-{discount}%</span>
         )}
-        <MediaContainer
-          image={image.src}
-          to={`/products/${slug}`}
-          alt=""
-          clearPlaceholders={() => setDetailsShowPlaceholder(false)}
-          containerClassName={styles.image_container}
-          fillClassName={styles.image_fill}
-        />
+        <div className={styles.slider_container}>
+          <Slider
+            clearPlaceholders={() => setDetailsShowPlaceholder(false)}
+            slides={slides}
+            slidesPerView={1}
+            spaceBetween={0}
+            centeredSlides={true}
+            loop={true}
+            pagination={{
+              clickable: true,
+            }}
+            navigation={{
+              nextEl: '.image-swiper-button-next',
+              prevEl: '.image-swiper-button-prev',
+              disabledClass: 'swiper-button-disabled',
+            }}
+            allowTouchMove={false}
+            modules={[Navigation]}
+            sliderClassName={styles.slider}
+            slideClassName={styles.slide}
+            mediaContainerClassName={styles.image_container}
+            imageFillClassName={styles.image_fill}
+            imageClassName={styles.image}
+          />
+        </div>
+
         <ul className={styles.info_wrapper}>
           {showDetailsPlaceholder && (
             <>

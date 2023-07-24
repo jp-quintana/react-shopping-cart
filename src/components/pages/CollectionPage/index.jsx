@@ -189,10 +189,11 @@ const CollectionPage = () => {
                           currentPrice={productVariant.price}
                           actualPrice={productVariant.actualPrice}
                           type={productVariant.type}
+                          slides={productVariant.slides}
                           slug={
                             productVariant.slug + '-' + productVariant.color
                           }
-                          image={productVariant.images[0]}
+                          images={productVariant.images}
                           numberOfVariants={productVariant.numberOfVariants}
                         />
                       </div>
