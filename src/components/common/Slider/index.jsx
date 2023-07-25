@@ -50,12 +50,20 @@ const Slider = ({
         modules={modules}
         className={`${sliderClassName} slider-navigation`}
       >
-        {navigation && !showPlaceholder && (
+        {navigation && (
           <>
-            <div className="swiper-button image-swiper-button-prev">
+            <div
+              className={`swiper-button image-swiper-button-prev ${
+                showPlaceholder ? 'no-show' : undefined
+              }`}
+            >
               <FaArrowLeft />
             </div>
-            <div className="swiper-button image-swiper-button-next">
+            <div
+              className={`swiper-button image-swiper-button-next ${
+                showPlaceholder ? 'no-show' : undefined
+              }`}
+            >
               <FaArrowRight />
             </div>
           </>
