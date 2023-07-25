@@ -1,0 +1,17 @@
+.size {
+  font-family: $font-f-secondary;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  transition: background 0.2s ease-in;
+
+  &:hover {
+    cursor: pointer;
+    background: $back-c-highlight;
+  }
+}

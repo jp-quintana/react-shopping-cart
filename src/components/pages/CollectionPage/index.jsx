@@ -142,6 +142,8 @@ const CollectionPage = () => {
     }
   };
 
+  console.log(filteredProducts);
+
   return (
     <>
       <section className={styles.section}>
@@ -195,6 +197,8 @@ const CollectionPage = () => {
                           }
                           images={productVariant.images}
                           numberOfVariants={productVariant.numberOfVariants}
+                          availableQuantity={productVariant.availableQuantity}
+                          sizes={productVariant.sizes}
                         />
                       </div>
                     ))}

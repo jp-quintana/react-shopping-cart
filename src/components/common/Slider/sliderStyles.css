@@ -16,7 +16,7 @@
   border-radius: 99rem;
   width: 3rem;
   height: 3rem;
-  bottom: 10%;
+  bottom: 12%;
   z-index: 10;
   cursor: pointer;
   transition: background 0.2s ease-in, color 0.2s ease-in;

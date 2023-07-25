@@ -23,6 +23,8 @@ const ProductCard = ({
   slides,
   numberOfVariants,
   handleDeleteStart,
+  availableQuantity,
+  sizes,
 }) => {
   const location = useLocation();
   const isAdmin = location.pathname.split('/')[1] === 'admin';
@@ -61,10 +63,16 @@ const ProductCard = ({
               imageClassName={styles.image}
               showPlaceholder={showDetailsPlaceholder}
             />
-            <QuickAdd
-              containerClassName={styles.quick_add_container}
-              topContainerClassName={styles.quick_add_top}
-            />
+            {!showDetailsPlaceholder && (
+              <QuickAdd
+                availableQuantity={availableQuantity}
+                sizes={sizes}
+                containerClassName={styles.quick_add_container}
+                wrapperClassName={styles.quick_add_wrapper}
+                topContainerClassName={styles.quick_add_top}
+                bottomContainerClassName={styles.quick_add_bottom}
+              />
+            )}
           </>
         </div>
 
