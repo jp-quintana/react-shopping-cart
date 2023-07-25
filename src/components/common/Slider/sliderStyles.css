@@ -11,20 +11,20 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  color: rgba(255, 255, 255, 0.6);
-  background: rgba(0, 0, 0, 0.5);
+  color: rgba(0, 0, 0, 0.6);
+  background: rgba(255, 255, 255, 0.5);
   border-radius: 99rem;
   width: 3rem;
   height: 3rem;
-  bottom: 20%;
+  bottom: 10%;
   z-index: 10;
   cursor: pointer;
   transition: background 0.2s ease-in, color 0.2s ease-in;
 }
 
 .swiper-button:hover {
-  background: rgba(0, 0, 0, 1);
-  color: rgba(255, 255, 255, 1);
+  background: rgba(255, 255, 255, 1);
+  color: rgba(0, 0, 0, 1);
 }
 
 .swiper-button svg {
@@ -39,7 +39,6 @@
 
 .image-swiper-button-next {
   transition: right 0.2s ease-in;
-
   right: -5rem;
 }
 

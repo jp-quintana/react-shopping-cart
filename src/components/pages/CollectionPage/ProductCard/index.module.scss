@@ -13,38 +13,90 @@
     color: #fff;
     box-shadow: $box-shadow;
     border-radius: 0.375rem;
-    z-index: 1;
+    z-index: 15;
     font-family: $font-f-secondary;
     font-weight: 700;
     font-size: 1rem;
+    user-select: none;
   }
 
   .slider_container {
     position: relative;
     padding-top: 141.42150538%;
-  }
-
-  .slider {
-    border-radius: 1.5rem;
-    position: absolute;
+    user-select: none;
+    box-shadow: $box-shadow;
     overflow: hidden;
-    width: 100%;
-    top: 0;
-    left: 0;
+    border-radius: 1.5rem;
+    border: 0.5px solid $border-c-var;
 
-    .image_container {
-      -webkit-transition: transform ease 0.2s;
-      -moz-transition: transform ease 0.2s;
-      -o-transition: transform ease 0.2s;
-      -ms-transition: transform ease 0.2s;
-      transition: transform ease 0.2s;
+    &:hover .quick_add_container {
+      bottom: 0;
+      transition: bottom 0.2 ease-in;
+    }
+
+    .slider {
+      position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
+      height: 100%;
+      object-fit: cover;
+
+      .image_container {
+        -webkit-transition: transform ease 0.2s;
+        -moz-transition: transform ease 0.2s;
+        -o-transition: transform ease 0.2s;
+        -ms-transition: transform ease 0.2s;
+        transition: transform ease 0.2s;
+        height: 100%;
+
+        &:hover {
+          color: inherit;
+        }
+
+        .image_fill {
+          height: 100%;
+        }
+      }
+    }
+
+    .quick_add_container {
+      position: absolute;
+      bottom: -5rem;
+      background-color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      z-index: 20;
+      display: flex;
+      width: 90%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-top-left-radius: 2rem;
+      border-top-right-radius: 2rem;
+      border: 0.05rem solid $border-c-var;
+      border-bottom: none;
+      overflow: hidden;
+      transition: bottom 0.2s ease-in;
 
       &:hover {
-        color: inherit;
+        bottom: 2%;
       }
 
-      .image_fill {
-        padding-top: 141.42150538%;
+      .quick_add_top {
+        width: 100%;
+        padding: 1rem 1.5rem 0.5rem;
+        display: flex;
+        justify-content: space-between;
+
+        p {
+          font-size: 1rem;
+          font-family: $font-f-hero;
+          text-transform: uppercase;
+          letter-spacing: 0.32px;
+        }
+
+        span {
+          font-size: 1rem;
+        }
       }
     }
   }

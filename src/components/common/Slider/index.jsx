@@ -32,8 +32,8 @@ const Slider = ({
   imagePlaceholderClassName,
   imageClassName,
   clearPlaceholders,
+  showPlaceholder,
 }) => {
-  console.log(slides);
   return (
     <>
       <Swiper
@@ -50,7 +50,7 @@ const Slider = ({
         modules={modules}
         className={`${sliderClassName} slider-navigation`}
       >
-        {navigation && (
+        {navigation && !showPlaceholder && (
           <>
             <div className="swiper-button image-swiper-button-prev">
               <FaArrowLeft />

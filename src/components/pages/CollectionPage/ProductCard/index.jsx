@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 import { Navigation } from 'swiper';
 
+import QuickAdd from './QuickAdd';
 import { Button, Slider } from 'components/common';
 
 import { formatPrice } from 'helpers/format';
@@ -35,29 +36,36 @@ const ProductCard = ({
           <span className={styles.discount}>-{discount}%</span>
         )}
         <div className={styles.slider_container}>
-          <Slider
-            clearPlaceholders={() => setDetailsShowPlaceholder(false)}
-            slides={slides}
-            slidesPerView={1}
-            spaceBetween={0}
-            centeredSlides={true}
-            loop={true}
-            pagination={{
-              clickable: true,
-            }}
-            navigation={{
-              nextEl: '.image-swiper-button-next',
-              prevEl: '.image-swiper-button-prev',
-              disabledClass: 'swiper-button-disabled',
-            }}
-            allowTouchMove={false}
-            modules={[Navigation]}
-            sliderClassName={styles.slider}
-            slideClassName={styles.slide}
-            mediaContainerClassName={styles.image_container}
-            imageFillClassName={styles.image_fill}
-            imageClassName={styles.image}
-          />
+          <>
+            <Slider
+              clearPlaceholders={() => setDetailsShowPlaceholder(false)}
+              slides={slides}
+              slidesPerView={1}
+              spaceBetween={0}
+              centeredSlides={true}
+              loop={true}
+              pagination={{
+                clickable: true,
+              }}
+              navigation={{
+                nextEl: '.image-swiper-button-next',
+                prevEl: '.image-swiper-button-prev',
+                disabledClass: 'swiper-button-disabled',
+              }}
+              allowTouchMove={false}
+              modules={[Navigation]}
+              sliderClassName={styles.slider}
+              slideClassName={styles.slide}
+              mediaContainerClassName={styles.image_container}
+              imageFillClassName={styles.image_fill}
+              imageClassName={styles.image}
+              showPlaceholder={showDetailsPlaceholder}
+            />
+            <QuickAdd
+              containerClassName={styles.quick_add_container}
+              topContainerClassName={styles.quick_add_top}
+            />
+          </>
         </div>
 
         <ul className={styles.info_wrapper}>

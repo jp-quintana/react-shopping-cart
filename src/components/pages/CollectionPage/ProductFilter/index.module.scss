@@ -212,8 +212,7 @@
   max-width: 87%;
   background-color: hsla(0, 0%, 100%, 0.85);
   backdrop-filter: blur(8px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
-    0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  box-shadow: $box-shadow;
   bottom: 1rem;
   left: 50%;
   transform: translateX(-50%);
