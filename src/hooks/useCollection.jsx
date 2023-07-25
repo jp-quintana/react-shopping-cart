@@ -105,18 +105,26 @@ export const useCollection = () => {
         const productVariants = [];
 
         variantsSnapshot.forEach((variantDoc) => {
-          let availableQuantity = skus
+          let variantSkus = skus
             .filter((sku) => sku.variantId === variantDoc.id)
-            .reduce((result, obj) => {
-              if (!obj.size) {
-                result['singleSize'] = obj.quantity;
-              } else {
-                result[obj.size] = obj.quantity;
-              }
-              return result;
-            }, {});
+            .map((sku) => ({
+              size: sku.size,
+              skuId: sku.skuId,
+              quantity: sku.quantity,
+            }));
+
+          let availableQuantity = variantSkus.reduce((result, obj) => {
+            if (!obj.size) {
+              result['singleSize'] = obj.quantity;
+            } else {
+              result[obj.size] = obj.quantity;
+            }
+            return result;
+          }, {});
 
           const sizes = Object.keys(availableQuantity);
+
+          const isSoldOut = variantSkus.every((sku) => sku.quantity === 0);
 
           const { price: actualPrice, ...restProductData } = productData;
           const {
@@ -127,7 +135,7 @@ export const useCollection = () => {
 
           const formattedVariantImages = variantImages.map((image) => ({
             ...image,
-            url: `/products/${restProductData.slug}-${restVariantData.color}`,
+            url: `${restProductData.slug}-${restVariantData.color}`,
           }));
 
           productVariants.push({
@@ -141,10 +149,12 @@ export const useCollection = () => {
             numberOfVariants: variantsSnapshot.size,
             availableQuantity,
             sizes,
+            skus: variantSkus,
             discount: formatDiscountNumber({
               currentPrice,
               actualPrice,
             }),
+            isSoldOut,
           });
         });
 

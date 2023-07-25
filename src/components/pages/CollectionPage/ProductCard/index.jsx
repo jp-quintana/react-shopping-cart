@@ -1,8 +1,8 @@
 import { useState } from 'react';
-
 import { useLocation } from 'react-router-dom';
-
 import { Navigation } from 'swiper';
+
+import { useCart } from 'hooks/useCart';
 
 import QuickAdd from './QuickAdd';
 import { Button, Slider } from 'components/common';
@@ -23,25 +23,50 @@ const ProductCard = ({
   slides,
   numberOfVariants,
   handleDeleteStart,
-  availableQuantity,
-  sizes,
+  skus,
+  isSoldOut,
 }) => {
   const location = useLocation();
   const isAdmin = location.pathname.split('/')[1] === 'admin';
 
+  const { addItem, isLoading } = useCart();
+
   const [showDetailsPlaceholder, setDetailsShowPlaceholder] = useState(true);
+
+  const handleAddItem = async ({ skuId, size }) => {
+    await addItem({
+      skuId,
+      productId,
+      variantId,
+      skuId,
+      size,
+      model,
+      type,
+      color,
+      price: currentPrice,
+      slug: slides[0].url,
+      image: slides[0].src,
+    });
+  };
 
   return (
     <>
       <div className={styles.container}>
-        {!showDetailsPlaceholder && currentPrice < actualPrice && (
-          <span className={styles.discount}>-{discount}%</span>
+        {!showDetailsPlaceholder && (
+          <div className={styles.tag_container}>
+            {isSoldOut && <span className={styles.sold_out}>Sold Out</span>}
+            {currentPrice < actualPrice && (
+              <span className={styles.discount}>-{discount}%</span>
+            )}
+          </div>
         )}
         <div className={styles.slider_container}>
           <>
             <Slider
               clearPlaceholders={() => setDetailsShowPlaceholder(false)}
+              showPlaceholder={showDetailsPlaceholder}
               slides={slides}
+              toPage={'/products/'}
               slidesPerView={1}
               spaceBetween={0}
               centeredSlides={true}
@@ -61,12 +86,12 @@ const ProductCard = ({
               mediaContainerClassName={styles.image_container}
               imageFillClassName={styles.image_fill}
               imageClassName={styles.image}
-              showPlaceholder={showDetailsPlaceholder}
             />
             {!showDetailsPlaceholder && (
               <QuickAdd
-                availableQuantity={availableQuantity}
-                sizes={sizes}
+                skus={skus}
+                handleAddItem={handleAddItem}
+                isLoading={isLoading}
                 containerClassName={styles.quick_add_container}
                 wrapperClassName={styles.quick_add_wrapper}
                 topContainerClassName={styles.quick_add_top}

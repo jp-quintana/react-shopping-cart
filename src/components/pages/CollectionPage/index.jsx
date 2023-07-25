@@ -142,8 +142,6 @@ const CollectionPage = () => {
     }
   };
 
-  console.log(filteredProducts);
-
   return (
     <>
       <section className={styles.section}>
@@ -185,6 +183,8 @@ const CollectionPage = () => {
                         }
                       >
                         <ProductCard
+                          productId={productVariant.productId}
+                          variantId={productVariant.variantId}
                           model={productVariant.model}
                           color={productVariant.color}
                           discount={productVariant.discount}
@@ -192,13 +192,10 @@ const CollectionPage = () => {
                           actualPrice={productVariant.actualPrice}
                           type={productVariant.type}
                           slides={productVariant.slides}
-                          slug={
-                            productVariant.slug + '-' + productVariant.color
-                          }
                           images={productVariant.images}
                           numberOfVariants={productVariant.numberOfVariants}
-                          availableQuantity={productVariant.availableQuantity}
-                          sizes={productVariant.sizes}
+                          skus={productVariant.skus}
+                          isSoldOut={productVariant.isSoldOut}
                         />
                       </div>
                     ))}

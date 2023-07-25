@@ -14,6 +14,9 @@ import './sliderStyles.css';
 
 const Slider = ({
   slides,
+  clearPlaceholders,
+  showPlaceholder,
+  toPage,
   bp,
   slidesPerView,
   spaceBetween,
@@ -31,8 +34,6 @@ const Slider = ({
   imageFillClassName,
   imagePlaceholderClassName,
   imageClassName,
-  clearPlaceholders,
-  showPlaceholder,
 }) => {
   return (
     <>
@@ -72,7 +73,7 @@ const Slider = ({
           <SwiperSlide key={slide.id} className={slideClassName}>
             <MediaContainer
               image={slide.src}
-              to={slide.url}
+              to={toPage + slide.url}
               alt={slide.alt || ''}
               clearPlaceholders={clearPlaceholders}
               containerClassName={mediaContainerClassName}
