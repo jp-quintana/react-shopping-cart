@@ -88,6 +88,18 @@ const ProductProvider = ({ children }) => {
       const productDoc = productsSnapshot.docs[0];
 
       if (productDoc) {
+        const variantsRef = collection(productDoc.ref, 'variants');
+        const variantCheckQuery = query(
+          variantsRef,
+          where('color', '==', selectedColor)
+        );
+
+        const variantCheckSnapshot = await getDocs(variantCheckQuery);
+
+        if (variantCheckSnapshot.size === 0) {
+          return { product: null, variant: null };
+        }
+
         const productData = {
           productId: productDoc.id,
           ...productDoc.data(),
@@ -103,8 +115,6 @@ const ProductProvider = ({ children }) => {
           skuId: skuDoc.id,
           ...skuDoc.data(),
         }));
-
-        const variantsRef = collection(productDoc.ref, 'variants');
 
         const variantsSnapshot = await getDocs(variantsRef);
 
