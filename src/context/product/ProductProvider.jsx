@@ -87,63 +87,77 @@ const ProductProvider = ({ children }) => {
 
       const productDoc = productsSnapshot.docs[0];
 
-      const productData = {
-        productId: productDoc.id,
-        ...productDoc.data(),
-      };
+      if (productDoc) {
+        const variantsRef = collection(productDoc.ref, 'variants');
+        const variantCheckQuery = query(
+          variantsRef,
+          where('color', '==', selectedColor)
+        );
 
-      const skusRef = collection(productDoc.ref, 'skus');
+        const variantCheckSnapshot = await getDocs(variantCheckQuery);
 
-      const skusQuery = query(skusRef, orderBy('order'));
+        if (variantCheckSnapshot.size === 0) {
+          return { product: null, variant: null };
+        }
 
-      const skusSnapshot = await getDocs(skusQuery);
+        const productData = {
+          productId: productDoc.id,
+          ...productDoc.data(),
+        };
 
-      const skusData = skusSnapshot.docs.map((skuDoc) => ({
-        skuId: skuDoc.id,
-        ...skuDoc.data(),
-      }));
+        const skusRef = collection(productDoc.ref, 'skus');
 
-      const variantsRef = collection(productDoc.ref, 'variants');
+        const skusQuery = query(skusRef, orderBy('order'));
 
-      const variantsSnapshot = await getDocs(variantsRef);
+        const skusSnapshot = await getDocs(skusQuery);
 
-      const variants = [];
+        const skusData = skusSnapshot.docs.map((skuDoc) => ({
+          skuId: skuDoc.id,
+          ...skuDoc.data(),
+        }));
 
-      variantsSnapshot.forEach((variantDoc) =>
-        variants.push({
-          ...variantDoc.data(),
-          variantId: variantDoc.id,
-          sizes: skusData
-            .filter((sku) => sku.variantId === variantDoc.id)
-            .map((sku) => ({
-              skuId: sku.skuId,
-              value: sku.size,
-              quantity: sku.quantity,
-            })),
-        })
-      );
+        const variantsSnapshot = await getDocs(variantsRef);
 
-      const selectedVariant = variants.find(
-        (variant) => variant.color === selectedColor
-      );
+        const variants = [];
 
-      if (selectedVariant.sizes.length === 1) {
-        dispatch({
-          type: 'SINGLE_SIZE',
-          payload: {
-            selectedSkuId: selectedVariant.sizes[0].skuId,
-            quantity: selectedVariant.sizes[0].quantity,
+        variantsSnapshot.forEach((variantDoc) =>
+          variants.push({
+            ...variantDoc.data(),
+            variantId: variantDoc.id,
+            sizes: skusData
+              .filter((sku) => sku.variantId === variantDoc.id)
+              .map((sku) => ({
+                skuId: sku.skuId,
+                value: sku.size,
+                quantity: sku.quantity,
+              })),
+          })
+        );
+
+        const selectedVariant = variants.find(
+          (variant) => variant.color === selectedColor
+        );
+
+        if (selectedVariant.sizes.length === 1) {
+          dispatch({
+            type: 'SINGLE_SIZE',
+            payload: {
+              selectedSkuId: selectedVariant.sizes[0].skuId,
+              quantity: selectedVariant.sizes[0].quantity,
+            },
+          });
+        }
+
+        return {
+          product: {
+            ...productData,
+            variants,
           },
-        });
+          variant: selectedVariant,
+        };
+      } else {
+        return { product: null, variant: null };
       }
-
-      return {
-        product: {
-          ...productData,
-          variants,
-        },
-        variant: selectedVariant,
-      };
     } catch (err) {
       console.error(err);
     }

@@ -105,22 +105,38 @@ export const useCollection = () => {
         const productVariants = [];
 
         variantsSnapshot.forEach((variantDoc) => {
-          let availableQuantity = skus
+          let variantSkus = skus
             .filter((sku) => sku.variantId === variantDoc.id)
-            .reduce((result, obj) => {
-              if (!obj.size) {
-                result['singleSize'] = obj.quantity;
-              } else {
-                result[obj.size] = obj.quantity;
-              }
-              return result;
-            }, {});
+            .map((sku) => ({
+              size: sku.size,
+              skuId: sku.skuId,
+              quantity: sku.quantity,
+            }));
+
+          let availableQuantity = variantSkus.reduce((result, obj) => {
+            if (!obj.size) {
+              result['singleSize'] = obj.quantity;
+            } else {
+              result[obj.size] = obj.quantity;
+            }
+            return result;
+          }, {});
 
           const sizes = Object.keys(availableQuantity);
 
+          const isSoldOut = variantSkus.every((sku) => sku.quantity === 0);
+
           const { price: actualPrice, ...restProductData } = productData;
-          const { variantPrice: currentPrice, ...restVariantData } =
-            variantDoc.data();
+          const {
+            variantPrice: currentPrice,
+            images: variantImages,
+            ...restVariantData
+          } = variantDoc.data();
+
+          const formattedVariantImages = variantImages.map((image) => ({
+            ...image,
+            url: `${restProductData.slug}-${restVariantData.color}`,
+          }));
 
           productVariants.push({
             id: uuid(),
@@ -129,13 +145,16 @@ export const useCollection = () => {
             actualPrice,
             ...restProductData,
             ...restVariantData,
+            slides: formattedVariantImages,
             numberOfVariants: variantsSnapshot.size,
             availableQuantity,
             sizes,
+            skus: variantSkus,
             discount: formatDiscountNumber({
               currentPrice,
               actualPrice,
             }),
+            isSoldOut,
           });
         });
 

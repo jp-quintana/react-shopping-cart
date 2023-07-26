@@ -183,17 +183,19 @@ const CollectionPage = () => {
                         }
                       >
                         <ProductCard
+                          productId={productVariant.productId}
+                          variantId={productVariant.variantId}
                           model={productVariant.model}
                           color={productVariant.color}
                           discount={productVariant.discount}
                           currentPrice={productVariant.price}
                           actualPrice={productVariant.actualPrice}
                           type={productVariant.type}
-                          slug={
-                            productVariant.slug + '-' + productVariant.color
-                          }
-                          image={productVariant.images[0]}
+                          slides={productVariant.slides}
+                          images={productVariant.images}
                           numberOfVariants={productVariant.numberOfVariants}
+                          skus={productVariant.skus}
+                          isSoldOut={productVariant.isSoldOut}
                         />
                       </div>
                     ))}
