@@ -38,7 +38,6 @@ const ProductCard = ({
       skuId,
       productId,
       variantId,
-      skuId,
       size,
       model,
       type,
