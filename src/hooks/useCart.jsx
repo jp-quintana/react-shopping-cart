@@ -34,7 +34,6 @@ export const useCart = () => {
   };
 
   const addItem = async (itemToAdd) => {
-    console.log('aca', itemToAdd);
     if (isLoading) return;
     setLoadingItemId(itemToAdd.skuId);
     setError(null);
