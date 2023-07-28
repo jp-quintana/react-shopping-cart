@@ -6,13 +6,15 @@ This app is a clone of https://alphaleteathletics.com.
 
 ## App Preview
 
-[https://user-images.githubusercontent.com/87621233/215578435-9736f495-9b45-43fe-bc6a-86286f14638a.mp4](https://github.com/jp-quintana/react-shopping-cart/assets/87621233/18058d03-76a7-4a39-b894-498f8fafb73a)
+https://github.com/jp-quintana/readme/assets/87621233/43249da5-7e48-447b-bb9a-f59759cc5ef5
 
-_(Version in video deployed Jul 10, 2023)_
+_(Version in video deployed Jul 27, 2023)_
 
 ## Features
 
 - Products Display.
+- Products Filter.
+- Infinite Scroll.
 - Cart Functions.
 - Basic Inventory Management.
 - Auth (Email/Password & Anonymous).
@@ -57,7 +59,7 @@ npm start
 Create products and users collections and carts, checkoutSessions and orders ones optionally.
 
 #### Products Collection
-![products-collection](https://github.com/jp-quintana/readme/assets/87621233/c9606b47-a7d3-4c94-a7bc-9f2ba9c5282f)
+![products-collection](https://github.com/jp-quintana/readme/assets/87621233/f4e9c8c1-212c-4e7e-b1ae-6f0ea932a0f8)
 Product collection holds both variants and skus collection.
 - collection: must match one of the allowed skus in CollectionPage component.
 - price: sets actual price. Variant doc handles discount logic.
@@ -79,6 +81,25 @@ Although these docs are children of product doc, skus are specific to the produc
 ### Cloud Storage
 ![cloud-storage-example](https://github.com/jp-quintana/readme/assets/87621233/1b4be5df-8267-4bc9-8437-c809262c727a)
 Each image should be stored in a folder with a name that corresponds to its respective ID. Aditionally each image folder should be stored in the "product-images" repository. The "src" is obtained by clicking the link inside the red rectangle. See image above and the one in Variants Subcollection section.
+
+
+## Admin View
+![admin-view](https://github.com/jp-quintana/readme/assets/87621233/5a696593-a51d-41ed-93c1-d9dbc01b5005)
+
+_(Can be found in App.jsx in src folder)_
+
+### Note 
+Important: comment out all admin routes before deploying app as firestore rules are not configured yet. Commented out lines in image above currently do not work even though components are found in project.
+
+### Seed Data to Firebase
+
+#### Setup Admin
+![is-admin](https://github.com/jp-quintana/readme/assets/87621233/aef2f451-6dd2-42bf-9055-d3c2541afcc4)
+Create new user in the app and add "isAdmin: true" to corresponding user doc in firestore. 
+
+#### Data
+![seed-data](https://github.com/jp-quintana/readme/assets/87621233/7533f187-52a9-405a-837d-71bf86d45f4e)
+Use "dummy-products.json" file in data folder as guide for your own data. At the moment you must add each image manually to the cloud storage as shown above and afterwards add the corresponding links to the json file. Once you've added your data, change file name to "products.json".
 
 
 ## Authors
