@@ -1,6 +1,7 @@
 [
   {
     "collection": "accessories",
+    "fit": "relaxed",
     "description": "adjustable cap",
     "model": "baires",
     "price": 22,
@@ -121,6 +122,7 @@
   },
   {
     "collection": "t-shirts",
+    "fit": "oversized",
     "description": "oversized tee",
     "model": "de gira",
     "price": 36,
@@ -361,6 +363,7 @@
   },
   {
     "collection": "hoodies-sweatshirts",
+    "fit": "oversized",
     "description": "oversized hoodie",
     "model": "de gira",
     "price": 68,
@@ -601,6 +604,7 @@
   },
   {
     "collection": "t-shirts",
+    "fit": "oversized",
     "description": "oversized tee",
     "model": "ojos",
     "price": 36,
@@ -841,6 +845,7 @@
   },
   {
     "collection": "hoodies-sweatshirts",
+    "fit": "oversized",
     "description": "oversized sweatshirt",
     "model": "flaakko",
     "price": 56,
