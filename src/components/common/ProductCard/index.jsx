@@ -105,44 +105,50 @@ const ProductCard = ({
           </>
         </div>
 
-        <ul className={styles.info_wrapper}>
-          {showDetailsPlaceholder && (
-            <>
-              <li className={styles.title_placeholder} />
-              <li className={styles.color_placeholder} />
-              <li className={styles.price_placeholder} />
-            </>
-          )}
-          {!showDetailsPlaceholder && (
-            <>
-              <li className={styles.title}>
-                {model} {type}
-              </li>
-              <li className={styles.color}>
-                <span className={styles.text}>{color}</span>
-                {numberOfVariants > 1 && (
-                  <span
-                    className={styles.tag}
-                  >{`${numberOfVariants} colors`}</span>
-                )}
-              </li>
-              <li className={styles.price}>
-                {currentPrice < actualPrice ? (
-                  <>
-                    <span className={styles.discounted_price}>
-                      ${formatPrice(currentPrice)}
-                    </span>
-                    <span className={styles.crossed_price}>
-                      ${formatPrice(actualPrice)}
-                    </span>
-                  </>
-                ) : (
-                  <span>${formatPrice(currentPrice)}</span>
-                )}
-              </li>
-            </>
-          )}
-        </ul>
+        <div className={styles.info_wrapper}>
+          <div className={styles.expandable_container}>
+            <div className={styles.expandable}></div>
+          </div>
+          <ul className={styles.info_list}>
+            {showDetailsPlaceholder && (
+              <>
+                <li className={styles.title_placeholder} />
+                <li className={styles.color_placeholder} />
+                <li className={styles.price_placeholder} />
+              </>
+            )}
+            {!showDetailsPlaceholder && (
+              <>
+                <li className={styles.title}>
+                  {model} {type}
+                </li>
+                <li className={styles.color}>
+                  <span className={styles.text}>{color}</span>
+                  {numberOfVariants > 1 && (
+                    <span
+                      className={styles.tag}
+                    >{`${numberOfVariants} colors`}</span>
+                  )}
+                </li>
+                <li className={styles.price}>
+                  {currentPrice < actualPrice ? (
+                    <>
+                      <span className={styles.discounted_price}>
+                        ${formatPrice(currentPrice)}
+                      </span>
+                      <span className={styles.crossed_price}>
+                        ${formatPrice(actualPrice)}
+                      </span>
+                    </>
+                  ) : (
+                    <span>${formatPrice(currentPrice)}</span>
+                  )}
+                </li>
+              </>
+            )}
+          </ul>
+        </div>
+
         {isAdmin && (
           <div className={styles.admin_buttons_wrapper}>
             <Button className={styles.edit} to={`/admin/products/${productId}`}>

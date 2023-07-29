@@ -4,10 +4,9 @@ import { FaRedoAlt } from 'react-icons/fa';
 
 import { useCollection } from 'hooks/useCollection';
 
-import ProductCard from './ProductCard';
 import ProductFilter from './ProductFilter';
 
-import { Loader } from 'components/common';
+import { ProductCard, Loader } from 'components/common';
 
 import styles from './index.module.scss';
 
