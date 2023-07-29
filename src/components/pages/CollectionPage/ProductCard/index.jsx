@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Navigation } from 'swiper';
+import { useMediaQuery } from 'react-responsive';
 
 import { useCart } from 'hooks/useCart';
 
@@ -48,6 +49,10 @@ const ProductCard = ({
     });
   };
 
+  const isBigScreen = useMediaQuery({
+    query: '(min-width: 520px)',
+  });
+
   return (
     <>
       <div className={styles.container}>
@@ -86,7 +91,7 @@ const ProductCard = ({
               imageFillClassName={styles.image_fill}
               imageClassName={styles.image}
             />
-            {!showDetailsPlaceholder && (
+            {!showDetailsPlaceholder && isBigScreen && (
               <QuickAdd
                 skus={skus}
                 handleAddItem={handleAddItem}
