@@ -73,7 +73,7 @@ const Slider = ({
           <SwiperSlide key={slide.id} className={slideClassName}>
             <MediaContainer
               image={slide.src}
-              to={toPage + slide.url}
+              to={toPage && toPage + slide.url}
               alt={slide.alt || ''}
               clearPlaceholders={clearPlaceholders}
               containerClassName={mediaContainerClassName}

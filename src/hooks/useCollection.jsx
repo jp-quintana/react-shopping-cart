@@ -139,7 +139,6 @@ export const useCollection = () => {
           }));
 
           productVariants.push({
-            id: uuid(),
             variantId: variantDoc.id,
             price: currentPrice,
             actualPrice,
@@ -158,7 +157,13 @@ export const useCollection = () => {
           });
         });
 
-        return productVariants;
+        const formattedProductVariants = productVariants.map((variant) => ({
+          ...variant,
+          id: uuid(),
+          otherVariants: productVariants,
+        }));
+
+        return formattedProductVariants;
       });
 
       const products = await Promise.all(productsPromises);

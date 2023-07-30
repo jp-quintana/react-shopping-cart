@@ -141,6 +141,8 @@ const CollectionPage = () => {
     }
   };
 
+  console.log(productVariants);
+
   return (
     <>
       <section className={styles.section}>
@@ -195,6 +197,7 @@ const CollectionPage = () => {
                           numberOfVariants={productVariant.numberOfVariants}
                           skus={productVariant.skus}
                           isSoldOut={productVariant.isSoldOut}
+                          otherVariants={productVariant.otherVariants}
                         />
                       </div>
                     ))}

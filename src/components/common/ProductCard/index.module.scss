@@ -4,6 +4,36 @@
   position: relative;
   margin-bottom: 1.5rem;
 
+  &:hover .slider_container .quick_add_container {
+    bottom: -6rem;
+    transition: bottom 0.1 ease-in;
+  }
+
+  &:hover .info_wrapper .quick_add_container {
+    bottom: -6rem;
+    transition: bottom 0.1 ease-in;
+  }
+
+  &:hover .slider_container .expandable_container {
+    opacity: 1;
+    transition: opacity 0.1 ease-in;
+  }
+
+  &:hover .info_wrapper .expandable_container {
+    opacity: 1;
+    transition: opacity 0.1 ease-in;
+  }
+
+  &:hover .slider_container .info_list {
+    opacity: 0;
+    transition: opacity 0.1 ease-in;
+  }
+
+  &:hover .info_wrapper .info_list {
+    opacity: 0;
+    transition: opacity 0.1 ease-in;
+  }
+
   .tag_container {
     position: absolute;
     display: flex;
@@ -50,11 +80,6 @@
     border-radius: 1.5rem;
     border: 0.5px solid $border-c-var;
 
-    &:hover .quick_add_container {
-      bottom: -6rem;
-      transition: bottom 0.2 ease-in;
-    }
-
     .slider {
       position: absolute;
       width: 100%;
@@ -89,7 +114,7 @@
       width: 90%;
       left: 50%;
       transform: translateX(-50%);
-      transition: bottom 0.2s ease-in;
+      transition: bottom 0.1s ease-in;
       padding-bottom: 1rem;
 
       &:hover {
@@ -132,7 +157,7 @@
 
         .quick_add_bottom {
           padding: 1rem 1.5rem;
-          transition: border 0.2s ease-in;
+          transition: border 0.1s ease-in;
           border-top: 0 solid $border-c-var;
         }
       }
@@ -143,27 +168,35 @@
     position: relative;
 
     .expandable_container {
+      opacity: 0;
       position: absolute;
-      height: 100%;
       width: 100%;
+      height: 107%;
       z-index: 1;
+      transition: opacity 0.1s ease-in;
 
       .expandable {
+        display: flex;
+        padding: 0.5rem 1rem;
+        position: relative;
+        justify-content: center;
         border-radius: 1rem;
         background: #fff;
         border: 0.5px solid $border-c-var;
         margin-top: 0.5rem;
-        height: 100%;
+        height: 107%;
         width: 100%;
       }
     }
 
     .info_list {
+      opacity: 1;
       padding: 0.5rem 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
       user-select: none;
+      transition: opacity 0.1s ease-in;
 
       .title {
         font-size: 1.4rem;
@@ -279,6 +312,42 @@
       font-size: 1.4rem;
       letter-spacing: $ls-secondary;
       padding: 1rem;
+    }
+  }
+}
+
+.other_variants_slider {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  padding: 0.5rem 1rem;
+
+  .other_variants_slide {
+    user-select: none;
+    .other_variants_image_container {
+      height: 100%;
+      border-radius: 1rem;
+      box-shadow: none !important;
+      transition: transform 0.1s ease-in;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:active {
+        transform: scale(0.9);
+      }
+
+      .other_variants_image_fill {
+        height: 100%;
+        border-radius: 1rem;
+        box-shadow: inset 0 0 0 0.5px #cfcfcf;
+      }
+
+      .other_variants_image {
+        z-index: -1;
+      }
     }
   }
 }

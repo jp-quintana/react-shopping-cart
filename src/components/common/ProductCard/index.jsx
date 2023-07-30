@@ -26,6 +26,7 @@ const ProductCard = ({
   handleDeleteStart,
   skus,
   isSoldOut,
+  otherVariants,
 }) => {
   const location = useLocation();
   const isAdmin = location.pathname.split('/')[1] === 'admin';
@@ -48,6 +49,16 @@ const ProductCard = ({
       image: slides[0].src,
     });
   };
+
+  // TODO: udpate
+  const otherVariantSlides = otherVariants.map((variant) => ({
+    ...variant.slides[0],
+    id: variant.variantId,
+    url: null,
+    // variantId: variant.variantId,
+  }));
+
+  console.log('slides', otherVariantSlides);
 
   const isBigScreen = useMediaQuery({
     query: '(min-width: 520px)',
@@ -106,10 +117,84 @@ const ProductCard = ({
         </div>
 
         <div className={styles.info_wrapper}>
-          <div className={styles.expandable_container}>
-            <div className={styles.expandable}></div>
+          <div
+            className={styles.expandable_container}
+            style={{ opacity: showDetailsPlaceholder && 0 }}
+          >
+            <div className={styles.expandable}>
+              <Slider
+                clearPlaceholders={() => setDetailsShowPlaceholder(false)}
+                showPlaceholder={showDetailsPlaceholder}
+                slides={otherVariantSlides}
+                bp={{
+                  350: {
+                    slidesPerView: 3,
+                  },
+                  380: {
+                    slidesPerView: 3.5,
+                  },
+                  410: {
+                    slidesPerView: 4,
+                  },
+                  500: {
+                    slidesPerView: 4.5,
+                  },
+                  550: {
+                    slidesPerView: 5,
+                  },
+                  600: {
+                    slidesPerView: 5.5,
+                  },
+                  700: {
+                    slidesPerView: 6.5,
+                  },
+                  768: {
+                    slidesPerView: 4,
+                  },
+                  800: {
+                    slidesPerView: 4.5,
+                  },
+                  880: {
+                    slidesPerView: 5,
+                  },
+                  920: {
+                    slidesPerView: 5.5,
+                  },
+                  1000: {
+                    slidesPerView: 6,
+                  },
+                  1000: {
+                    slidesPerView: 6.5,
+                  },
+                  1200: {
+                    slidesPerView: 5,
+                  },
+                  1250: {
+                    slidesPerView: 5.5,
+                  },
+                  1300: {
+                    slidesPerView: 6,
+                  },
+                }}
+                slidesPerView={2.5}
+                spaceBetween={5}
+                pagination={{
+                  clickable: true,
+                }}
+                allowTouchMove={true}
+                modules={[Navigation]}
+                sliderClassName={styles.other_variants_slider}
+                slideClassName={styles.other_variants_slide}
+                mediaContainerClassName={styles.other_variants_image_container}
+                imageFillClassName={styles.other_variants_image_fill}
+                imageClassName={styles.other_variants_image}
+              />
+            </div>
           </div>
-          <ul className={styles.info_list}>
+          <ul
+            className={styles.info_list}
+            style={{ opacity: showDetailsPlaceholder && 1 }}
+          >
             {showDetailsPlaceholder && (
               <>
                 <li className={styles.title_placeholder} />
