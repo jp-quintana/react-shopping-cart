@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { useMediaQuery } from 'react-responsive';
 import { FaSlidersH, FaChevronUp } from 'react-icons/fa';
@@ -19,6 +19,8 @@ const ProductFilter = ({
   handleSortBy,
   handleUpdateFilterConditions,
 }) => {
+  const productsWereSorted = useRef(false);
+
   const [availableFilterOptions, setAvailableFilterOptions] = useState({
     color: [],
     size: [],
@@ -34,38 +36,43 @@ const ProductFilter = ({
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    let filteredProducts = allProducts;
-    if (Object.keys(filterConditions).length > 0) {
-      filteredProducts = allProducts.filter((product) => {
-        return Object.entries(filterConditions).every(
-          ([property, conditions]) => {
-            if (
-              property === 'color' ||
-              property === 'fit' ||
-              property === 'type' ||
-              property === 'discount'
-            )
-              return conditions.some((condition) => {
-                return condition === product[property];
-              });
+    if (productsWereSorted.current) {
+      productsWereSorted.current = false;
+    } else {
+      let filteredProducts = allProducts;
+      if (Object.keys(filterConditions).length > 0) {
+        filteredProducts = allProducts.filter((product) => {
+          return Object.entries(filterConditions).every(
+            ([property, conditions]) => {
+              if (
+                property === 'color' ||
+                property === 'fit' ||
+                property === 'type' ||
+                property === 'discount'
+              )
+                return conditions.some((condition) => {
+                  return condition === product[property];
+                });
 
-            if (property === 'price') {
-              return (
-                product.price >= conditions[0] && product.price <= conditions[1]
-              );
-            }
+              if (property === 'price') {
+                return (
+                  product.price >= conditions[0] &&
+                  product.price <= conditions[1]
+                );
+              }
 
-            if (property === 'size') {
-              return conditions.some(
-                (condition) => product.availableQuantity[condition] > 0
-              );
+              if (property === 'size') {
+                return conditions.some(
+                  (condition) => product.availableQuantity[condition] > 0
+                );
+              }
             }
-          }
-        );
-      });
+          );
+        });
+      }
+
+      handleFilter(filteredProducts);
     }
-
-    handleFilter(filteredProducts);
   }, [filterConditions, allProducts]);
 
   useEffect(() => {
@@ -176,6 +183,7 @@ const ProductFilter = ({
   };
 
   const handleSortByPick = (value) => {
+    productsWereSorted.current = true;
     handleClearConditions();
     handleSortBy(value);
   };

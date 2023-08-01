@@ -62,13 +62,6 @@ const CollectionPage = () => {
     fetchProductVariants();
   }, [slugId]);
 
-  const handleFilter = (filteredProducts) => {
-    setTimeout(() => {
-      setFilteredProducts(filteredProducts);
-      setIsFiltering(false);
-    }, 100);
-  };
-
   useEffect(() => {
     if (newSlug.current) {
       newSlug.current = false;
@@ -118,6 +111,13 @@ const CollectionPage = () => {
     },
     [isLoading, hasMore]
   );
+
+  const handleFilter = (filteredProducts) => {
+    setTimeout(() => {
+      setFilteredProducts(filteredProducts);
+      setIsFiltering(false);
+    }, 100);
+  };
 
   const handleUpdateFilterConditions = (value) => {
     setIsFiltering(true);
