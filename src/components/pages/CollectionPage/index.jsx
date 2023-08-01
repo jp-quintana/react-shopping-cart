@@ -63,8 +63,10 @@ const CollectionPage = () => {
   }, [slugId]);
 
   const handleFilter = (filteredProducts) => {
-    setFilteredProducts(filteredProducts);
-    setIsFiltering(false);
+    setTimeout(() => {
+      setFilteredProducts(filteredProducts);
+      setIsFiltering(false);
+    }, 100);
   };
 
   useEffect(() => {
