@@ -160,7 +160,7 @@ export const useCollection = () => {
         const formattedProductVariants = productVariants.map((variant) => ({
           ...variant,
           id: uuid(),
-          otherVariants: productVariants,
+          allVariants: productVariants,
         }));
 
         return formattedProductVariants;

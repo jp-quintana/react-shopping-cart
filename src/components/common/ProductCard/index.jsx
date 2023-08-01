@@ -26,39 +26,64 @@ const ProductCard = ({
   handleDeleteStart,
   skus,
   isSoldOut,
-  otherVariants,
+  allVariants,
 }) => {
   const location = useLocation();
   const isAdmin = location.pathname.split('/')[1] === 'admin';
 
   const { addItem, isLoading } = useCart();
 
+  const [currentVariant, setCurrentVariant] = useState({
+    variantId,
+    color,
+    currentPrice,
+    discount,
+    slides,
+    skus,
+    isSoldOut,
+  });
+
   const [showDetailsPlaceholder, setDetailsShowPlaceholder] = useState(true);
+
+  const handlePickVariant = ({ variantId }) => {
+    const selectedVariant = allVariants.find(
+      (variant) => variant.variantId === variantId
+    );
+
+    setCurrentVariant({
+      variantId,
+      color: selectedVariant.color,
+      currentPrice: selectedVariant.price,
+      discount: selectedVariant.discount,
+      slides: selectedVariant.slides,
+      skus: selectedVariant.skus,
+      isSoldOut: selectedVariant.isSoldOut,
+    });
+  };
 
   const handleAddItem = async ({ skuId, size }) => {
     await addItem({
       skuId,
-      productId,
-      variantId,
+      productId: productId,
+      variantId: currentVariant.variantId,
       size,
-      model,
-      type,
-      color,
-      price: currentPrice,
-      slug: slides[0].url,
-      image: slides[0].src,
+      model: model,
+      type: type,
+      color: currentVariant.color,
+      price: currentVariant.currentPrice,
+      slug: currentVariant.slides[0].url,
+      image: currentVariant.slides[0].src,
     });
   };
 
   // TODO: udpate
-  const otherVariantSlides = otherVariants.map((variant) => ({
+  const allVariantSlides = allVariants.map((variant) => ({
     ...variant.slides[0],
     id: variant.variantId,
     url: null,
     // variantId: variant.variantId,
   }));
-
-  console.log('slides', otherVariantSlides);
+  // const allVariantSlides = [];
 
   const isBigScreen = useMediaQuery({
     query: '(min-width: 520px)',
@@ -69,9 +94,13 @@ const ProductCard = ({
       <div className={styles.container}>
         {!showDetailsPlaceholder && (
           <div className={styles.tag_container}>
-            {isSoldOut && <span className={styles.sold_out}>Sold Out</span>}
-            {currentPrice < actualPrice && (
-              <span className={styles.discount}>-{discount}%</span>
+            {currentVariant.isSoldOut && (
+              <span className={styles.sold_out}>Sold Out</span>
+            )}
+            {currentVariant.currentPrice < actualPrice && (
+              <span className={styles.discount}>
+                -{currentVariant.discount}%
+              </span>
             )}
           </div>
         )}
@@ -80,7 +109,7 @@ const ProductCard = ({
             <Slider
               clearPlaceholders={() => setDetailsShowPlaceholder(false)}
               showPlaceholder={showDetailsPlaceholder}
-              slides={slides}
+              slides={currentVariant.slides}
               toPage={'/products/'}
               slidesPerView={1}
               spaceBetween={0}
@@ -104,7 +133,7 @@ const ProductCard = ({
             />
             {!showDetailsPlaceholder && isBigScreen && (
               <QuickAdd
-                skus={skus}
+                skus={currentVariant.skus}
                 handleAddItem={handleAddItem}
                 isLoading={isLoading}
                 containerClassName={styles.quick_add_container}
@@ -124,8 +153,9 @@ const ProductCard = ({
             <div className={styles.expandable}>
               <Slider
                 clearPlaceholders={() => setDetailsShowPlaceholder(false)}
+                onPick={handlePickVariant}
                 showPlaceholder={showDetailsPlaceholder}
-                slides={otherVariantSlides}
+                slides={allVariantSlides}
                 bp={{
                   350: {
                     slidesPerView: 3,
@@ -208,7 +238,7 @@ const ProductCard = ({
                   {model} {type}
                 </li>
                 <li className={styles.color}>
-                  <span className={styles.text}>{color}</span>
+                  <span className={styles.text}>{currentVariant.color}</span>
                   {numberOfVariants > 1 && (
                     <span
                       className={styles.tag}
@@ -216,17 +246,17 @@ const ProductCard = ({
                   )}
                 </li>
                 <li className={styles.price}>
-                  {currentPrice < actualPrice ? (
+                  {currentVariant.currentPrice < actualPrice ? (
                     <>
                       <span className={styles.discounted_price}>
-                        ${formatPrice(currentPrice)}
+                        ${formatPrice(currentVariant.currentPrice)}
                       </span>
                       <span className={styles.crossed_price}>
                         ${formatPrice(actualPrice)}
                       </span>
                     </>
                   ) : (
-                    <span>${formatPrice(currentPrice)}</span>
+                    <span>${formatPrice(currentVariant.currentPrice)}</span>
                   )}
                 </li>
               </>
@@ -234,7 +264,7 @@ const ProductCard = ({
           </ul>
         </div>
 
-        {isAdmin && (
+        {/* {isAdmin && (
           <div className={styles.admin_buttons_wrapper}>
             <Button className={styles.edit} to={`/admin/products/${productId}`}>
               Edit
@@ -252,7 +282,7 @@ const ProductCard = ({
               Delete
             </Button>
           </div>
-        )}
+        )} */}
       </div>
     </>
   );

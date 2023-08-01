@@ -150,7 +150,7 @@
   grid-template-rows: 0fr;
   overflow: hidden;
   opacity: 0;
-  transition: grid-template-rows 0.2s ease-in-out, opacity 0.4s ease-in-out;
+  transition: grid-template-rows 0.3s ease-in-out, opacity 0.4s ease-in-out;
 
   &.is_open {
     grid-template-rows: 1fr;

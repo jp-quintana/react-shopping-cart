@@ -32,6 +32,7 @@ const CollectionPage = () => {
     direction: 'asc',
     description: 'newest',
   });
+  const [filtering, setIsFiltering] = useState(false);
 
   useEffect(() => {
     setProductVariants(null);
@@ -63,6 +64,7 @@ const CollectionPage = () => {
 
   const handleFilter = (filteredProducts) => {
     setFilteredProducts(filteredProducts);
+    setIsFiltering(false);
   };
 
   useEffect(() => {
@@ -116,6 +118,8 @@ const CollectionPage = () => {
   );
 
   const handleUpdateFilterConditions = (value) => {
+    setIsFiltering(true);
+    setFilteredProducts([]);
     setFilterConditions(value);
   };
 
@@ -141,8 +145,6 @@ const CollectionPage = () => {
     }
   };
 
-  console.log(productVariants);
-
   return (
     <>
       <section className={styles.section}>
@@ -155,23 +157,25 @@ const CollectionPage = () => {
             {filteredProducts && (
               <div className="main-container">
                 <div className={styles.container}>
-                  {filteredProducts.length === 0 && !isLoading && (
-                    <>
-                      <p className={styles.less_filters_title}>
-                        Sorry, no products matched your selection {`:(`}
-                      </p>
-                      <p className={styles.less_filters_subtitle}>
-                        Use fewer filters or
-                      </p>
-                      <div
-                        onClick={() => handleUpdateFilterConditions({})}
-                        className={styles.clear_all}
-                      >
-                        <span>Clear all</span>
-                        <FaRedoAlt />
-                      </div>
-                    </>
-                  )}
+                  {filteredProducts.length === 0 &&
+                    !isLoading &&
+                    !filtering && (
+                      <>
+                        <p className={styles.less_filters_title}>
+                          Sorry, no products matched your selection {`:(`}
+                        </p>
+                        <p className={styles.less_filters_subtitle}>
+                          Use fewer filters or
+                        </p>
+                        <div
+                          onClick={() => handleUpdateFilterConditions({})}
+                          className={styles.clear_all}
+                        >
+                          <span>Clear all</span>
+                          <FaRedoAlt />
+                        </div>
+                      </>
+                    )}
                   <div className={styles.grid_container}>
                     {filteredProducts.map((productVariant, index) => (
                       <div
@@ -197,7 +201,7 @@ const CollectionPage = () => {
                           numberOfVariants={productVariant.numberOfVariants}
                           skus={productVariant.skus}
                           isSoldOut={productVariant.isSoldOut}
-                          otherVariants={productVariant.otherVariants}
+                          allVariants={productVariant.allVariants}
                         />
                       </div>
                     ))}
