@@ -46,11 +46,11 @@ export const useCollection = () => {
       }
 
       if (sortBy.direction === 'desc' && !latestDoc.current) {
-        constraints.push(limit(3));
+        constraints.push(limit(4));
       } else {
         constraints.push(
           startAfter(isNewQuery ? 0 : latestDoc.current),
-          limit(3)
+          limit(4)
         );
       }
 
