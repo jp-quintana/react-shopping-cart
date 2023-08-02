@@ -15,6 +15,7 @@ import './sliderStyles.css';
 const Slider = ({
   slides,
   clearPlaceholders,
+  onPick,
   showPlaceholder,
   toPage,
   bp,
@@ -69,11 +70,16 @@ const Slider = ({
             </div>
           </>
         )}
+        {/* TODO: update */}
         {slides.map((slide) => (
-          <SwiperSlide key={slide.id} className={slideClassName}>
+          <SwiperSlide
+            key={slide.id}
+            className={slideClassName}
+            onClick={onPick ? () => onPick({ variantId: slide.id }) : undefined}
+          >
             <MediaContainer
               image={slide.src}
-              to={toPage + slide.url}
+              to={toPage && toPage + slide.url}
               alt={slide.alt || ''}
               clearPlaceholders={clearPlaceholders}
               containerClassName={mediaContainerClassName}

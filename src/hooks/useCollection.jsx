@@ -46,11 +46,11 @@ export const useCollection = () => {
       }
 
       if (sortBy.direction === 'desc' && !latestDoc.current) {
-        constraints.push(limit(3));
+        constraints.push(limit(4));
       } else {
         constraints.push(
           startAfter(isNewQuery ? 0 : latestDoc.current),
-          limit(3)
+          limit(4)
         );
       }
 
@@ -139,7 +139,6 @@ export const useCollection = () => {
           }));
 
           productVariants.push({
-            id: uuid(),
             variantId: variantDoc.id,
             price: currentPrice,
             actualPrice,
@@ -158,7 +157,13 @@ export const useCollection = () => {
           });
         });
 
-        return productVariants;
+        const formattedProductVariants = productVariants.map((variant) => ({
+          ...variant,
+          id: uuid(),
+          allVariants: productVariants,
+        }));
+
+        return formattedProductVariants;
       });
 
       const products = await Promise.all(productsPromises);

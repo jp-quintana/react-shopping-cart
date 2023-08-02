@@ -4,10 +4,9 @@ import { FaRedoAlt } from 'react-icons/fa';
 
 import { useCollection } from 'hooks/useCollection';
 
-import ProductCard from './ProductCard';
 import ProductFilter from './ProductFilter';
 
-import { Loader } from 'components/common';
+import { ProductCard, Loader } from 'components/common';
 
 import styles from './index.module.scss';
 
@@ -33,6 +32,7 @@ const CollectionPage = () => {
     direction: 'asc',
     description: 'newest',
   });
+  const [filtering, setIsFiltering] = useState(false);
 
   useEffect(() => {
     setProductVariants(null);
@@ -61,10 +61,6 @@ const CollectionPage = () => {
 
     fetchProductVariants();
   }, [slugId]);
-
-  const handleFilter = (filteredProducts) => {
-    setFilteredProducts(filteredProducts);
-  };
 
   useEffect(() => {
     if (newSlug.current) {
@@ -116,7 +112,16 @@ const CollectionPage = () => {
     [isLoading, hasMore]
   );
 
+  const handleFilter = (filteredProducts) => {
+    setTimeout(() => {
+      setFilteredProducts(filteredProducts);
+      setIsFiltering(false);
+    }, 100);
+  };
+
   const handleUpdateFilterConditions = (value) => {
+    setIsFiltering(true);
+    setFilteredProducts([]);
     setFilterConditions(value);
   };
 
@@ -154,23 +159,25 @@ const CollectionPage = () => {
             {filteredProducts && (
               <div className="main-container">
                 <div className={styles.container}>
-                  {filteredProducts.length === 0 && !isLoading && (
-                    <>
-                      <p className={styles.less_filters_title}>
-                        Sorry, no products matched your selection {`:(`}
-                      </p>
-                      <p className={styles.less_filters_subtitle}>
-                        Use fewer filters or
-                      </p>
-                      <div
-                        onClick={() => handleUpdateFilterConditions({})}
-                        className={styles.clear_all}
-                      >
-                        <span>Clear all</span>
-                        <FaRedoAlt />
-                      </div>
-                    </>
-                  )}
+                  {filteredProducts.length === 0 &&
+                    !isLoading &&
+                    !filtering && (
+                      <>
+                        <p className={styles.less_filters_title}>
+                          Sorry, no products matched your selection {`:(`}
+                        </p>
+                        <p className={styles.less_filters_subtitle}>
+                          Use fewer filters or
+                        </p>
+                        <div
+                          onClick={() => handleUpdateFilterConditions({})}
+                          className={styles.clear_all}
+                        >
+                          <span>Clear all</span>
+                          <FaRedoAlt />
+                        </div>
+                      </>
+                    )}
                   <div className={styles.grid_container}>
                     {filteredProducts.map((productVariant, index) => (
                       <div
@@ -196,6 +203,7 @@ const CollectionPage = () => {
                           numberOfVariants={productVariant.numberOfVariants}
                           skus={productVariant.skus}
                           isSoldOut={productVariant.isSoldOut}
+                          allVariants={productVariant.allVariants}
                         />
                       </div>
                     ))}
