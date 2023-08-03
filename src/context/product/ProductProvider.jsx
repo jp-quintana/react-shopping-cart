@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 import { collection, getDocs, query, where, orderBy } from 'firebase/firestore';
 import { db } from 'db/config';
@@ -68,6 +68,8 @@ const productReducer = (state, action) => {
 
 const ProductProvider = ({ children }) => {
   const { id: slugId } = useParams();
+  const { pathname, state: slugState } = useLocation();
+  const navigate = useNavigate();
 
   const [state, dispatch] = useReducer(productReducer, initialState);
 
@@ -164,17 +166,21 @@ const ProductProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (state.productIsReady) {
-      dispatch({ type: 'CLEAR_PRODUCT' });
+    if (slugState) {
+      navigate({ pathname, state: null });
+    } else {
+      if (state.productIsReady) {
+        dispatch({ type: 'CLEAR_PRODUCT' });
+      }
+      const fetchProduct = async () => {
+        const { product, variant } = await getProduct();
+
+        dispatch({ type: 'SET_PRODUCT', payload: { product, variant } });
+      };
+
+      fetchProduct();
     }
-    const fetchProduct = async () => {
-      const { product, variant } = await getProduct();
-
-      dispatch({ type: 'SET_PRODUCT', payload: { product, variant } });
-    };
-
-    fetchProduct();
-  }, [slugId]);
+  }, [slugId, slugState]);
 
   console.log('product-context', state);
 

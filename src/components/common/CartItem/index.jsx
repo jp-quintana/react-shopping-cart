@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 
@@ -28,6 +28,7 @@ const CartItem = ({
   isLoading,
   loadingItemId,
 }) => {
+  const { pathname } = useLocation();
   const handleAddItem = () => {
     if (!isLoading) {
       addItem({
@@ -57,9 +58,15 @@ const CartItem = ({
     }
   };
 
+  const slugCheck = slug === pathname.split('/')[2];
+
   return (
     <div className={styles.card}>
-      <Link to={`/products/${slug}`} onClick={closeCartModal}>
+      <Link
+        to={`/products/${slug}`}
+        state={slugCheck ? true : null}
+        onClick={closeCartModal}
+      >
         <div className={styles.info_container}>
           <div className={styles.info_wrapper}>
             <p className={styles.title}>{`${model} ${type}`}</p>
