@@ -54,7 +54,6 @@ const CollectionPage = () => {
     const fetchProductVariants = async () => {
       const productVariants = await getCollection({
         collectionName: slugId,
-        isNewQuery: true,
       });
       setProductVariants(productVariants);
     };
@@ -74,7 +73,6 @@ const CollectionPage = () => {
     (async () => {
       const productVariants = await getCollection({
         collectionName: slugId,
-        isNewQuery: true,
         sortBy,
       });
 
@@ -92,6 +90,7 @@ const CollectionPage = () => {
         if (entries[0].isIntersecting) {
           const moreProductVariants = await getCollection({
             collectionName: slugId,
+            isNewQuery: false,
             sortBy,
           });
 

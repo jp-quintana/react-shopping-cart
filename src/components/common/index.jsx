@@ -14,6 +14,7 @@ export { default as Loader } from './Loader';
 export { default as Modal } from './Modal';
 export { default as NotFound } from './NotFound';
 export { default as ProductCard } from './ProductCard';
+export { default as ProductSlider } from './ProductSlider';
 export { default as Slider } from './Slider';
 export { default as TagsInput } from './TagsInput';
 export { default as Toast } from './Toast';

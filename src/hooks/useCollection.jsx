@@ -26,7 +26,7 @@ export const useCollection = () => {
 
   const getCollection = async ({
     collectionName = 'products',
-    isNewQuery = false,
+    isNewQuery = true,
     sortBy = { field: 'createdAt', direction: 'asc' },
   }) => {
     setError(null);
@@ -156,6 +156,8 @@ export const useCollection = () => {
             isSoldOut,
           });
         });
+
+        console.log('productVariants', productVariants);
 
         const formattedProductVariants = productVariants.map((variant) => ({
           ...variant,

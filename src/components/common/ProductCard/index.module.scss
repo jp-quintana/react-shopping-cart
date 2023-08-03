@@ -170,6 +170,7 @@
     .expandable_container {
       opacity: 0;
       position: absolute;
+      display: flex;
       width: 100%;
       height: 107%;
       z-index: 1;
@@ -325,6 +326,7 @@
 
   .other_variants_slide {
     user-select: none;
+    max-width: 4.5rem;
     .other_variants_image_container {
       height: 100%;
       border-radius: 1rem;
