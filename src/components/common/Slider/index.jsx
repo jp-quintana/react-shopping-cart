@@ -51,6 +51,9 @@ const Slider = ({
         allowTouchMove={allowTouchMove}
         modules={modules}
         className={`${sliderClassName} slider-navigation`}
+        // nested={true}
+        // onTouchStart={true}
+        // onDragStart={true}
       >
         {navigation && (
           <>

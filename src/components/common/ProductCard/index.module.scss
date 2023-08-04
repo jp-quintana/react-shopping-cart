@@ -140,7 +140,6 @@
           padding: 1rem 1.5rem 0.5rem;
           display: flex;
           justify-content: space-between;
-
           border-bottom: none;
 
           p {
@@ -171,8 +170,8 @@
       opacity: 0;
       position: absolute;
       display: flex;
+      height: 7.5rem;
       width: 100%;
-      height: 107%;
       z-index: 1;
       transition: opacity 0.1s ease-in;
 
@@ -185,7 +184,6 @@
         background: #fff;
         border: 0.5px solid $border-c-var;
         margin-top: 0.5rem;
-        height: 107%;
         width: 100%;
       }
     }
@@ -326,7 +324,7 @@
 
   .other_variants_slide {
     user-select: none;
-    max-width: 4.5rem;
+    max-width: 4rem;
     .other_variants_image_container {
       height: 100%;
       border-radius: 1rem;
