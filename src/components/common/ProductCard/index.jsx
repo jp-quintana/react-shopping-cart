@@ -27,6 +27,8 @@ const ProductCard = ({
   skus,
   isSoldOut,
   allVariants,
+  onTouchStart,
+  onTouchEnd,
 }) => {
   const location = useLocation();
   const isAdmin = location.pathname.split('/')[1] === 'admin';
@@ -156,64 +158,16 @@ const ProductCard = ({
                 onPick={handlePickVariant}
                 showPlaceholder={showDetailsPlaceholder}
                 slides={allVariantSlides}
-                // bp={{
-                //   350: {
-                //     slidesPerView: 3,
-                //   },
-                //   380: {
-                //     slidesPerView: 3.5,
-                //   },
-                //   410: {
-                //     slidesPerView: 4,
-                //   },
-                //   500: {
-                //     slidesPerView: 4.5,
-                //   },
-                //   550: {
-                //     slidesPerView: 5,
-                //   },
-                //   600: {
-                //     slidesPerView: 5.5,
-                //   },
-                //   700: {
-                //     slidesPerView: 6.5,
-                //   },
-                //   768: {
-                //     slidesPerView: 4,
-                //   },
-                //   800: {
-                //     slidesPerView: 4.5,
-                //   },
-                //   880: {
-                //     slidesPerView: 5,
-                //   },
-                //   920: {
-                //     slidesPerView: 5.5,
-                //   },
-                //   1000: {
-                //     slidesPerView: 6,
-                //   },
-                //   1000: {
-                //     slidesPerView: 6.5,
-                //   },
-                //   1200: {
-                //     slidesPerView: 5,
-                //   },
-                //   1250: {
-                //     slidesPerView: 5.5,
-                //   },
-                //   1300: {
-                //     slidesPerView: 6,
-                //   },
-                // }}
-                // slidesPerView={2.5}
-                slidesPerView={'auto'}
+                nested={true}
+                slidesPerView="auto"
                 spaceBetween={5}
                 pagination={{
                   clickable: true,
                 }}
                 allowTouchMove={true}
                 modules={[Navigation]}
+                onTouchStart={onTouchStart}
+                onTouchEnd={onTouchEnd}
                 sliderClassName={styles.other_variants_slider}
                 slideClassName={styles.other_variants_slide}
                 mediaContainerClassName={styles.other_variants_image_container}

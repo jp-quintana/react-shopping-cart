@@ -1,8 +1,9 @@
+import { useState } from 'react';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
-// import 'swiper/css/navigation';
 
 import 'swiper/css';
 
@@ -10,14 +11,8 @@ import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 
 import ProductCard from '../ProductCard';
 
-import './sliderStyles.css';
-
 const ProductSlider = ({
   slides,
-  clearPlaceholders,
-  onPick,
-  showPlaceholder,
-  toPage,
   bp,
   slidesPerView,
   spaceBetween,
@@ -31,11 +26,10 @@ const ProductSlider = ({
   modules,
   sliderClassName,
   slideClassName,
-  mediaContainerClassName,
-  imageFillClassName,
-  imagePlaceholderClassName,
-  imageClassName,
+  fillClassName,
 }) => {
+  const [isNestedBeingDragged, setIsNestedBeingDragged] = useState(false);
+
   return (
     <>
       <Swiper
@@ -49,34 +43,23 @@ const ProductSlider = ({
         pagination={pagination}
         navigation={navigation}
         allowTouchMove={allowTouchMove}
+        noSwiping={isNestedBeingDragged}
+        noSwipingClass="swiper-slide"
         modules={modules}
-        className={`${sliderClassName} slider-navigation`}
+        className={`${sliderClassName}`}
       >
         {navigation && (
           <>
-            <div
-              className={`swiper-button image-swiper-button-prev ${
-                showPlaceholder ? 'no-show' : undefined
-              }`}
-            >
+            <div className={showPlaceholder ? 'no-show' : undefined}>
               <FaArrowLeft />
             </div>
-            <div
-              className={`swiper-button image-swiper-button-next ${
-                showPlaceholder ? 'no-show' : undefined
-              }`}
-            >
+            <div className={showPlaceholder ? 'no-show' : undefined}>
               <FaArrowRight />
             </div>
           </>
         )}
-        {/* TODO: update */}
         {slides.map((slide) => (
-          <SwiperSlide
-            key={slide.id}
-            className={slideClassName}
-            onClick={onPick ? () => onPick({ variantId: slide.id }) : undefined}
-          >
+          <SwiperSlide key={slide.id} className={slideClassName}>
             {slide.variantId ? (
               <ProductCard
                 productId={slide.productId}
@@ -93,9 +76,14 @@ const ProductSlider = ({
                 skus={slide.skus}
                 isSoldOut={slide.isSoldOut}
                 allVariants={slide.allVariants}
+                onTouchStart={() => setIsNestedBeingDragged(true)}
+                onTouchEnd={() => setIsNestedBeingDragged(false)}
               />
             ) : (
-              <div style={{ paddingTop: '144%', background: 'grey' }} />
+              <div
+                className={fillClassName}
+                style={{ paddingTop: '144%', background: 'grey' }}
+              />
             )}
           </SwiperSlide>
         ))}

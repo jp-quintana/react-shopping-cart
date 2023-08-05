@@ -2,7 +2,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
-// import 'swiper/css/navigation';
 
 import 'swiper/css';
 
@@ -28,7 +27,10 @@ const Slider = ({
   pagination,
   navigation,
   allowTouchMove = true,
+  nested,
   modules,
+  onTouchStart,
+  onTouchEnd,
   sliderClassName,
   slideClassName,
   mediaContainerClassName,
@@ -49,11 +51,11 @@ const Slider = ({
         pagination={pagination}
         navigation={navigation}
         allowTouchMove={allowTouchMove}
+        nested={nested}
         modules={modules}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
         className={`${sliderClassName} slider-navigation`}
-        // nested={true}
-        // onTouchStart={true}
-        // onDragStart={true}
       >
         {navigation && (
           <>
