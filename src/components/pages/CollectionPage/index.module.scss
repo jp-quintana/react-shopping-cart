@@ -27,6 +27,10 @@
     @media (min-width: 1200px) {
       grid-template-columns: repeat(4, 1fr);
     }
+
+    .product_card_container {
+      margin-bottom: 1.5rem;
+    }
   }
 
   .less_filters_title,

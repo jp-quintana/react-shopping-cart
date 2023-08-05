@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-bottom: 1.5rem;
 
   &:hover .slider_container .quick_add_container {
     bottom: -6rem;
@@ -136,7 +135,6 @@
         padding: 0 1rem;
 
         .quick_add_top {
-          width: 100%;
           padding: 1rem 1.5rem 0.5rem;
           display: flex;
           justify-content: space-between;

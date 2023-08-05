@@ -27,6 +27,7 @@ const ProductCard = ({
   skus,
   isSoldOut,
   allVariants,
+  nested,
   onTouchStart,
   onTouchEnd,
 }) => {
@@ -158,7 +159,7 @@ const ProductCard = ({
                 onPick={handlePickVariant}
                 showPlaceholder={showDetailsPlaceholder}
                 slides={allVariantSlides}
-                nested={true}
+                nested={nested}
                 slidesPerView="auto"
                 spaceBetween={5}
                 pagination={{

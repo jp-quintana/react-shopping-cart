@@ -187,6 +187,7 @@ const CollectionPage = () => {
                             ? lastProductVariantRef
                             : undefined
                         }
+                        className={styles.product_card_container}
                       >
                         <ProductCard
                           productId={productVariant.productId}

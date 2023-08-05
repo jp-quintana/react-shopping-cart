@@ -20,6 +20,12 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+
+        .fill {
+          border-radius: 1.5rem;
+          padding-top: 168.11965812%;
+          background: 'grey';
+        }
       }
     }
   }

@@ -7,8 +7,6 @@ import 'swiper/css/pagination';
 
 import 'swiper/css';
 
-import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
-
 import ProductCard from '../ProductCard';
 
 const ProductSlider = ({
@@ -16,12 +14,7 @@ const ProductSlider = ({
   bp,
   slidesPerView,
   spaceBetween,
-  loop,
-  centeredSlides,
-  grabCursor,
-  autoplay,
   pagination,
-  navigation,
   allowTouchMove = true,
   modules,
   sliderClassName,
@@ -36,28 +29,13 @@ const ProductSlider = ({
         breakpoints={bp ? bp : undefined}
         slidesPerView={slidesPerView}
         spaceBetween={spaceBetween}
-        loop={loop}
-        centeredSlides={centeredSlides}
-        grabCursor={grabCursor}
-        autoplay={autoplay}
         pagination={pagination}
-        navigation={navigation}
         allowTouchMove={allowTouchMove}
         noSwiping={isNestedBeingDragged}
         noSwipingClass="swiper-slide"
         modules={modules}
         className={`${sliderClassName}`}
       >
-        {navigation && (
-          <>
-            <div className={showPlaceholder ? 'no-show' : undefined}>
-              <FaArrowLeft />
-            </div>
-            <div className={showPlaceholder ? 'no-show' : undefined}>
-              <FaArrowRight />
-            </div>
-          </>
-        )}
         {slides.map((slide) => (
           <SwiperSlide key={slide.id} className={slideClassName}>
             {slide.variantId ? (
@@ -76,13 +54,17 @@ const ProductSlider = ({
                 skus={slide.skus}
                 isSoldOut={slide.isSoldOut}
                 allVariants={slide.allVariants}
+                nested={true}
                 onTouchStart={() => setIsNestedBeingDragged(true)}
                 onTouchEnd={() => setIsNestedBeingDragged(false)}
               />
             ) : (
               <div
                 className={fillClassName}
-                style={{ paddingTop: '144%', background: 'grey' }}
+                style={{
+                  paddingTop: '168.11965812%',
+                  background: 'grey',
+                }}
               />
             )}
           </SwiperSlide>

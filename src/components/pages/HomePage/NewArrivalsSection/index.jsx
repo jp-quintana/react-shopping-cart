@@ -50,7 +50,7 @@ const NewArrivalsSection = () => {
             modules={[Pagination]}
             sliderClassName={styles.slider}
             slideClassName={styles.slide}
-            fillClassName={styles.image_fill}
+            fillClassName={styles.fill}
           />
         </div>
       </div>
