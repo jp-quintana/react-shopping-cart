@@ -197,16 +197,22 @@ const ProductCard = ({
                 />
               </div>
             ) : (
-              <QuickAdd
-                isSmallContainer={true}
-                skus={currentVariant.skus}
-                handleAddItem={handleAddItem}
-                isLoading={isLoading}
-                containerClassName={styles.quick_add_container}
-                wrapperClassName={styles.quick_add_wrapper}
-                topContainerClassName={styles.quick_add_top}
-                bottomContainerClassName={styles.quick_add_bottom}
-              />
+              <div className={styles.small_expandable}>
+                <QuickAdd
+                  isSmallContainer={true}
+                  skus={currentVariant.skus}
+                  handleAddItem={handleAddItem}
+                  isLoading={isLoading}
+                  nested={nested}
+                  onTouchStart={onTouchStart}
+                  onTouchEnd={onTouchEnd}
+                  containerClassName={styles.quick_add_container}
+                  wrapperClassName={styles.quick_add_wrapper}
+                  topContainerClassName={styles.quick_add_top}
+                  bottomContainerClassName={styles.quick_add_bottom}
+                  sizesSliderClassName={styles.sizes_slider}
+                />
+              </div>
             )}
           </div>
           <ul

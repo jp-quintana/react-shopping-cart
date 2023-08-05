@@ -173,14 +173,14 @@
       opacity: 0;
       position: absolute;
       display: flex;
-      height: 7.5rem;
       width: 100%;
       z-index: 1;
       transition: opacity 0.1s ease-in;
+      height: 7.5rem;
 
       .expandable {
         display: flex;
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 0;
         position: relative;
         justify-content: center;
         border-radius: 1rem;
@@ -188,6 +188,26 @@
         border: 0.5px solid $border-c-var;
         margin-top: 0.5rem;
         width: 100%;
+      }
+
+      .small_expandable {
+        display: flex;
+        padding: 0.5rem 1rem;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        margin-top: 0.5rem;
+        width: 100%;
+
+        .sizes_slider {
+          position: absolute;
+          background: #fff;
+          border-radius: 1rem;
+          border: 0.5px solid $border-c-var;
+          left: 0;
+          right: 0;
+          padding: 0.5rem 1rem;
+        }
       }
     }
 
@@ -323,7 +343,8 @@
   width: 100%;
   top: 0;
   left: 0;
-  padding: 0.5rem 1rem;
+  right: 0;
+  padding: 0 1rem !important;
 
   .other_variants_slide {
     user-select: none;

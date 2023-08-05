@@ -9,34 +9,87 @@ const QuickAdd = ({
   skus,
   handleAddItem,
   isLoading,
+  nested,
+  onTouchStart,
+  onTouchEnd,
   containerClassName,
   wrapperClassName,
   topContainerClassName,
   bottomContainerClassName,
+  sizesSliderClassName,
 }) => {
   if (isSmallContainer) {
     return (
-      <div className={styles.small_container}>
-        <Swiper>
-          {skus.map((sku) => (
-            <SwiperSlide key={sku.skuId} onClick={() => {}}>
-              <div
-                onClick={
-                  !isLoading && sku.quantity > 0
-                    ? () => handleAddItem({ skuId: sku.skuId, size: sku.size })
-                    : undefined
-                }
-                className={`
+      <>
+        <Swiper
+          slidesPerView="auto"
+          spaceBetween={5}
+          nested={nested}
+          centeredSlides={skus.length === 1}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+          className={sizesSliderClassName}
+        >
+          {skus.length > 1 ? (
+            <div
+              className={`${styles.sizes_wrapper} ${
+                isLoading ? styles.center : undefined
+              }`}
+            >
+              {skus.map((sku) => (
+                <SwiperSlide
+                  key={sku.skuId}
+                  onClick={
+                    !isLoading && sku.quantity > 0
+                      ? () =>
+                          handleAddItem({ skuId: sku.skuId, size: sku.size })
+                      : undefined
+                  }
+                  className={`
                     ${
                       sku.quantity > 0 ? styles.size : styles.size_no_quantity
                     } ${isLoading && styles.no_show}`}
-              >
-                {sku.size}
-              </div>
-            </SwiperSlide>
-          ))}
+                >
+                  {sku.size}
+                </SwiperSlide>
+              ))}
+            </div>
+          ) : (
+            <div className={styles.single_size_wrapper}>
+              {skus.map((singleSku) => (
+                <SwiperSlide
+                  key={singleSku.skuId}
+                  onClick={
+                    !isLoading && singleSku.quantity > 0
+                      ? () =>
+                          handleAddItem({
+                            skuId: singleSku.skuId,
+                            size: singleSku.size,
+                          })
+                      : undefined
+                  }
+                  className={`${
+                    singleSku.quantity > 0
+                      ? styles.single_size
+                      : styles.single_size_no_quantity
+                  } ${isLoading && styles.no_show} ${
+                    isSmallContainer ? styles.is_small_container : undefined
+                  }`}
+                >
+                  Add To Bag
+                </SwiperSlide>
+              ))}
+            </div>
+          )}
         </Swiper>
-      </div>
+        {isLoading && (
+          <div
+            className={`${styles.loader} ${
+              isSmallContainer ? styles.is_small_container : undefined
+            }`}
+          />
+        )}
+      </>
     );
   }
   return (
