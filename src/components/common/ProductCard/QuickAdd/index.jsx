@@ -1,8 +1,11 @@
+import { Swiper, SwiperSlide } from 'swiper/react';
+
 import { FaPlus } from 'react-icons/fa';
 
 import styles from './index.module.scss';
 
 const QuickAdd = ({
+  isSmallContainer,
   skus,
   handleAddItem,
   isLoading,
@@ -11,6 +14,31 @@ const QuickAdd = ({
   topContainerClassName,
   bottomContainerClassName,
 }) => {
+  if (isSmallContainer) {
+    return (
+      <div className={styles.small_container}>
+        <Swiper>
+          {skus.map((sku) => (
+            <SwiperSlide key={sku.skuId} onClick={() => {}}>
+              <div
+                onClick={
+                  !isLoading && sku.quantity > 0
+                    ? () => handleAddItem({ skuId: sku.skuId, size: sku.size })
+                    : undefined
+                }
+                className={`
+                    ${
+                      sku.quantity > 0 ? styles.size : styles.size_no_quantity
+                    } ${isLoading && styles.no_show}`}
+              >
+                {sku.size}
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    );
+  }
   return (
     <div className={containerClassName}>
       <div className={wrapperClassName}>

@@ -5,32 +5,37 @@
 
   &:hover .slider_container .quick_add_container {
     bottom: -6rem;
-    transition: bottom 0.1 ease-in;
+    transition: bottom 0.1s ease-in;
   }
 
   &:hover .info_wrapper .quick_add_container {
     bottom: -6rem;
-    transition: bottom 0.1 ease-in;
+    transition: bottom 0.1s ease-in;
   }
 
   &:hover .slider_container .expandable_container {
     opacity: 1;
-    transition: opacity 0.1 ease-in;
+    transition: opacity 0.1s ease-in;
   }
 
-  &:hover .info_wrapper .expandable_container {
+  &:not(.is_small_container):hover .info_wrapper .expandable_container {
     opacity: 1;
-    transition: opacity 0.1 ease-in;
+    transition: opacity 0.1s ease-in;
   }
 
-  &:hover .slider_container .info_list {
-    opacity: 0;
-    transition: opacity 0.1 ease-in;
+  &.is_small_container .info_wrapper:hover .expandable_container {
+    opacity: 1;
+    transition: opacity 0.1s ease-in;
   }
 
-  &:hover .info_wrapper .info_list {
+  &:not(.is_small_container):hover .info_wrapper .info_list {
     opacity: 0;
-    transition: opacity 0.1 ease-in;
+    transition: opacity 0.1s ease-in;
+  }
+
+  &.is_small_container .info_wrapper:hover .info_list {
+    opacity: 0;
+    transition: opacity 0.1s ease-in;
   }
 
   .tag_container {
@@ -110,7 +115,8 @@
       bottom: -10rem;
       z-index: 20;
       display: flex;
-      width: 90%;
+      justify-content: center;
+      width: 100%;
       left: 50%;
       transform: translateX(-50%);
       transition: bottom 0.1s ease-in;
@@ -125,14 +131,13 @@
       }
 
       .quick_add_wrapper {
-        border-radius: 2rem;
+        border-radius: 1rem;
         background-color: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(8px);
         border: 0.05rem solid $border-c-var;
         display: flex;
         flex-direction: column;
-        width: 100%;
-        padding: 0 1rem;
+        width: 90%;
 
         .quick_add_top {
           padding: 1rem 1.5rem 0.5rem;

@@ -20,6 +20,12 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        max-width: 17rem;
+        width: 60vw;
+
+        @media (min-width: 600px) {
+          max-width: 22rem;
+        }
 
         .fill {
           border-radius: 1.5rem;

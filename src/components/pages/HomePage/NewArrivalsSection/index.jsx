@@ -30,7 +30,9 @@ const NewArrivalsSection = () => {
 
   useEffect(() => {
     (async () => {
-      const fetchedVariants = await getCollection({});
+      const fetchedVariants = await getCollection({
+        sortBy: { field: 'price', direction: 'desc' },
+      });
       setSlides(fetchedVariants);
     })();
   }, []);
@@ -44,7 +46,7 @@ const NewArrivalsSection = () => {
         <div className={styles.carousel_container}>
           <ProductSlider
             slides={slides}
-            slidesPerView={5}
+            slidesPerView="auto"
             spaceBetween={20}
             pagination={false}
             modules={[Pagination]}

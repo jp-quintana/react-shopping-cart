@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Navigation } from 'swiper';
-import { useMediaQuery } from 'react-responsive';
 
 import { useCart } from 'hooks/useCart';
 
@@ -48,6 +47,27 @@ const ProductCard = ({
 
   const [showDetailsPlaceholder, setDetailsShowPlaceholder] = useState(true);
 
+  const [isSmallContainer, setIsSmallContainer] = useState(false);
+
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const containerElement = containerRef.current;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const { width } = entry.contentRect;
+        setIsSmallContainer(width < 220);
+      }
+    });
+
+    resizeObserver.observe(containerElement);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+
   const handlePickVariant = ({ variantId }) => {
     const selectedVariant = allVariants.find(
       (variant) => variant.variantId === variantId
@@ -88,13 +108,14 @@ const ProductCard = ({
   }));
   // const allVariantSlides = [];
 
-  const isBigScreen = useMediaQuery({
-    query: '(min-width: 520px)',
-  });
-
   return (
     <>
-      <div className={styles.container}>
+      <div
+        ref={containerRef}
+        className={`${styles.container} ${
+          isSmallContainer ? styles.is_small_container : undefined
+        }`}
+      >
         {!showDetailsPlaceholder && (
           <div className={styles.tag_container}>
             {currentVariant.isSoldOut && (
@@ -134,7 +155,7 @@ const ProductCard = ({
               imageFillClassName={styles.image_fill}
               imageClassName={styles.image}
             />
-            {!showDetailsPlaceholder && isBigScreen && (
+            {!showDetailsPlaceholder && !isSmallContainer && (
               <QuickAdd
                 skus={currentVariant.skus}
                 handleAddItem={handleAddItem}
@@ -153,29 +174,40 @@ const ProductCard = ({
             className={styles.expandable_container}
             style={{ opacity: showDetailsPlaceholder && 0 }}
           >
-            <div className={styles.expandable}>
-              <Slider
-                clearPlaceholders={() => setDetailsShowPlaceholder(false)}
-                onPick={handlePickVariant}
-                showPlaceholder={showDetailsPlaceholder}
-                slides={allVariantSlides}
-                nested={nested}
-                slidesPerView="auto"
-                spaceBetween={5}
-                pagination={{
-                  clickable: true,
-                }}
-                allowTouchMove={true}
-                modules={[Navigation]}
-                onTouchStart={onTouchStart}
-                onTouchEnd={onTouchEnd}
-                sliderClassName={styles.other_variants_slider}
-                slideClassName={styles.other_variants_slide}
-                mediaContainerClassName={styles.other_variants_image_container}
-                imageFillClassName={styles.other_variants_image_fill}
-                imageClassName={styles.other_variants_image}
+            {!isSmallContainer ? (
+              <div className={styles.expandable}>
+                <Slider
+                  clearPlaceholders={() => setDetailsShowPlaceholder(false)}
+                  onPick={handlePickVariant}
+                  showPlaceholder={showDetailsPlaceholder}
+                  slides={allVariantSlides}
+                  nested={nested}
+                  slidesPerView="auto"
+                  spaceBetween={5}
+                  allowTouchMove={true}
+                  onTouchStart={onTouchStart}
+                  onTouchEnd={onTouchEnd}
+                  sliderClassName={styles.other_variants_slider}
+                  slideClassName={styles.other_variants_slide}
+                  mediaContainerClassName={
+                    styles.other_variants_image_container
+                  }
+                  imageFillClassName={styles.other_variants_image_fill}
+                  imageClassName={styles.other_variants_image}
+                />
+              </div>
+            ) : (
+              <QuickAdd
+                isSmallContainer={true}
+                skus={currentVariant.skus}
+                handleAddItem={handleAddItem}
+                isLoading={isLoading}
+                containerClassName={styles.quick_add_container}
+                wrapperClassName={styles.quick_add_wrapper}
+                topContainerClassName={styles.quick_add_top}
+                bottomContainerClassName={styles.quick_add_bottom}
               />
-            </div>
+            )}
           </div>
           <ul
             className={styles.info_list}

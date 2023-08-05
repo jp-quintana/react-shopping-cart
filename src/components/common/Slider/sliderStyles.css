@@ -20,7 +20,7 @@
   z-index: 10;
   cursor: pointer;
   opacity: 1;
-  transition: background 0.2s ease-in, color 0.2s ease-in, opacity 0.2 ease-in;
+  transition: background 0.1s ease-in, color 0.1s ease-in, opacity 0.1s ease-in;
 }
 
 .swiper-button:hover {
