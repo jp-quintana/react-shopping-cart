@@ -9,11 +9,6 @@ const HeroSection = () => {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        {/* <div className={styles.video_background}>
-          <video  className={styles.video}>
-            <source src={Video} type="video/mp4" />
-          </video>
-        </div> */}
         <MediaContainer
           video={Video}
           autoPlay

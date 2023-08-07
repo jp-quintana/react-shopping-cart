@@ -7,7 +7,7 @@ import { ProductSlider } from 'components/common';
 
 import styles from './index.module.scss';
 
-const ProductSliderSection = () => {
+const ProductSliderSection = ({ titleTop, titleBottom, sortBy }) => {
   const { getCollection } = useCollection();
 
   const [slides, setSlides] = useState([
@@ -31,18 +31,24 @@ const ProductSliderSection = () => {
   useEffect(() => {
     (async () => {
       const fetchedVariants = await getCollection({
-        sortBy: { field: 'price', direction: 'desc' },
+        sortBy,
       });
-      setSlides(fetchedVariants);
+
+      setSlides(
+        fetchedVariants.sort((a, b) =>
+          a.color.toUpperCase() > b.color.toUpperCase() ? 1 : -1
+        )
+      );
     })();
   }, []);
-
-  console.log(slides);
 
   return (
     <section className={styles.section}>
       <div className={`${styles.container} main-container`}>
-        <h1 className={styles.section_title}>New arrivals</h1>
+        {titleTop && <p className={styles.section_title_top}>{titleTop}</p>}
+        {titleBottom && (
+          <h1 className={styles.section_title_bottom}>{titleBottom}</h1>
+        )}
         <div className={styles.carousel_container}>
           <ProductSlider
             slides={slides}

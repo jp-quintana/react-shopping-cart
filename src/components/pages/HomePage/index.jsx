@@ -7,9 +7,17 @@ export const HomePage = () => {
   return (
     <>
       <HeroSection />
-      <ProductSliderSection />
       <SlideshowSection />
+      <ProductSliderSection
+        titleBottom="New Arrivals"
+        sortBy={{ field: 'price', direction: 'desc' }}
+      />
       <CollectionsSection />
+      <ProductSliderSection
+        titleTop="Everyday"
+        titleBottom="Essentials"
+        sortBy={{ field: 'createdAt', direction: 'asc' }}
+      />
     </>
   );
 };
