@@ -7,7 +7,7 @@ import { ProductSlider } from 'components/common';
 
 import styles from './index.module.scss';
 
-const NewArrivalsSection = () => {
+const ProductSliderSection = () => {
   const { getCollection } = useCollection();
 
   const [slides, setSlides] = useState([
@@ -60,4 +60,4 @@ const NewArrivalsSection = () => {
   );
 };
 
-export default NewArrivalsSection;
+export default ProductSliderSection;

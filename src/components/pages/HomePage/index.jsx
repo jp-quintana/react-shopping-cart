@@ -1,5 +1,5 @@
 import HeroSection from './HeroSection';
-import NewArrivalsSection from './NewArrivalsSection';
+import ProductSliderSection from './ProductSliderSection';
 import SlideshowSection from './SlideshowSection';
 import CollectionsSection from './CollectionsSection';
 
@@ -7,7 +7,7 @@ export const HomePage = () => {
   return (
     <>
       <HeroSection />
-      <NewArrivalsSection />
+      <ProductSliderSection />
       <SlideshowSection />
       <CollectionsSection />
     </>
