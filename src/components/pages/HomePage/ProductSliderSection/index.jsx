@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Pagination } from 'swiper';
 
 import { useCollection } from 'hooks/useCollection';
 
@@ -55,7 +54,6 @@ const ProductSliderSection = ({ titleTop, titleBottom, sortBy }) => {
             slidesPerView="auto"
             spaceBetween={20}
             pagination={false}
-            modules={[Pagination]}
             sliderClassName={styles.slider}
             slideClassName={styles.slide}
             fillClassName={styles.fill}

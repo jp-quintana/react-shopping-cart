@@ -1,6 +1,5 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import 'swiper/css';
 import 'swiper/css/pagination';
 
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
@@ -12,7 +11,8 @@ import './sliderStyles.css';
 const Slider = ({
   slides,
   clearPlaceholders,
-  onPick,
+  onVariantPick,
+  onCardPick,
   showPlaceholder,
   toPage,
   bp,
@@ -78,7 +78,13 @@ const Slider = ({
           <SwiperSlide
             key={slide.id}
             className={slideClassName}
-            onClick={onPick ? () => onPick({ variantId: slide.id }) : undefined}
+            onClick={
+              onVariantPick
+                ? () => onVariantPick({ variantId: slide.id })
+                : onCardPick
+                ? onCardPick
+                : undefined
+            }
           >
             <MediaContainer
               image={slide.src}

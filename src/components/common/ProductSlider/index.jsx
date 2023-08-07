@@ -2,8 +2,6 @@ import { useState } from 'react';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import 'swiper/css';
-
 import ProductCard from '../ProductCard';
 
 const ProductSlider = ({
@@ -17,6 +15,8 @@ const ProductSlider = ({
   sliderClassName,
   slideClassName,
   fillClassName,
+  cardExpandableClassName,
+  onCardPick,
 }) => {
   const [isNestedBeingDragged, setIsNestedBeingDragged] = useState(false);
 
@@ -54,6 +54,8 @@ const ProductSlider = ({
                 nested={true}
                 onTouchStart={() => setIsNestedBeingDragged(true)}
                 onTouchEnd={() => setIsNestedBeingDragged(false)}
+                expandableClassName={cardExpandableClassName}
+                onCardPick={onCardPick}
               />
             ) : (
               <div

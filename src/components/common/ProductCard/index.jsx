@@ -29,6 +29,8 @@ const ProductCard = ({
   nested,
   onTouchStart,
   onTouchEnd,
+  expandableClassName,
+  onCardPick,
 }) => {
   const location = useLocation();
   const isAdmin = location.pathname.split('/')[1] === 'admin';
@@ -131,6 +133,7 @@ const ProductCard = ({
         <div className={styles.slider_container}>
           <>
             <Slider
+              onCardPick={onCardPick}
               clearPlaceholders={() => setDetailsShowPlaceholder(false)}
               showPlaceholder={showDetailsPlaceholder}
               slides={currentVariant.slides}
@@ -175,10 +178,10 @@ const ProductCard = ({
             style={{ opacity: showDetailsPlaceholder && 0 }}
           >
             {!isSmallContainer ? (
-              <div className={styles.expandable}>
+              <div className={`${styles.expandable} ${expandableClassName}`}>
                 <Slider
                   clearPlaceholders={() => setDetailsShowPlaceholder(false)}
-                  onPick={handlePickVariant}
+                  onVariantPick={handlePickVariant}
                   showPlaceholder={showDetailsPlaceholder}
                   slides={allVariantSlides}
                   nested={nested}
