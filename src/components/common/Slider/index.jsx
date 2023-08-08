@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css/pagination';
@@ -36,6 +37,12 @@ const Slider = ({
   imagePlaceholderClassName,
   imageClassName,
 }) => {
+  let slugCheck;
+  if (toPage) {
+    const { pathname } = useLocation();
+    slugCheck = slides[0].url === pathname.split('/')[2];
+  }
+
   return (
     <>
       <Swiper
@@ -90,6 +97,7 @@ const Slider = ({
               image={slide.src}
               to={toPage && toPage + slide.url}
               alt={slide.alt || ''}
+              slugCheck={slugCheck}
               clearPlaceholders={clearPlaceholders}
               containerClassName={mediaContainerClassName}
               fillClassName={imageFillClassName}

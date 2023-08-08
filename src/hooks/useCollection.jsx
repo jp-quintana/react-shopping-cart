@@ -157,8 +157,6 @@ export const useCollection = () => {
           });
         });
 
-        console.log('productVariants', productVariants);
-
         const formattedProductVariants = productVariants.map((variant) => ({
           ...variant,
           id: uuid(),

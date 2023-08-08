@@ -12,6 +12,7 @@ const MediaContainer = ({
   muted,
   to,
   alt,
+  slugCheck,
   onClick,
   clearPlaceholders,
   containerClassName,
@@ -39,6 +40,7 @@ const MediaContainer = ({
     return (
       <Link
         to={to}
+        state={slugCheck ? true : null}
         className={`${styles.media_container} ${containerClassName}`}
       >
         <div className={`${styles.media_fill} ${fillClassName}`}>
