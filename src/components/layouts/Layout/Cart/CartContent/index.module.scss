@@ -1,5 +1,5 @@
 .empty_container {
-  width: 95%;
+  width: 100%;
   margin: 0 auto;
   height: 100%;
   display: flex;
@@ -85,43 +85,44 @@
   .content {
     height: 100%;
     overflow-y: auto;
+    padding: 0 1.5rem;
     overflow-x: hidden !important;
 
-    margin: 0 0.3rem;
+    @media (min-width: 900px) {
+      padding: 0;
+    }
 
     &::-webkit-scrollbar {
-      width: 1rem;
-    }
+      width: 0;
 
-    &::-webkit-scrollbar-track {
-      background: hsl(0, 0%, 95%);
-      border-radius: 100vw;
-      margin: 3rem 0 0.3rem;
-    }
-
-    @media (min-width: 900px) {
-      &::-webkit-scrollbar-track {
-        background: hsl(0, 0%, 95%);
-        border-radius: 100vw;
-        margin: 0.3rem;
+      @media (min-width: 900px) {
+        width: 1rem;
       }
     }
 
-    &::-webkit-scrollbar-thumb {
-      background: hsl(0, 0%, 76%);
+    &::-webkit-scrollbar-track {
+      background: transparent;
       border-radius: 100vw;
+      margin: 0.3rem;
     }
 
-    &::-webkit-scrollbar-thumb:hover {
-      background: hsl(0, 0%, 66%);
+    &::-webkit-scrollbar-thumb {
+      border: 4px solid rgba(0, 0, 0, 0);
+      background-clip: padding-box;
+      border-radius: 9999px;
+      background-color: #aaaaaa;
     }
 
     .list_wrapper {
-      margin: 0 0.2rem;
       min-height: 100%;
+      padding-bottom: 24rem;
+
+      @media (min-width: 900px) {
+        padding-bottom: 0;
+      }
 
       .list {
-        padding: 2rem 1rem;
+        padding: 2rem 0;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -132,22 +133,19 @@
           padding: 2rem;
         }
       }
-
-      .product_slider_container {
-        margin: 0 1rem 2rem;
-      }
     }
   }
 
   .footer_container {
-    position: sticky;
+    position: absolute;
     bottom: 0;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(6px);
+    background-color: hsla(0, 0%, 100%, 0.75);
+    backdrop-filter: blur(10px);
     border: $border-modal;
     border-top-left-radius: 1.5rem;
     border-top-right-radius: 1.5rem;
+    z-index: 1;
 
     @media (min-width: 900px) {
       position: static;
@@ -182,7 +180,7 @@
 
         .cart_button {
           border: 2px solid $border-c-button-checkout;
-          background-color: $back-c-button-secondary;
+          background-color: transparent;
           color: $c-primary;
           line-height: 1.5;
 
