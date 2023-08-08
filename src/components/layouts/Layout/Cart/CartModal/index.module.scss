@@ -31,6 +31,11 @@
       overflow: hidden !important;
       padding-bottom: 2rem;
       width: 100%;
+      display: none;
+
+      @media (min-width: 900px) {
+        display: block;
+      }
 
       .title {
         font-size: 1.6rem;

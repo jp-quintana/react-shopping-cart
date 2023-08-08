@@ -1,9 +1,7 @@
 export { default as AdminProduct } from './AdminProduct';
 export { default as Backdrop } from './Backdrop';
 export { default as Button } from './Button';
-export { default as CartContent } from './CartContent';
 export { default as CartItem } from './CartItem';
-export { default as CartModal } from './CartModal';
 export { default as CenterModal } from './CenterModal';
 export { default as ConfirmModal } from './ConfirmModal';
 export { default as DragDropFileInput } from './DragDropFileInput';

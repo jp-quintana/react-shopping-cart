@@ -1,4 +1,4 @@
-.empty {
+.empty_container {
   width: 95%;
   margin: 0 auto;
   height: 100%;
@@ -9,9 +9,19 @@
   gap: 2rem;
   padding: 1rem;
 
-  .no_products {
-    text-align: center;
-    text-transform: uppercase;
+  .no_products_container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .no_products_wrapper {
+      text-align: center;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
   }
 
   .empty_button {
@@ -26,6 +36,46 @@
   }
 }
 
+.product_slider_container {
+  flex: 1;
+  width: 100%;
+  padding-top: 2rem;
+  border-top: $border-modal;
+
+  @media (min-width: 900px) {
+    display: none;
+  }
+
+  .title {
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .slider {
+    overflow: visible !important;
+
+    .slide {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 17rem;
+      width: 60vw;
+
+      @media (min-width: 600px) {
+        max-width: 22rem;
+      }
+
+      .fill {
+        border-radius: 1.5rem;
+        border: 0.5px solid $border-c-var;
+        width: 100%;
+        background: 'grey';
+      }
+    }
+  }
+}
+
 .container {
   min-width: 100%;
   height: 100%;
@@ -35,6 +85,8 @@
   .content {
     height: 100%;
     overflow-y: auto;
+    overflow-x: hidden !important;
+
     margin: 0 0.3rem;
 
     &::-webkit-scrollbar {
@@ -74,10 +126,15 @@
         display: flex;
         flex-direction: column;
         gap: 2rem;
+        margin-bottom: 1rem;
 
         @media (min-width: 600px) {
           padding: 2rem;
         }
+      }
+
+      .product_slider_container {
+        margin: 0 1rem 2rem;
       }
     }
   }
@@ -89,8 +146,8 @@
     background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(6px);
     border: $border-modal;
-    border-top-left-radius: 3rem;
-    border-top-right-radius: 3rem;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
 
     @media (min-width: 900px) {
       position: static;

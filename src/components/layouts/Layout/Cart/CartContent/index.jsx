@@ -5,15 +5,19 @@ import { CgShoppingBag, CgCheckO } from 'react-icons/cg';
 import { useCartContext } from 'hooks/useCartContext';
 import { useCart } from 'hooks/useCart';
 
-import CartItem from '../CartItem';
-
-import { Button, Toast, ToastMessage } from 'components/common';
+import {
+  CartItem,
+  ProductSlider,
+  Button,
+  Toast,
+  ToastMessage,
+} from 'components/common';
 
 import { addAllItemsPrice, addAllItemsQuantity } from 'helpers/item';
 
 import styles from './index.module.scss';
 
-const CartContent = ({ closeCartModal }) => {
+const CartContent = ({ closeCartModal, slides }) => {
   const { items } = useCartContext();
   const { addItem, removeItem, deleteItem, isLoading, loadingItemId, error } =
     useCart();
@@ -39,15 +43,33 @@ const CartContent = ({ closeCartModal }) => {
         )}
       </Toast>
       {items.length === 0 ? (
-        <div className={styles.empty}>
-          <p className={styles.no_products}>Show your bag some love!</p>
-          <Button
-            className={`${styles.button} ${styles.empty_button}`}
-            to="/collections/products"
-            onClick={closeCartModal}
-          >
-            Shop now
-          </Button>
+        <div className={styles.empty_container}>
+          <div className={styles.no_products_container}>
+            <div className={styles.no_products_wrapper}>
+              <p className={styles.no_products}>Show your bag some love!</p>
+              <Button
+                className={`${styles.button} ${styles.empty_button}`}
+                to="/collections/products"
+                onClick={closeCartModal}
+              >
+                Shop now
+              </Button>
+            </div>
+          </div>
+          <div className={styles.product_slider_container}>
+            <p className={styles.title}>Recommended Products</p>
+            <ProductSlider
+              slides={slides}
+              slidesPerView="auto"
+              spaceBetween={20}
+              pagination={false}
+              sliderClassName={styles.slider}
+              slideClassName={styles.slide}
+              fillClassName={styles.fill}
+              cardExpandableClassName={styles.expandable}
+              onCardPick={closeCartModal}
+            />
+          </div>
         </div>
       ) : (
         <div className={styles.container}>
@@ -76,6 +98,20 @@ const CartContent = ({ closeCartModal }) => {
                     loadingItemId={loadingItemId}
                   />
                 ))}
+              </div>
+              <div className={styles.product_slider_container}>
+                <p className={styles.title}>Recommended Products</p>
+                <ProductSlider
+                  slides={slides}
+                  slidesPerView="auto"
+                  spaceBetween={20}
+                  pagination={false}
+                  sliderClassName={styles.slider}
+                  slideClassName={styles.slide}
+                  fillClassName={styles.fill}
+                  cardExpandableClassName={styles.expandable}
+                  onCardPick={closeCartModal}
+                />
               </div>
             </div>
           </div>

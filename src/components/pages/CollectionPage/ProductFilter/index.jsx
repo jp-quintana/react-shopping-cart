@@ -32,7 +32,7 @@ const ProductFilter = ({
   });
   const [showOption, setShowOption] = useState(null);
   const [conditionsCount, setConditionsCount] = useState(0);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
@@ -201,8 +201,8 @@ const ProductFilter = ({
   });
 
   useEffect(() => {
-    if (isBigScreen && modalIsOpen) {
-      setModalIsOpen(false);
+    if (isBigScreen && isModalOpen) {
+      setIsModalOpen(false);
     }
   }, [isBigScreen]);
 
@@ -210,10 +210,10 @@ const ProductFilter = ({
     <>
       <DrawerModal
         motionKey="filter-drawer"
-        close={() => setModalIsOpen(false)}
+        close={() => setIsModalOpen(false)}
         modalClassName={styles.modal}
       >
-        {modalIsOpen && (
+        {isModalOpen && (
           <>
             <div className={styles.modal_header}>
               <div
@@ -342,7 +342,7 @@ const ProductFilter = ({
       {!isBigScreen && (
         <div className={styles.container_s}>
           <div
-            onClick={() => setModalIsOpen(true)}
+            onClick={() => setIsModalOpen(true)}
             className={styles.modal_open_button}
           >
             <FaSlidersH />
