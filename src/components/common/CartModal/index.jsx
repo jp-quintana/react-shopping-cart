@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
@@ -44,14 +44,16 @@ const CartModal = ({
     close();
   }, ['Escape']);
 
-  const isBigScreen = useMediaQuery({
-    query: '(min-width: 900px)',
-  });
-
   const { getCollection } = useCollection();
+
+  const isOpened = useRef(false);
 
   const [fetchedVariants, setFetchedVariants] = useState(null);
   const [slides, setSlides] = useState(initialSlides);
+
+  const isBigScreen = useMediaQuery({
+    query: '(min-width: 900px)',
+  });
 
   useEffect(() => {
     if (children && !fetchedVariants) {
@@ -67,23 +69,28 @@ const CartModal = ({
           setFetchedVariants(sortedVariants);
           setSlides(sortedVariants);
         })();
+
+        isOpened.current = true;
       }, 200);
     }
 
     if (children && fetchedVariants) {
       setTimeout(() => {
         setSlides(fetchedVariants);
+
+        isOpened.current = true;
       }, 200);
     }
 
-    if (!children) {
+    if (children && !isBigScreen) {
+      setSlides(initialSlides);
+    }
+
+    if (!children && isOpened.current) {
       setTimeout(() => {
         setSlides(initialSlides);
+        isOpened.current = false;
       }, 200);
-    }
-
-    if (!isBigScreen) {
-      setSlides(initialSlides);
     }
   }, [children, isBigScreen]);
 

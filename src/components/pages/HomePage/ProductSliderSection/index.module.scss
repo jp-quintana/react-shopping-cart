@@ -37,7 +37,8 @@
 
         .fill {
           border-radius: 1.5rem;
-          padding-top: 168.11965812%;
+          border: 0.5px solid $border-c-var;
+          width: 100%;
           background: 'grey';
         }
       }
