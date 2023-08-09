@@ -52,6 +52,7 @@
 
       @media (min-width: 900px) {
         padding: 3.5rem;
+        min-height: none;
       }
 
       @media (min-width: 1200px) {
@@ -129,7 +130,7 @@
         0 8px 10px -6px rgba(0, 0, 0, 0.1);
 
       .big_image_fill {
-        padding-top: 66.66624%;
+        padding-top: 56.25%;
         .big_image {
           display: block;
         }
