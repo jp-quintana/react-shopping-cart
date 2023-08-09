@@ -6,7 +6,6 @@ import CollectionsSection from './CollectionsSection';
 export const HomePage = () => {
   return (
     <>
-      <HeroSection />
       <SlideshowSection />
       <ProductSliderSection
         titleBottom="New Arrivals"
@@ -18,6 +17,7 @@ export const HomePage = () => {
         titleBottom="Essentials"
         sortBy={{ field: 'createdAt', direction: 'asc' }}
       />
+      <HeroSection />
     </>
   );
 };

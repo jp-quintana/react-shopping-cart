@@ -1,22 +1,8 @@
 .container {
-  padding: 3rem 0 1.5rem 0;
+  padding: 12rem 0 1.5rem 0;
 
   @media (min-width: 768px) {
-    padding: 5rem 0 2.5rem 0;
-  }
-
-  .section_text {
-    font-family: $font-f-secondary;
-    font-weight: $font-w-700;
-    letter-spacing: $ls-secondary;
-    line-height: 0.3;
-    margin-bottom: 0.4rem;
-  }
-
-  .section_title {
-    margin-bottom: 0.5rem;
-    font-size: 2.4rem;
-    text-transform: uppercase;
+    padding: 12rem 0 2.5rem 0;
   }
 
   .content_container {
@@ -37,6 +23,10 @@
       min-height: 50rem;
     }
 
+    @media (min-width: 900px) {
+      min-height: auto;
+    }
+
     .content_wrapper {
       user-select: none;
       padding: 2.5rem;
@@ -52,7 +42,6 @@
 
       @media (min-width: 900px) {
         padding: 3.5rem;
-        min-height: none;
       }
 
       @media (min-width: 1200px) {
