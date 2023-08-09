@@ -17,11 +17,12 @@
     max-height: 90vh;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 98%;
     justify-content: flex-end;
     align-items: center;
 
     @media (min-width: 900px) {
+      width: 100%;
       flex-direction: row;
       justify-content: center;
     }

@@ -7,24 +7,22 @@
   .form_wrapper {
     overflow-y: auto;
     padding: 0 2rem;
-    width: 98%;
+    width: 100%;
 
     &::-webkit-scrollbar {
       width: 1rem;
     }
 
     &::-webkit-scrollbar-track {
-      background: hsl(0, 0%, 95%);
+      background: transparent;
       border-radius: 100vw;
     }
 
     &::-webkit-scrollbar-thumb {
-      background: hsl(0, 0%, 76%);
-      border-radius: 100vw;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-      background: hsl(0, 0%, 66%);
+      border: 4px solid rgba(0, 0, 0, 0);
+      background-clip: padding-box;
+      border-radius: 9999px;
+      background-color: #aaaaaa;
     }
 
     .form {

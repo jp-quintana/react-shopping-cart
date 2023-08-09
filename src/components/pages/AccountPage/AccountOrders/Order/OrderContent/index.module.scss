@@ -64,7 +64,7 @@
 
   .list_wrapper {
     padding: 2.5rem 2rem;
-    width: 98%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 3rem;
@@ -76,17 +76,16 @@
     }
 
     &::-webkit-scrollbar-track {
-      background: hsl(0, 0%, 95%);
+      background: transparent;
       border-radius: 100vw;
+      margin: 0.5rem 0;
     }
 
     &::-webkit-scrollbar-thumb {
-      background: hsl(0, 0%, 76%);
-      border-radius: 100vw;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-      background: hsl(0, 0%, 66%);
+      border: 4px solid rgba(0, 0, 0, 0);
+      background-clip: padding-box;
+      border-radius: 9999px;
+      background-color: #aaaaaa;
     }
 
     .items_wrapper {

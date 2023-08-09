@@ -4,7 +4,7 @@
   min-width: 100%;
   height: 100%;
   background: #fff;
-  padding: 0 2rem;
+  padding: 3rem 2rem 0;
 
   i {
     font-size: 2.5rem;
@@ -14,22 +14,19 @@
 
   &::-webkit-scrollbar {
     width: 1rem;
-    padding-left: calc(100vw - 100%);
-    margin-right: 2rem;
   }
 
   &::-webkit-scrollbar-track {
-    background: hsl(0, 0%, 95%);
+    background: transparent;
     border-radius: 100vw;
+    margin-top: 3rem;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: hsl(0, 0%, 76%);
-    border-radius: 100vw;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: hsl(0, 0%, 66%);
+    border: 4px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+    border-radius: 9999px;
+    background-color: #aaaaaa;
   }
 }
 

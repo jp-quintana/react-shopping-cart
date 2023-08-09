@@ -7,6 +7,7 @@ import styles from './index.module.scss';
 const AccountAddresses = () => {
   const { addresses } = useAuthContext();
 
+  // TODO: issue here
   const defaultAddress = addresses.find((address) => address.isMain);
 
   const otherAddresses = addresses.filter((address) => !address.isMain);
