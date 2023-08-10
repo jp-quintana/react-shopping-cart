@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMediaQuery } from 'react-responsive';
@@ -23,6 +24,8 @@ const CartModal = ({
   useKeyDown(() => {
     close();
   }, ['Escape']);
+
+  const [isSliderInUse, setIsSliderInUse] = useState(false);
 
   const isBigScreen = useMediaQuery({
     query: '(min-width: 900px)',
@@ -57,7 +60,9 @@ const CartModal = ({
               />
               <div
                 onClick={close}
-                className={`${styles.modal_container} ${containerClassName}`}
+                className={`${styles.modal_container} ${containerClassName} ${
+                  isSliderInUse ? styles.disable_backdrop : undefined
+                }`}
               >
                 <div className={`${styles.modal_wrapper} ${wrapperClassName}`}>
                   <motion.aside
@@ -72,6 +77,8 @@ const CartModal = ({
                   >
                     <p className={styles.title}>Recommended Products</p>
                     <ProductSlider
+                      onTouchStart={() => setIsSliderInUse(true)}
+                      onTouchEnd={() => setIsSliderInUse(false)}
                       slides={slides}
                       slidesPerView="auto"
                       spaceBetween={20}

@@ -1,3 +1,7 @@
+.disable_backdrop {
+  pointer-events: none;
+}
+
 .modal_container {
   position: fixed;
   overflow: hidden;
