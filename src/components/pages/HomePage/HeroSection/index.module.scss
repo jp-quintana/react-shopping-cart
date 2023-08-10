@@ -14,6 +14,16 @@
     border-radius: 3rem;
     height: 50rem;
 
+    -webkit-transition: transform ease 0.2s;
+    -moz-transition: transform ease 0.2s;
+    -o-transition: transform ease 0.2s;
+    -ms-transition: transform ease 0.2s;
+    transition: transform ease 0.2s;
+
+    &:hover {
+      transform: scale(1.01);
+    }
+
     @media (min-width: 900px) {
       height: auto;
     }
