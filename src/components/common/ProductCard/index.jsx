@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Navigation } from 'swiper';
-import { useMediaQuery } from 'react-responsive';
 
 import { useCart } from 'hooks/useCart';
 
@@ -27,6 +26,11 @@ const ProductCard = ({
   skus,
   isSoldOut,
   allVariants,
+  nested,
+  onTouchStart,
+  onTouchEnd,
+  expandableClassName,
+  onCardPick,
 }) => {
   const location = useLocation();
   const isAdmin = location.pathname.split('/')[1] === 'admin';
@@ -44,6 +48,27 @@ const ProductCard = ({
   });
 
   const [showDetailsPlaceholder, setDetailsShowPlaceholder] = useState(true);
+
+  const [isSmallContainer, setIsSmallContainer] = useState(false);
+
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const containerElement = containerRef.current;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const { width } = entry.contentRect;
+        setIsSmallContainer(width < 220);
+      }
+    });
+
+    resizeObserver.observe(containerElement);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
 
   const handlePickVariant = ({ variantId }) => {
     const selectedVariant = allVariants.find(
@@ -85,13 +110,14 @@ const ProductCard = ({
   }));
   // const allVariantSlides = [];
 
-  const isBigScreen = useMediaQuery({
-    query: '(min-width: 520px)',
-  });
-
   return (
     <>
-      <div className={styles.container}>
+      <div
+        ref={containerRef}
+        className={`${styles.container} ${
+          isSmallContainer ? styles.is_small_container : undefined
+        }`}
+      >
         {!showDetailsPlaceholder && (
           <div className={styles.tag_container}>
             {currentVariant.isSoldOut && (
@@ -107,6 +133,7 @@ const ProductCard = ({
         <div className={styles.slider_container}>
           <>
             <Slider
+              onCardPick={onCardPick}
               clearPlaceholders={() => setDetailsShowPlaceholder(false)}
               showPlaceholder={showDetailsPlaceholder}
               slides={currentVariant.slides}
@@ -131,7 +158,7 @@ const ProductCard = ({
               imageFillClassName={styles.image_fill}
               imageClassName={styles.image}
             />
-            {!showDetailsPlaceholder && isBigScreen && (
+            {!showDetailsPlaceholder && !isSmallContainer && (
               <QuickAdd
                 skus={currentVariant.skus}
                 handleAddItem={handleAddItem}
@@ -150,76 +177,46 @@ const ProductCard = ({
             className={styles.expandable_container}
             style={{ opacity: showDetailsPlaceholder && 0 }}
           >
-            <div className={styles.expandable}>
-              <Slider
-                clearPlaceholders={() => setDetailsShowPlaceholder(false)}
-                onPick={handlePickVariant}
-                showPlaceholder={showDetailsPlaceholder}
-                slides={allVariantSlides}
-                bp={{
-                  350: {
-                    slidesPerView: 3,
-                  },
-                  380: {
-                    slidesPerView: 3.5,
-                  },
-                  410: {
-                    slidesPerView: 4,
-                  },
-                  500: {
-                    slidesPerView: 4.5,
-                  },
-                  550: {
-                    slidesPerView: 5,
-                  },
-                  600: {
-                    slidesPerView: 5.5,
-                  },
-                  700: {
-                    slidesPerView: 6.5,
-                  },
-                  768: {
-                    slidesPerView: 4,
-                  },
-                  800: {
-                    slidesPerView: 4.5,
-                  },
-                  880: {
-                    slidesPerView: 5,
-                  },
-                  920: {
-                    slidesPerView: 5.5,
-                  },
-                  1000: {
-                    slidesPerView: 6,
-                  },
-                  1000: {
-                    slidesPerView: 6.5,
-                  },
-                  1200: {
-                    slidesPerView: 5,
-                  },
-                  1250: {
-                    slidesPerView: 5.5,
-                  },
-                  1300: {
-                    slidesPerView: 6,
-                  },
-                }}
-                slidesPerView={2.5}
-                spaceBetween={5}
-                pagination={{
-                  clickable: true,
-                }}
-                allowTouchMove={true}
-                modules={[Navigation]}
-                sliderClassName={styles.other_variants_slider}
-                slideClassName={styles.other_variants_slide}
-                mediaContainerClassName={styles.other_variants_image_container}
-                imageFillClassName={styles.other_variants_image_fill}
-                imageClassName={styles.other_variants_image}
-              />
-            </div>
+            {!isSmallContainer ? (
+              <div className={`${styles.expandable} ${expandableClassName}`}>
+                <Slider
+                  clearPlaceholders={() => setDetailsShowPlaceholder(false)}
+                  onVariantPick={handlePickVariant}
+                  showPlaceholder={showDetailsPlaceholder}
+                  slides={allVariantSlides}
+                  nested={nested}
+                  slidesPerView="auto"
+                  spaceBetween={5}
+                  allowTouchMove={true}
+                  onTouchStart={onTouchStart}
+                  onTouchEnd={onTouchEnd}
+                  sliderClassName={styles.other_variants_slider}
+                  slideClassName={styles.other_variants_slide}
+                  mediaContainerClassName={
+                    styles.other_variants_image_container
+                  }
+                  imageFillClassName={styles.other_variants_image_fill}
+                  imageClassName={styles.other_variants_image}
+                />
+              </div>
+            ) : (
+              <div className={styles.small_expandable}>
+                <QuickAdd
+                  isSmallContainer={true}
+                  skus={currentVariant.skus}
+                  handleAddItem={handleAddItem}
+                  isLoading={isLoading}
+                  nested={nested}
+                  onTouchStart={onTouchStart}
+                  onTouchEnd={onTouchEnd}
+                  containerClassName={styles.quick_add_container}
+                  wrapperClassName={styles.quick_add_wrapper}
+                  topContainerClassName={styles.quick_add_top}
+                  bottomContainerClassName={styles.quick_add_bottom}
+                  sizesSliderClassName={styles.sizes_slider}
+                />
+              </div>
+            )}
           </div>
           <ul
             className={styles.info_list}

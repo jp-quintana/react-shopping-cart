@@ -26,7 +26,7 @@ export const useCollection = () => {
 
   const getCollection = async ({
     collectionName = 'products',
-    isNewQuery = false,
+    isNewQuery = true,
     sortBy = { field: 'createdAt', direction: 'asc' },
   }) => {
     setError(null);

@@ -2,24 +2,24 @@ import { useState } from 'react';
 
 import { Outlet, useLocation } from 'react-router-dom';
 
+import Cart from './Cart';
 import Header from './Header';
 import Footer from './Footer';
 
-import { CartContent, CartModal } from 'components/common';
-
 const Layout = () => {
   const location = useLocation();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
   const pathName = location.pathname.split('/');
   const isCheckout = pathName.includes('checkout');
 
   return (
     <div id="layout">
-      <CartModal close={() => setIsOpen(false)}>
-        {isOpen && <CartContent closeCartModal={() => setIsOpen(false)} />}
-      </CartModal>
-      {!isCheckout && <Header openCartModal={() => setIsOpen(true)} />}
+      <Cart
+        isCartModalOpen={isCartModalOpen}
+        closeCartModal={() => setIsCartModalOpen(false)}
+      />
+      {!isCheckout && <Header openCartModal={() => setIsCartModalOpen(true)} />}
       <main>
         <Outlet />
       </main>

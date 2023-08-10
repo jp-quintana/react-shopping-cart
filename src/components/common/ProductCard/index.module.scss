@@ -2,36 +2,40 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  margin-bottom: 1.5rem;
 
   &:hover .slider_container .quick_add_container {
     bottom: -6rem;
-    transition: bottom 0.1 ease-in;
+    transition: bottom 0.1s ease-in;
   }
 
   &:hover .info_wrapper .quick_add_container {
     bottom: -6rem;
-    transition: bottom 0.1 ease-in;
+    transition: bottom 0.1s ease-in;
   }
 
   &:hover .slider_container .expandable_container {
     opacity: 1;
-    transition: opacity 0.1 ease-in;
+    transition: opacity 0.1s ease-in;
   }
 
-  &:hover .info_wrapper .expandable_container {
+  &:not(.is_small_container):hover .info_wrapper .expandable_container {
     opacity: 1;
-    transition: opacity 0.1 ease-in;
+    transition: opacity 0.1s ease-in;
   }
 
-  &:hover .slider_container .info_list {
-    opacity: 0;
-    transition: opacity 0.1 ease-in;
+  &.is_small_container .info_wrapper:hover .expandable_container {
+    opacity: 1;
+    transition: opacity 0.1s ease-in;
   }
 
-  &:hover .info_wrapper .info_list {
+  &:not(.is_small_container):hover .info_wrapper .info_list {
     opacity: 0;
-    transition: opacity 0.1 ease-in;
+    transition: opacity 0.1s ease-in;
+  }
+
+  &.is_small_container .info_wrapper:hover .info_list {
+    opacity: 0;
+    transition: opacity 0.1s ease-in;
   }
 
   .tag_container {
@@ -111,7 +115,8 @@
       bottom: -10rem;
       z-index: 20;
       display: flex;
-      width: 90%;
+      justify-content: center;
+      width: 100%;
       left: 50%;
       transform: translateX(-50%);
       transition: bottom 0.1s ease-in;
@@ -126,21 +131,18 @@
       }
 
       .quick_add_wrapper {
-        border-radius: 2rem;
+        border-radius: 1rem;
         background-color: rgba(255, 255, 255, 0.85);
         backdrop-filter: blur(8px);
         border: 0.05rem solid $border-c-var;
         display: flex;
         flex-direction: column;
-        width: 100%;
-        padding: 0 1rem;
+        width: 90%;
 
         .quick_add_top {
-          width: 100%;
           padding: 1rem 1.5rem 0.5rem;
           display: flex;
           justify-content: space-between;
-
           border-bottom: none;
 
           p {
@@ -170,22 +172,42 @@
     .expandable_container {
       opacity: 0;
       position: absolute;
+      display: flex;
       width: 100%;
-      height: 107%;
       z-index: 1;
       transition: opacity 0.1s ease-in;
+      height: 7.5rem;
 
       .expandable {
         display: flex;
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 0;
         position: relative;
         justify-content: center;
         border-radius: 1rem;
         background: #fff;
         border: 0.5px solid $border-c-var;
         margin-top: 0.5rem;
-        height: 107%;
         width: 100%;
+      }
+
+      .small_expandable {
+        display: flex;
+        padding: 0.5rem 1rem;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        margin-top: 0.5rem;
+        width: 100%;
+
+        .sizes_slider {
+          position: absolute;
+          background: #fff;
+          border-radius: 1rem;
+          border: 0.5px solid $border-c-var;
+          left: 0;
+          right: 0;
+          padding: 0.5rem 1rem;
+        }
       }
     }
 
@@ -321,10 +343,12 @@
   width: 100%;
   top: 0;
   left: 0;
-  padding: 0.5rem 1rem;
+  right: 0;
+  padding: 0 1rem !important;
 
   .other_variants_slide {
     user-select: none;
+    max-width: 4rem;
     .other_variants_image_container {
       height: 100%;
       border-radius: 1rem;

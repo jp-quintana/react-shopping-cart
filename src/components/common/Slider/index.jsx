@@ -1,10 +1,7 @@
+import { useLocation } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import 'swiper/css';
 import 'swiper/css/pagination';
-// import 'swiper/css/navigation';
-
-import 'swiper/css';
 
 import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 
@@ -15,7 +12,8 @@ import './sliderStyles.css';
 const Slider = ({
   slides,
   clearPlaceholders,
-  onPick,
+  onVariantPick,
+  onCardPick,
   showPlaceholder,
   toPage,
   bp,
@@ -28,7 +26,10 @@ const Slider = ({
   pagination,
   navigation,
   allowTouchMove = true,
+  nested,
   modules,
+  onTouchStart,
+  onTouchEnd,
   sliderClassName,
   slideClassName,
   mediaContainerClassName,
@@ -36,6 +37,12 @@ const Slider = ({
   imagePlaceholderClassName,
   imageClassName,
 }) => {
+  let slugCheck;
+  if (toPage) {
+    const { pathname } = useLocation();
+    slugCheck = slides[0].url === pathname.split('/')[2];
+  }
+
   return (
     <>
       <Swiper
@@ -49,7 +56,10 @@ const Slider = ({
         pagination={pagination}
         navigation={navigation}
         allowTouchMove={allowTouchMove}
+        nested={nested}
         modules={modules}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
         className={`${sliderClassName} slider-navigation`}
       >
         {navigation && (
@@ -75,12 +85,19 @@ const Slider = ({
           <SwiperSlide
             key={slide.id}
             className={slideClassName}
-            onClick={onPick ? () => onPick({ variantId: slide.id }) : undefined}
+            onClick={
+              onVariantPick
+                ? () => onVariantPick({ variantId: slide.id })
+                : onCardPick
+                ? onCardPick
+                : undefined
+            }
           >
             <MediaContainer
               image={slide.src}
               to={toPage && toPage + slide.url}
               alt={slide.alt || ''}
+              slugCheck={slugCheck}
               clearPlaceholders={clearPlaceholders}
               containerClassName={mediaContainerClassName}
               fillClassName={imageFillClassName}

@@ -25,6 +25,7 @@ import {
 import { Loader } from './components/common';
 
 import './App.scss';
+import 'swiper/css';
 
 const App = () => {
   const { authIsReady } = useAuthContext();

@@ -11,7 +11,7 @@
     height: 90vh;
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 98%;
     justify-content: flex-end;
     align-items: center;
 
@@ -22,7 +22,6 @@
       background-color: white;
       border-top-left-radius: 3rem;
       border-top-right-radius: 3rem;
-      padding: 3rem 1rem 0;
       z-index: 1;
       border: $border-modal;
       border-color: hsla(0, 0%, 5%, 0.2);
