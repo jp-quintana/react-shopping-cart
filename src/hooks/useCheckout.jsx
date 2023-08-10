@@ -36,15 +36,10 @@ export const useCheckout = () => {
       let formattedShippingAddress = shippingAddress;
 
       if (shippingAddress.value === 'new') {
-        shippingAddress.id = uuid();
-
-        formattedShippingAddress = await createAddress(shippingAddress);
+        await createAddress({
+          ...shippingAddress,
+        });
       }
-
-      delete formattedShippingAddress.value;
-      delete formattedShippingAddress.label;
-      delete formattedShippingAddress.isMain;
-      delete formattedShippingAddress.displayOrder;
 
       await updateDoc(checkoutSessionRef, {
         email,

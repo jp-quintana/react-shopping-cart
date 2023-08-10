@@ -5,6 +5,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import ProductCard from '../ProductCard';
 
 const ProductSlider = ({
+  onTouchStart,
+  onTouchEnd,
   slides,
   bp,
   slidesPerView,
@@ -23,6 +25,8 @@ const ProductSlider = ({
   return (
     <>
       <Swiper
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
         breakpoints={bp ? bp : undefined}
         slidesPerView={slidesPerView}
         spaceBetween={spaceBetween}
