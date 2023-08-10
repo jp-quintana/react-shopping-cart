@@ -8,7 +8,7 @@ import styles from './index.module.scss';
 const HeroSection = () => {
   return (
     <section className={styles.section}>
-      <div className={styles.container}>
+      <div className={`${styles.container} main-container`}>
         <MediaContainer
           video={Video}
           autoPlay
