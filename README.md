@@ -50,7 +50,7 @@ export const firebaseConfig = {
 - Step 3: Start the development server.
 
 ```
-npm start
+npm run dev
 ```
 
 ## Setup Firebase Project
