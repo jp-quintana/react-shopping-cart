@@ -6,9 +6,9 @@ This app is a clone of https://alphaleteathletics.com.
 
 ## App Preview
 
-https://github.com/jp-quintana/react-shopping-cart/assets/87621233/049ad637-aea3-4a8a-8c32-51abbc59fb9d
+https://github.com/jp-quintana/react-shopping-cart/assets/87621233/acd29c18-a98f-49e8-a3f6-7841d5e3490f
 
-_(Version in video deployed Jul 27, 2023)_
+_(Version in video deployed Aug 11, 2023)_
 
 ## Features
 
