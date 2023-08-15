@@ -23,6 +23,5 @@ const ToastProvider = ({ children }) => {
     </ToastContext.Provider>
   );
 };
-t;
 
 export default ToastProvider;
