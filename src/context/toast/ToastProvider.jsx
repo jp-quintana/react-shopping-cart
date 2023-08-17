@@ -3,7 +3,9 @@ import { useReducer } from 'react';
 import ToastContext from './toast-context';
 
 const initialState = {
-  message: '',
+  close: null,
+  content: {},
+  className: '',
 };
 
 const toastReducer = (state, action) => {

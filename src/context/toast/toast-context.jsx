@@ -1,7 +1,9 @@
 import { createContext } from 'react';
 
 const ToastContext = createContext({
-  message: '',
+  close: () => {},
+  content: {},
+  className: '',
 });
 
 export default ToastContext;

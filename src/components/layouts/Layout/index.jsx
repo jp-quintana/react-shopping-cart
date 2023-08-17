@@ -6,6 +6,8 @@ import Cart from './Cart';
 import Header from './Header';
 import Footer from './Footer';
 
+import { Toast, ToastMessage } from 'components/common';
+
 const Layout = () => {
   const location = useLocation();
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
@@ -14,17 +16,21 @@ const Layout = () => {
   const isCheckout = pathName.includes('checkout');
 
   return (
-    <div id="layout">
-      <Cart
-        isCartModalOpen={isCartModalOpen}
-        closeCartModal={() => setIsCartModalOpen(false)}
-      />
-      {!isCheckout && <Header openCartModal={() => setIsCartModalOpen(true)} />}
-      <main>
-        <Outlet />
-      </main>
-      {!isCheckout && <Footer />}
-    </div>
+    <>
+      <div id="layout">
+        <Cart
+          isCartModalOpen={isCartModalOpen}
+          closeCartModal={() => setIsCartModalOpen(false)}
+        />
+        {!isCheckout && (
+          <Header openCartModal={() => setIsCartModalOpen(true)} />
+        )}
+        <main>
+          <Outlet />
+        </main>
+        {!isCheckout && <Footer />}
+      </div>
+    </>
   );
 };
 
