@@ -1,0 +1,35 @@
+.backdrop {
+  background-color: hsla(0, 0%, 0%, 0.5) !important;
+}
+
+.toast {
+  max-width: 45rem;
+  min-height: 8rem;
+  width: 90%;
+  position: fixed;
+  left: 50%;
+  bottom: 2.5%;
+  z-index: 500;
+}
+
+.bump {
+  animation: bump 150ms ease-out;
+}
+
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(0.9);
+  }
+  30% {
+    transform: scale(1.1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import ToastContext from 'context/toast/toast-context';
 
-const useToastContext = () => {
+export const useToastContext = () => {
   const context = useContext(ToastContext);
 
   if (!context) {
@@ -11,5 +11,3 @@ const useToastContext = () => {
 
   return context;
 };
-
-export default useToastContext;

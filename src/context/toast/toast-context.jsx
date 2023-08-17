@@ -1,9 +1,10 @@
 import { createContext } from 'react';
 
 const ToastContext = createContext({
-  close: () => {},
-  content: {},
-  className: '',
+  addToCart: false,
+  error: false,
+  content: null,
+  // className: '',
 });
 
 export default ToastContext;

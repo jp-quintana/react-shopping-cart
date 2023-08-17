@@ -1,0 +1,86 @@
+.success {
+  background-color: rgba(85, 209, 119, 0.8);
+  border: 1px solid #48e472;
+  border-radius: 1rem;
+  backdrop-filter: blur(8px);
+}
+
+.error {
+  background-color: rgba(243, 121, 120, 0.8);
+  border: 1px solid #ff6666;
+  border-radius: 1rem;
+  backdrop-filter: blur(8px);
+  display: grid;
+  grid-template-columns: 8fr 2fr;
+  align-items: center;
+
+  .content_wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    justify-content: center;
+  }
+}
+
+.addToCart {
+  display: grid;
+  grid-template-columns: 8fr 2fr;
+  align-items: center;
+
+  .content_wrapper {
+    display: flex;
+    padding: 1rem;
+    align-items: center;
+  }
+}
+
+.image_container {
+  border-radius: 0.5rem;
+  margin-right: 1rem;
+
+  .image_fill {
+    height: 5.9969rem;
+    width: 4.2406rem;
+  }
+}
+
+.title {
+  font-size: 1.2rem;
+  font-family: $font-f-secondary;
+  font-weight: $font-w-900;
+  letter-spacing: $ls-secondary;
+
+  @media (min-width: 768px) {
+    font-size: 1.4rem;
+  }
+}
+
+.details {
+  font-size: 1rem;
+  text-transform: capitalize;
+  font-weight: $font-w-700;
+  font-family: $font-f-secondary;
+  letter-spacing: $ls-secondary;
+
+  @media (min-width: 768px) {
+    font-size: 1.2rem;
+  }
+}
+
+.error_details {
+  font-size: 1rem;
+  font-weight: $font-w-700;
+  font-family: $font-f-secondary;
+  letter-spacing: $ls-secondary;
+
+  @media (min-width: 768px) {
+    font-size: 1.2rem;
+  }
+}
+
+.icon {
+  margin: 0 auto;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+}

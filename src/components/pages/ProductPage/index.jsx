@@ -4,6 +4,7 @@ import { Pagination } from 'swiper';
 
 import { useProductContext } from 'hooks/useProductContext';
 import { useCart } from 'hooks/useCart';
+import { useToast } from 'hooks/useToast';
 
 import ProductColors from './ProductColors';
 import ProductSize from './ProductSize';
@@ -32,11 +33,10 @@ const ProductPage = () => {
     selectedSkuId,
     singleSize,
   } = useProductContext();
-
   const { addItem, isLoading, error } = useCart();
+  const { sendToast } = useToast();
 
   const [notify, setNotify] = useState(false);
-  const [toastMessage, setToastMessage] = useState(null);
 
   const handleAddToCart = async () => {
     await addItem({
@@ -57,15 +57,17 @@ const ProductPage = () => {
   useEffect(() => {
     if (notify) {
       if (!error) {
-        setToastMessage({
-          addToCartSuccess: true,
-          image: selectedVariant.images[0].src,
-          message: `${selectedProduct.model} ${selectedProduct.type} - ${
-            selectedVariant.color
-          } ${selectedSize ? ` - ${selectedSize.toUpperCase()}` : ''}`,
+        sendToast({
+          addToCart: true,
+          content: {
+            image: selectedVariant.images[0].src,
+            message: `${selectedProduct.model} ${selectedProduct.type} - ${
+              selectedVariant.color
+            } ${selectedSize ? ` - ${selectedSize.toUpperCase()}` : ''}`,
+          },
         });
       } else if (error) {
-        setToastMessage({ error, message: error.message });
+        sendToast({ error: true, content: { message: error.message } });
       }
 
       setNotify(false);
@@ -118,14 +120,6 @@ const ProductPage = () => {
 
   return (
     <>
-      <Toast content={toastMessage}>
-        {toastMessage && (
-          <ToastMessage
-            close={() => setToastMessage(null)}
-            content={toastMessage}
-          />
-        )}
-      </Toast>
       {!productIsReady && (
         <>
           <div className={styles.loader_section} />

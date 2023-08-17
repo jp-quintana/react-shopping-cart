@@ -2,11 +2,10 @@ import { useState } from 'react';
 
 import { Outlet, useLocation } from 'react-router-dom';
 
+import Toast from './Toast';
 import Cart from './Cart';
 import Header from './Header';
 import Footer from './Footer';
-
-import { Toast, ToastMessage } from 'components/common';
 
 const Layout = () => {
   const location = useLocation();
@@ -17,6 +16,7 @@ const Layout = () => {
 
   return (
     <>
+      <Toast />
       <div id="layout">
         <Cart
           isCartModalOpen={isCartModalOpen}
