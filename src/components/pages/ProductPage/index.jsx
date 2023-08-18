@@ -15,8 +15,6 @@ import {
   Loader,
   Slider,
   MediaContainer,
-  Toast,
-  ToastMessage,
   NotFound,
 } from 'components/common';
 

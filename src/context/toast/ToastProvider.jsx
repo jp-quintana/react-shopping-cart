@@ -4,9 +4,9 @@ import ToastContext from './toast-context';
 
 const initialState = {
   addToCart: false,
+  stopCheckout: false,
   error: false,
   content: null,
-  // className: '',
 };
 
 const toastReducer = (state, action) => {
@@ -14,10 +14,22 @@ const toastReducer = (state, action) => {
 
   switch (type) {
     case 'ADD_TO_CART': {
-      return { addToCart: true, error: false, content: payload };
+      return {
+        ...initialState,
+        addToCart: true,
+        content: payload,
+      };
+    }
+    case 'STOP_CHECKOUT': {
+      return {
+        ...initialState,
+        stopCheckout: true,
+        error: true,
+        content: payload,
+      };
     }
     case 'ERROR': {
-      return { addToCart: false, error: true, content: payload };
+      return { ...initialState, error: true, content: payload };
     }
     case 'CLOSE': {
       return initialState;

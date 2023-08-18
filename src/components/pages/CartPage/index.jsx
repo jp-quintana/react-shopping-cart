@@ -1,16 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { useCartContext } from 'hooks/useCartContext';
 import { useCart } from 'hooks/useCart';
 import { useInventory } from 'hooks/useInventory';
+import { useToast } from 'hooks/useToast';
 
-import {
-  CartItem,
-  Button,
-  Loader,
-  Toast,
-  ToastMessage,
-} from 'components/common';
+import { CartItem, Button, Loader } from 'components/common';
 
 import { addAllItemsPrice } from 'helpers/item';
 
@@ -32,8 +27,7 @@ const CartPage = () => {
     isLoading: isInventoryLoading,
     error: inventoryError,
   } = useInventory();
-
-  const [toastMessage, setToastMessage] = useState(null);
+  const { sendToast } = useToast();
 
   useEffect(() => {
     if (cartNeedsCheck && items.length > 0) {
@@ -45,16 +39,13 @@ const CartPage = () => {
 
   useEffect(() => {
     if (cartError) {
-      setToastMessage({ cartError, message: cartError.message });
+      sendToast({ error: true, content: { message: cartError.message } });
     }
   }, [cartError]);
 
   useEffect(() => {
     if (inventoryError) {
-      setToastMessage({
-        error: inventoryError,
-        message: inventoryError.message,
-      });
+      sendToast({ error: true, content: { message: inventoryError.message } });
     }
   }, [inventoryError]);
 
@@ -122,14 +113,6 @@ const CartPage = () => {
       {isInventoryLoading && <Loader />}
       {!isInventoryLoading && (
         <>
-          <Toast content={toastMessage}>
-            {toastMessage && (
-              <ToastMessage
-                close={() => setToastMessage(null)}
-                content={toastMessage}
-              />
-            )}
-          </Toast>
           <section>
             <div className={`${styles.container} main-container`}>
               <h1 className={styles.title}>Your bag</h1>

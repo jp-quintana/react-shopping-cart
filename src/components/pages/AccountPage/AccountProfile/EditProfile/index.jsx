@@ -1,16 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
 
 import { useProfile } from 'hooks/useProfile';
+import { useToast } from 'hooks/useToast';
 
-import { Loader, Button, Toast, ToastMessage } from 'components/common';
+import { Loader, Button } from 'components/common';
 
 import styles from './index.module.scss';
 
 const EditProfile = ({ close, name, lastName, phoneNumber }) => {
   const { editProfile, isLoading, error } = useProfile();
+  const { sendToast } = useToast();
 
   const [notify, setNotify] = useState(false);
-  const [toastMessage, setToastMessage] = useState(null);
 
   const nameInput = useRef();
   const lastNameInput = useRef();
@@ -31,7 +32,7 @@ const EditProfile = ({ close, name, lastName, phoneNumber }) => {
   useEffect(() => {
     if (notify) {
       if (error) {
-        setToastMessage({ error, message: error.message });
+        sendToast({ error: true, content: { message: error.message } });
         setNotify(false);
       } else {
         close();
@@ -41,14 +42,6 @@ const EditProfile = ({ close, name, lastName, phoneNumber }) => {
 
   return (
     <>
-      <Toast content={toastMessage}>
-        {toastMessage && (
-          <ToastMessage
-            close={() => setToastMessage(null)}
-            content={toastMessage}
-          />
-        )}
-      </Toast>
       {isLoading && <Loader />}
       {!isLoading && (
         <div className={styles.form_container}>

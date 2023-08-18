@@ -3,23 +3,23 @@ import { useState, useEffect } from 'react';
 import { useAuthContext } from 'hooks/useAuthContext';
 import { useOrder } from 'hooks/useOrder';
 import { useAuth } from 'hooks/useAuth';
+import { useToast } from 'hooks/useToast';
 
 import AccountOrders from './AccountOrders';
 import AccountProfile from './AccountProfile';
 import AccountAddresses from './AccountAddresses';
 
-import { Button, Loader, Toast, ToastMessage } from 'components/common';
+import { Button, Loader } from 'components/common';
 
 import styles from './index.module.scss';
 
 const AccountPage = () => {
   const { name, lastName, email, phoneNumber } = useAuthContext();
-
   const { getOrders, error } = useOrder();
   const { logout } = useAuth();
+  const { sendToast } = useToast();
 
   const [orders, setOrders] = useState(null);
-  const [toastMessage, setToastMessage] = useState(null);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -36,10 +36,7 @@ const AccountPage = () => {
 
   useEffect(() => {
     if (error) {
-      setToastMessage({
-        error,
-        message: error.message,
-      });
+      sendToast({ error: true, content: { message: error.message } });
     }
   }, [error]);
 
@@ -49,14 +46,6 @@ const AccountPage = () => {
 
   return (
     <>
-      <Toast content={toastMessage}>
-        {toastMessage && (
-          <ToastMessage
-            close={() => setToastMessage(null)}
-            content={toastMessage}
-          />
-        )}
-      </Toast>
       {!orders && (
         <>
           <div className={styles.loader_section} />

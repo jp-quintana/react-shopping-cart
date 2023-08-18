@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import styles from './index.module.scss';
 
-const ToastModal = ({ children, content, stop }) => {
+const ToastModal = ({ children, content, stopCheckout }) => {
   const overlayElement = document.getElementById('overlay');
 
   const [bump, setBump] = useState(false);
@@ -39,7 +39,7 @@ const ToastModal = ({ children, content, stop }) => {
         <>
           {createPortal(
             <>
-              {stop && <Backdrop backdropClassName={styles.backdrop} />}
+              {stopCheckout && <Backdrop backdropClassName={styles.backdrop} />}
               <motion.div
                 key="toast"
                 className={styles.toast}

@@ -1,18 +1,18 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 
 import { useNewsletter } from 'hooks/useNewsletter';
+import { useToast } from 'hooks/useToast';
 
-import { Button, Toast, ToastMessage } from 'components/common';
+import { Button } from 'components/common';
 
 import styles from './index.module.scss';
 
 const Newsletter = () => {
   const { subscribeToNewsletter, success, error } = useNewsletter();
+  const { sendToast } = useToast();
 
   const emailInputRef = useRef();
   const scrollToRef = useRef();
-
-  const [toastMessage, setToastMessage] = useState(null);
 
   const scrollTo = () => {
     scrollToRef.current.scrollIntoView();
@@ -32,20 +32,12 @@ const Newsletter = () => {
     }
 
     if (error) {
-      setToastMessage({ error, message: error.message });
+      sendToast({ error: true, content: { message: error.message } });
     }
   }, [success, error]);
 
   return (
     <>
-      <Toast content={toastMessage}>
-        {toastMessage && (
-          <ToastMessage
-            close={() => setToastMessage(null)}
-            content={toastMessage}
-          />
-        )}
-      </Toast>
       <section className={styles.section}>
         <div className={styles.container}>
           <h3 className={styles.title}>Sign up for the FLAAKKO newsletter</h3>

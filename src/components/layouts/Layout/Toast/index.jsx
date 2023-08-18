@@ -10,7 +10,7 @@ import { useToast } from 'hooks/useToast';
 const Toast = () => {
   const { pathname } = useLocation();
 
-  const { content, addToCart, error } = useToastContext();
+  const { content, addToCart, stopCheckout, error } = useToastContext();
   const { close } = useToast();
 
   const isFirstLoad = useRef(true);
@@ -19,13 +19,15 @@ const Toast = () => {
     if (isFirstLoad.current) {
       isFirstLoad.current = false;
       return;
+    } else {
+      setTimeout(() => {
+        close();
+      }, 100);
     }
-
-    close();
   }, [pathname]);
 
   return (
-    <ToastModal content={content}>
+    <ToastModal content={content} stopCheckout={stopCheckout}>
       {content && (
         <ToastContent
           content={content}

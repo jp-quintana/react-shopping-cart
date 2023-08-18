@@ -11,8 +11,8 @@ const Layout = () => {
   const location = useLocation();
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
 
-  const pathName = location.pathname.split('/');
-  const isCheckout = pathName.includes('checkout');
+  const pathname = location.pathname.split('/');
+  const isCheckout = pathname.includes('checkout');
 
   return (
     <>

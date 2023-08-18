@@ -35,8 +35,7 @@ export const useInventory = () => {
     setIsLoading(true);
     try {
       const skuIdList = items.map(
-        (item) =>
-          'products/' + item.productId + '/skus/' + item.skuId
+        (item) => 'products/' + item.productId + '/skus/' + item.skuId
       );
 
       const skus = {};
@@ -74,6 +73,8 @@ export const useInventory = () => {
       const cartTotalItemQuantity = addAllItemsQuantity(updatedItems);
 
       if (cartTotalItemQuantity === 0) {
+        console.log('in here 1');
+
         await deleteDoc(cartRef);
 
         dispatch({
@@ -91,6 +92,7 @@ export const useInventory = () => {
       }
 
       if (stockDifference) {
+        console.log('in here 2');
         throw new CustomError(
           'Available stock is limited. Quantities in cart have been updated!'
         );

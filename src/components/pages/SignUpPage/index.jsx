@@ -1,9 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 import { useAuth } from 'hooks/useAuth';
+import { useToast } from 'hooks/useToast';
 
-import { Loader, Toast, ToastMessage } from 'components/common';
+import { Loader } from 'components/common';
 
 import styles from './index.module.scss';
 
@@ -11,8 +12,7 @@ const SignUpPage = () => {
   const { state: routerState } = useLocation();
 
   const { signUp, isLoading, error, defaultValue } = useAuth();
-
-  const [toastMessage, setToastMessage] = useState(null);
+  const { sendToast } = useToast();
 
   const nameInput = useRef();
   const lastNameInput = useRef();
@@ -32,20 +32,12 @@ const SignUpPage = () => {
 
   useEffect(() => {
     if (error) {
-      setToastMessage({ error, message: error.message });
+      sendToast({ error: true, content: { message: error.message } });
     }
   }, [error]);
 
   return (
     <>
-      <Toast content={toastMessage}>
-        {toastMessage && (
-          <ToastMessage
-            close={() => setToastMessage(null)}
-            content={toastMessage}
-          />
-        )}
-      </Toast>
       {isLoading && <Loader />}
       {!isLoading && (
         <>
