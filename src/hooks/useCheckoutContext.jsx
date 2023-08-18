@@ -6,7 +6,7 @@ export const useCheckoutContext = () => {
   const context = useContext(CheckoutContext);
 
   if (!context) {
-    throw Error('useCheckoutContext must be inside CheckoutProvider');
+    throw Error('useCheckoutContext hook must be used inside CheckoutProvider');
   }
 
   return context;

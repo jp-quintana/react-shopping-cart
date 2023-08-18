@@ -4,26 +4,21 @@ import { BiChevronLeft, BiPlus } from 'react-icons/bi';
 
 import { useAuthContext } from 'hooks/useAuthContext';
 import { useAddress } from 'hooks/useAddress';
+import { useToast } from 'hooks/useToast';
 
 import AddAddress from './AddAddress';
 import Address from './Address';
 
-import {
-  Button,
-  Loader,
-  Toast,
-  ToastMessage,
-  CenterModal,
-} from 'components/common';
+import { Button, Loader, CenterModal } from 'components/common';
 
 import styles from './index.module.scss';
 
 const AddressesPage = () => {
   const { addresses } = useAuthContext();
   const { deleteAddress, isLoading, error } = useAddress();
+  const { sendToast } = useToast();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [toastMessage, setToastMessage] = useState(null);
 
   const defaultAddress = addresses.find((address) => address.isMain);
 
@@ -31,20 +26,12 @@ const AddressesPage = () => {
 
   useEffect(() => {
     if (error) {
-      setToastMessage({ error, message: error.message });
+      sendToast({ error: true, content: { message: error.message } });
     }
   }, [error]);
 
   return (
     <>
-      <Toast content={toastMessage}>
-        {toastMessage && (
-          <ToastMessage
-            close={() => setToastMessage(null)}
-            content={toastMessage}
-          />
-        )}
-      </Toast>
       <CenterModal close={() => setIsOpen(false)} modalClassName={styles.modal}>
         {isOpen && <AddAddress close={() => setIsOpen(false)} />}
       </CenterModal>

@@ -6,7 +6,7 @@ export const useProductContext = () => {
   const context = useContext(ProductContext);
 
   if (!context) {
-    throw Error('useProductContext must be inside ProductProvider');
+    throw Error('useProductContext hook must be used inside ProductProvider');
   }
 
   return context;

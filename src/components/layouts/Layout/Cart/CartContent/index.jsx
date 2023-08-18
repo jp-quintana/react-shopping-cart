@@ -1,17 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { CgShoppingBag, CgCheckO } from 'react-icons/cg';
 
 import { useCartContext } from 'hooks/useCartContext';
 import { useCart } from 'hooks/useCart';
+import { useToast } from 'hooks/useToast';
 
-import {
-  CartItem,
-  ProductSlider,
-  Button,
-  Toast,
-  ToastMessage,
-} from 'components/common';
+import { CartItem, ProductSlider, Button } from 'components/common';
 
 import { addAllItemsPrice, addAllItemsQuantity } from 'helpers/item';
 
@@ -21,12 +16,11 @@ const CartContent = ({ closeCartModal, slides }) => {
   const { items } = useCartContext();
   const { addItem, removeItem, deleteItem, isLoading, loadingItemId, error } =
     useCart();
-
-  const [toastMessage, setToastMessage] = useState(null);
+  const { sendToast } = useToast();
 
   useEffect(() => {
     if (error) {
-      setToastMessage({ error, message: error.message });
+      sendToast({ error: true, content: { message: error.message } });
     }
   }, [error]);
 
@@ -34,14 +28,6 @@ const CartContent = ({ closeCartModal, slides }) => {
 
   return (
     <>
-      <Toast content={toastMessage}>
-        {toastMessage && (
-          <ToastMessage
-            close={() => setToastMessage(null)}
-            content={toastMessage}
-          />
-        )}
-      </Toast>
       {items.length === 0 ? (
         <div className={styles.empty_container}>
           <div className={styles.no_products_container}>

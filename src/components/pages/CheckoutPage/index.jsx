@@ -5,6 +5,7 @@ import { useCheckoutContext } from 'hooks/useCheckoutContext';
 import { useCartContext } from 'hooks/useCartContext';
 import { useCart } from 'hooks/useCart';
 import { useInventory } from 'hooks/useInventory';
+import { useToast } from 'hooks/useToast';
 
 import CheckoutProgression from './CheckoutProgression';
 import ShippingInfo from './ShippingInfo';
@@ -12,7 +13,7 @@ import ShippingOption from './ShippingOption';
 import Payment from './Payment';
 import OrderSummary from './OrderSummary';
 
-import { Loader, Toast, ToastMessage } from 'components/common';
+import { Loader } from 'components/common';
 
 import logo from 'assets/images/checkout-logo-nav.png';
 
@@ -32,9 +33,7 @@ const CheckoutPage = () => {
   const { checkoutIsReady, currentStep } = useCheckoutContext();
   const { activateCartCheck } = useCart();
   const { checkInventory, isLoading, error: inventoryError } = useInventory();
-
-  const [stopCheckout, setStopCheckout] = useState(false);
-  const [toastMessage, setToastMessage] = useState(null);
+  const { sendToast } = useToast();
 
   let formContent;
 
@@ -61,35 +60,39 @@ const CheckoutPage = () => {
   useEffect(() => {
     if (inventoryError) {
       if (items.length === 0) {
-        setStopCheckout(true);
-
-        setToastMessage({
-          error: inventoryError,
-          message: `${inventoryError.message} Redirecting...`,
+        sendToast({
+          stopCheckout: true,
+          content: { message: `${inventoryError.message} Redirecting...` },
         });
 
         setTimeout(() => {
           navigate('/');
-        }, 4000);
+        }, 3000);
       } else {
-        setToastMessage({
-          error: inventoryError,
-          message: inventoryError.message,
+        sendToast({
+          error: true,
+          content: { message: `${inventoryError.message} Redirecting...` },
         });
+      }
+    } else {
+      if (items.length === 0) {
+        sendToast({
+          stopCheckout: true,
+          content: {
+            message:
+              'Available stock is limited. Quantities in cart have been updated! Redirecting...',
+          },
+        });
+
+        setTimeout(() => {
+          navigate('/');
+        }, 3000);
       }
     }
   }, [inventoryError]);
 
   return (
     <>
-      <Toast content={toastMessage} stop={setStopCheckout}>
-        {toastMessage && (
-          <ToastMessage
-            close={() => setToastMessage(null)}
-            content={toastMessage}
-          />
-        )}
-      </Toast>
       <div className={styles.background} />
       <section className={styles.layout}>
         <>

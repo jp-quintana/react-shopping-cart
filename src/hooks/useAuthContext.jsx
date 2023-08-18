@@ -6,7 +6,7 @@ export const useAuthContext = () => {
   const context = useContext(AuthContext);
 
   if (!context) {
-    throw Error('useAuthContext must be inside AuthProvider');
+    throw Error('useAuthContext hook must be used inside AuthProvider');
   }
 
   return context;
