@@ -5,6 +5,7 @@ import { doc, getDoc, collection, setDoc, deleteDoc } from 'firebase/firestore';
 import { db } from 'db/config';
 
 import { useAuthContext } from 'hooks/useAuthContext';
+import { useToast } from 'hooks/useToast';
 
 import CartContext from './cart-context';
 
@@ -128,12 +129,7 @@ const CartProvider = ({ children }) => {
 
             const cartItemPromises = currentCartItems.map(async (item) => {
               const skuRef = doc(
-                collection(
-                  db,
-                  'products',
-                  item.productId,
-                  'skus'
-                ),
+                collection(db, 'products', item.productId, 'skus'),
                 item.skuId
               );
 
@@ -169,12 +165,7 @@ const CartProvider = ({ children }) => {
 
                   if (!fetchedVariantsDocs[item.variantId]) {
                     const variantRef = doc(
-                      collection(
-                        db,
-                        'products',
-                        item.productId,
-                        'variants'
-                      ),
+                      collection(db, 'products', item.productId, 'variants'),
                       item.variantId
                     );
                     const variantDoc = await getDoc(variantRef);

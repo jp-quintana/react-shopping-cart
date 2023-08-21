@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { v4 as uuid } from 'uuid';
 
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
