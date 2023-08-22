@@ -80,6 +80,8 @@ const cartReducer = (state, action) => {
 };
 
 const CartProvider = ({ children }) => {
+  const { sendToast } = useToast();
+
   const [state, dispatch] = useReducer(cartReducer, initialState);
   const location = useLocation();
 
@@ -213,6 +215,13 @@ const CartProvider = ({ children }) => {
 
               await setDoc(cartRef, {
                 items: updatedItemsDb,
+              });
+
+              sendToast({
+                error: true,
+                content: {
+                  message: 'Item quantities in cart have been updated!',
+                },
               });
             }
 

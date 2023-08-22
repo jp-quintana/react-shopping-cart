@@ -75,19 +75,18 @@ const CheckoutPage = () => {
         });
       }
     } else {
-      if (items.length === 0) {
-        sendToast({
-          stopCheckout: true,
-          content: {
-            message:
-              'Available stock is limited. Quantities in cart have been updated! Redirecting...',
-          },
-        });
-
-        setTimeout(() => {
-          navigate('/');
-        }, 3000);
-      }
+      // if (items.length === 0) {
+      //   sendToast({
+      //     stopCheckout: true,
+      //     content: {
+      //       message:
+      //         'Available stock is limited. Quantities in cart have been updated! Redirecting...',
+      //     },
+      //   });
+      //   setTimeout(() => {
+      //     navigate('/');
+      //   }, 3000);
+      // }
     }
   }, [inventoryError]);
 
