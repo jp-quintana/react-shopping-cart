@@ -55,38 +55,26 @@ const CheckoutPage = () => {
     } else {
       activateCartCheck();
     }
+
+    if (items.length === 0) {
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    }
   }, []);
 
   useEffect(() => {
     if (inventoryError) {
       if (items.length === 0) {
         sendToast({
-          stopCheckout: true,
-          content: { message: `${inventoryError.message} Redirecting...` },
-        });
-
-        setTimeout(() => {
-          navigate('/');
-        }, 3000);
-      } else {
-        sendToast({
-          error: true,
+          // stopCheckout: true,
           content: { message: `${inventoryError.message} Redirecting...` },
         });
       }
-    } else {
-      // if (items.length === 0) {
-      //   sendToast({
-      //     stopCheckout: true,
-      //     content: {
-      //       message:
-      //         'Available stock is limited. Quantities in cart have been updated! Redirecting...',
-      //     },
-      //   });
-      //   setTimeout(() => {
-      //     navigate('/');
-      //   }, 3000);
-      // }
+
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
     }
   }, [inventoryError]);
 
