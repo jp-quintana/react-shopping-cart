@@ -4,7 +4,6 @@ import ToastContext from './toast-context';
 
 const initialState = {
   addToCart: false,
-  stopCheckout: false,
   error: false,
   content: null,
 };
@@ -17,14 +16,6 @@ const toastReducer = (state, action) => {
       return {
         ...initialState,
         addToCart: true,
-        content: payload,
-      };
-    }
-    case 'STOP_CHECKOUT': {
-      return {
-        ...initialState,
-        stopCheckout: true,
-        error: true,
         content: payload,
       };
     }

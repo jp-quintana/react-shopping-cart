@@ -1,13 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
-import { Backdrop } from 'components/common';
-
 import { motion, AnimatePresence } from 'framer-motion';
 
 import styles from './index.module.scss';
 
-const ToastModal = ({ children, content, stopCheckout }) => {
+const ToastModal = ({ children, content }) => {
   const overlayElement = document.getElementById('overlay');
 
   const [bump, setBump] = useState(false);
@@ -39,7 +37,6 @@ const ToastModal = ({ children, content, stopCheckout }) => {
         <>
           {createPortal(
             <>
-              {stopCheckout && <Backdrop backdropClassName={styles.backdrop} />}
               <motion.div
                 key="toast"
                 className={styles.toast}
