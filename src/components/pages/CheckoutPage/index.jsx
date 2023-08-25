@@ -35,6 +35,8 @@ const CheckoutPage = () => {
   const { checkInventory, isLoading, error: inventoryError } = useInventory();
   const { sendToast } = useToast();
 
+  const stepCheckout = useState(false);
+
   let formContent;
 
   if (progressionSteps[currentStep].id === 'info') {
@@ -57,6 +59,7 @@ const CheckoutPage = () => {
     }
 
     if (items.length === 0) {
+      stepCheckout(true);
       setTimeout(() => {
         navigate('/');
       }, 3000);
@@ -66,6 +69,8 @@ const CheckoutPage = () => {
   useEffect(() => {
     if (inventoryError) {
       if (items.length === 0) {
+        stepCheckout(true);
+        // aca
         sendToast({
           // stopCheckout: true,
           content: { message: `${inventoryError.message} Redirecting...` },

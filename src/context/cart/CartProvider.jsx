@@ -102,9 +102,9 @@ const CartProvider = ({ children }) => {
               location.pathname === '/checkout') &&
             firstLoad.current
           ) {
-            firstLoad.current = false;
             dispatch({ type: 'NO_CHECK' });
           }
+          firstLoad.current = false;
 
           let currentCartItems = [];
           let cartNeedsUpdate;
