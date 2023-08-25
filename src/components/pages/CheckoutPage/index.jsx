@@ -35,7 +35,7 @@ const CheckoutPage = () => {
   const { checkInventory, isLoading, error: inventoryError } = useInventory();
   const { sendToast } = useToast();
 
-  const stepCheckout = useState(false);
+  const [stopCheckout, setStopCheckout] = useState(false);
 
   let formContent;
 
@@ -59,27 +59,30 @@ const CheckoutPage = () => {
     }
 
     if (items.length === 0) {
-      stepCheckout(true);
-      setTimeout(() => {
+      setStopCheckout(true);
+      const timer = setTimeout(() => {
         navigate('/');
       }, 3000);
+
+      return () => clearTimeout(timer);
     }
   }, []);
 
   useEffect(() => {
     if (inventoryError) {
       if (items.length === 0) {
-        stepCheckout(true);
-        // aca
+        setStopCheckout(true);
         sendToast({
-          // stopCheckout: true,
+          error: true,
           content: { message: `${inventoryError.message} Redirecting...` },
         });
       }
 
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         navigate('/');
       }, 3000);
+
+      return () => clearTimeout(timer);
     }
   }, [inventoryError]);
 
@@ -96,6 +99,7 @@ const CheckoutPage = () => {
           )}
           {checkoutIsReady && !isLoading && (
             <>
+              {stopCheckout && <div className={styles.stop_checkout} />}
               <div className={`${styles.header} main-container`}>
                 <Link to="/">
                   <img className={styles.logo} src={logo} alt="" />

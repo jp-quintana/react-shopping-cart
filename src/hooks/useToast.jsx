@@ -3,13 +3,9 @@ import { useToastContext } from 'hooks/useToastContext';
 export const useToast = () => {
   const { dispatch } = useToastContext();
 
-  const sendToast = ({ addToCart, stopCheckout, error, content }) => {
+  const sendToast = ({ addToCart, error, content }) => {
     if (addToCart) {
       dispatch({ type: 'ADD_TO_CART', payload: content });
-    }
-
-    if (stopCheckout) {
-      dispatch({ type: 'STOP_CHECKOUT', payload: content });
     }
 
     if (error) {

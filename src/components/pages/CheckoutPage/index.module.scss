@@ -16,6 +16,13 @@
   width: 100%;
   overflow: hidden;
 
+  .stop_checkout {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-color: hsla(0, 0%, 0%, 0.8) !important;
+  }
+
   .loader_container {
     height: 100vh;
   }
