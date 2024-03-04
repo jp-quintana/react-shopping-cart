@@ -60,7 +60,7 @@ const App = () => {
             />
             <Route path="cart" element={<CartPage />} />
 
-            <Route element={<ProtectedRoutes needAuth={true} />}>
+/*            <Route element={<ProtectedRoutes needAuth={true} />}>
               <Route
                 path="checkout"
                 element={
@@ -68,7 +68,7 @@ const App = () => {
                     <CheckoutPage />
                   </CheckoutProvider>
                 }
-              />
+              /> */
               <Route path="account" element={<AccountPage />} />
               <Route path="account/addresses" element={<AddressesPage />} />
             </Route>
